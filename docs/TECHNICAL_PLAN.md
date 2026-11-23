@@ -5,7 +5,7 @@
 - App lifecycle / persistence: SwiftData or a small Codable/SQLite persistence layer; choose the simplest robust option compatible with the deployment target.
 - File import: SwiftUI `fileImporter` / UIDocumentPicker integration with security-scoped URL handling and app-owned copies.
 - EPUB: use a maintained, license-compatible parser/library if necessary; inspect dependency license and maintenance before adoption. Parse metadata, spine, navigation/TOC, XHTML content, and images defensively.
-- TXT: robust UTF-8 first, with UTF-16 fallback and explicit decoding errors. Preserve paragraphs and normalize line endings.
+- TXT: detect BOM first; support strict UTF-8, UTF-16 LE/BE, and GB18030/GBK decoding. Many Chinese novel TXT files are GBK-encoded. Normalize line endings while preserving paragraph boundaries. Do not silently accept mojibake or lossy replacement characters; report a clear decoding error if the encoding cannot be determined.
 - Reading renderer: native text/layout components with chapter-aware navigation. Avoid a giant single Text view for a multi-million-character novel.
 - Local speech: AVSpeechSynthesizer adapter for offline fallback and initial playback proof.
 - Audio session: AVAudioSession configured for spoken audio / background playback; handle interruptions, route changes, lock-screen controls, and remote commands.
@@ -42,7 +42,11 @@ Do not expose vendor API keys in the iOS binary. Production cloud synthesis requ
 - Review third-party SDK privacy manifests and data collection before adding dependencies.
 
 ## Testing
-- Unit tests for TXT decoding, EPUB metadata/TOC extraction, paragraph/chunk segmentation, progress persistence, and malformed-file handling.
+- Unit tests for TXT decoding (UTF-8, UTF-16, and GB18030/GBK), EPUB metadata/TOC extraction, paragraph/chunk segmentation, progress persistence, and malformed-file handling.
 - UI/simulator tests for import -> open -> change typography/theme -> navigate TOC -> resume.
 - Playback tests for play/pause/seek, background audio, interruption/resume, and position persistence where simulator/device support permits.
-- Include a synthetic Chinese test book with multiple chapters, dialogue, punctuation, and long paragraphs. Do not include copyrighted novel text.
+- Include synthetic Chinese test books in UTF-8 and GBK/GB18030 encodings with multiple chapters, dialogue, punctuation, and long paragraphs. Do not include copyrighted novel text.
+- ZIP is a container, not an ebook text encoding. S00 only needs EPUB/TXT import; users can extract a ZIP containing a TXT in the iOS Files app before importing the TXT. Do not add ZIP support or a dependency unless a later task explicitly authorizes it.
+
+## Real-world compatibility note
+A user supplied a ZIP containing one `绝境黑夜.txt` file. The inner TXT decodes strictly as GBK and its header identifies the title and author; its chapter structure runs through chapter 624 and an afterword. This establishes a useful format/scale test case, not the file's distribution rights. The archive and novel text must not be committed to GitHub, fixtures, CI, or app bundles. A private local smoke test may be performed only at the user's direction and subject to the user's rights to use the file.
