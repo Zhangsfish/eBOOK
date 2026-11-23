@@ -25,7 +25,7 @@ final class ReaderUITests: XCTestCase {
         let table = app.tables["reader.table"]
         XCTAssertTrue(app.staticTexts["reader.anchor"].waitForExistence(timeout: 10))
         let beginning = app.staticTexts["reader.anchor"].label
-        for _ in 0..<12 { table.swipeUp() }
+        for _ in 0..<42 { table.swipeUp() }
         XCTAssertNotEqual(app.staticTexts["reader.anchor"].label, beginning)
         snapshot("long-book-warm", app)
         app.buttons["reader.toc"].tap()

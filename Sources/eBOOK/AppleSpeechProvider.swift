@@ -8,11 +8,15 @@ private struct UtteranceReference: @unchecked Sendable { let value: AVSpeechUtte
     private let synthesizer = AVSpeechSynthesizer()
     private var current: AVSpeechUtterance?
     private var wantsPause = false
+    private var knownVoices: [VoiceDescriptor]?
     var onEvent: ((SpeechEvent) -> Void)?
     var voices: [VoiceDescriptor] {
-        AVSpeechSynthesisVoice.speechVoices().map {
+        if let knownVoices { return knownVoices }
+        let available = AVSpeechSynthesisVoice.speechVoices().map {
             VoiceDescriptor(id: $0.identifier, name: $0.name, language: $0.language, requiresNetwork: false)
         }.sorted { $0.language < $1.language }
+        knownVoices = available
+        return available
     }
     override init() {
         super.init()

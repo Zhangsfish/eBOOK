@@ -83,6 +83,28 @@ final class ReaderCoreTests: XCTestCase {
         XCTAssertTrue(TextChunker.chunks(hugeGrapheme).allSatisfy { $0.text.utf16.count <= 280 })
     }
 
+    func testReadingWindowBoundsLargeJumpsAndBothScrollingDirections() {
+        for total in [0, 1, 5, 12, 13, 1875] {
+            for anchor in [-10, 0, 6, 1000, 1874, 9999] {
+                let window = ReadingWindow(total: total, anchor: anchor)
+                XCTAssertGreaterThanOrEqual(window.lowerBound, 0)
+                XCTAssertLessThanOrEqual(window.upperBound, total)
+                XCTAssertLessThanOrEqual(window.count, 12)
+                if total > 0 {
+                    let block = min(max(0, anchor), total - 1)
+                    XCTAssertTrue((window.lowerBound..<window.upperBound).contains(block))
+                }
+            }
+        }
+        let initial = ReadingWindow(total: 1875)
+        XCTAssertFalse(initial.shouldMove(at: 0)); XCTAssertTrue(initial.shouldMove(at: 6))
+        let forward = ReadingWindow(total: 1875, anchor: 6)
+        XCTAssertEqual(forward.lowerBound, 3); XCTAssertFalse(forward.shouldMove(at: 6))
+        XCTAssertTrue(forward.shouldMove(at: 4))
+        let last = ReadingWindow(total: 1875, anchor: 1874)
+        XCTAssertEqual(last.upperBound, 1875); XCTAssertFalse(last.shouldMove(at: 1874))
+    }
+
     func testTXTImportAtomicStorageReadingAndListeningPersistence() throws {
         let storage = try storage()
         let record = try BookImporter.importFile(fixture("sample_gbk.txt"), storage: storage)

@@ -73,6 +73,7 @@ struct ReaderTable: UIViewRepresentable {
         table.register(BookCell.self, forCellReuseIdentifier: "block")
         table.dataSource = context.coordinator; table.delegate = context.coordinator
         table.separatorStyle = .none; table.rowHeight = UITableView.automaticDimension
+        table.showsVerticalScrollIndicator = false // The footer reports whole-book progress.
         table.estimatedRowHeight = 520; table.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 40, right: 0)
         table.accessibilityIdentifier = "reader.table"
         table.backgroundColor = preferences.theme.background
@@ -89,7 +90,7 @@ struct ReaderTable: UIViewRepresentable {
         if changed {
             let current = coordinator.anchor()
             coordinator.typeSize = dynamicType
-            table.reloadData(); table.layoutIfNeeded()
+            coordinator.reloadRows()
             restore = current
         }
         if coordinator.lastJump != jump.revision {
@@ -112,13 +113,19 @@ struct ReaderTable: UIViewRepresentable {
         var lastJump: UUID?
         var restoreToken = UUID()
         var typeSize: DynamicTypeSize?
+        private var window: ReadingWindow
+        private var windowShiftPending = false
         private var lastReport = Date.distantPast
         private var restoring = false
-        init(_ parent: ReaderTable) { self.parent = parent }
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { parent.document.blocks.count }
+        private var hasRestored = false
+        init(_ parent: ReaderTable) {
+            self.parent = parent
+            window = ReadingWindow(total: parent.document.blocks.count)
+        }
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { window.count }
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "block", for: indexPath) as! BookCell
-            let block = parent.document.blocks[indexPath.row]
+            let block = parent.document.blocks[window.lowerBound + indexPath.row]
             cell.backgroundColor = parent.preferences.theme.background
             cell.label.textColor = parent.preferences.theme.foreground
             cell.label.accessibilityIdentifier = "reader.block.\(block.id)"
@@ -157,31 +164,48 @@ struct ReaderTable: UIViewRepresentable {
             let top = table.contentOffset.y + table.adjustedContentInset.top
             let visible = table.indexPathForRow(at: CGPoint(x: 30, y: top + 1)) ?? first
             let rect = table.rectForRow(at: visible)
-            return ReadingAnchor(block: visible.row, fraction: min(0.999, max(0, (top - rect.minY) / max(1, rect.height))))
+            return ReadingAnchor(block: window.lowerBound + visible.row, fraction: min(0.999, max(0, (top - rect.minY) / max(1, rect.height))))
+        }
+        func reloadRows() {
+            restoring = true
+            table?.reloadData(); table?.layoutIfNeeded()
+            // Keep scroll reports suspended until the queued anchor restoration.
         }
         func restore(_ anchor: ReadingAnchor) {
             guard let table, !parent.document.blocks.isEmpty else { return }
             restoring = true
             let block = min(max(0, anchor.block), parent.document.blocks.count - 1)
-            let path = IndexPath(row: block, section: 0)
+            let nextWindow = ReadingWindow(total: parent.document.blocks.count, anchor: block)
+            if nextWindow != window { window = nextWindow; table.reloadData() }
+            let path = IndexPath(row: block - window.lowerBound, section: 0)
             table.scrollToRow(at: path, at: .top, animated: false)
             table.layoutIfNeeded()
             let rect = table.rectForRow(at: path)
             let desired = rect.minY + min(0.999, max(0, anchor.fraction)) * rect.height - table.adjustedContentInset.top
             let maximum = max(-table.adjustedContentInset.top, table.contentSize.height - table.bounds.height + table.adjustedContentInset.bottom)
             table.setContentOffset(CGPoint(x: 0, y: min(maximum, max(-table.adjustedContentInset.top, desired))), animated: false)
+            hasRestored = true
             restoring = false
             report(force: true)
         }
         func report(force: Bool = false) {
-            guard !restoring, let table, table.indexPathsForVisibleRows?.isEmpty == false,
+            guard hasRestored, !restoring, let table, table.indexPathsForVisibleRows?.isEmpty == false,
                   force || Date().timeIntervalSince(lastReport) > 0.5 else { return }
             lastReport = Date()
             let position = anchor()
             #if DEBUG
-            RenderDiagnostics.record(table: table, document: parent.document, anchor: position)
+            RenderDiagnostics.record(table: table, document: parent.document, anchor: position, window: window)
             #endif
             parent.onPosition(position)
+            if window.shouldMove(at: position.block), !windowShiftPending {
+                windowShiftPending = true
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.windowShiftPending = false
+                    let current = self.anchor()
+                    if self.window.shouldMove(at: current.block) { self.restore(current) }
+                }
+            }
         }
         func scrollViewDidScroll(_ scrollView: UIScrollView) { report() }
         func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { report(force: true) }
@@ -200,10 +224,12 @@ private enum RenderDiagnostics {
         var visibleCells: Int
         var maximumTextUTF16: Int
         var processPeakRSSBytes: Int64
+        var windowStart: Int
+        var windowBlocks: Int
     }
     private static let session = UUID().uuidString
     private static var history: [String: [Sample]] = [:]
-    static func record(table: UITableView, document: BookDocument, anchor: ReadingAnchor) {
+    static func record(table: UITableView, document: BookDocument, anchor: ReadingAnchor, window: ReadingWindow) {
         guard ProcessInfo.processInfo.arguments.contains("--uitesting") else { return }
         let name = document.totalUTF16 > 1_000_000 ? "long" : "small"
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -215,11 +241,12 @@ private enum RenderDiagnostics {
         let textMaximum = table.visibleCells.compactMap { ($0 as? BookCell)?.label.attributedText?.length }.max() ?? 0
         let sample = Sample(session: session, time: Date().timeIntervalSince1970, block: anchor.block,
                             blocks: document.blocks.count, visibleCells: table.visibleCells.count,
-                            maximumTextUTF16: textMaximum, processPeakRSSBytes: Int64(usage.ru_maxrss))
+                            maximumTextUTF16: textMaximum, processPeakRSSBytes: Int64(usage.ru_maxrss),
+                            windowStart: window.lowerBound, windowBlocks: window.count)
         history[name, default: []].append(sample)
         history[name] = Array(history[name, default: []].suffix(256))
         try? JSONEncoder().encode(history[name, default: []]).write(to: url, options: .atomic)
-        table.accessibilityValue = "visible=\(sample.visibleCells);maxText=\(sample.maximumTextUTF16);peakRSS=\(sample.processPeakRSSBytes)"
+        table.accessibilityValue = "visible=\(sample.visibleCells);maxText=\(sample.maximumTextUTF16);windowStart=\(window.lowerBound);peakRSS=\(sample.processPeakRSSBytes)"
     }
 }
 #endif

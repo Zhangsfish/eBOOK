@@ -37,5 +37,4 @@ jobs:
             build/reader-metrics.json
             build/reader-metrics-summary.json
             build/screenshots/
-            build/Test.xcresult
           retention-days: 7

@@ -53,7 +53,9 @@ body is sent by this application to a cloud TTS service.
 - User-selected files are security-scoped, copied and parsed off the main actor.
   Failed imports leave no partial book. Removing a book deletes only its app copy.
 - Text is indexed in `content.utf8` and read by byte range in blocks of at most
-  1,600 UTF-16 units. Only visible native table cells are rendered. Import may
+  1,600 UTF-16 units. A moving window of at most 12 native rows bounds both
+  rendering and the accessibility tree; scrolling shifts that window while
+  preserving the absolute reading anchor. Import may
   transiently decode the bounded source file; the reader does not keep the full
   novel in a Text view or decoded-text cache.
 - TXT limit: 32 MiB. EPUB compressed limit: 64 MiB, total declared expansion:
