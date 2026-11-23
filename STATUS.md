@@ -7,6 +7,7 @@
 - S00 final-HEAD Xcode Actions: https://github.com/Zhangsfish/eBOOK/actions/runs/45188325769 — success, 26/26 simulator tests, Debug and Release simulator builds passed.
 - Current phase: S01 — Mandarin TTS Voice Lab.
 - Current authorized task: tasks/S01_TTS_VOICE_LAB.md.
+- GitHub Issue: https://github.com/Zhangsfish/eBOOK/issues/3.
 - Copy-ready Codex handoff: tasks/CODEX_HANDOFF_S01.md.
 - Branch: codex/s01-tts-voice-lab.
 - State: READY_FOR_CODEX.
@@ -28,6 +29,7 @@ Physical-device validation remains outstanding: signed install, background/lock-
 ## S01 source of truth
 
 - Task: tasks/S01_TTS_VOICE_LAB.md.
+- GitHub Issue: https://github.com/Zhangsfish/eBOOK/issues/3.
 - Handoff: tasks/CODEX_HANDOFF_S01.md.
 - Candidate and evaluation protocol: docs/TTS_VOICE_LAB.md.
 - Provider decision record: docs/S01_PROVIDER_DECISION.md.
