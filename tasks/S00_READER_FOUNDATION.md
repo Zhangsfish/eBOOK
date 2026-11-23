@@ -14,13 +14,13 @@ Create the first runnable native iOS application foundation for eBOOK. Deliver a
 1. Create a clean SwiftUI iOS app project with a sensible deployment target and bundle identifier placeholder.
 2. Implement local file import for EPUB and TXT using the system document picker. Copy imported files into app-owned storage safely.
 3. Implement library list and book detail/open flow.
-4. Parse EPUB title/author/chapters/TOC and render chapter content. For TXT, decode UTF-8 and UTF-16 where practical, split paragraphs, and offer basic navigation without inventing a semantic TOC.
+4. Parse EPUB title/author/chapters/TOC and render chapter content. For TXT, detect BOM and support strict UTF-8, UTF-16 LE/BE, and GB18030/GBK decoding. Split paragraphs and offer basic navigation without inventing a semantic TOC. Avoid silent mojibake/lossy decoding.
 5. Implement reading UI with font-size controls, line spacing, at least light / warm eye-comfort / dark themes, and persisted reading position.
 6. Implement listening UI with play/pause/resume, chapter/paragraph progression, playback speed, and persisted listening position. Use AVSpeechSynthesizer as the first local functional adapter.
 7. Configure spoken-audio background playback and handle audio interruptions / route changes / remote controls to the extent practical in this milestone.
 8. Define a provider protocol and a clearly isolated placeholder for future cloud TTS adapters. No real API calls, no API keys, no backend deployment, and no paid usage.
-9. Add synthetic Chinese fixture content (original text written for this project) covering multiple chapters, dialogue, punctuation, and paragraph breaks.
-10. Add unit tests for import/parsing, TXT decoding, progress persistence, and text chunking. Add a README with build/run instructions and known limitations.
+9. Add synthetic Chinese fixture content (original text written for this project) in both UTF-8 and GBK/GB18030 encodings, covering multiple chapters, dialogue, punctuation, and paragraph breaks. Never add the user-provided commercial novel to fixtures.
+10. Add unit tests for import/parsing, all supported TXT encodings, progress persistence, and text chunking. Add a README with build/run instructions and known limitations.
 
 ## Out of scope
 - Do not download or bundle `绝境黑夜` or any other copyrighted book.
@@ -28,10 +28,12 @@ Create the first runnable native iOS application foundation for eBOOK. Deliver a
 - Do not implement cloud TTS vendors yet. Do not ask for or create secrets.
 - Do not add accounts, cloud sync, bookstore, search/discovery, subscriptions, ads, analytics, or social features.
 - Do not submit to App Store or TestFlight in this task.
+- ZIP is not a required import format in S00. The supplied example is a ZIP container with an inner TXT; the user can extract it in Files and import the TXT.
 
 ## Acceptance criteria
 - Project opens and builds in Xcode on a supported macOS environment.
 - A user can import a valid EPUB and a valid TXT through Files and see them in the library.
+- TXT decoding is verified with UTF-8, UTF-16, and GBK/GB18030 synthetic fixtures; Chinese characters must display correctly.
 - EPUB TOC/chapter navigation works for the included fixture; TXT is readable with stable paragraph layout.
 - User can change font size, line spacing, and reading theme; settings and position survive app relaunch.
 - User can start/pause/resume speech and progress advances through text; playback speed works.
