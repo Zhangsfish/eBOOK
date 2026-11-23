@@ -1,5 +1,9 @@
 import AVFoundation
 
+// Retain delegate payloads until the main-queue delivery. Only identity is used;
+// the framework object is never inspected or mutated off the main actor.
+private struct UtteranceReference: @unchecked Sendable { let value: AVSpeechUtterance }
+
 @MainActor final class AppleSpeechProvider: NSObject, SpeechProvider, AVSpeechSynthesizerDelegate {
     private let synthesizer = AVSpeechSynthesizer()
     private var current: AVSpeechUtterance?
@@ -37,33 +41,33 @@ import AVFoundation
     func cancel() { current = nil; wantsPause = false; synthesizer.stopSpeaking(at: .immediate) }
 
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        let identifier = ObjectIdentifier(utterance)
+        let reference = UtteranceReference(value: utterance)
         DispatchQueue.main.async { [weak self] in
-            guard let self, self.matches(identifier) else { return }
+            guard let self, self.matches(reference) else { return }
             if self.wantsPause { self.synthesizer.pauseSpeaking(at: .immediate) }
             self.onEvent?(.started)
         }
     }
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        let identifier = ObjectIdentifier(utterance)
+        let reference = UtteranceReference(value: utterance)
         DispatchQueue.main.async { [weak self] in
-            guard let self, self.matches(identifier) else { return }
+            guard let self, self.matches(reference) else { return }
             self.onEvent?(.range(startUTF16: characterRange.location, length: characterRange.length))
         }
     }
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        let identifier = ObjectIdentifier(utterance)
+        let reference = UtteranceReference(value: utterance)
         DispatchQueue.main.async { [weak self] in
-            guard let self, self.matches(identifier) else { return }
+            guard let self, self.matches(reference) else { return }
             self.current = nil; self.onEvent?(.finished)
         }
     }
     nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        let identifier = ObjectIdentifier(utterance)
+        let reference = UtteranceReference(value: utterance)
         DispatchQueue.main.async { [weak self] in
-            guard let self, self.matches(identifier) else { return }
+            guard let self, self.matches(reference) else { return }
             self.current = nil; self.onEvent?(.cancelled)
         }
     }
-    private func matches(_ identifier: ObjectIdentifier) -> Bool { current.map { ObjectIdentifier($0) } == identifier }
+    private func matches(_ reference: UtteranceReference) -> Bool { reference.value === current }
 }

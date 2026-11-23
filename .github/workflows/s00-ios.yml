@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: s00-ios-${{ github.ref }}
+  group: s00-ios-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   xcode:
