@@ -5,7 +5,7 @@
 - Current authorized task: `tasks/S00_READER_FOUNDATION.md`
 - GitHub issue: [#1 — S00 reader foundation](https://github.com/Zhangsfish/eBOOK/issues/1)
 - Copy-ready handoff: [tasks/CODEX_HANDOFF_S00.md](tasks/CODEX_HANDOFF_S00.md)
-- State: `READY_FOR_CODEX`
+- State: `IN_PROGRESS` — S00 implementation and real Xcode validation underway.
 - Implementation branch: `codex/s00-reader-foundation`
 - Target: native iOS MVP; EPUB/TXT import, UTF-8/UTF-16/GBK/GB18030 decoding, comfortable reading, persistent positions, and local speech baseline.
 - Not authorized: App Store submission, paid services, production backend deployment, account/subscription features, or cloud TTS in S00.
