@@ -11,7 +11,7 @@
       "path" = "Sources/eBOOK/AppleSpeechProvider.swift";
       "sourceTree" = "<group>";
     };
-    "FB01706FF9354F16BB59C2E3" = {
+    "91419960069CF7F62B94D6C8" = {
       "isa" = "PBXBuildFile";
       "fileRef" = F31AFBB67015C5FFDD982FBB;
     };
@@ -21,7 +21,7 @@
       "path" = "Sources/eBOOK/EBookApp.swift";
       "sourceTree" = "<group>";
     };
-    "8AF820C82D1C9B25DBDDC84F" = {
+    "630478B50E1C08C4DC0604A2" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 19DC45BABA871FBB2A6D5FC0;
     };
@@ -31,7 +31,7 @@
       "path" = "Sources/eBOOK/LibraryModel.swift";
       "sourceTree" = "<group>";
     };
-    "6422ACA6FEB6FB49B37CD1DC" = {
+    "8EED4D3A9CC5306D0FA373C9" = {
       "isa" = "PBXBuildFile";
       "fileRef" = F20C9B2DEA43C47E3A2BF6D5;
     };
@@ -41,7 +41,7 @@
       "path" = "Sources/eBOOK/LibraryView.swift";
       "sourceTree" = "<group>";
     };
-    "25B7ACCCD88229B6C342566E" = {
+    "6028B447A3521A5762D714A4" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 2F179534B19237FA690C7C31;
     };
@@ -51,7 +51,7 @@
       "path" = "Sources/eBOOK/ReaderTable.swift";
       "sourceTree" = "<group>";
     };
-    "37F67EA5E99168CB3C3C9619" = {
+    "E7FB1648257885D381D8B388" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 6DC1C2FE43F7B50919AD2B8B;
     };
@@ -61,7 +61,7 @@
       "path" = "Sources/eBOOK/ReaderView.swift";
       "sourceTree" = "<group>";
     };
-    "0C794384A3334C661C0E24B6" = {
+    "54886AB1ECCB579B3BEC1A12" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 1C09D67F254B39A4743AB8A6;
     };
@@ -71,7 +71,7 @@
       "path" = "Sources/eBOOK/SpeechController.swift";
       "sourceTree" = "<group>";
     };
-    "00E8FBFDB3C87DE1ED73D34F" = {
+    "51F650EDEB386512751ABA77" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 0A4FE6F4F2542E67774BB7D6;
     };
@@ -81,7 +81,7 @@
       "path" = "Sources/ReaderCore/BookStorage.swift";
       "sourceTree" = "<group>";
     };
-    "27F58FC1D59ED8C6AA192683" = {
+    "6CFCB5BA22247B1DFA5C54CC" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 69B68AF4103CA6AE166F33E4;
     };
@@ -91,7 +91,7 @@
       "path" = "Sources/ReaderCore/EPUBParser.swift";
       "sourceTree" = "<group>";
     };
-    "F0D130B36FE01310A6733737" = {
+    "F403CB977EE229940F76B6EE" = {
       "isa" = "PBXBuildFile";
       "fileRef" = BD590413D1C4FCC62A1E2785;
     };
@@ -101,7 +101,7 @@
       "path" = "Sources/ReaderCore/Models.swift";
       "sourceTree" = "<group>";
     };
-    "5AF8E81C112A1F87DC8BD697" = {
+    "7636025D859680B69AB1BFAC" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 4A98A7C1E08BB38810CC9EC6;
     };
@@ -111,7 +111,7 @@
       "path" = "Sources/ReaderCore/SpeechProvider.swift";
       "sourceTree" = "<group>";
     };
-    "616F76ACEFFC1563C2EE6CDA" = {
+    "E26CB29F7EEFE6808E841371" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 6079CF0FA76DDD950F416A36;
     };
@@ -121,7 +121,7 @@
       "path" = "Sources/ReaderCore/TextDecoder.swift";
       "sourceTree" = "<group>";
     };
-    "836BC2FECDA22CBB49B3F6F0" = {
+    "3FFE71E9EAD6CA8891F87F21" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 7641C3860F0F1E6922924BA8;
     };
@@ -131,7 +131,7 @@
       "path" = "Sources/ReaderCore/TextSegmentation.swift";
       "sourceTree" = "<group>";
     };
-    "7D19A4EE16DBA41D1E613E42" = {
+    "E26AF1C6B10738C05477877E" = {
       "isa" = "PBXBuildFile";
       "fileRef" = CD5943C1AF0D474C1A72E5E9;
     };
@@ -141,14 +141,14 @@
       "path" = "Sources/ReaderCore/ZIPArchive.swift";
       "sourceTree" = "<group>";
     };
-    "9E64EC338DA663EA167C6966" = {
+    "46D1F0AA6745AFCA644EB805" = {
       "isa" = "PBXBuildFile";
       "fileRef" = D8A0A36AC05AFFC262DEEBB7;
     };
     "D10ECEDA0FB53BA093BEC557" = {
       "isa" = "PBXSourcesBuildPhase";
       "buildActionMask" = "2147483647";
-      "files" = (FB01706FF9354F16BB59C2E3, 8AF820C82D1C9B25DBDDC84F, 6422ACA6FEB6FB49B37CD1DC, 25B7ACCCD88229B6C342566E, 37F67EA5E99168CB3C3C9619, 0C794384A3334C661C0E24B6, 00E8FBFDB3C87DE1ED73D34F, 27F58FC1D59ED8C6AA192683, F0D130B36FE01310A6733737, 5AF8E81C112A1F87DC8BD697, 616F76ACEFFC1563C2EE6CDA, 836BC2FECDA22CBB49B3F6F0, 7D19A4EE16DBA41D1E613E42, 9E64EC338DA663EA167C6966);
+      "files" = (91419960069CF7F62B94D6C8, 630478B50E1C08C4DC0604A2, 8EED4D3A9CC5306D0FA373C9, 6028B447A3521A5762D714A4, E7FB1648257885D381D8B388, 54886AB1ECCB579B3BEC1A12, 51F650EDEB386512751ABA77, 6CFCB5BA22247B1DFA5C54CC, F403CB977EE229940F76B6EE, 7636025D859680B69AB1BFAC, E26CB29F7EEFE6808E841371, 3FFE71E9EAD6CA8891F87F21, E26AF1C6B10738C05477877E, 46D1F0AA6745AFCA644EB805);
       "runOnlyForDeploymentPostprocessing" = "0";
     };
     "931BA2D924AC2930E41975C6" = {
@@ -157,7 +157,7 @@
       "path" = "Tests/CoreTests/ReaderCoreTests.swift";
       "sourceTree" = "<group>";
     };
-    "897F1283739BA11596DC4B82" = {
+    "8B4E4FB7AFB9E092130C7117" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 931BA2D924AC2930E41975C6;
     };
@@ -167,14 +167,14 @@
       "path" = "Tests/CoreTests/SpeechControllerTests.swift";
       "sourceTree" = "<group>";
     };
-    "E9B1248A4929E4DB1D2C5D2C" = {
+    "833B17A930A959F4E49C6FBD" = {
       "isa" = "PBXBuildFile";
       "fileRef" = F339268FDFE68E2F945FABD9;
     };
     "54131DDE516BCAB9E0E4B61C" = {
       "isa" = "PBXSourcesBuildPhase";
       "buildActionMask" = "2147483647";
-      "files" = (897F1283739BA11596DC4B82, E9B1248A4929E4DB1D2C5D2C);
+      "files" = (8B4E4FB7AFB9E092130C7117, 833B17A930A959F4E49C6FBD);
       "runOnlyForDeploymentPostprocessing" = "0";
     };
     "E42282D783818CA2B6C2D552" = {
@@ -183,14 +183,14 @@
       "path" = "Tests/UITests/ReaderUITests.swift";
       "sourceTree" = "<group>";
     };
-    "C8B6CA1AD158EA14E8795722" = {
+    "33D68FCD03173C8C1FA33A9F" = {
       "isa" = "PBXBuildFile";
       "fileRef" = E42282D783818CA2B6C2D552;
     };
     "6A9A13ED4251A50653DE9C4F" = {
       "isa" = "PBXSourcesBuildPhase";
       "buildActionMask" = "2147483647";
-      "files" = (C8B6CA1AD158EA14E8795722);
+      "files" = (33D68FCD03173C8C1FA33A9F);
       "runOnlyForDeploymentPostprocessing" = "0";
     };
     "4B235FA667579F4C50873623" = {

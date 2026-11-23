@@ -72,6 +72,7 @@ struct ReaderTable: UIViewRepresentable {
         table.accessibilityIdentifier = "reader.table"
         table.backgroundColor = preferences.theme.background
         context.coordinator.table = table
+        context.coordinator.typeSize = dynamicType
         return table
     }
     func updateUIView(_ table: UITableView, context: Context) {
@@ -79,15 +80,23 @@ struct ReaderTable: UIViewRepresentable {
         let changed = coordinator.parent.preferences != preferences || coordinator.typeSize != dynamicType
         coordinator.parent = self
         table.backgroundColor = preferences.theme.background
+        var restore: ReadingAnchor?
         if changed {
             let current = coordinator.anchor()
             coordinator.typeSize = dynamicType
             table.reloadData(); table.layoutIfNeeded()
-            coordinator.restore(current)
+            restore = current
         }
         if coordinator.lastJump != jump.revision {
             coordinator.lastJump = jump.revision
-            DispatchQueue.main.async { coordinator.restore(ReadingAnchor(block: jump.block, fraction: jump.fraction)) }
+            restore = ReadingAnchor(block: jump.block, fraction: jump.fraction)
+        }
+        if let restore {
+            let token = UUID()
+            coordinator.restoreToken = token
+            DispatchQueue.main.async {
+                if coordinator.restoreToken == token { coordinator.restore(restore) }
+            }
         }
     }
     static func dismantleUIView(_ uiView: UITableView, coordinator: Coordinator) { coordinator.report(force: true) }
@@ -96,6 +105,7 @@ struct ReaderTable: UIViewRepresentable {
         var parent: ReaderTable
         weak var table: UITableView?
         var lastJump: UUID?
+        var restoreToken = UUID()
         var typeSize: DynamicTypeSize?
         private var lastReport = Date.distantPast
         private var restoring = false

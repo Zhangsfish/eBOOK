@@ -29,7 +29,7 @@ def generate():
         builds = []
         for path in paths:
             ref = file(path); all_files.append(ref)
-            builds.append(obj('build:' + name + str(path.relative_to(ROOT)), 'PBXBuildFile', fileRef=ref))
+            builds.append(obj('build:' + name + path.relative_to(ROOT).as_posix(), 'PBXBuildFile', fileRef=ref))
         return obj('sources:' + name, 'PBXSourcesBuildPhase', buildActionMask='2147483647', files=builds, runOnlyForDeploymentPostprocessing='0')
     app_phase = sources('app', app_sources)
     unit_phase = sources('unit', unit_sources)
