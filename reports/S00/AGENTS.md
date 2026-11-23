@@ -30,3 +30,15 @@ files listed in the owner's handoff. Do not merge or begin S01.
 ## Handoff
 Stop at READY_FOR_AUDIT after the PR and evidence are complete. Keep unresolved
 device validation and unsupported EPUB layout features explicit.
+
+## Final implementation snapshot (2026-11-23)
+- Complete-suite snapshot `5714f20c7fce3956b282d04ef10e47d11025b5ae`, successful run 45180857046; 26/26 tests, 0 skips, real Debug/Release Xcode builds.
+- Exact row heights retain block 1869 across font/relaunch; window <=12 rows.
+- Native Files TXT/EPUB imports use actual thumbnail selection in the UI test.
+- 2d46391 later aligns chapter tops and corrects a test length; its strict long UI test passed but native Files failed at empty Recents. da6295a adds an explicit Browse wait and location-label navigation. Final HEAD has its own full CI run linked from the PR.
+- Standard public macos-15-intel, Xcode 16.4, iOS 18.5 simulator.
+- `evidence/PROVENANCE.json` maps logs/JSON and unmodified synthetic screenshots to their run/SHA and SHA-256.
+- `evidence/source-safety.json` identifies its own separately checked source SHA.
+- Final delivery has a later HEAD, identified in PR and its own CI; do not rewrite the evidence's source SHA to that later commit.
+- Ignored `.local-test-data/ci/<short-sha>/` contains downloaded run caches. Scratch finalizer/selected-artifact fetch helpers are not production or canonical inputs.
+- READY_FOR_AUDIT after final delivery CI succeeds; independent review pending. Physical-device audio checks and complex EPUB fidelity limits remain explicit in reports. Do not merge or start S01.

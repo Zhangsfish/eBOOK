@@ -1,4 +1,4 @@
-# S00 — Reader Foundation (READY)
+# S00 — Reader Foundation (READY_FOR_AUDIT)
 
 ## Goal
 Create the first runnable native iOS application foundation for eBOOK. Deliver a thin but real vertical slice: import a local EPUB/TXT file, read it with basic comfort controls, and listen using a working local speech baseline. Establish clean seams for premium cloud TTS without integrating paid services or embedding secrets.
@@ -55,3 +55,7 @@ Create the first runnable native iOS application foundation for eBOOK. Deliver a
 
 ## Stop condition
 After opening the PR and updating reports, set the task state to `READY_FOR_AUDIT` in the PR description/report and STOP. Do not merge or start S01. If the environment lacks macOS/Xcode, stop with `BLOCKED_ENV` and provide concrete evidence plus the most useful partial deliverable.
+
+## Audit handoff
+
+Implementation and real simulator evidence are recorded in `reports/S00_DELIVERY.md` and `reports/S00_TEST_RESULTS.md`. Independent review is pending; do not merge or start S01.

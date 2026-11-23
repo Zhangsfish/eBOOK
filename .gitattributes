@@ -9,3 +9,5 @@
 *.xcprivacy text eol=lf
 Tests/Fixtures/*.txt binary
 *.epub binary
+# Preserve original Xcode log bytes, including tool-emitted whitespace.
+reports/S00/evidence/*.log -text -whitespace

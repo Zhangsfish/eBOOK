@@ -5,7 +5,7 @@
 - Current authorized task: `tasks/S00_READER_FOUNDATION.md`
 - GitHub issue: [#1 — S00 reader foundation](https://github.com/Zhangsfish/eBOOK/issues/1)
 - Copy-ready handoff: [tasks/CODEX_HANDOFF_S00.md](tasks/CODEX_HANDOFF_S00.md)
-- State: `IN_PROGRESS` — S00 implementation and real Xcode validation underway.
+- State: `READY_FOR_AUDIT` — S00 implementation and simulator validation complete; independent ChatGPT review pending.
 - Implementation branch: `codex/s00-reader-foundation`
 - Target: native iOS MVP; EPUB/TXT import, UTF-8/UTF-16/GBK/GB18030 decoding, comfortable reading, persistent positions, and local speech baseline.
 - Not authorized: App Store submission, paid services, production backend deployment, account/subscription features, or cloud TTS in S00.
@@ -31,3 +31,11 @@ Codex implements only S00, opens a PR to `main`, reports exact tested HEAD SHA a
 ## Owner actions still required later
 - Choose/confirm Apple Developer account and signing details when the app reaches device/TestFlight validation.
 - Evaluate premium Mandarin TTS samples and approve any paid API/service in a later phase.
+
+## S00 audit handoff (2026-11-23)
+- Complete-suite evidence snapshot: `5714f20c7fce3956b282d04ef10e47d11025b5ae`.
+- [Snapshot Xcode run](https://github.com/Zhangsfish/eBOOK/actions/runs/45180857046): Debug/Release simulator builds and 26/26 tests, 0 failures, 0 skips.
+- Delivery: [reports/S00_DELIVERY.md](reports/S00_DELIVERY.md); validation: [reports/S00_TEST_RESULTS.md](reports/S00_TEST_RESULTS.md).
+- Final delivery HEAD and its own full CI run are recorded in the PR. Later chapter-top/test-navigation fixes are described in reports; do not substitute the snapshot SHA for the final HEAD.
+- Physical-device audio/lock-screen/call/Bluetooth validation remains NOT_RUN.
+- Repository made public under explicit owner authorization for standard free macOS Actions. No paid runner, merge, release or S01 action.
