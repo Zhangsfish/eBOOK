@@ -95,7 +95,15 @@ final class ReaderUITests: XCTestCase {
             }
             snapshot("system-picker-\(name)", app)
             if !file.waitForExistence(timeout: 10) { print("S00_PICKER_TREE \(app.debugDescription)") }
-            XCTAssertTrue(file.waitForExistence(timeout: 10)); file.tap()
+            XCTAssertTrue(file.waitForExistence(timeout: 10))
+            let suffix = (filename as NSString).pathExtension
+            let cell = app.collectionViews["File View"].cells.matching(NSPredicate(
+                format: "identifier == %@ OR identifier == %@", "\(name), \(suffix)", "\(filename), \(suffix)"
+            )).firstMatch
+            XCTAssertTrue(cell.waitForExistence(timeout: 10))
+            let thumbnail = cell.images.firstMatch
+            if thumbnail.exists && thumbnail.isHittable { thumbnail.tap() }
+            else { cell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap() }
             let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
             if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
             let imported = app.buttons["library.book.\(expectedTitle)"].waitForExistence(timeout: 30)
@@ -107,6 +115,7 @@ final class ReaderUITests: XCTestCase {
         }
         choose("sample_utf8.txt", expectedTitle: "sample_utf8")
         choose("synthetic.epub", expectedTitle: "合成的清晨")
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'library.book.'")).count, 2)
         snapshot("files-imported-library", app)
     }
 }
