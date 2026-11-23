@@ -36,21 +36,34 @@ import AVFoundation
     }
     func cancel() { current = nil; wantsPause = false; synthesizer.stopSpeaking(at: .immediate) }
 
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        guard utterance === current else { return }
-        if wantsPause { synthesizer.pauseSpeaking(at: .immediate) }
-        onEvent?(.started)
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        let identifier = ObjectIdentifier(utterance)
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.matches(identifier) else { return }
+            if self.wantsPause { self.synthesizer.pauseSpeaking(at: .immediate) }
+            self.onEvent?(.started)
+        }
     }
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        guard utterance === current else { return }
-        onEvent?(.range(startUTF16: characterRange.location, length: characterRange.length))
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
+        let identifier = ObjectIdentifier(utterance)
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.matches(identifier) else { return }
+            self.onEvent?(.range(startUTF16: characterRange.location, length: characterRange.length))
+        }
     }
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        guard utterance === current else { return }
-        current = nil; onEvent?(.finished)
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        let identifier = ObjectIdentifier(utterance)
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.matches(identifier) else { return }
+            self.current = nil; self.onEvent?(.finished)
+        }
     }
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        guard utterance === current else { return }
-        current = nil; onEvent?(.cancelled)
+    nonisolated func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        let identifier = ObjectIdentifier(utterance)
+        DispatchQueue.main.async { [weak self] in
+            guard let self, self.matches(identifier) else { return }
+            self.current = nil; self.onEvent?(.cancelled)
+        }
     }
+    private func matches(_ identifier: ObjectIdentifier) -> Bool { current.map { ObjectIdentifier($0) } == identifier }
 }

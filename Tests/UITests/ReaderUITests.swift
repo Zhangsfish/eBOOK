@@ -30,7 +30,7 @@ final class ReaderUITests: XCTestCase {
         snapshot("long-book-warm", app)
         app.buttons["reader.toc"].tap()
         let search = app.searchFields.firstMatch
-        XCTAssertTrue(search.waitForExistence(timeout: 10)); search.tap(); search.typeText("第624章")
+        XCTAssertTrue(search.waitForExistence(timeout: 10)); search.tap(); search.typeText("624")
         let chapter = app.buttons["toc.entry.623"]
         XCTAssertTrue(chapter.waitForExistence(timeout: 10)); chapter.tap()
         XCTAssertTrue(table.waitForExistence(timeout: 10))
@@ -69,8 +69,37 @@ final class ReaderUITests: XCTestCase {
         let app = launch("sample_utf8.txt")
         let button = app.buttons["library.import"].firstMatch
         XCTAssertTrue(button.waitForExistence(timeout: 180)); button.tap()
-        let cancel = app.buttons["取消"].firstMatch
+        let cancel = app.buttons.matching(NSPredicate(format: "label == '取消' OR label == 'Cancel'")).firstMatch
         XCTAssertTrue(cancel.waitForExistence(timeout: 20)); cancel.tap()
         XCTAssertTrue(button.waitForExistence(timeout: 10))
+    }
+
+    func testFilesPickerImportsSelectedTXTAndEPUB() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["--uitesting", "--reset-library", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
+        app.launch()
+        func choose(_ filename: String, expectedTitle: String) {
+            let button = app.buttons["library.import"].firstMatch
+            XCTAssertTrue(button.waitForExistence(timeout: 30)); button.tap()
+            let name = (filename as NSString).deletingPathExtension
+            let file = app.staticTexts.matching(NSPredicate(format: "label == %@ OR label == %@", name, filename)).firstMatch
+            if !file.waitForExistence(timeout: 5) {
+                let browse = app.buttons.matching(NSPredicate(format: "label == '浏览' OR label == 'Browse'")).firstMatch
+                if browse.exists { browse.tap() }
+                let phone = app.staticTexts.matching(NSPredicate(format: "label == 'On My iPhone' OR label == '我的 iPhone' OR label == '在我的 iPhone 上'")).firstMatch
+                if phone.waitForExistence(timeout: 8) { phone.tap() }
+                let folder = app.staticTexts["eBOOK"].firstMatch
+                if folder.waitForExistence(timeout: 8) { folder.tap() }
+            }
+            snapshot("system-picker-\(name)", app)
+            if !file.waitForExistence(timeout: 10) { print("S00_PICKER_TREE \(app.debugDescription)") }
+            XCTAssertTrue(file.waitForExistence(timeout: 10)); file.tap()
+            let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
+            if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
+            XCTAssertTrue(app.buttons["library.book.\(expectedTitle)"].waitForExistence(timeout: 30))
+        }
+        choose("sample_utf8.txt", expectedTitle: "sample_utf8")
+        choose("synthetic.epub", expectedTitle: "合成的清晨")
+        snapshot("files-imported-library", app)
     }
 }

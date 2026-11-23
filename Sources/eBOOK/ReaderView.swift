@@ -39,6 +39,7 @@ struct ReaderView: View {
         }
         .navigationTitle(library.record(bookID)?.title ?? "阅读")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(library.state.preferences.theme == .dark ? .dark : .light)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Button { showingTOC = true } label: { Image(systemName: "list.bullet") }.accessibilityLabel("目录").accessibilityIdentifier("reader.toc")

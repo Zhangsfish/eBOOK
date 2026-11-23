@@ -9,6 +9,7 @@ build/
 *.xcuserstate
 *.xccheckout
 xcuserdata/
+__pycache__/
 *.moved-aside
 *.hmap
 *.ipa
