@@ -86,7 +86,7 @@ struct ReaderTable: UIViewRepresentable {
         table.separatorStyle = .none; table.rowHeight = UITableView.automaticDimension
         table.showsVerticalScrollIndicator = false // The footer reports whole-book progress.
         table.estimatedRowHeight = 0 // All <=12 row heights are measured exactly.
-        table.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 40, right: 0)
+        table.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
         table.accessibilityIdentifier = "reader.table"
         table.backgroundColor = preferences.theme.background
         context.coordinator.table = table

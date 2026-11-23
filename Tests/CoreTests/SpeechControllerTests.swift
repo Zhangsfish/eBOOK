@@ -157,7 +157,8 @@ import AVFoundation
         try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio)
         try AVAudioSession.sharedInstance().setActive(true)
         defer { provider.cancel(); try? AVAudioSession.sharedInstance().setActive(false) }
-        let chunk = SpeechChunk(text: "这是一段原创朗读测试。", startUTF16: 0, endUTF16: 12)
+        let text = "这是一段原创朗读测试。"
+        let chunk = SpeechChunk(text: text, startUTF16: 0, endUTF16: text.utf16.count)
         try provider.speak(SpeechRequest(stableID: "synthetic-real-speech", chunk: chunk, voiceID: nil, rate: 0.5))
         await fulfillment(of: [finished], timeout: 30)
         XCTAssertTrue(sawRange)
