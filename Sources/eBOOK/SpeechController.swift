@@ -85,7 +85,6 @@ import MediaPlayer
         updateNowPlaying()
     }
 
-    func skipBlock(_ delta: Int) { seek(TextPosition(block: position.block + delta)) }
     func skipParagraph(_ delta: Int) {
         guard let document, let storage, let book, document.blocks.indices.contains(position.block) else { return }
         do {
@@ -97,18 +96,34 @@ import MediaPlayer
             if delta > 0 {
                 if let next = starts.first(where: { $0 > position.utf16Offset }) {
                     seek(TextPosition(block: position.block, utf16Offset: next))
-                } else if position.block + 1 < document.blocks.count { seek(TextPosition(block: position.block + 1)) }
-                else { seek(TextPosition(block: position.block, utf16Offset: length)) }
+                } else {
+                    var next = position.block + 1
+                    while next < document.blocks.count {
+                        let candidate = try storage.text(for: document.blocks[next], book: book.id)
+                        if !candidate.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            seek(TextPosition(block: next)); return
+                        }
+                        next += 1
+                    }
+                    seek(TextPosition(block: position.block, utf16Offset: length))
+                }
             } else {
                 let currentStart = starts.last(where: { $0 <= position.utf16Offset }) ?? 0
                 if position.utf16Offset > currentStart { seek(TextPosition(block: position.block, utf16Offset: currentStart)) }
                 else if let previous = starts.last(where: { $0 < currentStart }) {
                     seek(TextPosition(block: position.block, utf16Offset: previous))
                 } else if position.block > 0 {
-                    let previousText = try storage.text(for: document.blocks[position.block - 1], book: book.id)
-                    let range = (previousText as NSString).range(of: "\n\n", options: .backwards)
-                    let offset = range.location == NSNotFound ? 0 : range.location + range.length
-                    seek(TextPosition(block: position.block - 1, utf16Offset: offset))
+                    var previous = position.block - 1
+                    while previous >= 0 {
+                        let previousText = try storage.text(for: document.blocks[previous], book: book.id)
+                        if !previousText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            let previousLength = previousText.utf16.count
+                            let starts = expression.matches(in: previousText, range: NSRange(location: 0, length: previousLength))
+                                .map { $0.range.location + $0.range.length }.filter { $0 < previousLength }
+                            seek(TextPosition(block: previous, utf16Offset: starts.last ?? 0)); return
+                        }
+                        previous -= 1
+                    }
                 }
             }
         } catch { fail(error) }

@@ -24,10 +24,10 @@ import AVFoundation
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
     }
     override func tearDownWithError() throws { try FileManager.default.removeItem(at: root) }
-    private func context() throws -> (LibraryModel, BookRecord, BookDocument, BookStorage) {
+    private func context(text: String = "第一章 晨光\n你好，清晨。第二句。\n第二章 小路\n晚风吹来。\n第三章 回来\n故事结束。") throws -> (LibraryModel, BookRecord, BookDocument, BookStorage) {
         let storage = try BookStorage(root: root.appendingPathComponent("Library"))
         let input = root.appendingPathComponent("original.txt")
-        try Data("第一章 晨光\n你好，清晨。第二句。\n第二章 小路\n晚风吹来。\n第三章 回来\n故事结束。".utf8).write(to: input)
+        try Data(text.utf8).write(to: input)
         let book = try BookImporter.importFile(input, storage: storage)
         var state = LibraryState(); state.books = [book]; try storage.saveLibrary(state)
         return (LibraryModel(root: storage.root), book, try storage.document(for: book.id), storage)
@@ -109,6 +109,38 @@ import AVFoundation
         XCTAssertEqual(controller.position.block, doc.chapters[1].firstBlock)
         controller.skipParagraph(-1)
         XCTAssertEqual(controller.position.block, 0); XCTAssertGreaterThan(controller.position.utf16Offset, 0)
+    }
+
+    func testPreviousParagraphSkipsTrailingBlockSeparators() throws {
+        let text = "第一章 测试\n" + String(repeating: String(repeating: "甲", count: 57) + "。\n", count: 60)
+        let (library, book, doc, storage) = try context(text: text)
+        XCTAssertGreaterThan(doc.blocks.count, 1)
+        let first = try storage.text(for: doc.blocks[0], book: book.id)
+        XCTAssertTrue(first.hasSuffix("\n\n"))
+        let controller = SpeechController(provider: FakeSpeechProvider(), managesAudio: false)
+        controller.attach(library); controller.load(book, document: doc, storage: storage)
+        controller.seek(TextPosition(block: 1)); controller.skipParagraph(-1)
+        XCTAssertEqual(controller.position.block, 0)
+        XCTAssertLessThan(controller.position.utf16Offset, first.utf16.count - 2)
+        controller.play(); XCTAssertEqual(controller.position.block, 0)
+    }
+
+    func testParagraphSeekSkipsEPUBIllustrationsInBothDirections() throws {
+        let storage = try BookStorage(root: root.appendingPathComponent("illustrated"))
+        let fixture = try XCTUnwrap(Bundle(for: Self.self).resourceURL).appendingPathComponent("Fixtures/synthetic.epub")
+        let book = try BookImporter.importFile(fixture, storage: storage)
+        let doc = try storage.document(for: book.id)
+        var state = LibraryState(); state.books = [book]; try storage.saveLibrary(state)
+        let library = LibraryModel(root: storage.root)
+        let controller = SpeechController(provider: FakeSpeechProvider(), managesAudio: false)
+        controller.attach(library); controller.load(book, document: doc, storage: storage)
+        let image = try XCTUnwrap(doc.blocks.firstIndex { $0.imagePath != nil })
+        controller.seek(TextPosition(block: image + 1)); controller.skipParagraph(-1)
+        XCTAssertLessThan(controller.position.block, image)
+        let beforeImage = controller.position.block
+        controller.seek(TextPosition(block: beforeImage, utf16Offset: doc.blocks[beforeImage].utf16Count))
+        controller.skipParagraph(1)
+        XCTAssertGreaterThan(controller.position.block, image)
     }
 
     func testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets() async throws {

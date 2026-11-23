@@ -58,9 +58,6 @@ struct ReaderView: View {
             } catch { loadError = error.localizedDescription }
         }
         .onDisappear { library.persist() }
-        .alert("朗读提示", isPresented: Binding(get: { speech.error != nil }, set: { if !$0 { speech.error = nil } })) {
-            Button("好") { speech.error = nil }
-        } message: { Text(speech.error ?? "") }
         .alert("正文读取失败", isPresented: Binding(get: { document != nil && loadError != nil }, set: { if !$0 { loadError = nil } })) {
             Button("好") { loadError = nil }
         } message: { Text(loadError ?? "") }

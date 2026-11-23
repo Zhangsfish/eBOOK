@@ -96,7 +96,12 @@ final class ReaderUITests: XCTestCase {
             XCTAssertTrue(file.waitForExistence(timeout: 10)); file.tap()
             let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
             if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
-            XCTAssertTrue(app.buttons["library.book.\(expectedTitle)"].waitForExistence(timeout: 30))
+            let imported = app.buttons["library.book.\(expectedTitle)"].waitForExistence(timeout: 30)
+            if !imported {
+                snapshot("system-picker-import-result-\(name)", app)
+                print("S00_NATIVE_IMPORT_RESULT \(app.debugDescription)")
+            }
+            XCTAssertTrue(imported)
         }
         choose("sample_utf8.txt", expectedTitle: "sample_utf8")
         choose("synthetic.epub", expectedTitle: "合成的清晨")

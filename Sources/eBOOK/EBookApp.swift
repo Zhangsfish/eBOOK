@@ -16,6 +16,9 @@ import SwiftUI
                 .onChange(of: scenePhase) { _, phase in
                     if phase != .active { library.persist(); speech.persist() }
                 }
+                .alert("朗读提示", isPresented: Binding(get: { speech.error != nil }, set: { if !$0 { speech.error = nil } })) {
+                    Button("好") { speech.error = nil }
+                } message: { Text(speech.error ?? "") }
         }
     }
 }

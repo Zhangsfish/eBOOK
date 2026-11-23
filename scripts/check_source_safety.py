@@ -36,10 +36,13 @@ for name in files:
     data = git('show', f'{args.ref}:{name}')
     assert not any(re.search(pattern, data) for pattern in patterns), f'Credential pattern in {name}'
     sizes.append(len(data))
+    if name.startswith('reports/S00/evidence/screenshots/') and name.endswith('.png'):
+        assert data.startswith(b'\x89PNG\r\n\x1a\n') and len(data) <= 5*1024*1024, 'Unexpected screenshot'
+    else:
+        assert len(data) < 200_000, f'Unexpected large tracked file: {name}'
     if name.startswith('Sources/') and name.endswith('.swift'):
         assert not re.search(rb'\b(URLSession|URLRequest|NWConnection|HTTPClient|WebSocket)\b', data), 'Unexpected network client'
     if name.endswith('.txt'): assert name.startswith('Tests/Fixtures/'), 'Unexpected tracked book text'
-assert max(sizes) < 200_000, 'Unexpected large tracked file'
 
 long = Path('.local-test-data/synthetic_long_gb18030.txt')
 data = long.read_bytes()

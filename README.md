@@ -60,6 +60,8 @@ body is sent by this application to a cloud TTS service.
   novel in a Text view or decoded-text cache.
 - TXT limit: 32 MiB. EPUB compressed limit: 64 MiB, total declared expansion:
   96 MiB, maximum 4,096 entries; XML/image resource limit: 8 MiB.
+  Raster illustrations are checked before decoding (40 MP / 16,384 pixels per
+  dimension) and displayed as thumbnails of at most 1,600 pixels.
 - EPUB 2 NCX and EPUB 3 nav/spine, fragment navigation, inline text and local
   PNG/JPEG/GIF illustrations are supported. Rendering is reflowed native text,
   not CSS/browser layout; tables, complex typography, SVG, audio/video and

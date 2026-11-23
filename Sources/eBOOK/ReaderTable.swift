@@ -135,7 +135,13 @@ struct ReaderTable: UIViewRepresentable {
                 if let image = block.imagePath {
                     let url = parent.storage.directory(for: parent.bookID).appendingPathComponent(image)
                     guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
-                          let thumbnail = CGImageSourceCreateThumbnailAtIndex(source, 0, [
+                          let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
+                          let width = (properties[kCGImagePropertyPixelWidth] as? NSNumber)?.int64Value,
+                          let height = (properties[kCGImagePropertyPixelHeight] as? NSNumber)?.int64Value,
+                          width > 0, height > 0, width <= 16_384, height <= 16_384, width * height <= 40_000_000 else {
+                        throw ReaderError.invalid("书中插图损坏或超过 40 MP / 16384 像素上限。")
+                    }
+                    guard let thumbnail = CGImageSourceCreateThumbnailAtIndex(source, 0, [
                             kCGImageSourceCreateThumbnailFromImageAlways: true,
                             kCGImageSourceThumbnailMaxPixelSize: 1600,
                             kCGImageSourceCreateThumbnailWithTransform: true

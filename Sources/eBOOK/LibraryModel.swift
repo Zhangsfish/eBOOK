@@ -37,7 +37,7 @@ import SwiftUI
         defer { if scoped { url.stopAccessingSecurityScopedResource() } }
         do {
             let record = try await Task.detached(priority: .userInitiated) {
-                try BookImporter.importFile(url, storage: storage, encoding: encoding)
+                try Self.importCoordinated(url, storage: storage, encoding: encoding)
             }.value
             var next = state
             next.books.insert(record, at: 0)
@@ -47,6 +47,20 @@ import SwiftUI
                 throw error
             }
         } catch { self.error = "导入失败：\(error.localizedDescription)" }
+    }
+
+    nonisolated private static func importCoordinated(_ url: URL, storage: BookStorage, encoding: TextEncoding?) throws -> BookRecord {
+        // Files providers may hand out a placeholder or coordinated URL. Keep
+        // the security scope open while materializing and copying the selection.
+        let coordinator = NSFileCoordinator(filePresenter: nil)
+        var coordinationError: NSError?
+        var result: Result<BookRecord, Error>?
+        coordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &coordinationError) { readableURL in
+            result = Result { try BookImporter.importFile(readableURL, storage: storage, encoding: encoding) }
+        }
+        if let coordinationError { throw coordinationError }
+        guard let result else { throw ReaderError.invalid("文件提供程序未返回可读取的文件。") }
+        return try result.get()
     }
 
     func remove(_ book: BookRecord) {
