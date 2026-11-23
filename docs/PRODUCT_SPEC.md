@@ -18,6 +18,7 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 ### Library
 - Import via the system document picker / Files.
 - EPUB and TXT are the initial required formats.
+- For TXT, support common Chinese ebook encodings: UTF-8, UTF-16, and GBK/GB18030.
 - Show title, author when available, and reading progress.
 - Open, remove, and resume a book.
 - Store imported content locally and persist reading/listening positions.
