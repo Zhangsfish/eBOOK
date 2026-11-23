@@ -97,6 +97,24 @@ audio and provider credentials local. No cloud provider has been selected.
 The owner will listen to the blind samples and approve a provider/cost before a
 later app-integration stage.
 
+The local workbench is now in [tools/tts-lab](tools/tts-lab/README.md). Python
+3.11+ and its standard library are sufficient:
+
+```bash
+python3 -m unittest discover -s tools/tts-lab/tests
+python3 tools/tts-lab/run.py --dry-run --provider all
+python3 scripts/generate_xcode_project.py --check
+```
+
+Open the printed session's `index.html` directly. Its anonymous A/B controls,
+original texts, separate local mapping and blank rating sheet stay under ignored
+`.local-test-data/tts-auditions/`. Dry Run has no audio. Optional `--mock-audio`
+generates clearly labeled test tones to verify plumbing, never vendor voices.
+S01 hard-disables `--execute-live` even with credentials/cap; no keys are needed.
+See [official API contract notes](docs/TTS_PROVIDER_API_CONTRACTS.md) and
+[S01 evaluation report](reports/S01_TTS_EVALUATION.md). The original iOS sources
+and playback implementation are unchanged.
+
 ## Evidence
 
 See STATUS.md, reports/S00_DELIVERY.md, reports/S00_TEST_RESULTS.md and the

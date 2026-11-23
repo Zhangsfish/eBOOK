@@ -20,6 +20,7 @@ S01 builds an audition harness only. It does not enable cloud TTS in the iOS app
 ### Official references checked for this shortlist
 
 - MiniMax Speech 2.8 WebSocket T2A: https://platform.minimax.io/docs/api-reference/speech-t2a-websocket
+- MiniMax synchronous HTTP T2A used by this offline workbench: https://platform.minimax.io/docs/api-reference/speech-t2a-http.md
 - MiniMax token plan / speech pricing: https://platform.minimax.io/subscribe/token-plan?tab=api-enterprise
 - Fish Audio API quickstart: https://docs.fish.audio/developer-guide/getting-started/quickstart
 - Fish Audio API and model/pricing reference: https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits
@@ -38,10 +39,26 @@ These are published list prices, not a quote, and do not include taxes, regional
 
 - MiniMax token-plan page lists Speech 2.8 HD at USD $100 per million characters and Speech 2.8 Turbo at USD $60 per million characters.
 - Fish Audio lists S2.1 Pro at USD $15 per million UTF-8 bytes; S2.1 Pro Free is listed at zero cost for developer evaluation. Its docs state that free tier has no TTFA/DPA guarantees. Do not compare Fish's byte-based unit directly with a per-character price without measuring UTF-8 bytes.
-- ElevenLabs' API pricing page lists Multilingual v2/v3 at USD $0.10 per 1,000 characters and Flash/Turbo at USD $0.05 per 1,000 characters. Do not infer Eleven v4's price from another model; verify it in the live pricing/account view.
-- Azure bills Chinese code points at two billable characters each. Exact price must be read for the selected Speech SKU and deployment region; do not hard-code a global estimate.
+- **Implementation-time refresh (2026-11-23–24):** the current [official API pricing page](https://elevenlabs.io/pricing/api) lists Eleven v4 and Multilingual v2 at USD $0.08 per 1,000 characters (USD $80 per million). This supersedes the initial shortlist's v2 $0.10 and unknown-v4 observations. No account-specific price or live invoice has been verified.
+- Azure bills Chinese code points at two billable characters each; inner SSML markup other than speak/voice can also be billable. Exact price must be read for the selected Speech SKU and deployment region; do not hard-code a global estimate.
 
 No provider has been selected. Do not generate a whole-book audiobook during evaluation. Use only the short original sample suite below.
+
+## S01 implementation interpretation
+
+The implemented request/response contracts and dated official sources are in
+[TTS_PROVIDER_API_CONTRACTS.md](TTS_PROVIDER_API_CONTRACTS.md). The workbench
+uses synchronous REST, original normalized text, shared <=120-scalar boundaries
+and validated 24 kHz / 16-bit / mono WAV. It does not claim equal perceived rate,
+loudness or style across vendors. Unsupported gentle conditions are marked,
+not silently substituted or supplied with vendor-only direction tags.
+
+For this authorized **offline-only** S01, `--execute-live` is a reserved,
+hard-disabled entry point even when a spend cap/environment values are supplied.
+The future transport/authorization contracts can be reused only after a later
+explicitly authorized change and billing/rights review. No current command can
+turn S01 into a paid/live audition. Mock tones verify plumbing only; real audio,
+human scores, vendor latency/reliability and final voice selection remain NOT_RUN.
 
 ## Standard audition set
 

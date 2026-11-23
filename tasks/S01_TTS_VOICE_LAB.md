@@ -1,4 +1,4 @@
-# S01 — Mandarin TTS Voice Lab (READY)
+# S01 — Mandarin TTS Voice Lab (READY_FOR_AUDIT)
 
 ## Goal
 
@@ -70,3 +70,10 @@ These are candidates, not pre-approved vendors or a final ranking. Re-check curr
 ## Stop condition
 
 Open a PR to main, report exact tested HEAD SHA and actual checks, set state to READY_FOR_AUDIT, and STOP. Do not merge, do not integrate a cloud provider into the iOS app, and do not begin S02.
+
+## Implementation handoff
+
+The local workbench and original corpus are in tools/tts-lab/. See
+reports/S01_TTS_EVALUATION.md and docs/TTS_PROVIDER_API_CONTRACTS.md for actual
+offline evidence and unrun live/human evaluation. Final HEAD/CI results are in
+the PR. Independent audit is pending; no provider has been selected.

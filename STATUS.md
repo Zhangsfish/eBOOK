@@ -10,7 +10,7 @@
 - GitHub Issue: https://github.com/Zhangsfish/eBOOK/issues/3.
 - Copy-ready Codex handoff: tasks/CODEX_HANDOFF_S01.md.
 - Branch: codex/s01-tts-voice-lab.
-- State: READY_FOR_CODEX.
+- State: READY_FOR_AUDIT — local S01 implementation/evidence prepared; independent review pending. Final HEAD/CI results are recorded in the PR.
 - S01 purpose: build an offline-first local audition harness and compare Mandarin TTS candidates using original synthetic text.
 - S01 does NOT integrate cloud TTS into the app, deploy a backend, or authorize live API calls or spending.
 
@@ -61,3 +61,15 @@ These non-text measurements are retained only as a compatibility profile. The ar
 Codex implements only the task marked READY on its task-specific branch, opens a PR to main, reports exact tested HEAD SHA and actual results, then stops at READY_FOR_AUDIT. ChatGPT independently reviews the diff and evidence. No self-approval, direct push to main or automatic merge.
 
 S00 Issue #1 is complete and closed. S01 is the only currently authorized development task.
+
+## S01 audit handoff
+
+- Workbench: [tools/tts-lab/README.md](tools/tts-lab/README.md).
+- API contract sources: [docs/TTS_PROVIDER_API_CONTRACTS.md](docs/TTS_PROVIDER_API_CONTRACTS.md).
+- Results and limits: [reports/S01_TTS_EVALUATION.md](reports/S01_TTS_EVALUATION.md).
+- Local checks: 38 offline unit tests; default/all-provider Dry Run; browser A/B
+  checks at three widths; deterministic Xcode-project check. No live provider
+  request, real voice listening score or paid usage.
+- The final delivery HEAD and actual free-macOS iOS regression run are recorded
+  in the PR. S00 app sources and playback behavior remain unchanged.
+- Provider choice remains OPEN. No merge, cloud integration, backend or S02.

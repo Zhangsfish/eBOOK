@@ -1,7 +1,7 @@
 name: S00 native iOS
 on:
   push:
-    branches: [codex/s00-reader-foundation]
+    branches: [codex/s00-reader-foundation, codex/s01-tts-voice-lab]
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,6 +22,13 @@ jobs:
         run: |
           python3 scripts/generate_long_gb18030_fixture.py
           python3 scripts/generate_xcode_project.py --check
+      - name: Offline S01 tests and dry run (no vendor requests)
+        if: ${{ hashFiles('tools/tts-lab/run.py') != '' }}
+        run: |
+          python3 -m unittest discover -s tools/tts-lab/tests
+          mkdir -p .local-test-data/tts-auditions/ci
+          python3 tools/tts-lab/run.py --dry-run --provider all > .local-test-data/tts-auditions/ci/dry-run.stdout
+          echo 'Offline dry run passed. Audition outputs stay ignored and are not uploaded.'
       - name: Real Xcode build and simulator tests
         run: bash scripts/ci_xcode.sh
       - name: Upload metadata, logs and test results (no imported books or app bundle)
