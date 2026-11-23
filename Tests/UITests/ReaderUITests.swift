@@ -36,12 +36,14 @@ final class ReaderUITests: XCTestCase {
         XCTAssertTrue(table.waitForExistence(timeout: 10))
         let anchor = app.staticTexts["reader.anchor"].label
         XCTAssertNotEqual(anchor, beginning)
+        XCTAssertEqual(anchor.components(separatedBy: "/")[0].filter(\.isNumber), "1870")
         app.buttons["reader.settings"].tap()
         let font = app.sliders["settings.font"]
         XCTAssertTrue(font.waitForExistence(timeout: 10)); font.adjust(toNormalizedSliderPosition: 0.65)
         app.buttons["夜间"].tap(); app.buttons["完成"].tap()
         snapshot("long-book-dark", app)
         let saved = app.staticTexts["reader.anchor"].label
+        XCTAssertEqual(saved, anchor, "Typography changes must retain the absolute reading block")
         app.terminate()
         let reopened = launch("synthetic_long_gb18030.txt", reset: false)
         open(reopened, title: "synthetic_long_gb18030")

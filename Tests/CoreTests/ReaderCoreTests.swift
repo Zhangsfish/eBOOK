@@ -236,6 +236,7 @@ final class ReaderCoreTests: XCTestCase {
         }
         var state = LibraryState(); state.books = [book]
         let target = doc.toc[623].block
+        XCTAssertEqual(target, 1869) // Trace the UI test's late-chapter anchor to this fixture/index.
         state.books[0].reading = ReadingAnchor(block: target, fraction: 0.42)
         state.books[0].listening = TextPosition(block: doc.toc[220].block, utf16Offset: 15)
         try storage.saveLibrary(state)

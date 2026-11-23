@@ -55,6 +55,17 @@ private final class BookCell: UITableViewCell {
     override func prepareForReuse() { super.prepareForReuse(); picture.image = nil; label.attributedText = nil }
 }
 
+private final class BookTableView: UITableView {
+    var widthDidChange: (() -> Void)?
+    private var previousWidth: CGFloat = 0
+    override func layoutSubviews() {
+        let changed = abs(bounds.width - previousWidth) > 0.5
+        previousWidth = bounds.width
+        super.layoutSubviews()
+        if changed { widthDidChange?() }
+    }
+}
+
 /// UITableView reuses visible cells. Each text read is <=1600 UTF-16 units;
 /// neither a whole chapter nor the whole book becomes one SwiftUI Text.
 struct ReaderTable: UIViewRepresentable {
@@ -69,16 +80,18 @@ struct ReaderTable: UIViewRepresentable {
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> UITableView {
-        let table = UITableView(frame: .zero, style: .plain)
+        let table = BookTableView(frame: .zero, style: .plain)
         table.register(BookCell.self, forCellReuseIdentifier: "block")
         table.dataSource = context.coordinator; table.delegate = context.coordinator
         table.separatorStyle = .none; table.rowHeight = UITableView.automaticDimension
         table.showsVerticalScrollIndicator = false // The footer reports whole-book progress.
-        table.estimatedRowHeight = 520; table.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 40, right: 0)
+        table.estimatedRowHeight = 0 // All <=12 row heights are measured exactly.
+        table.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 40, right: 0)
         table.accessibilityIdentifier = "reader.table"
         table.backgroundColor = preferences.theme.background
         context.coordinator.table = table
         context.coordinator.typeSize = dynamicType
+        table.widthDidChange = { [weak coordinator = context.coordinator] in coordinator?.widthChanged() }
         return table
     }
     func updateUIView(_ table: UITableView, context: Context) {
@@ -98,11 +111,7 @@ struct ReaderTable: UIViewRepresentable {
             restore = ReadingAnchor(block: jump.block, fraction: jump.fraction)
         }
         if let restore {
-            let token = UUID()
-            coordinator.restoreToken = token
-            DispatchQueue.main.async {
-                if coordinator.restoreToken == token { coordinator.restore(restore) }
-            }
+            coordinator.requestRestore(restore)
         }
     }
     static func dismantleUIView(_ uiView: UITableView, coordinator: Coordinator) { coordinator.report(force: true) }
@@ -118,11 +127,40 @@ struct ReaderTable: UIViewRepresentable {
         private var lastReport = Date.distantPast
         private var restoring = false
         private var hasRestored = false
+        private var pendingAnchor: ReadingAnchor?
+        private var lastKnownAnchor: ReadingAnchor?
+        private var heightCache: [Int: CGFloat] = [:]
+        private var heightWidth: CGFloat = 0
         init(_ parent: ReaderTable) {
             self.parent = parent
             window = ReadingWindow(total: parent.document.blocks.count)
         }
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { window.count }
+        private func attributedText(for block: BookBlock) throws -> NSAttributedString {
+            let text = try parent.storage.text(for: block, book: parent.bookID)
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = parent.preferences.lineSpacing
+            style.paragraphSpacing = 5
+            let font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: parent.preferences.fontSize))
+            return NSAttributedString(string: text, attributes: [
+                .font: font, .foregroundColor: parent.preferences.theme.foreground, .paragraphStyle: style
+            ])
+        }
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            guard tableView.bounds.width > 48 else { return 520 }
+            if abs(heightWidth - tableView.bounds.width) > 0.5 { heightCache.removeAll(); heightWidth = tableView.bounds.width }
+            let block = parent.document.blocks[window.lowerBound + indexPath.row]
+            if let height = heightCache[block.id] { return height }
+            let height: CGFloat
+            if block.imagePath != nil { height = 276 }
+            else {
+                let probe = UILabel(); probe.numberOfLines = 0
+                probe.attributedText = try? attributedText(for: block)
+                height = max(44, ceil(probe.sizeThatFits(CGSize(width: tableView.bounds.width - 48, height: .greatestFiniteMagnitude)).height) + 16)
+            }
+            heightCache[block.id] = height
+            return height
+        }
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "block", for: indexPath) as! BookCell
             let block = parent.document.blocks[window.lowerBound + indexPath.row]
@@ -149,14 +187,7 @@ struct ReaderTable: UIViewRepresentable {
                     cell.picture.image = UIImage(cgImage: thumbnail)
                     cell.picture.accessibilityLabel = block.imageDescription ?? "书中插图"
                 } else {
-                    let text = try parent.storage.text(for: block, book: parent.bookID)
-                    let style = NSMutableParagraphStyle()
-                    style.lineSpacing = parent.preferences.lineSpacing
-                    style.paragraphSpacing = 5
-                    let font = UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.systemFont(ofSize: parent.preferences.fontSize))
-                    cell.label.attributedText = NSAttributedString(string: text, attributes: [
-                        .font: font, .foregroundColor: parent.preferences.theme.foreground, .paragraphStyle: style
-                    ])
+                    cell.label.attributedText = try attributedText(for: block)
                 }
             } catch {
                 cell.label.isHidden = false; cell.picture.isHidden = true
@@ -174,15 +205,32 @@ struct ReaderTable: UIViewRepresentable {
         }
         func reloadRows() {
             restoring = true
+            heightCache.removeAll()
             table?.reloadData(); table?.layoutIfNeeded()
             // Keep scroll reports suspended until the queued anchor restoration.
         }
+        func requestRestore(_ anchor: ReadingAnchor) {
+            pendingAnchor = anchor
+            let token = UUID(); restoreToken = token
+            DispatchQueue.main.async { [weak self] in
+                guard let self, self.restoreToken == token, let pending = self.pendingAnchor else { return }
+                self.restore(pending)
+            }
+        }
+        func widthChanged() {
+            let anchor = pendingAnchor ?? lastKnownAnchor ?? ReadingAnchor(block: parent.jump.block, fraction: parent.jump.fraction)
+            heightCache.removeAll()
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.reloadRows(); self.requestRestore(anchor)
+            }
+        }
         func restore(_ anchor: ReadingAnchor) {
-            guard let table, !parent.document.blocks.isEmpty else { return }
+            guard let table, table.bounds.width > 48, !parent.document.blocks.isEmpty else { return }
             restoring = true
             let block = min(max(0, anchor.block), parent.document.blocks.count - 1)
             let nextWindow = ReadingWindow(total: parent.document.blocks.count, anchor: block)
-            if nextWindow != window { window = nextWindow; table.reloadData() }
+            if nextWindow != window { window = nextWindow; heightCache.removeAll(); table.reloadData() }
             let path = IndexPath(row: block - window.lowerBound, section: 0)
             table.scrollToRow(at: path, at: .top, animated: false)
             table.layoutIfNeeded()
@@ -191,14 +239,16 @@ struct ReaderTable: UIViewRepresentable {
             let maximum = max(-table.adjustedContentInset.top, table.contentSize.height - table.bounds.height + table.adjustedContentInset.bottom)
             table.setContentOffset(CGPoint(x: 0, y: min(maximum, max(-table.adjustedContentInset.top, desired))), animated: false)
             hasRestored = true
+            pendingAnchor = nil
             restoring = false
             report(force: true)
         }
         func report(force: Bool = false) {
-            guard hasRestored, !restoring, let table, table.indexPathsForVisibleRows?.isEmpty == false,
+            guard hasRestored, !restoring, pendingAnchor == nil, let table, table.indexPathsForVisibleRows?.isEmpty == false,
                   force || Date().timeIntervalSince(lastReport) > 0.5 else { return }
             lastReport = Date()
             let position = anchor()
+            lastKnownAnchor = position
             #if DEBUG
             RenderDiagnostics.record(table: table, document: parent.document, anchor: position, window: window)
             #endif
@@ -209,7 +259,7 @@ struct ReaderTable: UIViewRepresentable {
                     guard let self else { return }
                     self.windowShiftPending = false
                     let current = self.anchor()
-                    if self.window.shouldMove(at: current.block) { self.restore(current) }
+                    if self.pendingAnchor == nil, self.window.shouldMove(at: current.block) { self.restore(current) }
                 }
             }
         }
