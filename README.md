@@ -9,6 +9,7 @@ S00 — native EPUB/TXT reader — is merged into main. The final S00 revision p
 The current authorized task is S01 — Mandarin TTS Voice Lab. It creates a local audition workbench to compare candidate voices. It does not yet add cloud TTS to the iOS app or authorize API spending.
 
 - Task: tasks/S01_TTS_VOICE_LAB.md
+- GitHub Issue: https://github.com/Zhangsfish/eBOOK/issues/3
 - Codex prompt: tasks/CODEX_HANDOFF_S01.md
 - Candidate shortlist and audition protocol: docs/TTS_VOICE_LAB.md
 - Provider decision record: docs/S01_PROVIDER_DECISION.md
