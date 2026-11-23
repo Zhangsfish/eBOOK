@@ -5,11 +5,15 @@ if [[ -d /Applications/Xcode_16.4.app ]]; then
   export DEVELOPER_DIR=/Applications/Xcode_16.4.app/Contents/Developer
 fi
 xcodebuild -version
+xcrun --sdk iphonesimulator --show-sdk-version > build/sdk-version.txt
 xcrun simctl list devices available -j > build/devices.json
 SIMULATOR_ID=$(python3 - <<'PY'
-import json
+import json, re
 data = json.load(open('build/devices.json'))
-for runtime, devices in sorted(data['devices'].items(), reverse=True):
+sdk = tuple(int(v) for v in open('build/sdk-version.txt').read().strip().split('.'))
+def version(runtime): return tuple(int(v) for v in re.findall(r'\d+', runtime))
+for runtime, devices in sorted(data['devices'].items(), key=lambda item: version(item[0]), reverse=True):
+    if version(runtime) > sdk: continue
     if 'iOS' in runtime:
         phone = next((d for d in devices if d.get('isAvailable') and d['name'].startswith('iPhone')), None)
         if phone:
@@ -18,8 +22,6 @@ else: raise SystemExit('No available iPhone simulator')
 PY
 )
 export SIMULATOR_ID
-xcrun simctl boot "$SIMULATOR_ID" || true
-xcrun simctl bootstatus "$SIMULATOR_ID" -b
 python3 - <<'PY'
 import json, os, platform, subprocess
 def output(*command): return subprocess.check_output(command, text=True).strip()
@@ -29,7 +31,13 @@ data = {'head_sha': output('git', 'rev-parse', 'HEAD'), 'host': platform.platfor
         'workflow_run': os.environ.get('GITHUB_RUN_ID')}
 json.dump(data, open('build/environment.json', 'w'), indent=2)
 PY
+xcrun simctl boot "$SIMULATOR_ID" || true
+python3 - <<'PY'
+import os, subprocess
+subprocess.run(['xcrun', 'simctl', 'bootstatus', os.environ['SIMULATOR_ID'], '-b'], check=True, timeout=300)
+PY
 COMMON=(-project eBOOK.xcodeproj -scheme eBOOK -destination "id=$SIMULATOR_ID" -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO)
+echo 'Starting Debug build-for-testing'
 if ! xcodebuild "${COMMON[@]}" -configuration Debug build-for-testing > build/xcode-build.log 2>&1; then
   tail -100 build/xcode-build.log
   exit 1
@@ -40,9 +48,15 @@ mkdir -p "$APP_DATA/Documents"
 cp .local-test-data/synthetic_long_gb18030.txt "$APP_DATA/Documents/"
 cp Tests/Fixtures/synthetic.epub Tests/Fixtures/sample_utf8.txt "$APP_DATA/Documents/"
 TEST_EXIT=0
+echo 'Starting simulator unit and UI tests'
 xcodebuild "${COMMON[@]}" -configuration Debug test-without-building -parallel-testing-enabled NO -resultBundlePath build/Test.xcresult > build/xcode-test.log 2>&1 || TEST_EXIT=$?
 xcrun xcresulttool get test-results summary --path build/Test.xcresult --format json > build/test-summary.json || true
+APP_DATA=$(xcrun simctl get_app_container "$SIMULATOR_ID" org.example.eBOOK data)
+if [[ -f "$APP_DATA/Documents/.s00-render-metrics-long.json" ]]; then
+  cp "$APP_DATA/Documents/.s00-render-metrics-long.json" build/reader-metrics.json
+fi
 tail -65 build/xcode-test.log
+echo 'Starting Release simulator build'
 if ! xcodebuild -project eBOOK.xcodeproj -scheme eBOOK -configuration Release -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath build/Release CODE_SIGNING_ALLOWED=NO build > build/xcode-release.log 2>&1; then
   tail -100 build/xcode-release.log
   exit 1

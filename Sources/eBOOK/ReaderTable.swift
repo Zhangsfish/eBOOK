@@ -1,6 +1,9 @@
 import SwiftUI
 import UIKit
 import ImageIO
+#if DEBUG
+import Darwin
+#endif
 
 struct ReaderJump: Equatable {
     var block: Int
@@ -169,11 +172,52 @@ struct ReaderTable: UIViewRepresentable {
             report(force: true)
         }
         func report(force: Bool = false) {
-            guard !restoring, force || Date().timeIntervalSince(lastReport) > 0.5 else { return }
-            lastReport = Date(); parent.onPosition(anchor())
+            guard !restoring, let table, table.indexPathsForVisibleRows?.isEmpty == false,
+                  force || Date().timeIntervalSince(lastReport) > 0.5 else { return }
+            lastReport = Date()
+            let position = anchor()
+            #if DEBUG
+            RenderDiagnostics.record(table: table, document: parent.document, anchor: position)
+            #endif
+            parent.onPosition(position)
         }
         func scrollViewDidScroll(_ scrollView: UIScrollView) { report() }
         func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { report(force: true) }
         func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) { if !decelerate { report(force: true) } }
     }
 }
+
+#if DEBUG
+/// Metadata-only simulator instrumentation, absent from Release builds.
+private enum RenderDiagnostics {
+    private struct Sample: Codable {
+        var session: String
+        var time: Double
+        var block: Int
+        var blocks: Int
+        var visibleCells: Int
+        var maximumTextUTF16: Int
+        var processPeakRSSBytes: Int64
+    }
+    private static let session = UUID().uuidString
+    private static var history: [String: [Sample]] = [:]
+    static func record(table: UITableView, document: BookDocument, anchor: ReadingAnchor) {
+        guard ProcessInfo.processInfo.arguments.contains("--uitesting") else { return }
+        let name = document.totalUTF16 > 1_000_000 ? "long" : "small"
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent(".s00-render-metrics-\(name).json")
+        if history[name] == nil {
+            history[name] = (try? JSONDecoder().decode([Sample].self, from: Data(contentsOf: url))) ?? []
+        }
+        var usage = rusage(); getrusage(RUSAGE_SELF, &usage)
+        let textMaximum = table.visibleCells.compactMap { ($0 as? BookCell)?.label.attributedText?.length }.max() ?? 0
+        let sample = Sample(session: session, time: Date().timeIntervalSince1970, block: anchor.block,
+                            blocks: document.blocks.count, visibleCells: table.visibleCells.count,
+                            maximumTextUTF16: textMaximum, processPeakRSSBytes: Int64(usage.ru_maxrss))
+        history[name, default: []].append(sample)
+        history[name] = Array(history[name, default: []].suffix(256))
+        try? JSONEncoder().encode(history[name, default: []]).write(to: url, options: .atomic)
+        table.accessibilityValue = "visible=\(sample.visibleCells);maxText=\(sample.maximumTextUTF16);peakRSS=\(sample.processPeakRSSBytes)"
+    }
+}
+#endif

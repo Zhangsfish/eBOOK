@@ -86,9 +86,37 @@ import MediaPlayer
     }
 
     func skipBlock(_ delta: Int) { seek(TextPosition(block: position.block + delta)) }
+    func skipParagraph(_ delta: Int) {
+        guard let document, let storage, let book, document.blocks.indices.contains(position.block) else { return }
+        do {
+            let text = try storage.text(for: document.blocks[position.block], book: book.id)
+            let expression = try NSRegularExpression(pattern: "\\n{2,}")
+            let length = text.utf16.count
+            let starts = [0] + expression.matches(in: text, range: NSRange(location: 0, length: length))
+                .map { $0.range.location + $0.range.length }.filter { $0 < length }
+            if delta > 0 {
+                if let next = starts.first(where: { $0 > position.utf16Offset }) {
+                    seek(TextPosition(block: position.block, utf16Offset: next))
+                } else if position.block + 1 < document.blocks.count { seek(TextPosition(block: position.block + 1)) }
+                else { seek(TextPosition(block: position.block, utf16Offset: length)) }
+            } else {
+                let currentStart = starts.last(where: { $0 <= position.utf16Offset }) ?? 0
+                if position.utf16Offset > currentStart { seek(TextPosition(block: position.block, utf16Offset: currentStart)) }
+                else if let previous = starts.last(where: { $0 < currentStart }) {
+                    seek(TextPosition(block: position.block, utf16Offset: previous))
+                } else if position.block > 0 {
+                    let previousText = try storage.text(for: document.blocks[position.block - 1], book: book.id)
+                    let range = (previousText as NSString).range(of: "\n\n", options: .backwards)
+                    let offset = range.location == NSNotFound ? 0 : range.location + range.length
+                    seek(TextPosition(block: position.block - 1, utf16Offset: offset))
+                }
+            }
+        } catch { fail(error) }
+    }
     func skipChapter(_ delta: Int) {
         guard let document, !document.chapters.isEmpty else { return }
         let current = document.chapters.lastIndex(where: { $0.firstBlock <= position.block }) ?? 0
+        if delta > 0 && current == document.chapters.count - 1 { return }
         let target = min(document.chapters.count - 1, max(0, current + delta))
         seek(TextPosition(block: document.chapters[target].firstBlock))
     }
@@ -134,7 +162,7 @@ import MediaPlayer
                         if self.status == .playing {
                             do { try self.speakNext() } catch { self.fail(error) }
                         }
-                    case .cancelled: self.hasUtterance = false; self.status = .paused; self.persist()
+                    case .cancelled: self.hasUtterance = false; self.status = .paused; self.persist(); self.updateNowPlaying()
                     case .failed(let message): self.fail(ReaderError.invalid(message))
                     }
                 }

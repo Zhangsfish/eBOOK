@@ -87,6 +87,30 @@ import AVFoundation
         XCTAssertEqual(fake.requests.last?.rate, 0.6)
     }
 
+    func testCorruptLibraryBlocksWritesRatherThanReplacingExistingState() throws {
+        let storage = try BookStorage(root: root.appendingPathComponent("corrupt"))
+        let url = storage.root.appendingPathComponent("library.json")
+        let original = Data("original corrupt state retained for recovery".utf8)
+        try original.write(to: url)
+        let library = LibraryModel(root: storage.root)
+        XCTAssertTrue(library.persistenceBlocked); XCTAssertNotNil(library.error)
+        library.setPreferences(ReaderPreferences()); library.persist()
+        XCTAssertEqual(try Data(contentsOf: url), original)
+    }
+
+    func testParagraphSeekWorksWithinABlockAndAcrossChapterBoundaries() throws {
+        let (library, book, doc, storage) = try context()
+        let controller = SpeechController(provider: FakeSpeechProvider(), managesAudio: false)
+        controller.attach(library); controller.load(book, document: doc, storage: storage)
+        controller.skipParagraph(1)
+        XCTAssertEqual(controller.position.block, 0); XCTAssertGreaterThan(controller.position.utf16Offset, 0)
+        controller.skipParagraph(-1); XCTAssertEqual(controller.position, TextPosition())
+        controller.skipParagraph(1); controller.skipParagraph(1)
+        XCTAssertEqual(controller.position.block, doc.chapters[1].firstBlock)
+        controller.skipParagraph(-1)
+        XCTAssertEqual(controller.position.block, 0); XCTAssertGreaterThan(controller.position.utf16Offset, 0)
+    }
+
     func testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets() async throws {
         guard AVSpeechSynthesisVoice.speechVoices().contains(where: { $0.language.hasPrefix("zh") }) else {
             throw XCTSkip("This simulator has no installed Mandarin voice; real speech remains a device check.")

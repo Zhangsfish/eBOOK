@@ -39,7 +39,11 @@ public struct BookStorage: Sendable {
         next.books.removeAll { $0.id == id }
         // Persist first. A failed write leaves the original book recoverable.
         try saveLibrary(next)
-        do { try FileManager.default.removeItem(at: directory(for: id)) }
+        do {
+            if FileManager.default.fileExists(atPath: directory(for: id).path) {
+                try FileManager.default.removeItem(at: directory(for: id))
+            }
+        }
         catch {
             try saveLibrary(state)
             throw error
@@ -129,7 +133,7 @@ public enum BookImporter {
         try fm.createDirectory(at: staging, withIntermediateDirectories: true)
         do {
             let copy = staging.appendingPathComponent("source.\(suffix)")
-            try fm.copyItem(at: source, to: copy)
+            try boundedCopy(from: source, to: copy, limit: limit)
             let copiedSize = try copy.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
             guard copiedSize > 0, copiedSize <= limit else { throw ReaderError.tooLarge("复制后的文件大小超出限制。") }
             let data = try Data(contentsOf: copy, options: .mappedIfSafe)
@@ -166,5 +170,20 @@ public enum BookImporter {
             try? fm.removeItem(at: staging)
             throw error
         }
+    }
+
+    private static func boundedCopy(from source: URL, to destination: URL, limit: Int) throws {
+        guard FileManager.default.createFile(atPath: destination.path, contents: nil) else { throw ReaderError.invalid("无法创建本机副本。") }
+        let input = try FileHandle(forReadingFrom: source)
+        defer { try? input.close() }
+        let output = try FileHandle(forWritingTo: destination)
+        defer { try? output.close() }
+        var total = 0
+        while let data = try input.read(upToCount: 256 * 1024), !data.isEmpty {
+            total += data.count
+            guard total <= limit else { throw ReaderError.tooLarge("导入中文件大小超出限制。") }
+            try output.write(contentsOf: data)
+        }
+        try output.synchronize()
     }
 }

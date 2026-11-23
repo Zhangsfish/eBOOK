@@ -101,7 +101,7 @@ struct ReaderView: View {
             }
             HStack(spacing: 12) {
                 Button { ensureSpeech(document, storage); speech.skipChapter(-1) } label: { Image(systemName: "backward.end.fill").frame(minWidth: 44, minHeight: 44) }.accessibilityLabel("上一章")
-                Button { ensureSpeech(document, storage); speech.skipBlock(-1) } label: { Image(systemName: "gobackward").frame(minWidth: 44, minHeight: 44) }.accessibilityLabel("上一段")
+                Button { ensureSpeech(document, storage); speech.skipParagraph(-1) } label: { Image(systemName: "gobackward").frame(minWidth: 44, minHeight: 44) }.accessibilityLabel("上一段")
                 Button {
                     ensureSpeech(document, storage)
                     if speech.status == .playing { speech.pause() } else { speech.play() }
@@ -109,7 +109,7 @@ struct ReaderView: View {
                     Label(active && speech.status == .playing ? "暂停" : "朗读", systemImage: active && speech.status == .playing ? "pause.fill" : "play.fill")
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }.buttonStyle(.borderedProminent).accessibilityIdentifier("speech.play")
-                Button { ensureSpeech(document, storage); speech.skipBlock(1) } label: { Image(systemName: "goforward").frame(minWidth: 44, minHeight: 44) }.accessibilityLabel("下一段")
+                Button { ensureSpeech(document, storage); speech.skipParagraph(1) } label: { Image(systemName: "goforward").frame(minWidth: 44, minHeight: 44) }.accessibilityLabel("下一段")
                 Button { ensureSpeech(document, storage); speech.skipChapter(1) } label: { Image(systemName: "forward.end.fill").frame(minWidth: 44, minHeight: 44) }.accessibilityLabel("下一章")
             }
             Button("从当前阅读位置开始朗读") {

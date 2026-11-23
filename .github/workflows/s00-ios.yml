@@ -33,5 +33,6 @@ jobs:
             build/*.log
             build/environment.json
             build/test-summary.json
+            build/reader-metrics.json
             build/Test.xcresult
           retention-days: 7

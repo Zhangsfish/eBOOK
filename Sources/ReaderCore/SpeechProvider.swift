@@ -44,6 +44,9 @@ public struct FutureAudioAsset: Sendable {
     public let localURL: URL
     public let duration: TimeInterval?
     public let timings: [SpeechChunk]
+    public init(localURL: URL, duration: TimeInterval?, timings: [SpeechChunk]) {
+        self.localURL = localURL; self.duration = duration; self.timings = timings
+    }
 }
 
 /// Design seam only. An implementation needs separately authorized backend,

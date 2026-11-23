@@ -4,6 +4,7 @@ import SwiftUI
 @MainActor final class LibraryModel: ObservableObject {
     @Published private(set) var state = LibraryState()
     @Published private(set) var importing = false
+    @Published private(set) var persistenceBlocked = false
     @Published var error: String?
     let storage: BookStorage?
 
@@ -21,12 +22,15 @@ import SwiftUI
             let storage = try BookStorage(root: base)
             self.storage = storage
             do { state = try storage.loadLibrary() }
-            catch { self.error = "书架无法读取，原文件已保留。\(error.localizedDescription)" }
+            catch {
+                persistenceBlocked = true
+                self.error = "书架无法读取，已停止写入以保留原文件。请保留本机数据后排查。\(error.localizedDescription)"
+            }
         } catch { storage = nil; self.error = "本地存储不可用：\(error.localizedDescription)" }
     }
 
     func importFile(_ url: URL, encoding: TextEncoding?) async {
-        guard !importing, let storage else { return }
+        guard !importing, !persistenceBlocked, let storage else { return }
         importing = true
         defer { importing = false }
         let scoped = url.startAccessingSecurityScopedResource()
@@ -46,7 +50,7 @@ import SwiftUI
     }
 
     func remove(_ book: BookRecord) {
-        guard let storage else { return }
+        guard !persistenceBlocked, let storage else { return }
         do { state = try storage.remove(book.id, from: state) }
         catch { self.error = "移除失败：\(error.localizedDescription)" }
     }
@@ -73,6 +77,7 @@ import SwiftUI
     }
 
     func persist() {
+        guard !persistenceBlocked else { return }
         do { try storage?.saveLibrary(state) }
         catch { self.error = "保存失败，当前位置暂存在内存：\(error.localizedDescription)" }
     }

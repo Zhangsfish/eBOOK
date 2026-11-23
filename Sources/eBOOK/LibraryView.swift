@@ -94,6 +94,6 @@ struct LibraryView: View {
     }
     private var importButton: some View {
         Button { importing = true } label: { Label("导入书籍", systemImage: "plus") }
-            .accessibilityIdentifier("library.import").disabled(library.importing)
+            .accessibilityIdentifier("library.import").disabled(library.importing || library.persistenceBlocked || library.storage == nil)
     }
 }
