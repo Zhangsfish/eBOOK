@@ -5,76 +5,6 @@
   };
   "objectVersion" = "56";
   "objects" = {
-    "F31AFBB67015C5FFDD982FBB" = {
-      "isa" = "PBXFileReference";
-      "lastKnownFileType" = "sourcecode.swift";
-      "path" = "Sources/eBOOK/AppleSpeechProvider.swift";
-      "sourceTree" = "<group>";
-    };
-    "91419960069CF7F62B94D6C8" = {
-      "isa" = "PBXBuildFile";
-      "fileRef" = F31AFBB67015C5FFDD982FBB;
-    };
-    "19DC45BABA871FBB2A6D5FC0" = {
-      "isa" = "PBXFileReference";
-      "lastKnownFileType" = "sourcecode.swift";
-      "path" = "Sources/eBOOK/EBookApp.swift";
-      "sourceTree" = "<group>";
-    };
-    "630478B50E1C08C4DC0604A2" = {
-      "isa" = "PBXBuildFile";
-      "fileRef" = 19DC45BABA871FBB2A6D5FC0;
-    };
-    "F20C9B2DEA43C47E3A2BF6D5" = {
-      "isa" = "PBXFileReference";
-      "lastKnownFileType" = "sourcecode.swift";
-      "path" = "Sources/eBOOK/LibraryModel.swift";
-      "sourceTree" = "<group>";
-    };
-    "8EED4D3A9CC5306D0FA373C9" = {
-      "isa" = "PBXBuildFile";
-      "fileRef" = F20C9B2DEA43C47E3A2BF6D5;
-    };
-    "2F179534B19237FA690C7C31" = {
-      "isa" = "PBXFileReference";
-      "lastKnownFileType" = "sourcecode.swift";
-      "path" = "Sources/eBOOK/LibraryView.swift";
-      "sourceTree" = "<group>";
-    };
-    "6028B447A3521A5762D714A4" = {
-      "isa" = "PBXBuildFile";
-      "fileRef" = 2F179534B19237FA690C7C31;
-    };
-    "6DC1C2FE43F7B50919AD2B8B" = {
-      "isa" = "PBXFileReference";
-      "lastKnownFileType" = "sourcecode.swift";
-      "path" = "Sources/eBOOK/ReaderTable.swift";
-      "sourceTree" = "<group>";
-    };
-    "E7FB1648257885D381D8B388" = {
-      "isa" = "PBXBuildFile";
-      "fileRef" = 6DC1C2FE43F7B50919AD2B8B;
-    };
-    "1C09D67F254B39A4743AB8A6" = {
-      "isa" = "PBXFileReference";
-      "lastKnownFileType" = "sourcecode.swift";
-      "path" = "Sources/eBOOK/ReaderView.swift";
-      "sourceTree" = "<group>";
-    };
-    "54886AB1ECCB579B3BEC1A12" = {
-      "isa" = "PBXBuildFile";
-      "fileRef" = 1C09D67F254B39A4743AB8A6;
-    };
-    "0A4FE6F4F2542E67774BB7D6" = {
-      "isa" = "PBXFileReference";
-      "lastKnownFileType" = "sourcecode.swift";
-      "path" = "Sources/eBOOK/SpeechController.swift";
-      "sourceTree" = "<group>";
-    };
-    "51F650EDEB386512751ABA77" = {
-      "isa" = "PBXBuildFile";
-      "fileRef" = 0A4FE6F4F2542E67774BB7D6;
-    };
     "69B68AF4103CA6AE166F33E4" = {
       "isa" = "PBXFileReference";
       "lastKnownFileType" = "sourcecode.swift";
@@ -145,10 +75,80 @@
       "isa" = "PBXBuildFile";
       "fileRef" = D8A0A36AC05AFFC262DEEBB7;
     };
+    "F31AFBB67015C5FFDD982FBB" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/AppleSpeechProvider.swift";
+      "sourceTree" = "<group>";
+    };
+    "91419960069CF7F62B94D6C8" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = F31AFBB67015C5FFDD982FBB;
+    };
+    "19DC45BABA871FBB2A6D5FC0" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/EBookApp.swift";
+      "sourceTree" = "<group>";
+    };
+    "630478B50E1C08C4DC0604A2" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 19DC45BABA871FBB2A6D5FC0;
+    };
+    "F20C9B2DEA43C47E3A2BF6D5" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/LibraryModel.swift";
+      "sourceTree" = "<group>";
+    };
+    "8EED4D3A9CC5306D0FA373C9" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = F20C9B2DEA43C47E3A2BF6D5;
+    };
+    "2F179534B19237FA690C7C31" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/LibraryView.swift";
+      "sourceTree" = "<group>";
+    };
+    "6028B447A3521A5762D714A4" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 2F179534B19237FA690C7C31;
+    };
+    "6DC1C2FE43F7B50919AD2B8B" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/ReaderTable.swift";
+      "sourceTree" = "<group>";
+    };
+    "E7FB1648257885D381D8B388" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 6DC1C2FE43F7B50919AD2B8B;
+    };
+    "1C09D67F254B39A4743AB8A6" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/ReaderView.swift";
+      "sourceTree" = "<group>";
+    };
+    "54886AB1ECCB579B3BEC1A12" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 1C09D67F254B39A4743AB8A6;
+    };
+    "0A4FE6F4F2542E67774BB7D6" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/SpeechController.swift";
+      "sourceTree" = "<group>";
+    };
+    "51F650EDEB386512751ABA77" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 0A4FE6F4F2542E67774BB7D6;
+    };
     "D10ECEDA0FB53BA093BEC557" = {
       "isa" = "PBXSourcesBuildPhase";
       "buildActionMask" = "2147483647";
-      "files" = (91419960069CF7F62B94D6C8, 630478B50E1C08C4DC0604A2, 8EED4D3A9CC5306D0FA373C9, 6028B447A3521A5762D714A4, E7FB1648257885D381D8B388, 54886AB1ECCB579B3BEC1A12, 51F650EDEB386512751ABA77, 6CFCB5BA22247B1DFA5C54CC, F403CB977EE229940F76B6EE, 7636025D859680B69AB1BFAC, E26CB29F7EEFE6808E841371, 3FFE71E9EAD6CA8891F87F21, E26AF1C6B10738C05477877E, 46D1F0AA6745AFCA644EB805);
+      "files" = (6CFCB5BA22247B1DFA5C54CC, F403CB977EE229940F76B6EE, 7636025D859680B69AB1BFAC, E26CB29F7EEFE6808E841371, 3FFE71E9EAD6CA8891F87F21, E26AF1C6B10738C05477877E, 46D1F0AA6745AFCA644EB805, 91419960069CF7F62B94D6C8, 630478B50E1C08C4DC0604A2, 8EED4D3A9CC5306D0FA373C9, 6028B447A3521A5762D714A4, E7FB1648257885D381D8B388, 54886AB1ECCB579B3BEC1A12, 51F650EDEB386512751ABA77);
       "runOnlyForDeploymentPostprocessing" = "0";
     };
     "931BA2D924AC2930E41975C6" = {
@@ -264,7 +264,7 @@
     };
     "C693E23B729D8149C92E7CAB" = {
       "isa" = "PBXGroup";
-      "children" = (F31AFBB67015C5FFDD982FBB, 19DC45BABA871FBB2A6D5FC0, F20C9B2DEA43C47E3A2BF6D5, 2F179534B19237FA690C7C31, 6DC1C2FE43F7B50919AD2B8B, 1C09D67F254B39A4743AB8A6, 0A4FE6F4F2542E67774BB7D6, 69B68AF4103CA6AE166F33E4, BD590413D1C4FCC62A1E2785, 4A98A7C1E08BB38810CC9EC6, 6079CF0FA76DDD950F416A36, 7641C3860F0F1E6922924BA8, CD5943C1AF0D474C1A72E5E9, D8A0A36AC05AFFC262DEEBB7, 931BA2D924AC2930E41975C6, F339268FDFE68E2F945FABD9, E42282D783818CA2B6C2D552, 4B235FA667579F4C50873623, 5E131388CAD4B0B5BACC6207, D26B9865322B2F1B4905DB7C);
+      "children" = (69B68AF4103CA6AE166F33E4, BD590413D1C4FCC62A1E2785, 4A98A7C1E08BB38810CC9EC6, 6079CF0FA76DDD950F416A36, 7641C3860F0F1E6922924BA8, CD5943C1AF0D474C1A72E5E9, D8A0A36AC05AFFC262DEEBB7, F31AFBB67015C5FFDD982FBB, 19DC45BABA871FBB2A6D5FC0, F20C9B2DEA43C47E3A2BF6D5, 2F179534B19237FA690C7C31, 6DC1C2FE43F7B50919AD2B8B, 1C09D67F254B39A4743AB8A6, 0A4FE6F4F2542E67774BB7D6, 931BA2D924AC2930E41975C6, F339268FDFE68E2F945FABD9, E42282D783818CA2B6C2D552, 4B235FA667579F4C50873623, 5E131388CAD4B0B5BACC6207, D26B9865322B2F1B4905DB7C);
       "name" = "Source and Tests";
       "sourceTree" = "<group>";
     };

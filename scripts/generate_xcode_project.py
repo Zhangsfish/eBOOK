@@ -2,6 +2,7 @@
 """Generate the checked-in Xcode project, without XcodeGen or third-party tools."""
 from pathlib import Path
 import argparse
+import difflib
 import hashlib
 import json
 
@@ -18,9 +19,10 @@ def generate():
         key = uid(label)
         objects[key] = {'isa': isa, **fields}
         return Ref(key)
-    app_sources = sorted((ROOT / 'Sources').rglob('*.swift'))
-    unit_sources = sorted((ROOT / 'Tests' / 'CoreTests').glob('*.swift'))
-    ui_sources = sorted((ROOT / 'Tests' / 'UITests').glob('*.swift'))
+    ordering = lambda path: path.relative_to(ROOT).as_posix()
+    app_sources = sorted((ROOT / 'Sources').rglob('*.swift'), key=ordering)
+    unit_sources = sorted((ROOT / 'Tests' / 'CoreTests').glob('*.swift'), key=ordering)
+    ui_sources = sorted((ROOT / 'Tests' / 'UITests').glob('*.swift'), key=ordering)
     def file(path, file_type=None):
         rel = path.relative_to(ROOT).as_posix()
         return obj('file:' + rel, 'PBXFileReference', lastKnownFileType=file_type or ('sourcecode.swift' if path.suffix == '.swift' else 'text'), path=rel, sourceTree='<group>')
@@ -124,7 +126,10 @@ def main():
     for relative, content in generate().items():
         path = ROOT / relative
         if args.check:
-            if not path.exists() or path.read_text(encoding='utf-8') != content: raise SystemExit(f'Project is stale: {relative}')
+            previous = path.read_text(encoding='utf-8') if path.exists() else ''
+            if previous != content:
+                print(''.join(list(difflib.unified_diff(previous.splitlines(True), content.splitlines(True), fromfile='checked-in', tofile='generated'))[:80]))
+                raise SystemExit(f'Project is stale: {relative}')
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding='utf-8', newline='\n')
