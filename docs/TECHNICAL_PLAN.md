@@ -5,8 +5,9 @@
 - App lifecycle / persistence: SwiftData or a small Codable/SQLite persistence layer; choose the simplest robust option compatible with the deployment target.
 - File import: SwiftUI `fileImporter` / UIDocumentPicker integration with security-scoped URL handling and app-owned copies.
 - EPUB: use a maintained, license-compatible parser/library if necessary; inspect dependency license and maintenance before adoption. Parse metadata, spine, navigation/TOC, XHTML content, and images defensively.
-- TXT: detect BOM first; support strict UTF-8, UTF-16 LE/BE, and GB18030/GBK decoding. Many Chinese novel TXT files are GBK-encoded. Normalize line endings while preserving paragraph boundaries. Do not silently accept mojibake or lossy replacement characters; report a clear decoding error if the encoding cannot be determined.
+- TXT: detect BOM first; support strict UTF-8, UTF-16 LE/BE, GBK, and GB18030 decoding. Many Chinese novel TXT files are GBK-encoded. Normalize line endings while preserving paragraph boundaries. Do not silently accept mojibake or lossy replacement characters; report a clear decoding error if the encoding cannot be determined.
 - Reading renderer: native text/layout components with chapter-aware navigation. Avoid a giant single Text view for a multi-million-character novel.
+- TXT navigation: use conservative heading heuristics for common forms such as `001标题`, `第N章 标题`, and `N.第N章标题`. Do not classify every numbered line as a chapter. If confidence is low, keep the book readable as continuous text and avoid inventing a misleading TOC.
 - Local speech: AVSpeechSynthesizer adapter for offline fallback and initial playback proof.
 - Audio session: AVAudioSession configured for spoken audio / background playback; handle interruptions, route changes, lock-screen controls, and remote commands.
 - State: persist book identity, chapter/anchor, reading progress, listening progress, voice preference, rate, theme, font size.
@@ -32,7 +33,7 @@ Do not expose vendor API keys in the iOS binary. Production cloud synthesis requ
 - Do not synthesize an entire novel in one request.
 - Generate the current chunk and prefetch only a small number of following chunks.
 - Cache audio locally with an eviction policy and clear-cache control.
-- Keep book text local by default. Before any cloud synthesis, disclose that the selected text is sent to the provider for processing.
+- Keep book text local by default. Before any future cloud synthesis, disclose that the selected text is sent to the provider for processing.
 - A provider failure must not corrupt reading/listening progress.
 
 ## Security and privacy
@@ -42,11 +43,13 @@ Do not expose vendor API keys in the iOS binary. Production cloud synthesis requ
 - Review third-party SDK privacy manifests and data collection before adding dependencies.
 
 ## Testing
-- Unit tests for TXT decoding (UTF-8, UTF-16, and GB18030/GBK), EPUB metadata/TOC extraction, paragraph/chunk segmentation, progress persistence, and malformed-file handling.
+- Unit tests for TXT decoding (UTF-8, UTF-16 LE/BE, GBK, and GB18030), EPUB metadata/TOC extraction, paragraph/chunk segmentation, progress persistence, and malformed-file handling.
 - UI/simulator tests for import -> open -> change typography/theme -> navigate TOC -> resume.
 - Playback tests for play/pause/seek, background audio, interruption/resume, and position persistence where simulator/device support permits.
-- Include synthetic Chinese test books in UTF-8 and GBK/GB18030 encodings with multiple chapters, dialogue, punctuation, and long paragraphs. Do not include copyrighted novel text.
-- ZIP is a container, not an ebook text encoding. S00 only needs EPUB/TXT import; users can extract a ZIP containing a TXT in the iOS Files app before importing the TXT. Do not add ZIP support or a dependency unless a later task explicitly authorizes it.
+- Use `scripts/generate_long_gb18030_fixture.py` to create an original synthetic fixture with 624 chapters plus an afterword, 2,301,482 Unicode characters, and 73,176 lines. The generated output is local-only and ignored by Git.
+- Test large-file import, incremental rendering/scrolling, memory behavior, reading-position persistence, and heuristic chapter navigation against the generated fixture.
+- Do not include complete copyrighted novels or user-imported commercial books in source, fixtures, CI, app bundles, logs, or reports.
+- ZIP is a container, not an ebook text encoding. S00 only needs EPUB/TXT import; ZIP import and archive extraction are out of scope.
 
-## Real-world compatibility note
-A user supplied a ZIP containing one `绝境黑夜.txt` file. The inner TXT decodes strictly as GBK and its header identifies the title and author; its chapter structure runs through chapter 624 and an afterword. This establishes a useful format/scale test case, not the file's distribution rights. The archive and novel text must not be committed to GitHub, fixtures, CI, or app bundles. A private local smoke test may be performed only at the user's direction and subject to the user's rights to use the file.
+## Compatibility profile from planning
+A ZIP supplied during planning contained one TXT entry. Its inner TXT was 4,439,158 bytes and decoded strictly with both GBK and GB18030 to 2,301,482 Unicode characters including CRLF line endings and 73,176 lines. Its header identified `绝境黑夜` by `滚开` and stated chapter 624 plus an afterword. Heading formats were heterogeneous. These non-text measurements are recorded in `docs/TEST_DATA.md`; the source archive and its text are not in the repository. The synthetic fixture is the reproducible automated test input.
