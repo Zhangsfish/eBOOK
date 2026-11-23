@@ -1,0 +1,102 @@
+{
+  "implementation_sha": "5714f20c7fce3956b282d04ef10e47d11025b5ae",
+  "workflow_run": 45180857046,
+  "workflow_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45180857046",
+  "artifact_name": "s00-xcode-5714f20c7fce3956b282d04ef10e47d11025b5ae",
+  "evidence": [
+    {
+      "file": "environment.json",
+      "artifact_member": "environment.json",
+      "sha256": "34f92d2e064ce148b975aa01545e4055fc4f205628e04e281071407572467505"
+    },
+    {
+      "file": "ci-run.json",
+      "artifact_member": "ci-run.json",
+      "sha256": "c8c86dc773324dc3cefdf2dbb4f12537704892c8e4596b763908a19d80a2af1d"
+    },
+    {
+      "file": "test-summary.json",
+      "artifact_member": "test-summary.json",
+      "sha256": "fbc30cdafaa9dbcdeac19ea705504a153f3e431d19a09a5369fdc414e5715563"
+    },
+    {
+      "file": "test-details.json",
+      "artifact_member": "test-details.json",
+      "sha256": "c44cc81c63ae9dda6599d9251eb164f9ff61bf91419de8f2690243c689e49482"
+    },
+    {
+      "file": "reader-metrics.json",
+      "artifact_member": "reader-metrics.json",
+      "sha256": "a02b0d5605b90e3dfef37eac16e6ce23349b5de7a4458ec0281d1a850ca22cd1"
+    },
+    {
+      "file": "reader-metrics-summary.json",
+      "artifact_member": "reader-metrics-summary.json",
+      "sha256": "a9ad1d1a83bd6e2d85252ec3ddb54a158e0e42b1f2b6fd9743a9ee7f0620ba02"
+    },
+    {
+      "file": "xcode-build.log",
+      "artifact_member": "xcode-build.log",
+      "sha256": "4de64c6cb40aa86f20d4cda809670197e2fdefc7ae1392254abc4d8f39170abb"
+    },
+    {
+      "file": "xcode-release.log",
+      "artifact_member": "xcode-release.log",
+      "sha256": "33354dbcec5a24f13407a09e390ef14ec569377b92076d9f8925644027e5c1de"
+    },
+    {
+      "file": "xcode-test.log",
+      "artifact_member": "xcode-test.log",
+      "sha256": "da6d27b03b0961173daa24896476416475da85cf928e926b9a4d0fe32742b72f"
+    },
+    {
+      "file": "attachments-export.log",
+      "artifact_member": "attachments-export.log",
+      "sha256": "fef795d25f786c5ed1b4d0c03bf294dbc03ce132ca3c4102a0d691419e0ddc06"
+    },
+    {
+      "file": "screenshots/epub-reader.png",
+      "artifact_member": "screenshots/2A7FE9FA-0B20-45A5-9FCB-837C2C3E898A.png",
+      "suggested_name": "epub-reader_0_3FBC0933-7336-4A9F-BA3E-162BACC630D6.png",
+      "sha256": "2164af48df236ec7852b3e6303700f6d9212689f7dd1610b471c0fe2c88b4706"
+    },
+    {
+      "file": "screenshots/files-imported-library.png",
+      "artifact_member": "screenshots/C8DB5633-4735-4FA9-A6FF-71D650C1124F.png",
+      "suggested_name": "files-imported-library_0_1748E2A1-8A4D-4D7E-92BA-5726E1C939B6.png",
+      "sha256": "6b38c58017d9548ba3b522c0a970e1fec3a9c1f08c1795e4435ba131369e2ffc"
+    },
+    {
+      "file": "screenshots/system-picker-synthetic.png",
+      "artifact_member": "screenshots/A03D78BD-D176-4D26-8E77-8F95D11D8CEB.png",
+      "suggested_name": "system-picker-synthetic_0_ED15F214-A6D8-423D-9BE6-6E2CDDB4D6BE.png",
+      "sha256": "2671cd666fc77f77951e0fdbc25165e65adad6dd4d9a9c374fb99bb6b6d72863"
+    },
+    {
+      "file": "screenshots/system-picker-sample_utf8.png",
+      "artifact_member": "screenshots/6A76763D-AFCF-4DC8-A355-0DFF7C3C9ACA.png",
+      "suggested_name": "system-picker-sample_utf8_0_02E21F29-BE5B-4398-90E6-243B0D038261.png",
+      "sha256": "4631fdf68ef9d6fc109ec7d2b8689be69c647e357ced1d26b9ed41cc9a2a445f"
+    },
+    {
+      "file": "screenshots/long-book-restored.png",
+      "artifact_member": "screenshots/F97FAFA5-C91B-48F1-A53C-BED5D44A12E8.png",
+      "suggested_name": "long-book-restored_0_84E77719-FBB1-4535-A36F-F1D8C02959FE.png",
+      "sha256": "9c669bc3256df1542266c9f8ff4ef44376ca46208c2508db9e54553146d305b3"
+    },
+    {
+      "file": "screenshots/long-book-dark.png",
+      "artifact_member": "screenshots/628AF9D3-761C-40B9-A602-96E2C96EA92B.png",
+      "suggested_name": "long-book-dark_0_81403270-B294-4996-A1A9-76AF53BE116A.png",
+      "sha256": "4150c4a5b7bd3fd91081721af9c1fb1cf4b8ba06369c3fe84a604c2fe429831e"
+    },
+    {
+      "file": "screenshots/long-book-warm.png",
+      "artifact_member": "screenshots/B195CD1A-1265-4A63-A739-B78D3058A1B8.png",
+      "suggested_name": "long-book-warm_0_6ECDBBEE-410B-4E24-A46F-7CCA2B4D9417.png",
+      "sha256": "62da87f773c163d2020367bfe90fb4fa54556ca2cb7b7bf7bb9054a2460abec5"
+    }
+  ],
+  "screenshot_policy": "Unmodified simulator PNG exports. All displayed books/text/images are original synthetic fixtures.",
+  "snapshot_policy": "This snapshot validates the stated implementation SHA. Subsequent chapter-inset/test-navigation fixes are identified in the reports. The final delivery HEAD is validated in its own exact-SHA Actions run, linked from the PR."
+}

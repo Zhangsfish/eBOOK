@@ -1,0 +1,40 @@
+name: S00 native iOS
+on:
+  push:
+    branches: [codex/s00-reader-foundation]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: s00-ios-${{ github.sha }}
+  cancel-in-progress: true
+jobs:
+  xcode:
+    # Standard public-repository runner only. No paid/larger runners or signing.
+    if: github.event.repository.private == false
+    runs-on: macos-15-intel
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Generate original local-only long fixture
+        run: |
+          python3 scripts/generate_long_gb18030_fixture.py
+          python3 scripts/generate_xcode_project.py --check
+      - name: Real Xcode build and simulator tests
+        run: bash scripts/ci_xcode.sh
+      - name: Upload metadata, logs and test results (no imported books or app bundle)
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: s00-xcode-${{ github.sha }}
+          path: |
+            build/*.log
+            build/environment.json
+            build/test-summary.json
+            build/test-details.json
+            build/reader-metrics.json
+            build/reader-metrics-summary.json
+            build/screenshots/
+          retention-days: 7

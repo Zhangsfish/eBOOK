@@ -1,0 +1,61 @@
+Skipped export for ReaderCoreTests/testChunkingPreservesTextOffsetsAndSurrogateBoundaries(): no matching attachments
+
+Skipped export for ReaderCoreTests/testEPUB2NCXNavigation(): no matching attachments
+
+Skipped export for ReaderCoreTests/testEPUB3MetadataSpineFragmentTOCAndLocalImages(): no matching attachments
+
+Skipped export for ReaderCoreTests/testEveryRequiredEncodingStrictlyDecodesChineseAndDialogue(): no matching attachments
+
+Exported 1 attachment for: ReaderCoreTests/testGeneratedLongGB18030ImportNavigationReadMemoryAndReopen():
+File: 8CAEC1BC-C825-4246-BB6F-B370D4F40CB2.txt, suggested name: "long-book-metrics_0_D1539BE6-3872-4857-96CD-449B66A43BF7.txt"
+
+Skipped export for ReaderCoreTests/testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook(): no matching attachments
+
+Skipped export for ReaderCoreTests/testMixedChapterFormsAndConservativeFallback(): no matching attachments
+
+Skipped export for ReaderCoreTests/testNoHeadingFallbackAndVeryLongSingleParagraphRemainBounded(): no matching attachments
+
+Skipped export for ReaderCoreTests/testOversizedUnsupportedAndCorruptLibraryErrors(): no matching attachments
+
+Skipped export for ReaderCoreTests/testReadingWindowBoundsLargeJumpsAndBothScrollingDirections(): no matching attachments
+
+Skipped export for ReaderCoreTests/testRejectsTruncationBinaryLossyReplacementAndWrongHint(): no matching attachments
+
+Skipped export for ReaderCoreTests/testTXTImportAtomicStorageReadingAndListeningPersistence(): no matching attachments
+
+Skipped export for ReaderCoreTests/testUTF16WithAndWithoutBOMAndExplicitEncodingHint(): no matching attachments
+
+Skipped export for ReaderCoreTests/testZIPCRCAndDeclaredExpansionLimitsAreEnforced(): no matching attachments
+
+Skipped export for SpeechControllerTests/testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets(): no matching attachments
+
+Skipped export for SpeechControllerTests/testCorruptLibraryBlocksWritesRatherThanReplacingExistingState(): no matching attachments
+
+Skipped export for SpeechControllerTests/testFailureAndRateChangeDoNotDiscardSavedListeningPosition(): no matching attachments
+
+Skipped export for SpeechControllerTests/testInterruptionOnlyResumesWhenPermittedAndRouteLossPauses(): no matching attachments
+
+Skipped export for SpeechControllerTests/testParagraphSeekSkipsEPUBIllustrationsInBothDirections(): no matching attachments
+
+Skipped export for SpeechControllerTests/testParagraphSeekWorksWithinABlockAndAcrossChapterBoundaries(): no matching attachments
+
+Skipped export for SpeechControllerTests/testPauseResumeSeekChapterProgressAndSeparateReadingPosition(): no matching attachments
+
+Skipped export for SpeechControllerTests/testPreviousParagraphSkipsTrailingBlockSeparators(): no matching attachments
+
+Exported 1 attachment for: ReaderUITests/testEPUBTOCImageAndReaderControls():
+File: 2A7FE9FA-0B20-45A5-9FCB-837C2C3E898A.png, suggested name: "epub-reader_0_3FBC0933-7336-4A9F-BA3E-162BACC630D6.png"
+
+Exported 3 attachments for: ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB():
+File: C8DB5633-4735-4FA9-A6FF-71D650C1124F.png, suggested name: "files-imported-library_0_1748E2A1-8A4D-4D7E-92BA-5726E1C939B6.png"
+File: A03D78BD-D176-4D26-8E77-8F95D11D8CEB.png, suggested name: "system-picker-synthetic_0_ED15F214-A6D8-423D-9BE6-6E2CDDB4D6BE.png"
+File: 6A76763D-AFCF-4DC8-A355-0DFF7C3C9ACA.png, suggested name: "system-picker-sample_utf8_0_02E21F29-BE5B-4398-90E6-243B0D038261.png"
+
+Exported 3 attachments for: ReaderUITests/testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch():
+File: F97FAFA5-C91B-48F1-A53C-BED5D44A12E8.png, suggested name: "long-book-restored_0_84E77719-FBB1-4535-A36F-F1D8C02959FE.png"
+File: 628AF9D3-761C-40B9-A602-96E2C96EA92B.png, suggested name: "long-book-dark_0_81403270-B294-4996-A1A9-76AF53BE116A.png"
+File: B195CD1A-1265-4A63-A739-B78D3058A1B8.png, suggested name: "long-book-warm_0_6ECDBBEE-410B-4E24-A46F-7CCA2B4D9417.png"
+
+Skipped export for ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel(): no matching attachments
+
+Generated manifest file with attachment details: /Users/runner/work/eBOOK/eBOOK/build/attachments/manifest.json

@@ -1,0 +1,302 @@
+{
+  "devices" : [
+    {
+      "architecture" : "x86_64",
+      "deviceId" : "08AEF2F6-6BFD-48DC-9538-9B3FB7DE50B9",
+      "deviceName" : "iPhone 16 Pro",
+      "modelName" : "iPhone 16 Pro",
+      "osBuildNumber" : "22F77",
+      "osVersion" : "18.5",
+      "platform" : "iOS Simulator"
+    }
+  ],
+  "testNodes" : [
+    {
+      "children" : [
+        {
+          "children" : [
+            {
+              "children" : [
+                {
+                  "duration" : "0.021s",
+                  "durationInSeconds" : 0.021173954010009766,
+                  "name" : "testChunkingPreservesTextOffsetsAndSurrogateBoundaries()",
+                  "nodeIdentifier" : "ReaderCoreTests/testChunkingPreservesTextOffsetsAndSurrogateBoundaries()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testChunkingPreservesTextOffsetsAndSurrogateBoundaries",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.039s",
+                  "durationInSeconds" : 0.03888893127441406,
+                  "name" : "testEPUB2NCXNavigation()",
+                  "nodeIdentifier" : "ReaderCoreTests/testEPUB2NCXNavigation()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testEPUB2NCXNavigation",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.019s",
+                  "durationInSeconds" : 0.019452929496765137,
+                  "name" : "testEPUB3MetadataSpineFragmentTOCAndLocalImages()",
+                  "nodeIdentifier" : "ReaderCoreTests/testEPUB3MetadataSpineFragmentTOCAndLocalImages()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testEPUB3MetadataSpineFragmentTOCAndLocalImages",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.05s",
+                  "durationInSeconds" : 0.05009305477142334,
+                  "name" : "testEveryRequiredEncodingStrictlyDecodesChineseAndDialogue()",
+                  "nodeIdentifier" : "ReaderCoreTests/testEveryRequiredEncodingStrictlyDecodesChineseAndDialogue()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testEveryRequiredEncodingStrictlyDecodesChineseAndDialogue",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "14s",
+                  "durationInSeconds" : 14.799011945724487,
+                  "name" : "testGeneratedLongGB18030ImportNavigationReadMemoryAndReopen()",
+                  "nodeIdentifier" : "ReaderCoreTests/testGeneratedLongGB18030ImportNavigationReadMemoryAndReopen()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testGeneratedLongGB18030ImportNavigationReadMemoryAndReopen",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.073s",
+                  "durationInSeconds" : 0.07255101203918457,
+                  "name" : "testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook()",
+                  "nodeIdentifier" : "ReaderCoreTests/testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.065s",
+                  "durationInSeconds" : 0.0654529333114624,
+                  "name" : "testMixedChapterFormsAndConservativeFallback()",
+                  "nodeIdentifier" : "ReaderCoreTests/testMixedChapterFormsAndConservativeFallback()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testMixedChapterFormsAndConservativeFallback",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.3s",
+                  "durationInSeconds" : 0.3005030155181885,
+                  "name" : "testNoHeadingFallbackAndVeryLongSingleParagraphRemainBounded()",
+                  "nodeIdentifier" : "ReaderCoreTests/testNoHeadingFallbackAndVeryLongSingleParagraphRemainBounded()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testNoHeadingFallbackAndVeryLongSingleParagraphRemainBounded",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.01s",
+                  "durationInSeconds" : 0.010272026062011719,
+                  "name" : "testOversizedUnsupportedAndCorruptLibraryErrors()",
+                  "nodeIdentifier" : "ReaderCoreTests/testOversizedUnsupportedAndCorruptLibraryErrors()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testOversizedUnsupportedAndCorruptLibraryErrors",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.0032s",
+                  "durationInSeconds" : 0.0031599998474121094,
+                  "name" : "testReadingWindowBoundsLargeJumpsAndBothScrollingDirections()",
+                  "nodeIdentifier" : "ReaderCoreTests/testReadingWindowBoundsLargeJumpsAndBothScrollingDirections()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testReadingWindowBoundsLargeJumpsAndBothScrollingDirections",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.0047s",
+                  "durationInSeconds" : 0.00468599796295166,
+                  "name" : "testRejectsTruncationBinaryLossyReplacementAndWrongHint()",
+                  "nodeIdentifier" : "ReaderCoreTests/testRejectsTruncationBinaryLossyReplacementAndWrongHint()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testRejectsTruncationBinaryLossyReplacementAndWrongHint",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.054s",
+                  "durationInSeconds" : 0.05410897731781006,
+                  "name" : "testTXTImportAtomicStorageReadingAndListeningPersistence()",
+                  "nodeIdentifier" : "ReaderCoreTests/testTXTImportAtomicStorageReadingAndListeningPersistence()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testTXTImportAtomicStorageReadingAndListeningPersistence",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.037s",
+                  "durationInSeconds" : 0.0368649959564209,
+                  "name" : "testUTF16WithAndWithoutBOMAndExplicitEncodingHint()",
+                  "nodeIdentifier" : "ReaderCoreTests/testUTF16WithAndWithoutBOMAndExplicitEncodingHint()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testUTF16WithAndWithoutBOMAndExplicitEncodingHint",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.024s",
+                  "durationInSeconds" : 0.023872017860412598,
+                  "name" : "testZIPCRCAndDeclaredExpansionLimitsAreEnforced()",
+                  "nodeIdentifier" : "ReaderCoreTests/testZIPCRCAndDeclaredExpansionLimitsAreEnforced()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests/testZIPCRCAndDeclaredExpansionLimitsAreEnforced",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                }
+              ],
+              "name" : "ReaderCoreTests",
+              "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/ReaderCoreTests",
+              "nodeType" : "Test Suite",
+              "result" : "Passed"
+            },
+            {
+              "children" : [
+                {
+                  "duration" : "5s",
+                  "durationInSeconds" : 5.884987950325012,
+                  "name" : "testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets()",
+                  "nodeIdentifier" : "SpeechControllerTests/testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.029s",
+                  "durationInSeconds" : 0.029404044151306152,
+                  "name" : "testCorruptLibraryBlocksWritesRatherThanReplacingExistingState()",
+                  "nodeIdentifier" : "SpeechControllerTests/testCorruptLibraryBlocksWritesRatherThanReplacingExistingState()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testCorruptLibraryBlocksWritesRatherThanReplacingExistingState",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.1s",
+                  "durationInSeconds" : 0.09971797466278076,
+                  "name" : "testFailureAndRateChangeDoNotDiscardSavedListeningPosition()",
+                  "nodeIdentifier" : "SpeechControllerTests/testFailureAndRateChangeDoNotDiscardSavedListeningPosition()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testFailureAndRateChangeDoNotDiscardSavedListeningPosition",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.026s",
+                  "durationInSeconds" : 0.0260159969329834,
+                  "name" : "testInterruptionOnlyResumesWhenPermittedAndRouteLossPauses()",
+                  "nodeIdentifier" : "SpeechControllerTests/testInterruptionOnlyResumesWhenPermittedAndRouteLossPauses()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testInterruptionOnlyResumesWhenPermittedAndRouteLossPauses",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.031s",
+                  "durationInSeconds" : 0.031186938285827637,
+                  "name" : "testParagraphSeekSkipsEPUBIllustrationsInBothDirections()",
+                  "nodeIdentifier" : "SpeechControllerTests/testParagraphSeekSkipsEPUBIllustrationsInBothDirections()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testParagraphSeekSkipsEPUBIllustrationsInBothDirections",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.039s",
+                  "durationInSeconds" : 0.039341092109680176,
+                  "name" : "testParagraphSeekWorksWithinABlockAndAcrossChapterBoundaries()",
+                  "nodeIdentifier" : "SpeechControllerTests/testParagraphSeekWorksWithinABlockAndAcrossChapterBoundaries()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testParagraphSeekWorksWithinABlockAndAcrossChapterBoundaries",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.042s",
+                  "durationInSeconds" : 0.04244410991668701,
+                  "name" : "testPauseResumeSeekChapterProgressAndSeparateReadingPosition()",
+                  "nodeIdentifier" : "SpeechControllerTests/testPauseResumeSeekChapterProgressAndSeparateReadingPosition()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testPauseResumeSeekChapterProgressAndSeparateReadingPosition",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "0.037s",
+                  "durationInSeconds" : 0.03664100170135498,
+                  "name" : "testPreviousParagraphSkipsTrailingBlockSeparators()",
+                  "nodeIdentifier" : "SpeechControllerTests/testPreviousParagraphSkipsTrailingBlockSeparators()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests/testPreviousParagraphSkipsTrailingBlockSeparators",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                }
+              ],
+              "name" : "SpeechControllerTests",
+              "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests/SpeechControllerTests",
+              "nodeType" : "Test Suite",
+              "result" : "Passed"
+            }
+          ],
+          "name" : "EBookTests",
+          "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookTests",
+          "nodeType" : "Unit test bundle",
+          "result" : "Passed"
+        },
+        {
+          "children" : [
+            {
+              "children" : [
+                {
+                  "duration" : "20s",
+                  "durationInSeconds" : 20.12284803390503,
+                  "name" : "testEPUBTOCImageAndReaderControls()",
+                  "nodeIdentifier" : "ReaderUITests/testEPUBTOCImageAndReaderControls()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookUITests/ReaderUITests/testEPUBTOCImageAndReaderControls",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "1m 52s",
+                  "durationInSeconds" : 112.71873700618744,
+                  "name" : "testFilesPickerImportsSelectedTXTAndEPUB()",
+                  "nodeIdentifier" : "ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "5m 25s",
+                  "durationInSeconds" : 325.9297870397568,
+                  "name" : "testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch()",
+                  "nodeIdentifier" : "ReaderUITests/testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookUITests/ReaderUITests/testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                },
+                {
+                  "duration" : "41s",
+                  "durationInSeconds" : 41.09491503238678,
+                  "name" : "testSystemDocumentPickerPresentsAndCanCancel()",
+                  "nodeIdentifier" : "ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel()",
+                  "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookUITests/ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel",
+                  "nodeType" : "Test Case",
+                  "result" : "Passed"
+                }
+              ],
+              "name" : "ReaderUITests",
+              "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookUITests/ReaderUITests",
+              "nodeType" : "Test Suite",
+              "result" : "Passed"
+            }
+          ],
+          "name" : "EBookUITests",
+          "nodeIdentifierURL" : "test://com.apple.xcode/eBOOK/EBookUITests",
+          "nodeType" : "UI test bundle",
+          "result" : "Passed"
+        }
+      ],
+      "name" : "eBOOK",
+      "nodeType" : "Test Plan",
+      "result" : "Passed"
+    }
+  ],
+  "testPlanConfigurations" : [
+    {
+      "configurationId" : "1",
+      "configurationName" : "Test Scheme Action"
+    }
+  ]
+}

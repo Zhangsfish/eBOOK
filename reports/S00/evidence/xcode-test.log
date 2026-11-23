@@ -1,0 +1,786 @@
+Command line invocation:
+    /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/xcodebuild -project eBOOK.xcodeproj -scheme eBOOK -destination id=08AEF2F6-6BFD-48DC-9538-9B3FB7DE50B9 -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO -configuration Debug test-without-building -parallel-testing-enabled NO -resultBundlePath build/Test.xcresult
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Writing result bundle at path:
+	/Users/runner/work/eBOOK/eBOOK/build/Test.xcresult
+
+2026-11-23 13:18:20.137026+0000 eBOOK[14632:45068] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:20.138631+0000 eBOOK[14632:45068] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:21.383482+0000 eBOOK[14632:45068] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:21.383985+0000 eBOOK[14632:45068] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:21.384513+0000 eBOOK[14632:45068] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:21.385009+0000 eBOOK[14632:45068] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:21.418781+0000 eBOOK[14632:45068] [library] load_eligibility_plist: Failed to open /Users/runner/Library/Developer/CoreSimulator/Devices/08AEF2F6-6BFD-48DC-9538-9B3FB7DE50B9/data/Containers/Data/Application/874085C1-BBEB-42CA-97A9-3F273C92DBCF/private/var/db/eligibilityd/eligibility.plist: No such file or directory(2)
+2026-11-23 13:18:21.603833+0000 eBOOK[14632:45484] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:21.604420+0000 eBOOK[14632:45484] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:21.889518+0000 eBOOK[14632:45485] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:21.890041+0000 eBOOK[14632:45485] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:22.424918+0000 eBOOK[14632:45484] [asset] Failed to get sandbox extensions
+2026-11-23 13:18:22.487466+0000 eBOOK[14632:45484] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
+2026-11-23 13:18:22.489681+0000 eBOOK[14632:45484] [asset] #FactoryInstall Unable to query results, error: 5
+2026-11-23 13:18:22.503312+0000 eBOOK[14632:45484] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:22.503788+0000 eBOOK[14632:45484] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:22.508631+0000 eBOOK[14632:45484] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
+Test Suite 'All tests' started at 2026-11-23 13:18:26.401.
+Test Suite 'EBookTests.xctest' started at 2026-11-23 13:18:26.404.
+Test Suite 'ReaderCoreTests' started at 2026-11-23 13:18:26.405.
+Test Case '-[EBookTests.ReaderCoreTests testChunkingPreservesTextOffsetsAndSurrogateBoundaries]' started.
+Test Case '-[EBookTests.ReaderCoreTests testChunkingPreservesTextOffsetsAndSurrogateBoundaries]' passed (0.021 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testEPUB2NCXNavigation]' started.
+Test Case '-[EBookTests.ReaderCoreTests testEPUB2NCXNavigation]' passed (0.039 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testEPUB3MetadataSpineFragmentTOCAndLocalImages]' started.
+Test Case '-[EBookTests.ReaderCoreTests testEPUB3MetadataSpineFragmentTOCAndLocalImages]' passed (0.019 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testEveryRequiredEncodingStrictlyDecodesChineseAndDialogue]' started.
+Test Case '-[EBookTests.ReaderCoreTests testEveryRequiredEncodingStrictlyDecodesChineseAndDialogue]' passed (0.050 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testGeneratedLongGB18030ImportNavigationReadMemoryAndReopen]' started.
+S00_LONG_METRICS import_seconds=10.003270983695984 blocks=1875 chapters=625 max_block_utf16=1600 process_peak_rss_bytes=223977472 peak_increase_bytes=26005504
+Test Case '-[EBookTests.ReaderCoreTests testGeneratedLongGB18030ImportNavigationReadMemoryAndReopen]' passed (14.799 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook]' started.
+Test Case '-[EBookTests.ReaderCoreTests testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook]' passed (0.073 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testMixedChapterFormsAndConservativeFallback]' started.
+Test Case '-[EBookTests.ReaderCoreTests testMixedChapterFormsAndConservativeFallback]' passed (0.065 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testNoHeadingFallbackAndVeryLongSingleParagraphRemainBounded]' started.
+Test Case '-[EBookTests.ReaderCoreTests testNoHeadingFallbackAndVeryLongSingleParagraphRemainBounded]' passed (0.301 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testOversizedUnsupportedAndCorruptLibraryErrors]' started.
+Test Case '-[EBookTests.ReaderCoreTests testOversizedUnsupportedAndCorruptLibraryErrors]' passed (0.010 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testReadingWindowBoundsLargeJumpsAndBothScrollingDirections]' started.
+Test Case '-[EBookTests.ReaderCoreTests testReadingWindowBoundsLargeJumpsAndBothScrollingDirections]' passed (0.003 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testRejectsTruncationBinaryLossyReplacementAndWrongHint]' started.
+Test Case '-[EBookTests.ReaderCoreTests testRejectsTruncationBinaryLossyReplacementAndWrongHint]' passed (0.005 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testTXTImportAtomicStorageReadingAndListeningPersistence]' started.
+Test Case '-[EBookTests.ReaderCoreTests testTXTImportAtomicStorageReadingAndListeningPersistence]' passed (0.054 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testUTF16WithAndWithoutBOMAndExplicitEncodingHint]' started.
+Test Case '-[EBookTests.ReaderCoreTests testUTF16WithAndWithoutBOMAndExplicitEncodingHint]' passed (0.037 seconds).
+Test Case '-[EBookTests.ReaderCoreTests testZIPCRCAndDeclaredExpansionLimitsAreEnforced]' started.
+Test Case '-[EBookTests.ReaderCoreTests testZIPCRCAndDeclaredExpansionLimitsAreEnforced]' passed (0.024 seconds).
+Test Suite 'ReaderCoreTests' passed at 2026-11-23 13:18:41.997.
+	 Executed 14 tests, with 0 failures (0 unexpected) in 15.500 (15.592) seconds
+Test Suite 'SpeechControllerTests' started at 2026-11-23 13:18:42.001.
+Test Case '-[EBookTests.SpeechControllerTests testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets]' started.
+2026-11-23 13:18:42.342350+0000 eBOOK[14632:45068] [plugin] AddInstanceForFactory: No factory registered for id <CFUUID 0x600000525280> F8BB1C28-BAE8-11D6-9C31-00039315CD46
+2026-11-23 13:18:42.565844+0000 eBOOK[14632:47318] [catalog] Query for com.apple.MobileAsset.VoiceServicesVocalizerVoice failed: 2
+2026-11-23 13:18:42.580778+0000 eBOOK[14632:47318] [catalog] Query for com.apple.MobileAsset.VoiceServices.GryphonVoice failed: 2
+2026-11-23 13:18:42.951791+0000 eBOOK[14632:47379] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:42.952458+0000 eBOOK[14632:47379] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:43.026127+0000 eBOOK[14632:47379] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=14632
+2026-11-23 13:18:43.027324+0000 eBOOK[14632:47379] SecTaskCopyDebugDescription: eBOOK[14632]/0#-1 LF=22
+2026-11-23 13:18:45.607482+0000 eBOOK[14632:47402] [AMCP]  84995          HALC_ProxyIOContext.cpp:1622  HALC_ProxyIOContext::IOWorkLoop: skipping cycle due to overload
+Test Case '-[EBookTests.SpeechControllerTests testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets]' passed (5.885 seconds).
+Test Case '-[EBookTests.SpeechControllerTests testCorruptLibraryBlocksWritesRatherThanReplacingExistingState]' started.
+Test Case '-[EBookTests.SpeechControllerTests testCorruptLibraryBlocksWritesRatherThanReplacingExistingState]' passed (0.029 seconds).
+Test Case '-[EBookTests.SpeechControllerTests testFailureAndRateChangeDoNotDiscardSavedListeningPosition]' started.
+Test Case '-[EBookTests.SpeechControllerTests testFailureAndRateChangeDoNotDiscardSavedListeningPosition]' passed (0.100 seconds).
+Test Case '-[EBookTests.SpeechControllerTests testInterruptionOnlyResumesWhenPermittedAndRouteLossPauses]' started.
+Test Case '-[EBookTests.SpeechControllerTests testInterruptionOnlyResumesWhenPermittedAndRouteLossPauses]' passed (0.026 seconds).
+Test Case '-[EBookTests.SpeechControllerTests testParagraphSeekSkipsEPUBIllustrationsInBothDirections]' started.
+Test Case '-[EBookTests.SpeechControllerTests testParagraphSeekSkipsEPUBIllustrationsInBothDirections]' passed (0.031 seconds).
+Test Case '-[EBookTests.SpeechControllerTests testParagraphSeekWorksWithinABlockAndAcrossChapterBoundaries]' started.
+Test Case '-[EBookTests.SpeechControllerTests testParagraphSeekWorksWithinABlockAndAcrossChapterBoundaries]' passed (0.039 seconds).
+Test Case '-[EBookTests.SpeechControllerTests testPauseResumeSeekChapterProgressAndSeparateReadingPosition]' started.
+Test Case '-[EBookTests.SpeechControllerTests testPauseResumeSeekChapterProgressAndSeparateReadingPosition]' passed (0.042 seconds).
+Test Case '-[EBookTests.SpeechControllerTests testPreviousParagraphSkipsTrailingBlockSeparators]' started.
+Test Case '-[EBookTests.SpeechControllerTests testPreviousParagraphSkipsTrailingBlockSeparators]' passed (0.037 seconds).
+Test Suite 'SpeechControllerTests' passed at 2026-11-23 13:18:48.201.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 6.190 (6.200) seconds
+Test Suite 'EBookTests.xctest' passed at 2026-11-23 13:18:48.203.
+	 Executed 22 tests, with 0 failures (0 unexpected) in 21.690 (21.799) seconds
+Test Suite 'All tests' passed at 2026-11-23 13:18:48.206.
+	 Executed 22 tests, with 0 failures (0 unexpected) in 21.690 (21.805) seconds
+2026-11-23 13:18:48.289948+0000 eBOOK[14632:47322] [auext] Error in destroying pipe Error Domain=NSCocoaErrorDomain Code=4099 "The connection from pid 15471 on anonymousListener or serviceListener was invalidated from this process." UserInfo={NSDebugDescription=The connection from pid 15471 on anonymousListener or serviceListener was invalidated from this process.}
+2026-11-23 13:18:54.477835+0000 EBookUITests-Runner[15795:48354] [Default] Running tests...
+2026-11-23 13:18:54.517407+0000 EBookUITests-Runner[15795:48491] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+2026-11-23 13:19:00.846619+0000 EBookUITests-Runner[15795:48490] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'All tests' started at 2026-11-23 13:19:12.265.
+Test Suite 'EBookUITests.xctest' started at 2026-11-23 13:19:12.267.
+Test Suite 'ReaderUITests' started at 2026-11-23 13:19:12.268.
+Test Case '-[EBookUITests.ReaderUITests testEPUBTOCImageAndReaderControls]' started.
+    t =     0.00s Start Test at 2026-11-23 13:19:12.272
+    t =     0.56s Set Up
+    t =     0.57s Open org.example.eBOOK
+    t =     0.57s     Launch org.example.eBOOK
+    t =     1.03s         Setting up automation session
+    t =     4.42s         Wait for org.example.eBOOK to idle
+    t =     9.11s Waiting 180.0s for "library.book.合成的清晨" Button to exist
+    t =    10.15s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.合成的清晨" Button`
+    t =    10.15s         Checking existence of `"library.book.合成的清晨" Button`
+    t =    10.38s Tap "library.book.合成的清晨" Button
+    t =    10.38s     Wait for org.example.eBOOK to idle
+    t =    10.39s     Find the "library.book.合成的清晨" Button
+    t =    10.47s     Check for interrupting elements affecting "library.book.合成的清晨" Button
+    t =    10.56s     Synthesize event
+    t =    11.15s     Wait for org.example.eBOOK to idle
+    t =    13.06s Waiting 20.0s for "reader.table" Table to exist
+    t =    14.10s     Checking `Expect predicate `existsNoRetry == 1` for object "reader.table" Table`
+    t =    14.10s         Checking existence of `"reader.table" Table`
+    t =    14.22s Find the Target Application 'org.example.eBOOK'
+    t =    14.49s Added attachment named 'epub-reader'
+    t =    14.49s Tap "reader.toc" Button
+    t =    14.49s     Wait for org.example.eBOOK to idle
+    t =    14.50s     Find the "reader.toc" Button
+    t =    14.60s     Check for interrupting elements affecting "reader.toc" Button
+    t =    14.67s     Synthesize event
+    t =    15.01s     Wait for org.example.eBOOK to idle
+    t =    15.40s Waiting 10.0s for "toc.entry.2" Button to exist
+    t =    16.48s     Checking `Expect predicate `existsNoRetry == 1` for object "toc.entry.2" Button`
+    t =    16.48s         Checking existence of `"toc.entry.2" Button`
+    t =    16.63s Tap "toc.entry.2" Button
+    t =    16.63s     Wait for org.example.eBOOK to idle
+    t =    16.64s     Find the "toc.entry.2" Button
+    t =    16.75s     Check for interrupting elements affecting "toc.entry.2" Button
+    t =    16.87s     Synthesize event
+    t =    17.22s     Wait for org.example.eBOOK to idle
+    t =    17.44s Waiting 10.0s for "reader.table" Table to exist
+    t =    18.46s     Checking `Expect predicate `existsNoRetry == 1` for object "reader.table" Table`
+    t =    18.46s         Checking existence of `"reader.table" Table`
+    t =    18.56s Checking existence of `"speech.play" Button`
+    t =    18.66s Checking existence of `"下一章" Button`
+    t =    18.76s Checking existence of `"从当前阅读位置开始朗读" Button`
+    t =    18.87s Tear Down
+Test Case '-[EBookUITests.ReaderUITests testEPUBTOCImageAndReaderControls]' passed (20.123 seconds).
+Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' started.
+    t =     0.00s Start Test at 2026-11-23 13:19:32.394
+    t =     0.03s Set Up
+    t =     0.04s Open org.example.eBOOK
+    t =     0.04s     Launch org.example.eBOOK
+    t =     0.04s         Terminate org.example.eBOOK:16585
+    t =     3.87s         Setting up automation session
+    t =     7.05s         Wait for org.example.eBOOK to idle
+    t =    10.33s Waiting 30.0s for "library.import" Button to exist
+    t =    11.36s     Checking `Expect predicate `existsNoRetry == 1` for object "library.import" Button`
+    t =    11.36s         Checking existence of `"library.import" Button`
+    t =    11.49s Tap "library.import" Button
+    t =    11.49s     Wait for org.example.eBOOK to idle
+    t =    11.58s     Find the "library.import" Button
+    t =    11.65s     Check for interrupting elements affecting "library.import" Button
+    t =    11.74s     Synthesize event
+    t =    12.10s     Wait for org.example.eBOOK to idle
+    t =    12.25s Waiting 5.0s for StaticText (First Match) to exist
+    t =    13.28s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    13.28s         Checking existence of `StaticText (First Match)`
+    t =    13.42s         Capturing element debug description
+    t =    14.25s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    14.25s         Checking existence of `StaticText (First Match)`
+    t =    14.41s         Capturing element debug description
+    t =    15.26s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    15.26s         Checking existence of `StaticText (First Match)`
+    t =    16.39s         Capturing element debug description
+    t =    17.25s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    17.25s         Checking existence of `StaticText (First Match)`
+    t =    17.56s         Capturing element debug description
+    t =    17.57s     Checking existence of `StaticText (First Match)`
+    t =    20.38s Collecting debug information to assist test failure triage
+    t =    20.38s     Requesting snapshot of accessibility hierarchy for app with pid 17092
+    t =    21.96s Checking existence of `Button (First Match)`
+    t =    40.34s Tap Button (First Match)
+    t =    40.34s     Wait for org.example.eBOOK to idle
+    t =    40.35s     Find the Button (First Match)
+    t =    40.76s     Check for interrupting elements affecting "浏览" Button
+    t =    40.97s     Synthesize event
+    t =    41.33s     Wait for org.example.eBOOK to idle
+    t =    41.34s Waiting 8.0s for StaticText (First Match) to exist
+    t =    42.36s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    42.36s         Checking existence of `StaticText (First Match)`
+    t =    49.60s         Capturing element debug description
+    t =    49.60s     Checking existence of `StaticText (First Match)`
+    t =    62.36s Collecting debug information to assist test failure triage
+    t =    62.36s     Requesting snapshot of accessibility hierarchy for app with pid 17092
+    t =    62.83s Waiting 8.0s for "eBOOK" StaticText to exist
+    t =    63.85s     Checking `Expect predicate `existsNoRetry == 1` for object "eBOOK" StaticText`
+    t =    63.85s         Checking existence of `"eBOOK" StaticText`
+    t =    66.51s         Capturing element debug description
+    t =    66.83s     Checking `Expect predicate `existsNoRetry == 1` for object "eBOOK" StaticText`
+    t =    66.83s         Checking existence of `"eBOOK" StaticText`
+    t =    67.34s         Capturing element debug description
+    t =    67.83s     Checking `Expect predicate `existsNoRetry == 1` for object "eBOOK" StaticText`
+    t =    67.83s         Checking existence of `"eBOOK" StaticText`
+    t =    68.28s         Capturing element debug description
+    t =    68.90s     Checking `Expect predicate `existsNoRetry == 1` for object "eBOOK" StaticText`
+    t =    68.90s         Checking existence of `"eBOOK" StaticText`
+    t =    69.36s         Capturing element debug description
+    t =    69.87s     Checking `Expect predicate `existsNoRetry == 1` for object "eBOOK" StaticText`
+    t =    69.88s         Checking existence of `"eBOOK" StaticText`
+    t =    70.34s         Capturing element debug description
+    t =    70.83s     Checking `Expect predicate `existsNoRetry == 1` for object "eBOOK" StaticText`
+    t =    70.83s         Checking existence of `"eBOOK" StaticText`
+    t =    71.10s         Capturing element debug description
+    t =    71.10s     Checking existence of `"eBOOK" StaticText`
+    t =    71.68s Collecting debug information to assist test failure triage
+    t =    71.68s     Requesting snapshot of accessibility hierarchy for app with pid 17092
+    t =    72.09s Find the Target Application 'org.example.eBOOK'
+    t =    72.48s Added attachment named 'system-picker-sample_utf8'
+    t =    72.49s Waiting 10.0s for StaticText (First Match) to exist
+    t =    73.51s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    73.52s         Checking existence of `StaticText (First Match)`
+    t =    73.93s Waiting 10.0s for StaticText (First Match) to exist
+    t =    74.94s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    74.94s         Checking existence of `StaticText (First Match)`
+    t =    75.32s Waiting 10.0s for Cell (First Match) to exist
+    t =    76.37s     Checking `Expect predicate `existsNoRetry == 1` for object Cell (First Match)`
+    t =    76.37s         Checking existence of `Cell (First Match)`
+    t =    76.71s Checking existence of `Image (First Match)`
+    t =    77.04s Find the Image (First Match)
+    t =    77.56s Tap Image at {{39.7, 194.0}, {63.0, 84.0}}
+    t =    77.56s     Wait for org.example.eBOOK to idle
+    t =    77.58s     Find the Image at {{39.7, 194.0}, {63.0, 84.0}}
+    t =    78.12s     Check for interrupting elements affecting Image
+    t =    78.34s     Synthesize event
+    t =    78.72s     Wait for org.example.eBOOK to idle
+    t =    78.73s Waiting 2.0s for Button (First Match) to exist
+    t =    79.74s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    79.74s         Checking existence of `Button (First Match)`
+    t =    81.04s         Capturing element debug description
+    t =    81.04s     Checking existence of `Button (First Match)`
+    t =    82.25s Collecting debug information to assist test failure triage
+    t =    82.26s     Requesting snapshot of accessibility hierarchy for app with pid 17092
+    t =    82.90s Waiting 30.0s for "library.book.sample_utf8" Button to exist
+    t =    83.94s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.sample_utf8" Button`
+    t =    83.94s         Checking existence of `"library.book.sample_utf8" Button`
+    t =    84.05s Waiting 30.0s for "library.import" Button to exist
+    t =    85.08s     Checking `Expect predicate `existsNoRetry == 1` for object "library.import" Button`
+    t =    85.08s         Checking existence of `"library.import" Button`
+    t =    85.15s Tap "library.import" Button
+    t =    85.15s     Wait for org.example.eBOOK to idle
+    t =    85.17s     Find the "library.import" Button
+    t =    85.27s     Check for interrupting elements affecting "library.import" Button
+    t =    85.38s     Synthesize event
+    t =    85.78s     Wait for org.example.eBOOK to idle
+    t =    86.12s Waiting 5.0s for StaticText (First Match) to exist
+    t =    87.14s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    87.14s         Checking existence of `StaticText (First Match)`
+    t =    89.51s         Capturing element debug description
+    t =    90.12s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =    90.12s         Checking existence of `StaticText (First Match)`
+    t =    91.43s         Capturing element debug description
+    t =    91.43s     Checking existence of `StaticText (First Match)`
+    t =    99.11s Find the Target Application 'org.example.eBOOK'
+    t =    99.60s Added attachment named 'system-picker-synthetic'
+    t =    99.61s Waiting 10.0s for StaticText (First Match) to exist
+    t =   100.63s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =   100.63s         Checking existence of `StaticText (First Match)`
+    t =   101.07s Waiting 10.0s for StaticText (First Match) to exist
+    t =   102.09s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =   102.09s         Checking existence of `StaticText (First Match)`
+    t =   102.63s Waiting 10.0s for Cell (First Match) to exist
+    t =   103.63s     Checking `Expect predicate `existsNoRetry == 1` for object Cell (First Match)`
+    t =   103.63s         Checking existence of `Cell (First Match)`
+    t =   104.24s Checking existence of `Image (First Match)`
+    t =   105.03s Find the Image (First Match)
+    t =   105.55s Tap Image at {{299.0, 194.0}, {64.0, 84.0}}
+    t =   105.55s     Wait for org.example.eBOOK to idle
+    t =   105.57s     Find the Image at {{299.0, 194.0}, {64.0, 84.0}}
+    t =   106.17s     Check for interrupting elements affecting Image
+    t =   106.45s     Synthesize event
+    t =   106.81s     Wait for org.example.eBOOK to idle
+    t =   106.82s Waiting 2.0s for Button (First Match) to exist
+    t =   107.86s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =   107.86s         Checking existence of `Button (First Match)`
+    t =   109.12s         Capturing element debug description
+    t =   109.12s     Checking existence of `Button (First Match)`
+    t =   109.95s Collecting debug information to assist test failure triage
+    t =   109.95s     Requesting snapshot of accessibility hierarchy for app with pid 17092
+    t =   110.24s Waiting 30.0s for "library.book.合成的清晨" Button to exist
+    t =   111.30s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.合成的清晨" Button`
+    t =   111.33s         Checking existence of `"library.book.合成的清晨" Button`
+    t =   111.69s Get number of matches for: Elements matching predicate 'identifier BEGINSWITH "library.book."'
+    t =   111.78s Find the Target Application 'org.example.eBOOK'
+    t =   112.01s Added attachment named 'files-imported-library'
+    t =   112.02s Tear Down
+Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' passed (112.719 seconds).
+Test Case '-[EBookUITests.ReaderUITests testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch]' started.
+    t =     0.00s Start Test at 2026-11-23 13:21:25.114
+    t =     0.03s Set Up
+    t =     0.03s Open org.example.eBOOK
+    t =     0.03s     Launch org.example.eBOOK
+    t =     0.03s         Terminate org.example.eBOOK:17092
+    t =     3.51s         Setting up automation session
+    t =     5.99s         Wait for org.example.eBOOK to idle
+    t =     9.83s Waiting 180.0s for "library.book.synthetic_long_gb18030" Button to exist
+    t =    10.87s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    10.87s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    11.07s         Capturing element debug description
+    t =    11.92s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    11.92s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    12.36s         Capturing element debug description
+    t =    12.87s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    12.88s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    13.17s         Capturing element debug description
+    t =    13.88s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    13.91s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    14.06s         Capturing element debug description
+    t =    14.93s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    14.93s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    16.11s         Capturing element debug description
+    t =    16.85s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    16.85s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    17.21s         Capturing element debug description
+    t =    17.96s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    17.96s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    19.16s         Capturing element debug description
+    t =    19.89s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    19.89s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    19.96s         Capturing element debug description
+    t =    20.92s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    20.92s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    21.05s         Capturing element debug description
+    t =    21.89s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    21.89s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    21.95s         Capturing element debug description
+    t =    22.89s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    22.89s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    22.96s         Capturing element debug description
+    t =    23.89s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    23.89s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    24.03s         Capturing element debug description
+    t =    24.85s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    24.85s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    24.90s         Capturing element debug description
+    t =    25.92s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    25.92s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    25.98s         Capturing element debug description
+    t =    26.92s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    26.92s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    27.01s         Capturing element debug description
+    t =    27.84s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    27.84s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    28.20s         Capturing element debug description
+    t =    28.85s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    28.85s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    29.74s         Capturing element debug description
+    t =    29.85s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =    29.85s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =    30.00s Tap "library.book.synthetic_long_gb18030" Button
+    t =    30.00s     Wait for org.example.eBOOK to idle
+    t =    30.01s     Find the "library.book.synthetic_long_gb18030" Button
+    t =    30.19s     Check for interrupting elements affecting "library.book.synthetic_long_gb18030" Button
+    t =    30.29s     Synthesize event
+    t =    30.67s     Wait for org.example.eBOOK to idle
+    t =    36.46s Waiting 20.0s for "reader.table" Table to exist
+    t =    37.49s     Checking `Expect predicate `existsNoRetry == 1` for object "reader.table" Table`
+    t =    37.49s         Checking existence of `"reader.table" Table`
+    t =    38.58s Waiting 10.0s for "reader.anchor" StaticText to exist
+    t =    39.59s     Checking `Expect predicate `existsNoRetry == 1` for object "reader.anchor" StaticText`
+    t =    39.59s         Checking existence of `"reader.anchor" StaticText`
+    t =    39.78s Find the "reader.anchor" StaticText
+    t =    39.98s Swipe up "reader.table" Table
+    t =    39.98s     Wait for org.example.eBOOK to idle
+    t =    39.99s     Find the "reader.table" Table
+    t =    40.20s     Check for interrupting elements affecting "reader.table" Table
+    t =    40.35s     Synthesize event
+    t =    40.98s     Wait for org.example.eBOOK to idle
+    t =    43.57s Swipe up "reader.table" Table
+    t =    43.58s     Wait for org.example.eBOOK to idle
+    t =    43.59s     Find the "reader.table" Table
+    t =    44.20s     Check for interrupting elements affecting "reader.table" Table
+    t =    44.33s     Synthesize event
+    t =    45.14s     Wait for org.example.eBOOK to idle
+    t =    47.60s Swipe up "reader.table" Table
+    t =    47.60s     Wait for org.example.eBOOK to idle
+    t =    47.64s     Find the "reader.table" Table
+    t =    48.06s     Check for interrupting elements affecting "reader.table" Table
+    t =    48.19s     Synthesize event
+    t =    48.89s     Wait for org.example.eBOOK to idle
+    t =    51.18s Swipe up "reader.table" Table
+    t =    51.18s     Wait for org.example.eBOOK to idle
+    t =    51.41s     Find the "reader.table" Table
+    t =    51.72s     Check for interrupting elements affecting "reader.table" Table
+    t =    51.86s     Synthesize event
+    t =    52.51s     Wait for org.example.eBOOK to idle
+    t =    55.24s Swipe up "reader.table" Table
+    t =    55.24s     Wait for org.example.eBOOK to idle
+    t =    55.27s     Find the "reader.table" Table
+    t =    55.99s     Check for interrupting elements affecting "reader.table" Table
+    t =    56.24s     Synthesize event
+    t =    56.85s     Wait for org.example.eBOOK to idle
+    t =    59.32s Swipe up "reader.table" Table
+    t =    59.33s     Wait for org.example.eBOOK to idle
+    t =    59.38s     Find the "reader.table" Table
+    t =    59.63s     Check for interrupting elements affecting "reader.table" Table
+    t =    59.82s     Synthesize event
+    t =    60.46s     Wait for org.example.eBOOK to idle
+    t =    62.83s Swipe up "reader.table" Table
+    t =    62.83s     Wait for org.example.eBOOK to idle
+    t =    62.84s     Find the "reader.table" Table
+    t =    63.33s     Check for interrupting elements affecting "reader.table" Table
+    t =    63.47s     Synthesize event
+    t =    64.09s     Wait for org.example.eBOOK to idle
+    t =    66.69s Swipe up "reader.table" Table
+    t =    66.69s     Wait for org.example.eBOOK to idle
+    t =    66.70s     Find the "reader.table" Table
+    t =    67.20s     Check for interrupting elements affecting "reader.table" Table
+    t =    67.86s     Synthesize event
+    t =    68.65s     Wait for org.example.eBOOK to idle
+    t =    71.25s Swipe up "reader.table" Table
+    t =    71.25s     Wait for org.example.eBOOK to idle
+    t =    71.26s     Find the "reader.table" Table
+    t =    71.41s     Check for interrupting elements affecting "reader.table" Table
+    t =    71.53s     Synthesize event
+    t =    72.12s     Wait for org.example.eBOOK to idle
+    t =    74.74s Swipe up "reader.table" Table
+    t =    74.74s     Wait for org.example.eBOOK to idle
+    t =    74.75s     Find the "reader.table" Table
+    t =    75.01s     Check for interrupting elements affecting "reader.table" Table
+    t =    75.14s     Synthesize event
+    t =    75.73s     Wait for org.example.eBOOK to idle
+    t =    78.23s Swipe up "reader.table" Table
+    t =    78.23s     Wait for org.example.eBOOK to idle
+    t =    78.28s     Find the "reader.table" Table
+    t =    78.49s     Check for interrupting elements affecting "reader.table" Table
+    t =    78.61s     Synthesize event
+    t =    79.20s     Wait for org.example.eBOOK to idle
+    t =    82.04s Swipe up "reader.table" Table
+    t =    82.04s     Wait for org.example.eBOOK to idle
+    t =    82.05s     Find the "reader.table" Table
+    t =    82.26s     Check for interrupting elements affecting "reader.table" Table
+    t =    82.95s     Synthesize event
+    t =    83.53s     Wait for org.example.eBOOK to idle
+    t =    86.08s Swipe up "reader.table" Table
+    t =    86.08s     Wait for org.example.eBOOK to idle
+    t =    86.09s     Find the "reader.table" Table
+    t =    86.25s     Check for interrupting elements affecting "reader.table" Table
+    t =    86.34s     Synthesize event
+    t =    86.91s     Wait for org.example.eBOOK to idle
+    t =    89.22s Swipe up "reader.table" Table
+    t =    89.22s     Wait for org.example.eBOOK to idle
+    t =    89.23s     Find the "reader.table" Table
+    t =    89.87s     Check for interrupting elements affecting "reader.table" Table
+    t =    90.40s     Synthesize event
+    t =    90.97s     Wait for org.example.eBOOK to idle
+    t =    99.65s Swipe up "reader.table" Table
+    t =    99.65s     Wait for org.example.eBOOK to idle
+    t =    99.66s     Find the "reader.table" Table
+    t =    99.80s     Check for interrupting elements affecting "reader.table" Table
+    t =    99.88s     Synthesize event
+    t =   100.45s     Wait for org.example.eBOOK to idle
+    t =   103.01s Swipe up "reader.table" Table
+    t =   103.01s     Wait for org.example.eBOOK to idle
+    t =   103.03s     Find the "reader.table" Table
+    t =   103.56s     Check for interrupting elements affecting "reader.table" Table
+    t =   104.09s     Synthesize event
+    t =   104.76s     Wait for org.example.eBOOK to idle
+    t =   106.95s Swipe up "reader.table" Table
+    t =   106.95s     Wait for org.example.eBOOK to idle
+    t =   106.96s     Find the "reader.table" Table
+    t =   107.40s     Check for interrupting elements affecting "reader.table" Table
+    t =   107.52s     Synthesize event
+    t =   108.24s     Wait for org.example.eBOOK to idle
+    t =   110.87s Swipe up "reader.table" Table
+    t =   110.87s     Wait for org.example.eBOOK to idle
+    t =   110.89s     Find the "reader.table" Table
+    t =   111.16s     Check for interrupting elements affecting "reader.table" Table
+    t =   111.28s     Synthesize event
+    t =   111.97s     Wait for org.example.eBOOK to idle
+    t =   114.28s Swipe up "reader.table" Table
+    t =   114.28s     Wait for org.example.eBOOK to idle
+    t =   114.29s     Find the "reader.table" Table
+    t =   114.76s     Check for interrupting elements affecting "reader.table" Table
+    t =   115.02s     Synthesize event
+    t =   115.62s     Wait for org.example.eBOOK to idle
+    t =   118.45s Swipe up "reader.table" Table
+    t =   118.45s     Wait for org.example.eBOOK to idle
+    t =   118.46s     Find the "reader.table" Table
+    t =   118.78s     Check for interrupting elements affecting "reader.table" Table
+    t =   118.93s     Synthesize event
+    t =   119.55s     Wait for org.example.eBOOK to idle
+    t =   121.82s Swipe up "reader.table" Table
+    t =   121.82s     Wait for org.example.eBOOK to idle
+    t =   121.83s     Find the "reader.table" Table
+    t =   122.15s     Check for interrupting elements affecting "reader.table" Table
+    t =   122.28s     Synthesize event
+    t =   122.96s     Wait for org.example.eBOOK to idle
+    t =   125.34s Swipe up "reader.table" Table
+    t =   125.35s     Wait for org.example.eBOOK to idle
+    t =   125.35s     Find the "reader.table" Table
+    t =   125.66s     Check for interrupting elements affecting "reader.table" Table
+    t =   125.79s     Synthesize event
+    t =   126.55s     Wait for org.example.eBOOK to idle
+    t =   128.87s Swipe up "reader.table" Table
+    t =   128.87s     Wait for org.example.eBOOK to idle
+    t =   128.88s     Find the "reader.table" Table
+    t =   129.47s     Check for interrupting elements affecting "reader.table" Table
+    t =   130.06s     Synthesize event
+    t =   130.64s     Wait for org.example.eBOOK to idle
+    t =   132.95s Swipe up "reader.table" Table
+    t =   132.95s     Wait for org.example.eBOOK to idle
+    t =   132.96s     Find the "reader.table" Table
+    t =   133.18s     Check for interrupting elements affecting "reader.table" Table
+    t =   133.30s     Synthesize event
+    t =   133.97s     Wait for org.example.eBOOK to idle
+    t =   136.32s Swipe up "reader.table" Table
+    t =   136.33s     Wait for org.example.eBOOK to idle
+    t =   136.33s     Find the "reader.table" Table
+    t =   136.65s     Check for interrupting elements affecting "reader.table" Table
+    t =   136.88s     Synthesize event
+    t =   137.44s     Wait for org.example.eBOOK to idle
+    t =   139.76s Swipe up "reader.table" Table
+    t =   139.76s     Wait for org.example.eBOOK to idle
+    t =   139.77s     Find the "reader.table" Table
+    t =   140.02s     Check for interrupting elements affecting "reader.table" Table
+    t =   140.15s     Synthesize event
+    t =   140.73s     Wait for org.example.eBOOK to idle
+    t =   143.54s Swipe up "reader.table" Table
+    t =   143.54s     Wait for org.example.eBOOK to idle
+    t =   143.55s     Find the "reader.table" Table
+    t =   144.11s     Check for interrupting elements affecting "reader.table" Table
+    t =   144.51s     Synthesize event
+    t =   145.15s     Wait for org.example.eBOOK to idle
+    t =   147.44s Swipe up "reader.table" Table
+    t =   147.45s     Wait for org.example.eBOOK to idle
+    t =   147.46s     Find the "reader.table" Table
+    t =   147.90s     Check for interrupting elements affecting "reader.table" Table
+    t =   148.02s     Synthesize event
+    t =   148.70s     Wait for org.example.eBOOK to idle
+    t =   151.06s Swipe up "reader.table" Table
+    t =   151.06s     Wait for org.example.eBOOK to idle
+    t =   151.09s     Find the "reader.table" Table
+    t =   151.29s     Check for interrupting elements affecting "reader.table" Table
+    t =   151.43s     Synthesize event
+    t =   152.09s     Wait for org.example.eBOOK to idle
+    t =   154.50s Swipe up "reader.table" Table
+    t =   154.51s     Wait for org.example.eBOOK to idle
+    t =   154.52s     Find the "reader.table" Table
+    t =   155.31s     Check for interrupting elements affecting "reader.table" Table
+    t =   155.46s     Synthesize event
+    t =   156.15s     Wait for org.example.eBOOK to idle
+    t =   158.45s Swipe up "reader.table" Table
+    t =   158.45s     Wait for org.example.eBOOK to idle
+    t =   158.48s     Find the "reader.table" Table
+    t =   158.85s     Check for interrupting elements affecting "reader.table" Table
+    t =   159.04s     Synthesize event
+    t =   159.69s     Wait for org.example.eBOOK to idle
+    t =   162.23s Swipe up "reader.table" Table
+    t =   162.23s     Wait for org.example.eBOOK to idle
+    t =   162.24s     Find the "reader.table" Table
+    t =   163.14s     Check for interrupting elements affecting "reader.table" Table
+    t =   163.26s     Synthesize event
+    t =   163.87s     Wait for org.example.eBOOK to idle
+    t =   167.23s Swipe up "reader.table" Table
+    t =   167.24s     Wait for org.example.eBOOK to idle
+    t =   167.25s     Find the "reader.table" Table
+    t =   168.68s     Check for interrupting elements affecting "reader.table" Table
+    t =   168.90s     Synthesize event
+    t =   169.49s     Wait for org.example.eBOOK to idle
+    t =   171.77s Swipe up "reader.table" Table
+    t =   171.77s     Wait for org.example.eBOOK to idle
+    t =   171.79s     Find the "reader.table" Table
+    t =   172.28s     Check for interrupting elements affecting "reader.table" Table
+    t =   172.38s     Synthesize event
+    t =   172.96s     Wait for org.example.eBOOK to idle
+    t =   175.20s Swipe up "reader.table" Table
+    t =   175.20s     Wait for org.example.eBOOK to idle
+    t =   175.20s     Find the "reader.table" Table
+    t =   175.50s     Check for interrupting elements affecting "reader.table" Table
+    t =   175.66s     Synthesize event
+    t =   176.28s     Wait for org.example.eBOOK to idle
+    t =   178.88s Swipe up "reader.table" Table
+    t =   178.88s     Wait for org.example.eBOOK to idle
+    t =   178.89s     Find the "reader.table" Table
+    t =   179.24s     Check for interrupting elements affecting "reader.table" Table
+    t =   179.38s     Synthesize event
+    t =   180.14s     Wait for org.example.eBOOK to idle
+    t =   182.67s Swipe up "reader.table" Table
+    t =   182.67s     Wait for org.example.eBOOK to idle
+    t =   182.69s     Find the "reader.table" Table
+    t =   182.90s     Check for interrupting elements affecting "reader.table" Table
+    t =   183.02s     Synthesize event
+    t =   183.67s     Wait for org.example.eBOOK to idle
+    t =   185.96s Swipe up "reader.table" Table
+    t =   185.96s     Wait for org.example.eBOOK to idle
+    t =   185.98s     Find the "reader.table" Table
+    t =   186.30s     Check for interrupting elements affecting "reader.table" Table
+    t =   186.50s     Synthesize event
+    t =   187.18s     Wait for org.example.eBOOK to idle
+    t =   189.49s Swipe up "reader.table" Table
+    t =   189.49s     Wait for org.example.eBOOK to idle
+    t =   189.50s     Find the "reader.table" Table
+    t =   190.23s     Check for interrupting elements affecting "reader.table" Table
+    t =   190.33s     Synthesize event
+    t =   190.94s     Wait for org.example.eBOOK to idle
+    t =   193.21s Swipe up "reader.table" Table
+    t =   193.21s     Wait for org.example.eBOOK to idle
+    t =   193.22s     Find the "reader.table" Table
+    t =   193.47s     Check for interrupting elements affecting "reader.table" Table
+    t =   193.61s     Synthesize event
+    t =   194.17s     Wait for org.example.eBOOK to idle
+    t =   196.45s Swipe up "reader.table" Table
+    t =   196.45s     Wait for org.example.eBOOK to idle
+    t =   196.46s     Find the "reader.table" Table
+    t =   196.67s     Check for interrupting elements affecting "reader.table" Table
+    t =   196.76s     Synthesize event
+    t =   197.36s     Wait for org.example.eBOOK to idle
+    t =   199.63s Swipe up "reader.table" Table
+    t =   199.63s     Wait for org.example.eBOOK to idle
+    t =   199.63s     Find the "reader.table" Table
+    t =   199.88s     Check for interrupting elements affecting "reader.table" Table
+    t =   200.03s     Synthesize event
+    t =   201.05s     Wait for org.example.eBOOK to idle
+    t =   203.25s Find the "reader.anchor" StaticText
+    t =   203.55s Find the Target Application 'org.example.eBOOK'
+    t =   203.82s Added attachment named 'long-book-warm'
+    t =   203.82s Tap "reader.toc" Button
+    t =   203.83s     Wait for org.example.eBOOK to idle
+    t =   203.83s     Find the "reader.toc" Button
+    t =   203.97s     Check for interrupting elements affecting "reader.toc" Button
+    t =   204.07s     Synthesize event
+    t =   204.43s     Wait for org.example.eBOOK to idle
+    t =   222.49s Waiting 10.0s for SearchField (First Match) to exist
+    t =   223.53s     Checking `Expect predicate `existsNoRetry == 1` for object SearchField (First Match)`
+    t =   223.54s         Checking existence of `SearchField (First Match)`
+    t =   224.05s Tap SearchField (First Match)
+    t =   224.05s     Wait for org.example.eBOOK to idle
+    t =   224.07s     Find the SearchField (First Match)
+    t =   224.40s     Check for interrupting elements affecting "查找章节" SearchField
+    t =   224.99s     Synthesize event
+    t =   225.55s     Wait for org.example.eBOOK to idle
+    t =   244.08s Type '624' into "查找章节" SearchField
+    t =   244.08s     Wait for org.example.eBOOK to idle
+    t =   245.39s     Find the "查找章节" SearchField
+    t =   253.65s     Check for interrupting elements affecting "查找章节" SearchField
+    t =   254.17s     Synthesize event
+    t =   254.45s     Wait for org.example.eBOOK to idle
+    t =   256.06s Waiting 10.0s for "toc.entry.623" Button to exist
+    t =   257.09s     Checking `Expect predicate `existsNoRetry == 1` for object "toc.entry.623" Button`
+    t =   257.09s         Checking existence of `"toc.entry.623" Button`
+    t =   257.49s Tap "toc.entry.623" Button
+    t =   257.49s     Wait for org.example.eBOOK to idle
+    t =   257.51s     Find the "toc.entry.623" Button
+    t =   259.18s     Check for interrupting elements affecting "toc.entry.623" Button
+    t =   259.45s     Synthesize event
+    t =   259.90s     Wait for org.example.eBOOK to idle
+    t =   264.85s Waiting 10.0s for "reader.table" Table to exist
+    t =   265.91s     Checking `Expect predicate `existsNoRetry == 1` for object "reader.table" Table`
+    t =   265.91s         Checking existence of `"reader.table" Table`
+    t =   267.62s Find the "reader.anchor" StaticText
+    t =   267.94s Tap "reader.settings" Button
+    t =   267.94s     Wait for org.example.eBOOK to idle
+    t =   267.95s     Find the "reader.settings" Button
+    t =   268.17s     Check for interrupting elements affecting "reader.settings" Button
+    t =   268.32s     Synthesize event
+    t =   268.70s     Wait for org.example.eBOOK to idle
+    t =   269.76s Waiting 10.0s for "settings.font" Slider to exist
+    t =   270.78s     Checking `Expect predicate `existsNoRetry == 1` for object "settings.font" Slider`
+    t =   270.78s         Checking existence of `"settings.font" Slider`
+    t =   271.40s Set normalized position of "settings.font" Slider to 0.65
+    t =   271.40s     Wait for org.example.eBOOK to idle
+    t =   271.41s     Find the "settings.font" Slider
+    t =   271.74s     Check for interrupting elements affecting "settings.font" Slider
+    t =   271.98s     Synthesize event
+    t =   272.75s     Wait for org.example.eBOOK to idle
+    t =   275.86s Tap "夜间" Button
+    t =   275.86s     Wait for org.example.eBOOK to idle
+    t =   275.94s     Find the "夜间" Button
+    t =   277.58s     Check for interrupting elements affecting "夜间" Button
+    t =   277.89s     Synthesize event
+    t =   278.37s     Wait for org.example.eBOOK to idle
+    t =   283.09s Tap "完成" Button
+    t =   283.09s     Wait for org.example.eBOOK to idle
+    t =   283.21s     Find the "完成" Button
+    t =   285.10s     Check for interrupting elements affecting "完成" Button
+    t =   285.64s     Synthesize event
+    t =   286.12s     Wait for org.example.eBOOK to idle
+    t =   286.18s Find the Target Application 'org.example.eBOOK'
+    t =   287.68s Added attachment named 'long-book-dark'
+    t =   287.69s Find the "reader.anchor" StaticText
+    t =   287.95s Terminate org.example.eBOOK:20975
+    t =   288.96s Open org.example.eBOOK
+    t =   288.97s     Launch org.example.eBOOK
+    t =   291.03s         Wait for accessibility to load
+    t =   294.23s         Setting up automation session
+    t =   296.68s         Wait for org.example.eBOOK to idle
+    t =   304.19s Waiting 180.0s for "library.book.synthetic_long_gb18030" Button to exist
+    t =   305.22s     Checking `Expect predicate `existsNoRetry == 1` for object "library.book.synthetic_long_gb18030" Button`
+    t =   305.22s         Checking existence of `"library.book.synthetic_long_gb18030" Button`
+    t =   305.85s Tap "library.book.synthetic_long_gb18030" Button
+    t =   305.85s     Wait for org.example.eBOOK to idle
+    t =   305.94s     Find the "library.book.synthetic_long_gb18030" Button
+    t =   306.07s     Check for interrupting elements affecting "library.book.synthetic_long_gb18030" Button
+    t =   306.20s     Synthesize event
+    t =   306.60s     Wait for org.example.eBOOK to idle
+    t =   315.94s Waiting 20.0s for "reader.table" Table to exist
+    t =   316.95s     Checking `Expect predicate `existsNoRetry == 1` for object "reader.table" Table`
+    t =   316.95s         Checking existence of `"reader.table" Table`
+    t =   318.28s Find the "reader.anchor" StaticText
+    t =   318.51s Tap "reader.settings" Button
+    t =   318.52s     Wait for org.example.eBOOK to idle
+    t =   318.53s     Find the "reader.settings" Button
+    t =   318.73s     Check for interrupting elements affecting "reader.settings" Button
+    t =   318.87s     Synthesize event
+    t =   319.26s     Wait for org.example.eBOOK to idle
+    t =   320.12s Find the "夜间" Button
+    t =   321.50s Tap "完成" Button
+    t =   321.50s     Wait for org.example.eBOOK to idle
+    t =   321.58s     Find the "完成" Button
+    t =   321.96s     Check for interrupting elements affecting "完成" Button
+    t =   322.23s     Synthesize event
+    t =   322.63s     Wait for org.example.eBOOK to idle
+    t =   322.67s Find the Target Application 'org.example.eBOOK'
+    t =   323.85s Added attachment named 'long-book-restored'
+    t =   323.85s Tear Down
+Test Case '-[EBookUITests.ReaderUITests testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch]' passed (325.930 seconds).
+Test Case '-[EBookUITests.ReaderUITests testSystemDocumentPickerPresentsAndCanCancel]' started.
+    t =     0.00s Start Test at 2026-11-23 13:26:51.045
+    t =     0.25s Set Up
+    t =     0.26s Open org.example.eBOOK
+    t =     0.26s     Launch org.example.eBOOK
+    t =     0.26s         Terminate org.example.eBOOK:27610
+    t =     3.67s         Setting up automation session
+    t =     8.24s         Wait for org.example.eBOOK to idle
+    t =    14.00s Waiting 180.0s for "library.import" Button to exist
+    t =    15.03s     Checking `Expect predicate `existsNoRetry == 1` for object "library.import" Button`
+    t =    15.03s         Checking existence of `"library.import" Button`
+    t =    15.12s Tap "library.import" Button
+    t =    15.13s     Wait for org.example.eBOOK to idle
+    t =    15.22s     Find the "library.import" Button
+    t =    15.31s     Check for interrupting elements affecting "library.import" Button
+    t =    15.51s     Synthesize event
+    t =    15.89s     Wait for org.example.eBOOK to idle
+    t =    16.07s Waiting 20.0s for Button (First Match) to exist
+    t =    17.09s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    17.09s         Checking existence of `Button (First Match)`
+    t =    17.55s         Capturing element debug description
+    t =    18.09s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    18.09s         Checking existence of `Button (First Match)`
+    t =    18.66s         Capturing element debug description
+    t =    19.08s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    19.08s         Checking existence of `Button (First Match)`
+    t =    20.68s         Capturing element debug description
+    t =    21.09s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    21.09s         Checking existence of `Button (First Match)`
+    t =    21.42s         Capturing element debug description
+    t =    22.12s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    22.12s         Checking existence of `Button (First Match)`
+    t =    24.98s         Capturing element debug description
+    t =    25.07s     Checking `Expect predicate `existsNoRetry == 1` for object Button (First Match)`
+    t =    25.08s         Checking existence of `Button (First Match)`
+    t =    36.40s         Capturing element debug description
+    t =    36.40s     Checking existence of `Button (First Match)`
+    t =    37.03s Tap Button (First Match)
+    t =    37.03s     Wait for org.example.eBOOK to idle
+    t =    37.04s     Find the Button (First Match)
+    t =    37.54s     Check for interrupting elements affecting "取消" Button
+    t =    37.73s     Synthesize event
+    t =    38.10s     Wait for org.example.eBOOK to idle
+    t =    38.73s Waiting 10.0s for "library.import" Button to exist
+    t =    39.73s     Checking `Expect predicate `existsNoRetry == 1` for object "library.import" Button`
+    t =    39.74s         Checking existence of `"library.import" Button`
+    t =    40.26s Tear Down
+Test Case '-[EBookUITests.ReaderUITests testSystemDocumentPickerPresentsAndCanCancel]' passed (41.095 seconds).
+Test Suite 'ReaderUITests' passed at 2026-11-23 13:27:32.139.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 499.866 (499.871) seconds
+Test Suite 'EBookUITests.xctest' passed at 2026-11-23 13:27:32.142.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 499.866 (499.875) seconds
+Test Suite 'All tests' passed at 2026-11-23 13:27:32.144.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 499.866 (499.879) seconds
+2026-11-23 13:27:33.540 xcodebuild[14073:43465] [MT] IDETestOperationsObserverDebug: 573.009 elapsed -- Testing started completed.
+2026-11-23 13:27:33.540 xcodebuild[14073:43465] [MT] IDETestOperationsObserverDebug: 0.001 sec, +0.001 sec -- start
+2026-11-23 13:27:33.540 xcodebuild[14073:43465] [MT] IDETestOperationsObserverDebug: 573.009 sec, +573.008 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/eBOOK/eBOOK/build/Test.xcresult
+
+** TEST EXECUTE SUCCEEDED **
+
+Testing started

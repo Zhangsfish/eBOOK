@@ -1,0 +1,46 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "x86_64",
+        "deviceId" : "08AEF2F6-6BFD-48DC-9538-9B3FB7DE50B9",
+        "deviceName" : "iPhone 16 Pro",
+        "modelName" : "iPhone 16 Pro",
+        "osBuildNumber" : "22F77",
+        "osVersion" : "18.5",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 0,
+      "passedTests" : 26,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "eBOOK · Built with macOS 15.7.9",
+  "expectedFailures" : 0,
+  "failedTests" : 0,
+  "finishTime" : 1795440453.673,
+  "passedTests" : 26,
+  "result" : "Passed",
+  "skippedTests" : 0,
+  "startTime" : 1795439879.521,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+
+  ],
+  "title" : "Test - eBOOK",
+  "topInsights" : [
+    {
+      "category" : "Longest Test Runs",
+      "impact" : "68% of duration",
+      "text" : "1 longest test run with outlier durations exceeding 10.74s (three standard deviations)"
+    }
+  ],
+  "totalTestCount" : 26
+}

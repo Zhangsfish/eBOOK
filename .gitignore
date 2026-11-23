@@ -1,0 +1,22 @@
+# Local-only imported books and generated performance fixtures
+/.local-test-data/
+
+# Xcode / SwiftPM
+.DS_Store
+DerivedData/
+build/
+.swiftpm/
+*.xcuserstate
+*.xccheckout
+xcuserdata/
+__pycache__/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Local environment files
+.env
+.env.*
+!.env.example

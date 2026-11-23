@@ -1,0 +1,16 @@
+{
+  "source_ref": "da6295ae384bce2a33bab9578fccb9d66d2d5b96",
+  "pre_publication_history_ref": "ab0aa0079c74f0de17a4a7bc7facd2cbbc9532ea",
+  "historical_blob_count": 20,
+  "maximum_historical_blob_bytes": 5627,
+  "tracked_file_count": 54,
+  "maximum_tracked_file_bytes": 19915,
+  "credential_pattern_matches": 0,
+  "swift_network_client_pattern_matches": 0,
+  "large_fixture_tracked": false,
+  "large_fixture_bytes": 4236594,
+  "large_fixture_unicode_characters": 2301482,
+  "large_fixture_lines": 73176,
+  "large_fixture_sha256": "162f7549408043c610a49b11b68a80aff07587447e72e478d948a18fc2c483e8",
+  "scope": "Pattern/size/provenance checks only; not a general security certification."
+}

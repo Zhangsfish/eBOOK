@@ -1,0 +1,9 @@
+{
+  "head_sha": "5714f20c7fce3956b282d04ef10e47d11025b5ae",
+  "host": "macOS-15.7.9-x86_64-i386-64bit-Mach-O",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "sdk": "18.5",
+  "simulator_id": "08AEF2F6-6BFD-48DC-9538-9B3FB7DE50B9",
+  "runner": "macOS",
+  "workflow_run": "45180857046"
+}
