@@ -86,12 +86,25 @@ final class ReaderUITests: XCTestCase {
             let name = (filename as NSString).deletingPathExtension
             let file = app.staticTexts.matching(NSPredicate(format: "label == %@ OR label == %@", name, filename)).firstMatch
             if !file.waitForExistence(timeout: 5) {
-                let browse = app.buttons.matching(NSPredicate(format: "label == '浏览' OR label == 'Browse'")).firstMatch
-                if browse.exists { browse.tap() }
-                let phone = app.staticTexts.matching(NSPredicate(format: "label == 'On My iPhone' OR label == '我的 iPhone' OR label == '在我的 iPhone 上'")).firstMatch
-                if phone.waitForExistence(timeout: 8) { phone.tap() }
-                let folder = app.staticTexts["eBOOK"].firstMatch
-                if folder.waitForExistence(timeout: 8) { folder.tap() }
+                // A fresh simulator opens in empty Recents. DocumentManager's
+                // remote view can expose its tabs after the sheet animation;
+                // an immediate exists check silently skipped Browse before.
+                let browse = app.tabBars["DOC.browsingModeTabBar"].buttons.matching(
+                    NSPredicate(format: "label == '浏览' OR label == 'Browse'")
+                ).firstMatch
+                XCTAssertTrue(browse.waitForExistence(timeout: 30)); browse.tap()
+                if !file.waitForExistence(timeout: 5) {
+                    let phone = app.staticTexts.matching(NSPredicate(format:
+                        "label == 'On My iPhone' OR label == '我的iPhone' OR label == '我的 iPhone' OR label == '在我的 iPhone 上'"
+                    )).firstMatch
+                    if !phone.waitForExistence(timeout: 20) { print("S00_LOCATIONS_TREE \(app.debugDescription)") }
+                    XCTAssertTrue(phone.waitForExistence(timeout: 10)); phone.tap()
+                    let folder = app.staticTexts["eBOOK"].firstMatch
+                    XCTAssertTrue(folder.waitForExistence(timeout: 20))
+                    let folderCell = app.collectionViews["File View"].cells.containing(.staticText, identifier: "eBOOK").firstMatch
+                    if folderCell.exists { folderCell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap() }
+                    else { folder.tap() }
+                }
             }
             snapshot("system-picker-\(name)", app)
             if !file.waitForExistence(timeout: 10) { print("S00_PICKER_TREE \(app.debugDescription)") }
