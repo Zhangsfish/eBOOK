@@ -51,8 +51,19 @@ struct ReaderView: View {
                 }
                 .background(Color(library.state.preferences.theme.background).ignoresSafeArea())
             } else if let loadError {
-                ContentUnavailableView("无法打开书籍", systemImage: "exclamationmark.triangle", description: Text(loadError))
-            } else { ProgressView("正在打开…") }
+                ContentUnavailableView {
+                    Label("无法打开书籍", systemImage: "exclamationmark.triangle")
+                } description: {
+                    Text(loadError)
+                } actions: {
+                    Button("返回书架") { dismiss() }.accessibilityIdentifier("reader.back")
+                }
+            } else {
+                VStack(spacing: 16) {
+                    ProgressView("正在打开…")
+                    Button("返回书架") { dismiss() }.accessibilityIdentifier("reader.back")
+                }
+            }
         }
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
