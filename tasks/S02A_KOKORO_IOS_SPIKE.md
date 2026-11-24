@@ -3,9 +3,15 @@
 GitHub Issue: https://github.com/Zhangsfish/eBOOK/issues/6
 Branch: `codex/s02a-kokoro-ios-spike`
 
+## Owner decision (2026-11-24)
+
+**Kokoro has been selected based on public demonstrations. Google and other cloud TTS are no longer candidates.** The owner does not want another vendor/Google/Apple comparative audition. The goal is to get Kokoro working reliably, for free, on iPhone. Apple speech stays an automatic free fallback.
+
+The earlier Issue #6 section about using a private novel excerpt for Google comparison has been superseded and removed. Do not request or access private book content for this milestone. Use only original synthetic Chinese examples.
+
 ## Why this task exists
 
-The product must let a user listen to their own imported Chinese books for free for occasional daily sessions. Current S00 has a working Apple system-voice fallback. The next question is whether an open-source Mandarin model can provide three pleasant alternative voice presets **fully on iPhone, without usage fees**.
+The product must let a user listen to their own imported Chinese books for free for occasional daily sessions. Current S00 has a working Apple system-voice fallback. The remaining engineering question is whether Kokoro can provide three distinct, usable Mandarin speaker presets **fully on iPhone, without usage fees**.
 
 This is a **native iOS proof**, not generic Python TTS research. Use one model and runtime only: Kokoro v1.1 Chinese + sherpa-onnx, preferably the ~215 MB INT8 package.
 
@@ -16,11 +22,7 @@ Read first: `AGENTS.md`, `docs/PRODUCT_STRATEGY_ZERO_COST_TTS.md`, `docs/PRODUCT
 1. `tools/local-tts-spike/` only, plus its reports/docs. Do not modify the production iOS reader, Xcode project, core tests, `AGENTS.md`, `README.md`, existing workflows or other open PRs.
 2. Use the published sherpa-onnx Swift API/Swift package with exact pinned revision, and verify the transitive binaries support the intended iOS simulator/device architecture. Avoid new build tools or package forks if upstream works.
 3. Pin model source and SHA256 checksums. Separate local-only model and generated WAV output under ignored `.local-test-data/`. Never commit model weights, voice packs, downloaded binaries, generated output or commercial text. Do not upload model assets as CI artifacts or distribute them through this GitHub repo.
-4. Validate actual original Mandarin speech for at least three distinct trial IDs:
-   - `zf_001` / speaker sid 3
-   - `zf_002` / speaker sid 4
-   - `zm_009` / speaker sid 58
-   Also create a few alternative `zf_*`/`zm_*` trial clips if those IDs sound poor; do not claim quality before listening.
+4. Validate actual Mandarin speech using original synthetic passages for these three Kokoro IDs: `zf_001`/sid 3, `zf_002`/sid 4, `zm_009`/sid 58. Confirm that generated WAVs are genuine speech and voices are distinguishable. This is technical verification, not a further broad voice audition. Do not use the private novel excerpt or test other providers.
 5. Test Chinese text normalization, dates/numbers, punctuation, dialogue and mixed Chinese/English. Use original source-created sample text only. Produce a local sound comparison manifest with anonymous labels.
 6. Verify the INT8 asset set is sufficient; quantify actual unpacked bytes, initialization seconds, audio generation wall time, audio duration/real-time factor, and peak process RSS. Separate desktop, iOS simulator, and actual iPhone device evidence.
 7. Verify a Swift iOS simulator build, then **actual Chinese waveform inference on an iOS simulator** when technically supported; desktop WAV success or compile-only tests are insufficient for GO. If not executable, report `BLOCKED_IOS_RUNTIME` with exact technical evidence.
@@ -30,9 +32,9 @@ Read first: `AGENTS.md`, `docs/PRODUCT_STRATEGY_ZERO_COST_TTS.md`, `docs/PRODUCT
 
 ## GO / NO-GO
 
-GO requires genuine native iOS simulator speech generation, reproducible original speech samples, verified resource integrity and a realistic integration plan. Audio quality is subjective and awaits owner hearing; the three trial speaker IDs are not product recommendations yet.
+GO requires genuine native iOS simulator Mandarin inference, reproducible original Kokoro audio, resource integrity, supported native licensing and a realistic integration plan. The owner already accepts Kokoro's demonstrated quality; sample IDs remain replaceable only if a real technical or speech defect is observed.
 
-If unsupported or too heavy, stop and report evidence, suggesting another lightweight **permissively licensed offline Mandarin** candidate rather than a paid cloud service. Keep the Apple fallback functional.
+If unsupported or too heavy, stop and report the blocker, keep the Apple fallback functional and request further product direction. Do not pivot to paid or cloud TTS or begin a model search on your own.
 
 ## Verification and handoff
 
