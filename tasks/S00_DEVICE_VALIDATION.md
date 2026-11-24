@@ -1,6 +1,8 @@
 # S00 follow-up — owner iPhone installation and validation
 
-State: READY for device preparation and owner-only internal TestFlight installation.
+State: READY_FOR_AUDIT — internal38.1 available; implementation326c543 tested on
+18.5 and26.5. The26.5 native Files failure is retained as a pre-merge audit gate.
+No remaining implementation is authorized without new owner/auditor feedback.
 
 Owner request on 2026-11-24: Codex handles tests while the owner installs on the
 iPhone; ChatGPT web independently reviews S01. This is separate from S02.

@@ -19,7 +19,9 @@ Do not expect a test book bundled inside the app.
 | Reading controls | Change font, line spacing and warm/dark theme; text remains usable | NOT_RUN |
 | Reading restore | Note chapter/block, close and reopen; position and settings restored | NOT_RUN |
 | Local speech | Play/pause/resume, rate and chapter skipping work with a Mandarin system voice | NOT_RUN |
-| On-demand controls | New beta: player hidden by default; toolbar opens it; hiding preserves reading and ongoing speech | NOT_RUN — NEXT_BETA |
+| On-demand speech controls | Owner answered “一切正常” to exact37.1 update/show/hide/ongoing-speech question | PASS — OWNER_REPORTED on37.1 |
+| Immersive reading | Next beta: only subtle ellipsis remains; opens back/TOC/font/speech/progress; body taps/scroll stay quiet | NOT_RUN — NEW REFINEMENT |
+| Entry themes | Ellipsis readable and unobtrusive in light, warm and dark; return to library works | NOT_RUN — NEW REFINEMENT |
 | Background/lock | Listen locked for 10 minutes, cross text-block boundaries, use lock-screen pause/resume | NOT_RUN |
 | Listening restore | Pause, close and reopen; resume near saved listening position, separate from reading | NOT_RUN |
 | Interruption | Receive/end a call; record actual pause/resume behavior | NOT_RUN |

@@ -40,8 +40,8 @@ ephemeral key file and raw logs afterward. Do not alter Lecture Asset source,
 bundle ID, release branch, pending release workflow, or unrelated local files.
 
 The helper branch is `Zhangsfish/lecture-asset:codex/ebook-device-installation`,
-current code `68ec0136774cb147004887ee79e0c1d099c41c01`; reader checkout is pinned to
-`1e556ae1622b4d56fa3c0c9e05ca0a14877073ac`. The existing manual workflow ID is
+current code `f22b891bf885c17c288ad62961be4ee188e6fb89`; reader checkout is pinned to
+`326c5438794c76a8978c3cdb049b905ace703f66`. The existing manual workflow ID is
 reused on that branch only, without merging/changing the default release workflow.
 Prepare-only run https://github.com/Zhangsfish/lecture-asset/actions/runs/45324168773
 passed real Xcode/Swift preflight and the unsigned device archive with no Apple
@@ -53,6 +53,14 @@ then exported/uploaded `0.1.0 (35.1)` and read Apple processing status VALID.
 The UI showed the Internal badge and Ready to Test, and the manually managed
 Owner iPhone group has one build/one existing owner tester. The owner reported
 successful iPhone installation and launch. No Lecture Asset build was uploaded.
+
+The owner then requested on-demand speech controls. Updated internal upload
+[45330975786](https://github.com/Zhangsfish/lecture-asset/actions/runs/45330975786)
+completed for `0.1.0 (37.1)` at the pinned reader SHA: upload accepted 05:10:19 UTC,
+Apple VALID and existing owner-group build relationship read back 05:11:29 UTC.
+The script requires INTERNAL_ONLY and the existing manual/internal group before
+adding the one build relationship. No additional tester or public link is created.
+The owner later confirmed the requested37.1 panel/ongoing-speech flow works.
 
 Create/verify eBOOK's own Bundle ID and App Store Connect app record in Apple's
 official UI, then upload with `testFlightInternalTestingOnly = true`. Never
@@ -85,3 +93,15 @@ redundant approval requirement for this later owner-requested installation.
   https://developer.apple.com/documentation/appstoreconnectapi/apps
 - Bundle identifiers remain bound to the app after first upload:
   https://developer.apple.com/documentation/bundleresources/information-property-list/cfbundleidentifier
+- Add a build to an existing beta group, with separate relationship readback:
+  https://developer.apple.com/documentation/appstoreconnectapi/post-v1-betagroups-_id_-relationships-builds
+  and https://developer.apple.com/documentation/appstoreconnectapi/get-v1-betagroups-_id_-builds
+
+## Immersive-entry38.1 follow-up
+
+The owner next requested one quiet adaptive ellipsis for all reading controls.
+[45338159157](https://github.com/Zhangsfish/lecture-asset/actions/runs/45338159157)
+uploaded internal0.1.0(38.1), pinned reader326c543: preflight/archive PASS, accepted
+06:10:10UTC, Apple VALID and existing internal/manual owner-group relationship
+read back06:11:48UTC. No new tester, public link or Lecture Asset upload.38.1
+installation/behavior awaits owner feedback. Xcode retained no signed IPA.
