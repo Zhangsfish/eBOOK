@@ -1,6 +1,6 @@
 # S02A isolated Kokoro spike
 
-State: preparing `READY_FOR_AUDIT`; native iOS inference is **not yet demonstrated**.
+State: `READY_FOR_AUDIT`; native iOS inference is **not yet demonstrated**.
 The production reader, PR #4 and PR #5 remain untouched. This folder is the only
 implementation added for Issue #6. The owner has selected Kokoro; no vendor lab.
 
@@ -36,7 +36,7 @@ read-only and refuses mismatches. Output directories are fresh UUID directories
 under ignored `.local-test-data/s02a/`; existing files are not overwritten.
 
 ```text
-python -m unittest discover -s tools/local-tts-spike/tests -v
+python -m unittest discover -s tools/local-tts-spike/Tests -v
 python tools/local-tts-spike/scripts/assets.py --verify MODEL_DIR
 python tools/local-tts-spike/scripts/run_desktop.py --model-dir MODEL_DIR
 python tools/local-tts-spike/scripts/run_ios.py --model-dir MODEL_DIR
@@ -96,6 +96,20 @@ the real generation call to the first nonempty native callback. RTF is generatio
 wall time / actual PCM duration, not playback speed. RSS is cumulative process
 high-water memory, not per-voice memory or an iPhone projection. A distinct PCM
 hash proves outputs differ, not a subjective voice ranking or pronunciation score.
+
+Optional independent speech-content checks use existing external tools only:
+
+```text
+python tools/local-tts-spike/scripts/verify_generated.py --metrics LOCAL_METRICS --ffmpeg EXISTING_FFMPEG
+python tools/local-tts-spike/scripts/check_speech.py --metrics LOCAL_METRICS --local-whisper-model EXISTING_LOCAL_LARGE_V3
+```
+
+The ASR helper reads only this spike's original outputs, uses a pre-existing
+faster-whisper/CUDA environment and cached model, and never downloads/installs.
+Set `PYTHONIOENCODING=utf-8` for redirected Unicode output on Windows, or decode
+the captured file using that interpreter's actual stdout encoding. Its exact
+versions and machine sequence differences are in `evidence/original-asr.json`.
+This is not a human listening grade or validation of all number/polyphone readings.
 
 See `LICENSE_REVIEW.md` before any model/runtime redistribution, and
 `../../reports/S02A_LOCAL_TTS_FEASIBILITY.md` for the exact tested source commit,

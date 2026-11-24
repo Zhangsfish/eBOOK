@@ -64,5 +64,33 @@
     "url": "https://raw.githubusercontent.com/k2-fsa/openfst/master/COPYING",
     "status": "UNRESOLVED",
     "reason": "HTTP Error 404: Not Found"
+  },
+  {
+    "component": "sherpa-license",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/38016c6e0622e90bf417c35e8b47e0eb805af417/LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "bytes": 11358,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "sherpa-spm",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/38016c6e0622e90bf417c35e8b47e0eb805af417/Package.swift",
+    "sha256": "22b8baa688932d5565221f6277c3b12f232c9e1c9b867500c81218bdb29af6fd",
+    "bytes": 6726,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "sherpa-swift-api",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/38016c6e0622e90bf417c35e8b47e0eb805af417/swift-api-examples/SherpaOnnx.swift",
+    "sha256": "fe8d3dfc007c6bdaed5b221c3e66a10a2bed3f9e41cd952169186879373011ea",
+    "bytes": 85471,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "sherpa-kaldifst-pin",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/38016c6e0622e90bf417c35e8b47e0eb805af417/cmake/kaldifst.cmake",
+    "sha256": "c6e9bdf7480892f72743e8921bc54a34e21eaf21c266f53501bb346a17b1195f",
+    "bytes": 2536,
+    "status": "SOURCE_READ"
   }
 ]

@@ -33,3 +33,19 @@ Record tested source commit, command/environment, init, first callback latency,
 audio duration/RTF and process high-water memory. Never label desktop as iOS.
 Until actual iOS inference succeeds, gate remains BLOCKED_IOS_RUNTIME.
 Unresolved frontend/data notices block any claim of redistribution clearance.
+
+## Delivery evidence (2026-11-24)
+- Actual desktop model-source commit: 691f68ed3dded6fce4e820a521253444a8a6f4e4.
+  run_desktop.py and assets.py hashes in evidence/desktop-metrics.json must still
+  match; no regeneration is needed merely for report-only changes.
+- 7 original WAVs completed and fully decoded; all 3 selected SIDs produce
+  distinct file hashes. Fresh-process initialization 9.269892 s, cumulative
+  process peak working set 511217664 bytes; not controlled cold-disk startup.
+- Machine speech check preserved REVIEW_ASR_DIFFERENCES: first voice was
+  recognized in Traditional Chinese, others Simplified. Do not call raw sequence
+  similarity pronunciation accuracy or a human quality score.
+- Windows native helper actually returned 3 / BLOCKED_IOS_RUNTIME. Swift was
+  not built/run, binary architectures NOT_RUN, 10–15 min session NOT_RUN.
+- LICENSE_REVIEW.md records verified root declarations and unresolved per-data
+  provenance/native binary notices. This is not a redistribution clearance.
+- READY_FOR_AUDIT is a delivery state, not GO for S02B. The PR must state both.

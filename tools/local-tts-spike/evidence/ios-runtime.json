@@ -1,0 +1,10 @@
+{
+  "status": "BLOCKED_IOS_RUNTIME",
+  "host": "Windows",
+  "source_sha": "691f68ed3dded6fce4e820a521253444a8a6f4e4",
+  "xcodebuild": null,
+  "xcrun": null,
+  "genuine_ios_inference": false,
+  "reason": "No macOS/Xcode/iOS simulator runtime on this host; no model inference attempted.",
+  "actual_helper_exit_code": 3
+}
