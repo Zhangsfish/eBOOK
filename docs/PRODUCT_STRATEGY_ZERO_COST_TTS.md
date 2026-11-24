@@ -1,6 +1,6 @@
 # eBOOK — zero-cost listening product decision
 
-Decision date: 2026-11-24. Status: product direction APPROVED; S02A feasibility NOT_YET_VERIFIED.
+Decision date: 2026-11-24. Status: **Kokoro selected as the only AI TTS engine**; owner accepts its public audio quality. **Google, all cloud voices and the previous multi-provider comparison are cancelled.** S02A actual iOS runtime feasibility remains NOT_YET_VERIFIED.
 
 ## User job to be done
 
@@ -13,11 +13,11 @@ A user imports an EPUB/TXT they already have, reads on their iPhone, and occasio
 Four user-facing choices, no marketplace and no 100-voice scrolling list:
 
 1. **系统中文** — built-in Apple AVSpeechSynthesizer; always available if Chinese system voice installed. Prefer available enhanced/premium system assets if installed; do not assume particular voice IDs exist.
-2. **AI 柔和女声** — Kokoro v1.1 Chinese, candidate speaker slot `zf_001` (sid 3), only a trial ID until original audio is reviewed.
-3. **AI 清晰女声** — same Kokoro model, candidate `zf_002` (sid 4), trial ID only.
-4. **AI 沉稳男声** — same Kokoro model, candidate `zm_009` (sid 58), trial ID only.
+2. **AI 女声 A** — Kokoro v1.1 Chinese, initial speaker `zf_001` (sid 3); verify actual speech before shipping.
+3. **AI 女声 B** — same Kokoro model, initial speaker `zf_002` (sid 4); verify actual speech before shipping.
+4. **AI 男声 C** — same Kokoro model, initial speaker `zm_009` (sid 58); verify actual speech before shipping.
 
-The two female and one male Kokoro IDs share **one set of model weights and tokenizer resources**, not three model downloads. Names are UX placeholders; do not assign voice character until heard. If the sampled voices are poor, try other `zf_*`/`zm_*` speakers in the same model, then update the three selected IDs.
+The two female and one male Kokoro IDs share **one set of model weights and tokenizer resources**, not three downloads. Exact speaker choices are replaceable within Kokoro only if local verification reveals a concrete problem. No additional provider auditions.
 
 ## Technology selection
 
@@ -39,23 +39,17 @@ First use:
 
 Target output is an ordinary consumer interface: four voice names, play/pause, speed, local download indicator, continuous resume. No technical model selector in the product UI.
 
-## Google Cloud: optional research, not production dependency
+## External providers: removed from scope
 
-Google Standard and WaveNet currently list 4 million free characters **per billing project per month**, then paid rates. The Google Cloud API requires a billing-enabled project and can charge automatically after free allowance. Budget alerts alone are not hard spend caps. The app importing a user's own book does NOT make the Google quota per user.
+The owner explicitly cancelled **Google Cloud, MiniMax, Fish Audio, ElevenLabs, Azure and every other network TTS service**. No free-tier quota, billing account, API token, backend proxy or remote book-text transmission belongs in the product, trial or next-stage milestones.
 
-Official pricing: https://cloud.google.com/text-to-speech/pricing
-Official budget caveat: https://docs.cloud.google.com/billing/docs/how-to/budgets
-Official Chinese Standard voice list: https://docs.cloud.google.com/text-to-speech/docs/list-voices-and-types
-
-Thus Google is explicitly **excluded from the next iOS integration**. Do not ship a public service credential in the client, create an unbounded backend, rely on a developer project's monthly free characters, or burden users with their own Google Cloud billing account. A separately approved later experiment must make user and operator charges impossible within an audited hard limit; when unavailable it must silently use local speech.
-
-MiniMax, Fish paid endpoints, ElevenLabs and Azure are likewise not part of the free product MVP. S01's voice-lab code can remain as non-shipping research material without forcing any cloud dependency into the app.
+The previous S01 multi-provider Voice Lab is historical engineering work only and does not drive product integration. An internet connection may be used solely for the optional, user-approved one-time download of the pinned open-source model pack; speech synthesis itself is fully offline and free.
 
 ## Staging and gates
 
-**S02A (now): Native Kokoro feasibility and sample voice selection.**
+**S02A (now): Native Kokoro feasibility only.**
 - No production app source changes while S01 PR #4 and immersive-reader PR #5 remain open.
-- Pin upstream release/asset integrity, prove Chinese audio on a real iOS simulator if feasible, measure startup/RTF/RSS, generate original sample audio locally.
+- Pin upstream release/asset integrity, prove Chinese audio on a real iOS simulator if feasible, measure startup/RTF/RSS and generate a few original-text Kokoro clips to validate the three default speaker IDs. The owner already accepts Kokoro demos; no blind multi-vendor audition.
 - Stop with evidence; no merge or App Store release.
 
 **S02B (after S02A evidence plus PR #4/#5 resolution): integrate local model into actual app.**
@@ -66,4 +60,4 @@ MiniMax, Fish paid endpoints, ElevenLabs and Azure are likewise not part of the 
 
 ## Explicit exclusions
 
-No cloud provider network request, remote book text upload, model re-training, voice cloning, accounts, subscriptions, paid SDK/runner, analytics, bookstore, extra ebook formats or catalog scraping. No copyrighted novel in Git or CI. Do not present model inference on desktop as proof of iPhone capability.
+No Google or other cloud TTS APIs, remote book text upload, model re-training, voice cloning, accounts, subscriptions, paid SDK/runner, analytics, bookstore, extra ebook formats or catalog scraping. No copyrighted novel in Git or CI. Do not present model inference on desktop as proof of iPhone capability.
