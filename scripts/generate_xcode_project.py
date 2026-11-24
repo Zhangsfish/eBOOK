@@ -42,7 +42,8 @@ def generate():
             ref = file(ROOT / path, kind); all_files.append(ref)
             builds.append(obj('resource:' + name + path, 'PBXBuildFile', fileRef=ref))
         return obj('resources:' + name, 'PBXResourcesBuildPhase', buildActionMask='2147483647', files=builds, runOnlyForDeploymentPostprocessing='0')
-    app_resources = resources('app', [('Sources/eBOOK/PrivacyInfo.xcprivacy', 'text.xml')])
+    app_resources = resources('app', [('Sources/eBOOK/PrivacyInfo.xcprivacy', 'text.xml'),
+                                      ('Sources/eBOOK/Assets.xcassets', 'folder.assetcatalog')])
     unit_resources = resources('unit', [('Tests/Fixtures', 'folder'), ('.local-test-data/synthetic_long_gb18030.txt', 'text')])
     ui_resources = resources('ui', [])
     products = []
@@ -73,14 +74,16 @@ def generate():
         'ENABLE_USER_SCRIPT_SANDBOXING': 'YES',
     })
     base = {'TARGETED_DEVICE_FAMILY': '1,2', 'PRODUCT_NAME': '$(TARGET_NAME)', 'CODE_SIGN_STYLE': 'Automatic'}
-    app_config = configurations('app', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'org.example.eBOOK', 'PRODUCT_MODULE_NAME': 'EBook',
+    app_config = configurations('app', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'com.zhangsfish.ebook', 'PRODUCT_MODULE_NAME': 'EBook',
         'INFOPLIST_FILE': 'Sources/eBOOK/Info.plist', 'GENERATE_INFOPLIST_FILE': 'NO',
+        'MARKETING_VERSION': '0.1.0', 'CURRENT_PROJECT_VERSION': '1',
+        'ASSETCATALOG_COMPILER_APPICON_NAME': 'AppIcon',
         'OTHER_LDFLAGS': ['$(inherited)', '-lz'], 'LD_RUNPATH_SEARCH_PATHS': ['$(inherited)', '@executable_path/Frameworks'],
         'SUPPORTED_PLATFORMS': 'iphoneos iphonesimulator', 'SUPPORTS_MACCATALYST': 'NO'})
-    unit_config = configurations('unit', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'org.example.eBOOK.tests',
+    unit_config = configurations('unit', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'com.zhangsfish.ebook.tests',
         'GENERATE_INFOPLIST_FILE': 'YES', 'TEST_HOST': '$(BUILT_PRODUCTS_DIR)/eBOOK.app/eBOOK', 'BUNDLE_LOADER': '$(TEST_HOST)',
         'LD_RUNPATH_SEARCH_PATHS': ['$(inherited)', '@executable_path/Frameworks', '@loader_path/Frameworks']})
-    ui_config = configurations('ui', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'org.example.eBOOK.uitests',
+    ui_config = configurations('ui', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'com.zhangsfish.ebook.uitests',
         'GENERATE_INFOPLIST_FILE': 'YES', 'TEST_TARGET_NAME': 'eBOOK'})
     app_target = obj('target:app', 'PBXNativeTarget', buildConfigurationList=app_config, buildPhases=[app_phase, app_resources], buildRules=[], dependencies=[], name='eBOOK', productName='eBOOK', productReference=app_product, productType='com.apple.product-type.application')
     proxy = obj('proxy:app', 'PBXContainerItemProxy', containerPortal=Ref(uid('project')), proxyType='1', remoteGlobalIDString=app_target, remoteInfo='eBOOK')

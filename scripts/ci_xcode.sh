@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 mkdir -p build
-if [[ -d /Applications/Xcode_16.4.app ]]; then
+if [[ -z "${DEVELOPER_DIR:-}" && -d /Applications/Xcode_16.4.app ]]; then
   export DEVELOPER_DIR=/Applications/Xcode_16.4.app/Contents/Developer
 fi
 xcodebuild -version
@@ -43,7 +43,7 @@ if ! xcodebuild "${COMMON[@]}" -configuration Debug build-for-testing > build/xc
   exit 1
 fi
 xcrun simctl install "$SIMULATOR_ID" build/DerivedData/Build/Products/Debug-iphonesimulator/eBOOK.app
-APP_DATA=$(xcrun simctl get_app_container "$SIMULATOR_ID" org.example.eBOOK data)
+APP_DATA=$(xcrun simctl get_app_container "$SIMULATOR_ID" com.zhangsfish.ebook data)
 mkdir -p "$APP_DATA/Documents"
 cp .local-test-data/synthetic_long_gb18030.txt "$APP_DATA/Documents/"
 cp Tests/Fixtures/synthetic.epub Tests/Fixtures/sample_utf8.txt "$APP_DATA/Documents/"
@@ -61,7 +61,7 @@ for source in Path('build/attachments').rglob('*.png'):
     output.mkdir(parents=True, exist_ok=True)
     shutil.copy2(source, output / source.name)
 PY
-APP_DATA=$(xcrun simctl get_app_container "$SIMULATOR_ID" org.example.eBOOK data)
+APP_DATA=$(xcrun simctl get_app_container "$SIMULATOR_ID" com.zhangsfish.ebook data)
 if [[ -f "$APP_DATA/Documents/.s00-render-metrics-long.json" ]]; then
   cp "$APP_DATA/Documents/.s00-render-metrics-long.json" build/reader-metrics.json
 fi

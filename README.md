@@ -6,8 +6,10 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 
 Requires a Mac with Xcode 16.4 or later and an iOS 17+ simulator/device. There
 are no runtime third-party packages and no XcodeGen dependency. The bundle ID
-`org.example.eBOOK` is a placeholder; select your own team/unique identifier for
-device signing. S00 does not configure a developer account or distribution.
+The device-preparation branch uses `com.zhangsfish.ebook`; select your own team
+for local device signing. Existing unsigned CI packages require signing and cannot
+be installed directly. Apple account setup/internal distribution is a separate
+follow-up; see `tasks/S00_DEVICE_VALIDATION.md` and `reports/S00/device-01/`.
 
 ```bash
 python3 scripts/generate_long_gb18030_fixture.py

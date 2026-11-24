@@ -1,0 +1,45 @@
+name: S00 device preparation
+on:
+  push:
+    branches: [codex/s00-device-validation]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: s00-device-${{ github.sha }}
+  cancel-in-progress: true
+jobs:
+  device:
+    if: github.event.repository.private == false
+    # Standard public-repository runner; no paid/larger runner or Apple secrets.
+    runs-on: macos-26
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Check deterministic project and original fixture
+        run: |
+          python3 scripts/generate_long_gb18030_fixture.py
+          python3 scripts/generate_xcode_project.py --check
+      - name: Unsigned iPhone Release archive and metadata checks
+        run: bash scripts/ci_device.sh
+      - name: Xcode 26 simulator regression of unchanged reader
+        run: |
+          export DEVELOPER_DIR="$(xcode-select -p)"
+          bash scripts/ci_xcode.sh
+      - name: Upload safe build and test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: s00-device-${{ github.sha }}
+          path: |
+            build/device-archive.log
+            build/device-preflight.json
+            build/xcode-*.log
+            build/environment.json
+            build/test-summary.json
+            build/test-details.json
+            build/reader-metrics*.json
+            build/eBOOK-device-unsigned.ipa
+          retention-days: 7

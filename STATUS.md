@@ -1,14 +1,20 @@
 # Project Status
 
 - Project: eBOOK — iOS ebook reader
-- Current phase: S00 — Reader foundation
-- Current authorized task: `tasks/S00_READER_FOUNDATION.md`
+- Current phase: S00 device preparation follow-up; S01 PR #4 remains READY_FOR_AUDIT.
+- Current authorized task on this branch: `tasks/S00_DEVICE_VALIDATION.md`.
 - GitHub issue: [#1 — S00 reader foundation](https://github.com/Zhangsfish/eBOOK/issues/1)
 - Copy-ready handoff: [tasks/CODEX_HANDOFF_S00.md](tasks/CODEX_HANDOFF_S00.md)
-- State: `READY_FOR_AUDIT` — S00 implementation and simulator validation complete; independent ChatGPT review pending.
-- Implementation branch: `codex/s00-reader-foundation`
+- State: `PREPARING_DEVICE_BUILD` — merged S00 reader; signed install and physical checks pending.
+- Implementation branch: `codex/s00-device-validation` (isolated from S01).
 - Target: native iOS MVP; EPUB/TXT import, UTF-8/UTF-16/GBK/GB18030 decoding, comfortable reading, persistent positions, and local speech baseline.
 - Not authorized: App Store submission, paid services, production backend deployment, account/subscription features, or cloud TTS in S00.
+
+The owner requested parallel iPhone installation on 2026-11-24. This branch
+prepares a tested unsigned device archive only; original S00 excluded TestFlight.
+Internal distribution/account setup requires the follow-up authorization recorded
+in the current task. S01's review HEAD remains
+`3bfb4429fe7a42e50df62f4857bcb9909bf00ab3`; no S02 starts.
 
 ## Measured compatibility profile
 
