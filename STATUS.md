@@ -11,9 +11,9 @@
 - Not authorized: App Store submission, paid services, production backend deployment, account/subscription features, or cloud TTS in S00.
 
 The owner requested parallel iPhone installation on 2026-11-24. This branch
-prepares a tested unsigned device archive only; original S00 excluded TestFlight.
-Internal distribution/account setup requires the follow-up authorization recorded
-in the current task. S01's review HEAD remains
+prepares a tested device archive and the separately authorized owner-only
+internal-TestFlight installation. Original S00's exclusion applied to that earlier
+development task; this follow-up does not authorize public release. S01's review HEAD remains
 `3bfb4429fe7a42e50df62f4857bcb9909bf00ab3`; no S02 starts.
 
 ## Measured compatibility profile

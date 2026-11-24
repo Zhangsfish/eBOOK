@@ -119,7 +119,16 @@ final class ReaderUITests: XCTestCase {
             else { cell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap() }
             let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
             if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
-            let imported = app.buttons["library.book.\(expectedTitle)"].waitForExistence(timeout: 30)
+            // iOS 26's transparent navigation overlay can cover the thumbnail's
+            // preferred hit point. If the picker is still showing this real
+            // file, choose its visible filename below that overlay instead.
+            // Both paths use the system picker; no test-import injection.
+            let libraryBook = app.buttons["library.book.\(expectedTitle)"]
+            if !libraryBook.waitForExistence(timeout: 5), file.exists, file.isHittable {
+                file.tap()
+                if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
+            }
+            let imported = libraryBook.waitForExistence(timeout: 30)
             if !imported {
                 snapshot("system-picker-import-result-\(name)", app)
                 print("S00_NATIVE_IMPORT_RESULT \(app.debugDescription)")

@@ -6,9 +6,11 @@
 - Use `codex/s00-device-validation` in the separate device worktree.
 - Preserve S01 PR #4 and its reviewed HEAD `3bfb4429fe7a42e50df62f4857bcb9909bf00ab3`.
 - This follow-up prepares the existing reader for owner installation; it is not S02.
-- Original S00 excluded TestFlight. Prepare and test the concrete package first;
-  obtain the owner's explicit internal-TestFlight authorization before creating
-  Apple records or using the existing Lecture Asset signing credentials.
+- Original S00 excluded TestFlight within that development task. The owner's
+  later instruction to install/test on the iPhone authorizes this separate
+  internal-TestFlight follow-up using the existing signing route. Do not ask
+  again for routine packaging/signing/installation steps already covered by it.
+- The owner completes Apple login/verification directly in the official UI.
 - No App Review submission, public release, new paid service, cloud TTS or merge.
 
 ## File map and provenance
@@ -17,6 +19,8 @@
 - `scripts/ci_device.sh`: real unsigned iPhone archive and package inspection.
 - `.github/workflows/s00-device.yml`: standard public macOS runner; no secrets.
 - `Sources/eBOOK/Assets.xcassets`: original geometric book icon, no external art.
+- `Tests/UITests/ReaderUITests.swift`: retain native picker flow/assertions; fall
+  back to the visible filename when iOS 26's thumbnail tap leaves the picker open.
 - `.local-test-data/device-01/`: ignored private local outputs; no Apple secrets
   or private device identifiers in this folder, Git, logs or screenshots.
 
