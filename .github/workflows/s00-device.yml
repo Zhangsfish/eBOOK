@@ -45,5 +45,6 @@ jobs:
             build/test-details.json
             build/reader-metrics*.json
             build/screenshots/
+            build/attachments/manifest.json
             build/eBOOK-device-unsigned.ipa
           retention-days: 7

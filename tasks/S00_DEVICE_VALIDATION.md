@@ -7,7 +7,10 @@ iPhone; ChatGPT web independently reviews S01. This is separate from S02.
 
 - Work on `codex/s00-device-validation`, based on merged S00 main.
 - Preserve S01 PR #4 and `3bfb4429fe7a42e50df62f4857bcb9909bf00ab3`.
-- Keep all reader/parser/decoder/persistence/speech app Swift sources unchanged.
+- Keep parser/decoder/persistence/speech engine Swift sources unchanged.
+  Owner feedback after installing35.1 explicitly requests on-demand speech controls:
+  hide the persistent bottom player, add a toolbar entry and dismissible control
+  sheet, preserve playback while hidden, and verify show/hide preserves reading.
   Repair native UI-test interaction only when actual new-OS evidence requires it;
   keep real file selection and final imported-book assertions.
 - Prepare unique bundle identity, original icon and build/export metadata.

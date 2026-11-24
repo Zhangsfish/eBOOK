@@ -49,6 +49,13 @@ with log_path.open('w') as log:
 print('Simulator boot completed', flush=True)
 PY
 COMMON=(-project eBOOK.xcodeproj -scheme eBOOK -destination "id=$SIMULATOR_ID" -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO)
+TEST_SCOPE="${EBOOK_XCODE_TEST_SCOPE:-all}"
+TEST_COMMAND=(-configuration Debug test-without-building)
+case "$TEST_SCOPE" in
+  all) ;;
+  native-picker) TEST_COMMAND+=(-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB) ;;
+  *) echo "Unsupported Xcode test scope: $TEST_SCOPE"; exit 2 ;;
+esac
 echo 'Starting Debug build-for-testing'
 if ! xcodebuild "${COMMON[@]}" -configuration Debug build-for-testing > build/xcode-build.log 2>&1; then
   tail -100 build/xcode-build.log
@@ -61,7 +68,7 @@ cp .local-test-data/synthetic_long_gb18030.txt "$APP_DATA/Documents/"
 cp Tests/Fixtures/synthetic.epub Tests/Fixtures/sample_utf8.txt "$APP_DATA/Documents/"
 TEST_EXIT=0
 echo 'Starting simulator unit and UI tests'
-xcodebuild "${COMMON[@]}" -configuration Debug test-without-building -parallel-testing-enabled NO -resultBundlePath build/Test.xcresult > build/xcode-test.log 2>&1 || TEST_EXIT=$?
+xcodebuild "${COMMON[@]}" "${TEST_COMMAND[@]}" -parallel-testing-enabled NO -resultBundlePath build/Test.xcresult > build/xcode-test.log 2>&1 || TEST_EXIT=$?
 xcrun xcresulttool get test-results summary --path build/Test.xcresult --format json > build/test-summary.json || true
 xcrun xcresulttool get test-results tests --path build/Test.xcresult --format json > build/test-details.json || true
 xcrun xcresulttool export attachments --path build/Test.xcresult --output-path build/attachments > build/attachments-export.log 2>&1 || true
@@ -77,8 +84,11 @@ APP_DATA=$(xcrun simctl get_app_container "$SIMULATOR_ID" com.zhangsfish.ebook d
 if [[ -f "$APP_DATA/Documents/.s00-render-metrics-long.json" ]]; then
   cp "$APP_DATA/Documents/.s00-render-metrics-long.json" build/reader-metrics.json
 fi
-if [[ "$TEST_EXIT" -eq 0 ]]; then
+if [[ "$TEST_EXIT" -eq 0 && "$TEST_SCOPE" == all ]]; then
   python3 scripts/check_reader_metrics.py
+fi
+if [[ "$TEST_SCOPE" != all ]]; then
+  echo 'Focused native-picker check only; long-reader metrics are not exercised in this run.'
 fi
 tail -65 build/xcode-test.log
 echo 'Starting Release simulator build'

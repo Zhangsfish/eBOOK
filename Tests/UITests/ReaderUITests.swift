@@ -62,9 +62,20 @@ final class ReaderUITests: XCTestCase {
         let chapter = app.buttons["toc.entry.2"]
         XCTAssertTrue(chapter.waitForExistence(timeout: 10)); chapter.tap()
         XCTAssertTrue(app.tables["reader.table"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.buttons["speech.play"].exists)
+        XCTAssertFalse(app.buttons["speech.play"].exists, "Reading starts without the speech panel")
+        let anchor = app.staticTexts["reader.anchor"].label
+        app.buttons["reader.speech"].tap()
+        XCTAssertTrue(app.buttons["speech.play"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["下一章"].exists)
         XCTAssertTrue(app.buttons["从当前阅读位置开始朗读"].exists)
+        snapshot("speech-controls-expanded", app)
+        app.buttons["speech.dismiss"].tap()
+        XCTAssertFalse(app.buttons["speech.play"].exists)
+        XCTAssertEqual(app.staticTexts["reader.anchor"].label, anchor)
+        app.buttons["reader.speech"].tap()
+        XCTAssertTrue(app.buttons["speech.play"].waitForExistence(timeout: 10))
+        app.buttons["speech.dismiss"].tap()
+        snapshot("epub-reader-speech-hidden", app)
     }
 
     func testSystemDocumentPickerPresentsAndCanCancel() throws {
@@ -106,28 +117,34 @@ final class ReaderUITests: XCTestCase {
                     else { folder.tap() }
                 }
             }
+            if #available(iOS 26.0, *) {
+                // Current Files icon previews can consume an automation tap.
+                // Use the native List view and activate the actual file row.
+                let more = app.buttons["OverflowBarButtonItem"]
+                XCTAssertTrue(more.waitForExistence(timeout: 10)); more.tap()
+                let list = app.buttons.matching(NSPredicate(format: "label == '列表' OR label == 'List'")).firstMatch
+                if !list.waitForExistence(timeout: 10) { print("S00_PICKER_VIEW_MENU \(app.debugDescription)") }
+                XCTAssertTrue(list.waitForExistence(timeout: 2)); list.tap()
+            }
             snapshot("system-picker-\(name)", app)
             if !file.waitForExistence(timeout: 10) { print("S00_PICKER_TREE \(app.debugDescription)") }
             XCTAssertTrue(file.waitForExistence(timeout: 10))
             let suffix = (filename as NSString).pathExtension
-            let cell = app.collectionViews["File View"].cells.matching(NSPredicate(
-                format: "identifier == %@ OR identifier == %@", "\(name), \(suffix)", "\(filename), \(suffix)"
-            )).firstMatch
-            XCTAssertTrue(cell.waitForExistence(timeout: 10))
-            let thumbnail = cell.images.firstMatch
-            if thumbnail.exists && thumbnail.isHittable { thumbnail.tap() }
-            else { cell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap() }
+            if #available(iOS 26.0, *) {
+                let row = app.collectionViews["File View"].cells.containing(.staticText, identifier: file.label).firstMatch
+                XCTAssertTrue(row.waitForExistence(timeout: 10)); row.tap()
+            } else {
+                let cell = app.collectionViews["File View"].cells.matching(NSPredicate(
+                    format: "identifier == %@ OR identifier == %@", "\(name), \(suffix)", "\(filename), \(suffix)"
+                )).firstMatch
+                XCTAssertTrue(cell.waitForExistence(timeout: 10))
+                let thumbnail = cell.images.firstMatch
+                if thumbnail.exists && thumbnail.isHittable { thumbnail.tap() }
+                else { cell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap() }
+            }
             let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
             if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
-            // iOS 26's transparent navigation overlay can cover the thumbnail's
-            // preferred hit point. If the picker is still showing this real
-            // file, choose its visible filename below that overlay instead.
-            // Both paths use the system picker; no test-import injection.
             let libraryBook = app.buttons["library.book.\(expectedTitle)"]
-            if !libraryBook.waitForExistence(timeout: 5), file.exists, file.isHittable {
-                file.tap()
-                if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
-            }
             let imported = libraryBook.waitForExistence(timeout: 30)
             if !imported {
                 snapshot("system-picker-import-result-\(name)", app)

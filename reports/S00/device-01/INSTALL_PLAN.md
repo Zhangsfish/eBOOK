@@ -40,12 +40,19 @@ ephemeral key file and raw logs afterward. Do not alter Lecture Asset source,
 bundle ID, release branch, pending release workflow, or unrelated local files.
 
 The helper branch is `Zhangsfish/lecture-asset:codex/ebook-device-installation`,
-code `2444af3cdcbb0bf47c3993719fe987084809179e`; reader checkout is pinned to
-`424aa49be067880d73030860c32af19316db9f6c`. The existing manual workflow ID is
+current code `68ec0136774cb147004887ee79e0c1d099c41c01`; reader checkout is pinned to
+`1e556ae1622b4d56fa3c0c9e05ca0a14877073ac`. The existing manual workflow ID is
 reused on that branch only, without merging/changing the default release workflow.
 Prepare-only run https://github.com/Zhangsfish/lecture-asset/actions/runs/45324168773
 passed real Xcode/Swift preflight and the unsigned device archive with no Apple
 credentials. This is not signing/upload evidence.
+
+The separate upload run
+https://github.com/Zhangsfish/lecture-asset/actions/runs/45325301937
+then exported/uploaded `0.1.0 (35.1)` and read Apple processing status VALID.
+The UI showed the Internal badge and Ready to Test, and the manually managed
+Owner iPhone group has one build/one existing owner tester. The owner reported
+successful iPhone installation and launch. No Lecture Asset build was uploaded.
 
 Create/verify eBOOK's own Bundle ID and App Store Connect app record in Apple's
 official UI, then upload with `testFlightInternalTestingOnly = true`. Never

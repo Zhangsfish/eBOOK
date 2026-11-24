@@ -9,6 +9,7 @@ struct ReaderView: View {
     @State private var current = ReadingAnchor()
     @State private var showingTOC = false
     @State private var showingSettings = false
+    @State private var showingSpeech = false
     @State private var loadError: String?
     @State private var tocQuery = ""
 
@@ -30,7 +31,6 @@ struct ReaderView: View {
                         .accessibilityLabel("阅读进度")
                         Text("\(current.block + 1)/\(document.blocks.count)").monospacedDigit().accessibilityIdentifier("reader.anchor")
                     }.font(.caption).padding(.horizontal).padding(.vertical, 8).background(.bar)
-                    playback(document, storage: storage)
                 }
                 .background(Color(library.state.preferences.theme.background))
             } else if let loadError {
@@ -42,12 +42,34 @@ struct ReaderView: View {
         .preferredColorScheme(library.state.preferences.theme == .dark ? .dark : .light)
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
+                Button { showingSpeech = true } label: {
+                    Image(systemName: speech.book?.id == bookID && speech.status == .playing ? "speaker.wave.2.fill" : "speaker.wave.2")
+                }.accessibilityLabel("朗读控制").accessibilityHint("展开朗读控制面板").accessibilityIdentifier("reader.speech")
                 Button { showingTOC = true } label: { Image(systemName: "list.bullet") }.accessibilityLabel("目录").accessibilityIdentifier("reader.toc")
                 Button { showingSettings = true } label: { Image(systemName: "textformat.size") }.accessibilityLabel("阅读设置").accessibilityIdentifier("reader.settings")
             }
         }
         .sheet(isPresented: $showingTOC) { toc }
         .sheet(isPresented: $showingSettings) { ReaderSettings().environmentObject(library).environmentObject(speech) }
+        .sheet(isPresented: $showingSpeech) {
+            if let document, let storage = library.storage {
+                NavigationStack {
+                    ScrollView {
+                        playback(document, storage: storage).padding(.vertical)
+                    }
+                    .navigationTitle("朗读")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("收起") { showingSpeech = false }
+                                .accessibilityIdentifier("speech.dismiss")
+                        }
+                    }
+                }
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+            }
+        }
         .task {
             guard document == nil, let storage = library.storage, let record = library.record(bookID) else { return }
             do {
@@ -94,7 +116,10 @@ struct ReaderView: View {
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 if active {
-                    Button("查看听书位置") { jump = ReaderJump(block: speech.position.block) }.font(.caption)
+                    Button("查看听书位置") {
+                        jump = ReaderJump(block: speech.position.block)
+                        showingSpeech = false
+                    }.font(.caption)
                 }
             }
             HStack(spacing: 12) {

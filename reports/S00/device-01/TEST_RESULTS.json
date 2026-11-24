@@ -1,0 +1,95 @@
+{
+  "date": "2026-11-24",
+  "state": "INSTALLED_35_1_OWNER_REQUESTED_ON_DEMAND_SPEECH_UI",
+  "base_sha": "adc9f340a2ff427b30cddce33ad8a4d9efdac55a",
+  "s01_frozen_sha": "3bfb4429fe7a42e50df62f4857bcb9909bf00ab3",
+  "app_swift_changed": true,
+  "core_tests_changed": false,
+  "ui_test_change": "Verify on-demand controls and preserved reading anchor; native iOS26 Files List view row selection",
+  "runs": [
+    {
+      "id": 45321224169,
+      "sha": "615ea7f82a134b3dba33af55ebeb5c241be0e7ee",
+      "archive": "PASS",
+      "tests": "NOT_RUN_SIMULATOR_BOOT_TIMEOUT",
+      "result": "FAIL_ENV"
+    },
+    {
+      "id": 45322210390,
+      "sha": "424aa49be067880d73030860c32af19316db9f6c",
+      "archive": "PASS",
+      "debug_test_build": "PASS",
+      "release_simulator_build": "PASS",
+      "passed": 25,
+      "failed": 1,
+      "skipped": 0,
+      "failure": "Native Files UI thumbnail tap leaves picker open",
+      "result": "FAIL"
+    },
+    {
+      "id": 45322254825,
+      "sha": "424aa49be067880d73030860c32af19316db9f6c",
+      "xcode": "16.4 (16F6)",
+      "sdk": "18.5",
+      "simulator": "iPhone 16 Pro / iOS18.5 (22F77) / x86_64",
+      "debug_test_build": "PASS",
+      "release_simulator_build": "PASS",
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "result": "PASS"
+    },
+    {
+      "id": 45325097146,
+      "sha": "1e556ae1622b4d56fa3c0c9e05ca0a14877073ac",
+      "result": "FAIL",
+      "passed": 25,
+      "failed": 1,
+      "skipped": 0,
+      "failure": "Native Files import UI still fails after filename fallback"
+    }
+  ],
+  "internal_installation": {
+    "app_record": "6838578846",
+    "bundle_id": "com.zhangsfish.ebook",
+    "version": "0.1.0",
+    "build": "35.1",
+    "code_sha": "1e556ae1622b4d56fa3c0c9e05ca0a14877073ac",
+    "helper_sha": "68ec0136774cb147004887ee79e0c1d099c41c01",
+    "helper_run": 45325301937,
+    "export_upload": "PASS",
+    "apple_processing": "VALID",
+    "audience": "INTERNAL_ONLY_UI_VERIFIED",
+    "group": "Owner iPhone",
+    "automatic_distribution": false,
+    "group_builds": 1,
+    "group_testers": 1,
+    "owner_install_launch": "PASS_OWNER_REPORTED",
+    "device_model": "NOT_PROVIDED",
+    "ios_version": "NOT_PROVIDED",
+    "signed_ipa_sha256": "NOT_AVAILABLE_XCODE_DIRECT_UPLOAD_DID_NOT_RETAIN_IPA"
+  },
+  "physical_checks": {
+    "import_toc": "ONLY_PRIVATE_TXT_READ_REPORTED; EPUB/TOC_NOT_CONFIRMED",
+    "locked_speech_10_minutes": "NOT_CONFIRMED",
+    "progress_restore": "NOT_RUN",
+    "calls_bluetooth": "NOT_RUN",
+    "memory_profiling": "NOT_RUN",
+    "accessibility": "NOT_RUN",
+    "owner_private_txt_import_read": "PASS_OWNER_REPORTED; private text not acquired",
+    "on_demand_speech_ui": "NEXT_BETA_PENDING"
+  },
+  "privacy_and_cost": {
+    "new_tools_installed": false,
+    "new_paid_service_or_paid_ci": false,
+    "vendor_requests": 0,
+    "secrets_copied_to_ebook": false,
+    "app_review_submission": false,
+    "public_release": false,
+    "merge": false,
+    "s02_started": false
+  },
+  "installed_reader_code_sha": "1e556ae1622b4d56fa3c0c9e05ca0a14877073ac",
+  "engine_swift_changed": false,
+  "ui_revision": "ReaderView only: default-hidden speech sheet, toolbar entry, hide without stopping controller; new Xcode validation pending"
+}

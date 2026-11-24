@@ -12,10 +12,17 @@
   again for routine packaging/signing/installation steps already covered by it.
 - The owner completes Apple login/verification directly in the official UI.
 - No App Review submission, public release, new paid service, cloud TTS or merge.
+- New owner feedback on installed35.1: local TXT import/read works well; make the
+  permanent bottom speech controls appear only when needed. ReaderView presentation
+  and its meaningful native UI regression are authorized; keep engines unchanged.
+- Do not acquire or request the private imported book. Record only the owner's
+  non-textual import/read observation; no book content in reports/screenshots.
 
 ## File map and provenance
 - `DEVICE_CHECKLIST.md`: owner checks, initially NOT_RUN.
 - `DELIVERY.md`: exact implementation/build/installation state and blockers.
+- `TEST_RESULTS.json`: per-run SHA, real outcomes and physical-owner observations;
+  distinguish the signed build source from the final documentation-only PR head.
 - `scripts/ci_device.sh`: real unsigned iPhone archive and package inspection.
 - `.github/workflows/s00-device.yml`: standard public macOS runner; no secrets.
 - `Sources/eBOOK/Assets.xcassets`: original geometric book icon, no external art.
@@ -28,3 +35,13 @@
 Keep compile, unsigned archive, signing, upload acceptance, Apple processing,
 owner installation and physical behavior as separate evidence states.
 Only owner-observed device results can change checklist rows from NOT_RUN.
+
+## Current installed beta
+- eBOOK `0.1.0 (35.1)`, source `1e556ae1622b4d56fa3c0c9e05ca0a14877073ac`.
+- Existing-repository helper `68ec0136774cb147004887ee79e0c1d099c41c01`, successful
+  upload/status run 45325301937; Apple VALID and Internal Only read back in UI.
+- Owner iPhone group: automatic distribution disabled, one manually added build,
+  only the existing account-holder invited. No private tester email in reports.
+- Owner reported installation/launch and private TXT import/read success. EPUB,
+  locked10-minute speech, restore, memory, calls and accessibility remain pending.
+- The next beta must include the explicitly requested on-demand speech panel.

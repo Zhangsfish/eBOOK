@@ -34,6 +34,11 @@ fixtures with `python3 scripts/generate_small_fixtures.py`.
 
 ## Use
 
+In the reader, tap the speaker button in the top toolbar to open the speech
+controls. The player is hidden during ordinary reading. Tap 收起 or dismiss the
+sheet to keep reading while speech continues; reopen the speaker button for
+play/pause or chapter/paragraph controls. Voice and rate remain in 阅读设置.
+
 Tap **导入书籍** and choose a local TXT or EPUB through Files. TXT defaults to
 BOM/strict UTF-8/legacy-encoding detection. Use the **TXT 编码** menu before import
 for ambiguous BOM-less UTF-16 or legacy files. A byte stream can be valid in
