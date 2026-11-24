@@ -12,7 +12,10 @@ final class KokoroInferenceTests: XCTestCase {
         // A macOS execution is explicitly rejected as an iOS proof.
         XCTAssertEqual(SpikePlatform.name, "IOS_SIMULATOR")
         guard SpikePlatform.name == "IOS_SIMULATOR" else { throw SpikeError.initializationFailed }
-        let resources = try XCTUnwrap(Bundle.module.resourceURL).appendingPathComponent("Resources")
+        let bundleRoot = try XCTUnwrap(Bundle.module.resourceURL)
+        let resources = try XCTUnwrap([bundleRoot, bundleRoot.appendingPathComponent("Resources")].first {
+            FileManager.default.fileExists(atPath: $0.appendingPathComponent("model.json").path)
+        }, "Verified model manifest missing from the actual resource bundle")
         let model = resources.appendingPathComponent("kokoro")
         try AssetManifest.validate(directory: model, manifestURL: resources.appendingPathComponent("model.json"))
         let corpus = try JSONDecoder().decode(Corpus.self, from: Data(contentsOf: resources.appendingPathComponent("corpus.json")))

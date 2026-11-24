@@ -11,7 +11,10 @@ final class KokoroBenchmarkTests: XCTestCase {
     private func inputs() throws -> (URL, Corpus, Any, URL) {
         XCTAssertEqual(SpikePlatform.name, "IOS_SIMULATOR")
         guard SpikePlatform.name == "IOS_SIMULATOR" else { throw SpikeError.initializationFailed }
-        let resources = try XCTUnwrap(Bundle.module.resourceURL).appendingPathComponent("Resources")
+        let bundleRoot = try XCTUnwrap(Bundle.module.resourceURL)
+        let resources = try XCTUnwrap([bundleRoot, bundleRoot.appendingPathComponent("Resources")].first {
+            FileManager.default.fileExists(atPath: $0.appendingPathComponent("model.json").path)
+        }, "Verified model manifest missing from the actual resource bundle")
         let corpus = try JSONDecoder().decode(Corpus.self, from: Data(contentsOf: resources.appendingPathComponent("corpus.json")))
         let context = try JSONSerialization.jsonObject(with: Data(contentsOf: resources.appendingPathComponent("run-context.json")))
         let output = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
