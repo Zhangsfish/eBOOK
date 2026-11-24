@@ -1,0 +1,68 @@
+[
+  {
+    "component": "ort-package",
+    "url": "https://raw.githubusercontent.com/csukuangfj/onnxruntime-libs/1.28.2/Package.swift",
+    "sha256": "0327b05a5b4578a19ac4ba017a3a595129c70920d5c34398da6874dfb8d94629",
+    "bytes": 4600,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "ort-ref",
+    "url": "https://api.github.com/repos/csukuangfj/onnxruntime-libs/git/ref/tags/1.28.2",
+    "sha256": "3b363891770fa4d2ace9dab53c24d7276f2a07682850677e28a736d771aba468",
+    "bytes": 355,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "frontend",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/38016c6e0622e90bf417c35e8b47e0eb805af417/sherpa-onnx/csrc/offline-tts-kokoro-impl.h",
+    "sha256": "dd75a61cb9234a4e94a1822de0de5efa327fb710f8d06a065d47a91d3f7959c0",
+    "bytes": 30373,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "csrc-cmake",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/38016c6e0622e90bf417c35e8b47e0eb805af417/sherpa-onnx/csrc/CMakeLists.txt",
+    "sha256": "9ff4811dce40eb7324f25f82dde057132fce24af63ed9103359235623ae20925",
+    "bytes": 29461,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "kokoro-config",
+    "url": "https://raw.githubusercontent.com/k2-fsa/sherpa-onnx/38016c6e0622e90bf417c35e8b47e0eb805af417/sherpa-onnx/csrc/offline-tts-kokoro-model-config.cc",
+    "sha256": "ce3de03efa69bebdc12224494934a81b01ccd5c7130df1c35682b56e15353b20",
+    "bytes": 4054,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "ort-license",
+    "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.2/LICENSE",
+    "status": "UNRESOLVED",
+    "reason": "HTTP Error 404: Not Found"
+  },
+  {
+    "component": "espeak-license",
+    "url": "https://raw.githubusercontent.com/espeak-ng/espeak-ng/1.52.0/COPYING",
+    "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "bytes": 35147,
+    "status": "SOURCE_READ"
+  },
+  {
+    "component": "cppjieba-license",
+    "url": "https://raw.githubusercontent.com/yanyiwu/cppjieba/v5.0.3/LICENSE",
+    "status": "UNRESOLVED",
+    "reason": "HTTP Error 404: Not Found"
+  },
+  {
+    "component": "kokoro-license",
+    "url": "https://huggingface.co/hexgrad/Kokoro-82M-v1.1-zh/raw/main/LICENSE",
+    "status": "UNRESOLVED",
+    "reason": "HTTP Error 404: Not Found"
+  },
+  {
+    "component": "openfst-license",
+    "url": "https://raw.githubusercontent.com/k2-fsa/openfst/master/COPYING",
+    "status": "UNRESOLVED",
+    "reason": "HTTP Error 404: Not Found"
+  }
+]

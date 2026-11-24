@@ -1,0 +1,10 @@
+{
+  "provenance": "Original synthetic Mandarin written for eBOOK S02A; no book excerpts or provider samples.",
+  "cases": [
+    {"id": "narration", "text": "清晨的河岸很安静，薄雾沿着石阶慢慢散开。小宁合上笔记，听见远处传来第一声鸟鸣。"},
+    {"id": "dialogue", "text": "“你今天还去图书馆吗？”小宁问。“去，不过我们慢一点走。”朋友笑着回答。"},
+    {"id": "numbers", "text": "今天是2026年11月24日，气温18.5摄氏度，书架上有1024本书，车票价格是36元。"},
+    {"id": "polyphones", "text": "银行旁边的行人道正在施工。小宁重新整理行李，认真比较两种重量不同的乐器。"},
+    {"id": "mixed", "text": "请打开Reader，选择Wi-Fi下载；准备好后，按Play开始，再按Pause暂停。"}
+  ]
+}
