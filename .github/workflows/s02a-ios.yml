@@ -1,0 +1,39 @@
+name: S02A isolated Kokoro iOS
+on:
+  push:
+    branches: [codex/s02a-kokoro-ios-spike]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: s02a-ios-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  native-kokoro:
+    # Ordinary public-repository ARM64 runner. No -large/-xlarge/paid runner.
+    if: github.event.repository.private == false
+    runs-on: macos-15
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Offline source tests
+        run: python3 -m unittest discover -s tools/local-tts-spike/Tests -v
+      - name: Verify actual pinned native archives and simulator slices
+        run: python3 tools/local-tts-spike/scripts/inspect_native.py --require-simulator-arch arm64
+      - name: Download and verify original model into ignored runner storage
+        run: python3 tools/local-tts-spike/scripts/assets.py --download-to .local-test-data/s02a/model
+      - name: Build and execute genuine iOS model inference
+        run: python3 tools/local-tts-spike/scripts/run_ios.py --model-dir .local-test-data/s02a/model
+      - name: Select only sanitized small text evidence
+        if: always()
+        run: python3 tools/local-tts-spike/scripts/publish_evidence.py
+      - name: Upload only verified JSON and sanitized diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: s02a-ios-evidence-${{ github.sha }}
+          path: build/s02a-public/
+          if-no-files-found: error
+          retention-days: 7

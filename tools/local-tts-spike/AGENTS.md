@@ -6,6 +6,13 @@ The owner has selected Kokoro; no more vendor comparisons or private book input.
 The latest handoff prioritizes a reviewable PR and honest incomplete iOS results.
 
 ## Boundaries
+S02A.1 / Issue #8 (2026-11-24) explicitly extends scope to the NEW dedicated
+.github/workflows/s02a-ios.yml. Existing workflow files remain untouched.
+Continue this branch/PR #7 only. Native CI, thread benchmarks, public evidence,
+exact binary/license inspection and controlled minimal-pack equivalence are
+authorized. No production integration or new model/provider. Prior S02A metrics
+are historical; preserve them and identify every new native test source SHA.
+
 Only tools/local-tts-spike/ and reports/S02A_LOCAL_TTS_FEASIBILITY.md may change.
 Do not modify Sources/, Tests/, eBOOK.xcodeproj, STATUS.md, existing workflows,
 S01 PR #4, reader PR #5, or main. Stop at READY_FOR_AUDIT; never merge/start S02B.

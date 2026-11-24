@@ -7,6 +7,7 @@ from assets import REPO, SPIKE, sha256
 
 BASE = '7d9f0e1dee06c36e5791ceac3f7064f370020ceb'
 ALLOWED_REPORT = 'reports/S02A_LOCAL_TTS_FEASIBILITY.md'
+ALLOWED_WORKFLOW = '.github/workflows/s02a-ios.yml'  # Explicitly authorized by Issue #8.
 FORBIDDEN = {'.onnx', '.bin', '.wav', '.mp3', '.m4a', '.zip', '.bz2', '.whl', '.a', '.dylib', '.dll', '.ipa'}
 
 
@@ -25,7 +26,7 @@ def main():
         raise RuntimeError('No delivery changes found')
     for name in paths:
         path = REPO / name
-        if not (name.startswith('tools/local-tts-spike/') or name == ALLOWED_REPORT):
+        if not (name.startswith('tools/local-tts-spike/') or name in [ALLOWED_REPORT, ALLOWED_WORKFLOW]):
             raise RuntimeError('Out-of-scope change: ' + name)
         if path.suffix.lower() in FORBIDDEN or path.stat().st_size > 262144:
             raise RuntimeError('Binary/large output must not be staged: ' + name)
