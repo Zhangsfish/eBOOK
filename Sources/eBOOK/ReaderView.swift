@@ -5,7 +5,7 @@ struct ReaderView: View {
     @EnvironmentObject private var library: LibraryModel
     @EnvironmentObject private var speech: SpeechController
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.accessibilityContrast) private var accessibilityContrast
+    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
     @State private var document: BookDocument?
     @State private var jump = ReaderJump(block: 0)
     @State private var current = ReadingAnchor()
@@ -38,7 +38,7 @@ struct ReaderView: View {
                             Image(systemName: "ellipsis")
                                 .font(.system(size: 16, weight: .regular))
                                 .foregroundStyle(Color(library.state.preferences.theme.foreground)
-                                    .opacity(accessibilityContrast == .increased ? 1 : 0.60))
+                                    .opacity(colorSchemeContrast == .increased ? 1 : 0.60))
                                 .frame(width: 44, height: 44)
                                 .contentShape(Rectangle())
                         }
