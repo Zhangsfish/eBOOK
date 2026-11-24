@@ -78,15 +78,21 @@ def inspect_archive(path, directory):
                 entry['actual_lipo_status'] = 'NOT_RUN_NON_MACOS_HOST'
             libraries.append(entry)
         notices = []
+        header_notices = []
         for member in members:
             name = member.filename.lower()
             if not member.is_dir() and any(word in name for word in ['license', 'copying', 'notice', 'thirdparty']):
                 raw = source.read(member)
                 notices.append({'path': member.filename, 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest(),
                     'text_preview': raw[:4000].decode('utf-8', errors='replace') if len(raw) < 2 * 1024**2 else 'TOO_LARGE_FOR_PREVIEW'})
+            if member.filename.endswith(('/c-api.h', '/onnxruntime_c_api.h')):
+                raw = source.read(member)
+                lines = raw.decode('utf-8', errors='replace').splitlines()[:35]
+                header_notices.append({'path': member.filename, 'sha256': hashlib.sha256(raw).hexdigest(),
+                    'notice_lines': [line for line in lines if any(word in line.lower() for word in ['copyright', 'licensed', 'license.'])]})
         return {'archive_sha256': sha256(path), 'archive_bytes': path.stat().st_size,
                 'archive_members': len(members), 'info_plist_sha256': hashlib.sha256(source.read(infos[0])).hexdigest(),
-                'libraries': libraries, 'notices': notices,
+                'libraries': libraries, 'notices': notices, 'header_notice_references': header_notices,
                 'notice_status': 'FILES_INSPECTED_NOT_LEGAL_CLEARANCE' if notices else 'NO_NOTICE_FILES_IN_ARCHIVE'}
 
 

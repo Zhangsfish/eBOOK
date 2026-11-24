@@ -7,18 +7,18 @@ on:
       runner:
         description: Ordinary free public runner architecture
         type: choice
-        options: [macos-15-intel, macos-15]
-        default: macos-15-intel
+        options: [macos-15, macos-15-intel]
+        default: macos-15
 permissions:
   contents: read
 concurrency:
-  group: s02a-ios-${{ github.ref }}-${{ inputs.runner || 'macos-15-intel' }}
+  group: s02a-ios-${{ github.ref }}-${{ inputs.runner || 'macos-15' }}
   cancel-in-progress: false
 jobs:
   native-kokoro:
     # Both choices are ordinary public runners. No -large/-xlarge/paid runner.
     if: github.event.repository.private == false && (inputs.runner == '' || inputs.runner == 'macos-15-intel' || inputs.runner == 'macos-15')
-    runs-on: ${{ inputs.runner || 'macos-15-intel' }}
+    runs-on: ${{ inputs.runner || 'macos-15' }}
     timeout-minutes: 55
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -33,10 +33,11 @@ jobs:
       - name: Build and execute genuine iOS thread matrix and minimal-pack equality
         run: python3 tools/local-tts-spike/scripts/run_ios.py --model-dir .local-test-data/s02a/model --benchmark-matrix
       - name: Select only sanitized small text evidence
+        id: public-evidence
         if: always()
         run: python3 tools/local-tts-spike/scripts/publish_evidence.py
       - name: Upload only verified JSON and sanitized diagnostics
-        if: always()
+        if: always() && steps.public-evidence.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: s02a-ios-evidence-${{ github.sha }}

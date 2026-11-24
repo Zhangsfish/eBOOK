@@ -8,7 +8,8 @@
     "ios_binary": {
       "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/xcframework/sherpa-onnx-v2.0.3-ios-static.xcframework.zip",
       "sha256": "36603efc0908a18a3b4b5ec1a81a15accddbe9948720bf4d931ee14506f42481",
-      "verification": "UPSTREAM_PACKAGE_DECLARED_NOT_DOWNLOADED"
+      "verification": "SHA256_AND_ACTUAL_LIPO_VERIFIED",
+      "architecture_evidence": "../evidence/s02a1-native-audit-be36e9b.json"
     }
   },
   "onnxruntime": {
@@ -23,9 +24,18 @@
     "ios_binary": {
       "url": "https://github.com/csukuangfj/onnxruntime-libs/releases/download/v1.28.2/onnxruntime-ios-static-xcframework-1.28.2.xcframework.zip",
       "sha256": "2c2299acbb461d26d4bac4bc85985d40e7c7177ed6072703ae0846d88b0b4599",
-      "verification": "UPSTREAM_PACKAGE_DECLARED_NOT_DOWNLOADED"
+      "verification": "SHA256_AND_ACTUAL_LIPO_VERIFIED",
+      "architecture_evidence": "../evidence/s02a1-native-audit-be36e9b.json"
     }
   },
-  "native_build": "NOT_RUN",
-  "binary_architecture_inspection": "NOT_RUN"
+  "native_build": "PASS_XCODE_16_4_IOS_SIMULATOR_AT_ba17f9c6f15014e4693258ee7170dcb6c0f7e75e",
+  "binary_architecture_inspection": "PASS_ACTUAL_DEVICE_ARM64_SIMULATOR_ARM64_X86_64",
+  "native_build_evidence": [
+    "https://github.com/Zhangsfish/eBOOK/actions/runs/45389424006",
+    "https://github.com/Zhangsfish/eBOOK/actions/runs/45392188338"
+  ],
+  "license_clearance": "UNRESOLVED_FULL_BINARY_AND_DATA_NOTICES",
+  "native_inference": "PASS_GENUINE_IOS_SIMULATOR_ARM64_AND_X86_64",
+  "performance_gate": "PERFORMANCE_NOT_READY",
+  "physical_device": "NOT_RUN"
 }

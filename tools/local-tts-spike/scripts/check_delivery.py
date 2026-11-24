@@ -49,7 +49,7 @@ def main():
     branch = subprocess.check_output(['git', '-C', str(REPO), 'branch', '--show-current'], text=True).strip()
     if branch != 'codex/s02a-kokoro-ios-spike':
         raise RuntimeError('Wrong branch')
-    private_root = REPO / '.local-test-data/s02a'
+    private_root = REPO / '.local-test-data'
     files = [p.relative_to(REPO).as_posix() for p in private_root.rglob('*') if p.is_file()]
     ignored = subprocess.run(['git', '-C', str(REPO), 'check-ignore', '--stdin', '-z'],
         input=('\0'.join(files) + '\0').encode(), capture_output=True, check=True)

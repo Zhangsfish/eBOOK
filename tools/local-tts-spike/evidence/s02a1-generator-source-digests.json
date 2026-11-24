@@ -1,0 +1,55 @@
+{
+  "sources": [
+    {
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "path": ".github/workflows/export-kokoro.yaml",
+      "bytes": 20100,
+      "sha256": "954524f948d55782b57bd27b5f8608b5cd030ea2df6bb1995efdbba497b8d9fb"
+    },
+    {
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "path": "scripts/kokoro/v1.0/generate_lexicon_en.py",
+      "bytes": 1778,
+      "sha256": "90eae1e989dec7190fe3f7e0d5ae93751e0a713c3bd87675ff3cbcb6696f0c53"
+    },
+    {
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "path": "scripts/kokoro/v1.1-zh/generate_lexicon_en.py",
+      "bytes": 30,
+      "sha256": "ae7af1df4bc9b344dcf8bcbbf9247bbc0ced6db7774505e80baa7216f402f0af"
+    },
+    {
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "path": "scripts/kokoro/v1.1-zh/generate_lexicon_zh.py",
+      "bytes": 3966,
+      "sha256": "ecedfebd99c836ff2313bacc3d494ad7ca24f0389987b9ceef133cca78516ac7"
+    },
+    {
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "path": "scripts/kokoro/v1.1-zh/generate_voices_bin.py",
+      "bytes": 1067,
+      "sha256": "c6e73694781ff90da671f4c785407ba35cc115ddf9208360e4ff64200c9044a0"
+    },
+    {
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "path": "scripts/kokoro/v1.1-zh/README.md",
+      "bytes": 114,
+      "sha256": "e2d39356ea4d67ac15c39a7e5a238ea12b0f6fb8a55bb0c87bc2f659eb1cf7ac"
+    },
+    {
+      "repository": "k2-fsa/sherpa-onnx",
+      "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "path": "scripts/kokoro/v1.1-zh/run.sh",
+      "bytes": 2147,
+      "sha256": "c2098e201cd1433f7663578c5b3f95e0d08cd61b0c31c28ea978be0db5bf0cee"
+    }
+  ],
+  "observation": "The v1.1-zh export script uses moving main URLs for Misaki dictionaries and imports unpinned pypinyin/Misaki; exact generating data revisions for the frozen model pack are not recorded.",
+  "license_clearance": "UNRESOLVED_EXACT_DATA_REVISIONS_AND_NOTICES"
+}

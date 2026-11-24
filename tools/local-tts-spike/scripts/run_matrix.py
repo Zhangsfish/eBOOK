@@ -59,6 +59,13 @@ def parse_native_metrics(text, kind, source_sha, threads=None):
             raise ValueError('Incomplete minimal/full comparison')
         if any(n <= 24000 for n in result['full_frames'] + result['minimal_frames']):
             raise ValueError('Invalid equivalence waveform frame count')
+        if any(not re.fullmatch('[0-9a-f]{64}', h) for h in
+               result['full_wav_sha256'] + result['minimal_wav_sha256']):
+            raise ValueError('Invalid equivalence waveform hash')
+        equal = (result['full_wav_sha256'] == result['minimal_wav_sha256'] and
+                 result['full_frames'] == result['minimal_frames'])
+        if result.get('bit_identical_pcm16_wav') is not equal:
+            raise ValueError('Equivalence claim contradicts actual measured hashes/frames')
     return result
 
 
@@ -147,9 +154,11 @@ def run(model_dir):
             'test-without-building'], 'equivalence', staged)
         try:
             metric = parse_native_metrics(text, 'minimal_equivalence', result['source_sha'])
-            if code or metric.get('bit_identical_pcm16_wav') is not True:
-                raise ValueError('Minimal/full output equality not demonstrated')
+            metric['xcode_exit'] = code
             result['minimal_equivalence'] = metric
+            if code or metric['bit_identical_pcm16_wav'] is not True:
+                metric.update(status='NOT_PROVEN_AUDIO_DIFFERENCES_OR_XCTEST_FAILURE',
+                              reason='Retained measured hashes/frames; no equivalence or distribution claim')
         except Exception as error:
             result['minimal_equivalence'] = {'status': 'NOT_PROVEN', 'xcode_exit': code, 'reason': str(error)}
         if result['benchmarks']:
@@ -161,7 +170,9 @@ def run(model_dir):
             else:
                 result['performance_gate'] = 'READY_FOR_BOUNDED_SESSION_TRIAL'
                 result['session'] = {'status': 'NOT_RUN_PENDING_BOUNDED_PLAYBACK_TRIAL', 'best_threads': best['threads']}
-        good = len(result['benchmarks']) == 4 and result.get('minimal_equivalence', {}).get('bit_identical_pcm16_wav') is True
+        good = (len(result['benchmarks']) == 4 and
+                result.get('minimal_equivalence', {}).get('bit_identical_pcm16_wav') is True and
+                result.get('minimal_equivalence', {}).get('xcode_exit') == 0)
         result['status'] = 'PASS_NATIVE_INFERENCE_AND_EQUIVALENCE' if good else 'PARTIAL_NATIVE_RESULTS_WITH_BLOCKERS'
         return 0 if good else 3
     except Exception as error:

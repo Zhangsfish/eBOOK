@@ -13,7 +13,8 @@ exact binary/license inspection and controlled minimal-pack equivalence are
 authorized. No production integration or new model/provider. Prior S02A metrics
 are historical; preserve them and identify every new native test source SHA.
 
-Only tools/local-tts-spike/ and reports/S02A_LOCAL_TTS_FEASIBILITY.md may change.
+Apart from that one new S02A workflow, only tools/local-tts-spike/ and
+reports/S02A_LOCAL_TTS_FEASIBILITY.md may change.
 Do not modify Sources/, Tests/, eBOOK.xcodeproj, STATUS.md, existing workflows,
 S01 PR #4, reader PR #5, or main. Stop at READY_FOR_AUDIT; never merge/start S02B.
 Do not stage any model/native binary, WAV/MP3, book, key or generated local output.
@@ -38,7 +39,7 @@ There was no existing S02A Swift project or iOS inference result to recover.
 ## Evidence discipline
 Record tested source commit, command/environment, init, first callback latency,
 audio duration/RTF and process high-water memory. Never label desktop as iOS.
-Until actual iOS inference succeeds, gate remains BLOCKED_IOS_RUNTIME.
+The historical Windows-only evidence remains distinct from new iOS results.
 Unresolved frontend/data notices block any claim of redistribution clearance.
 
 ## Delivery evidence (2026-11-24)
@@ -51,8 +52,25 @@ Unresolved frontend/data notices block any claim of redistribution clearance.
 - Machine speech check preserved REVIEW_ASR_DIFFERENCES: first voice was
   recognized in Traditional Chinese, others Simplified. Do not call raw sequence
   similarity pronunciation accuracy or a human quality score.
-- Windows native helper actually returned 3 / BLOCKED_IOS_RUNTIME. Swift was
+- Historical S02A: Windows native helper returned 3 / BLOCKED_IOS_RUNTIME. Swift was
   not built/run, binary architectures NOT_RUN, 10–15 min session NOT_RUN.
 - LICENSE_REVIEW.md records verified root declarations and unresolved per-data
   provenance/native binary notices. This is not a redistribution clearance.
 - READY_FOR_AUDIT is a delivery state, not GO for S02B. The PR must state both.
+
+## S02A.1 measured update (2026-11-24)
+- Native tested source ba17f9c6f15014e4693258ee7170dcb6c0f7e75e, Xcode 16.4.
+  Intel iOS 18.6 run 45389424006 and ARM iOS 18.5 run 45392188338 passed actual
+  compilation, three-voice waveform synthesis, four thread processes and seven
+  full/minimal bit-identical waveform comparisons on each simulator.
+- Best ARM weighted RTF 1.4212663 (2 threads); Intel 3.6103540 (3 threads).
+  PERFORMANCE_NOT_READY; do not generate a wasteful 15-minute session or start
+  S02B. Device latency/background/power/heat remain NOT_RUN.
+- Actual simulator mixer output was observed; no physical acoustic measurement.
+- Both downloaded CI ZIPs were verified against GitHub digest, CRC and per-file
+  manifests: 9 UTF-8 JSON/log members each, no audio/models. Public metric JSON
+  preserves tested SHA and CI URL; original ZIPs/logs remain ignored locally.
+- Minimal candidate 176296499 bytes, canonical manifest SHA
+  5267535f3f171cb6cb00cf17747ade8685bd63e100435e5fb9856c3965530267.
+  Seven-case equivalence does not clear data/native notices or prove all-input
+  compatibility. Preserve full pack and keep LICENSE_REVIEW_INCOMPLETE.

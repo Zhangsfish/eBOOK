@@ -68,6 +68,32 @@ class NativeMetricGuards(unittest.TestCase):
         marker = 'S02A_IOS_METRICS ' + json.dumps(self.value())
         with self.assertRaises(ValueError): parse_native_metrics(marker + '\n' + marker, 'thread_benchmark', 'tested-sha', 1)
 
+    def equivalence(self):
+        return {'kind': 'minimal_equivalence', 'environment': 'IOS_SIMULATOR',
+                'genuine_ios_inference': True, 'run_context': {'source_sha': 'tested-sha'},
+                'original_cases': 7, 'full_frames': [48000] * 7, 'minimal_frames': [48000] * 7,
+                'full_wav_sha256': ['a' * 64] * 7, 'minimal_wav_sha256': ['a' * 64] * 7,
+                'bit_identical_pcm16_wav': True}
+
+    def parse_equivalence(self, value):
+        return parse_native_metrics('S02A_IOS_METRICS ' + json.dumps(value),
+                                    'minimal_equivalence', 'tested-sha')
+
+    def test_equivalence_cannot_claim_pass_with_different_waveforms(self):
+        value = self.equivalence(); value['minimal_wav_sha256'][0] = 'b' * 64
+        with self.assertRaises(ValueError): self.parse_equivalence(value)
+
+    def test_equivalence_requires_actual_hashes(self):
+        value = self.equivalence(); value['full_wav_sha256'][0] = 'BUILD SUCCEEDED'
+        with self.assertRaises(ValueError): self.parse_equivalence(value)
+
+    def test_equivalence_failure_preserves_actual_comparison(self):
+        value = self.equivalence(); value['minimal_frames'][0] = 96000
+        value['bit_identical_pcm16_wav'] = False
+        result = self.parse_equivalence(value)
+        self.assertFalse(result['bit_identical_pcm16_wav'])
+        self.assertEqual(result['minimal_frames'][0], 96000)
+
 
 class ArchiveAndRedactionGuards(unittest.TestCase):
     def setUp(self):

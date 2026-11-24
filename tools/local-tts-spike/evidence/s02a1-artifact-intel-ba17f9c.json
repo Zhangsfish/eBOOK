@@ -1,0 +1,52 @@
+{
+  "status": "PASS_DOWNLOADED_ZIP_CRC_HASH_MANIFEST_TEXT_ALLOWLIST",
+  "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45389424006",
+  "source_sha": "ba17f9c6f15014e4693258ee7170dcb6c0f7e75e",
+  "artifact_id": 14919724642,
+  "zip_bytes": 28976,
+  "zip_sha256": "650269404dd31a17c3bf83e12e394bd1f7ed2125ea20a42c1b0ffb954949fc51",
+  "files": [
+    {
+      "file": "native-audit.json",
+      "bytes": 4026,
+      "sha256": "7fa58743c260eab383a8a34034c5ee1381205c5d2d15f3ce3e282eb149bbbc81"
+    },
+    {
+      "file": "ios-result-0.json",
+      "bytes": 27688,
+      "sha256": "263803526128cfdc20e98292f1a1ec5f76bb2413e91f36b767be6363d0f51f40"
+    },
+    {
+      "file": "xcode-diagnostic-4.log",
+      "bytes": 22345,
+      "sha256": "2cc729d504693a65d44f6cf1190a446655b40320a280611e7f3a9402c88e2055"
+    },
+    {
+      "file": "xcode-diagnostic-5.log",
+      "bytes": 15447,
+      "sha256": "d3b943cd19ed7de27d53b199ebcaa449894d42109c710174358cacc8dadf99d5"
+    },
+    {
+      "file": "xcode-diagnostic-2.log",
+      "bytes": 26579,
+      "sha256": "fcc3e5bb0962347202f649db337254d681d18f59e2f3c59943b6914c4f193b5b"
+    },
+    {
+      "file": "xcode-diagnostic-3.log",
+      "bytes": 17199,
+      "sha256": "3e4f3e44461568d75e4e9a0810ec0280b36a80d8248c05ff2e2586cdd676133e"
+    },
+    {
+      "file": "xcode-diagnostic-1.log",
+      "bytes": 8241,
+      "sha256": "ab0f2fd356934e4b48ee07a361e7d8648edfcd3299925269a418a8184eec9b27"
+    },
+    {
+      "file": "xcode-diagnostic-0.log",
+      "bytes": 133923,
+      "sha256": "871fae37eb589665a3010a773806a1b76480923aab32b03cb8e2ecf57ef8af3a"
+    }
+  ],
+  "audio_files": 0,
+  "model_files": 0
+}

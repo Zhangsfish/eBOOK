@@ -1,8 +1,15 @@
 # S02A isolated Kokoro spike
 
-State: `READY_FOR_AUDIT`; native iOS inference is **not yet demonstrated**.
+S02A.1 / Issue #8 updates the same branch and PR #7. The current measured native
+results, exact tested revisions and remaining gates are in
+`../../reports/S02A_LOCAL_TTS_FEASIBILITY.md`; `READY_FOR_AUDIT` never means GO.
+Actual ARM64 and Intel iOS simulator inference and seven-case full/minimal WAV
+equivalence passed at `ba17f9c6f15014e4693258ee7170dcb6c0f7e75e`.
+Performance remains `PERFORMANCE_NOT_READY` (best ARM weighted RTF 1.4213),
+physical-device performance is pending, and redistribution notices are incomplete.
 The production reader, PR #4 and PR #5 remain untouched. This folder is the only
-implementation added for Issue #6. The owner has selected Kokoro; no vendor lab.
+implementation for Issues #6/#8, plus the dedicated S02A-only workflow. The owner
+has selected Kokoro; no vendor lab.
 
 ## Reused work and new scope
 
@@ -19,8 +26,10 @@ read by the new benchmark. No extra package installation is required locally.
   `38016c6e0622e90bf417c35e8b47e0eb805af417`, upstream `sherpa-onnx` static product.
 - Transitive SPM ONNX Runtime **1.28.2**, package commit
   `8ebc5ebf92190903c274a7621ba4c96a732335ec`; upstream binary checksums are in
-  `manifests/native-runtime.json`. They are declared pins, not downloaded-binary
-  verification or architecture evidence. No fabricated `Package.resolved`.
+  `manifests/native-runtime.json`. S02A.1 downloaded and hash-verified both exact
+  XCFrameworks; actual macOS `lipo` confirms device arm64 and simulator
+  arm64+x86_64 for both. See `evidence/s02a1-native-audit-be36e9b.json`.
+  Binary/data notices remain incomplete. No fabricated `Package.resolved`.
 - Windows: CPython 3.11.11, sherpa-onnx/core 2.0.3, NumPy 1.26.4. Official wheel
   URLs/bytes/hashes in `manifests/desktop-runtime.json` and hash lock file.
 - INT8: `csukuangfj/kokoro-int8-multi-lang-v1_1` revision
@@ -40,6 +49,7 @@ python -m unittest discover -s tools/local-tts-spike/Tests -v
 python tools/local-tts-spike/scripts/assets.py --verify MODEL_DIR
 python tools/local-tts-spike/scripts/run_desktop.py --model-dir MODEL_DIR
 python tools/local-tts-spike/scripts/run_ios.py --model-dir MODEL_DIR
+python tools/local-tts-spike/scripts/run_ios.py --model-dir MODEL_DIR --benchmark-matrix
 ```
 
 The desktop run generates seven original WAVs: three same-text voice checks
@@ -70,11 +80,57 @@ Model absence is a failure, not a skipped inference test. The helper never
 installs Xcode or a simulator and never uploads audio/model resources.
 
 On Windows it exits **3 / BLOCKED_IOS_RUNTIME**, with machine-readable evidence.
-The Swift code and macOS helper have **not been compiled/run on Xcode** in this
-delivery. Native architecture, simulator performance and device performance are
-NOT_RUN. The existing authorized public macOS workflow only runs S00; it has no
-S02A entry point. Task scope restricts edits to this folder/report, so no existing
-workflow, reader source or core test is altered to inject a spike run.
+The dedicated `.github/workflows/s02a-ios.yml` runs ordinary free public
+`macos-15` (ARM, default after the measured matrix) or `macos-15-intel`, with public-repository and runner
+allowlists. It does not edit the S00 workflow or production tests. Native build
+success and actual native inference are reported separately: the initial pilot
+built on Xcode 16.4 but failed before model loading because of a resource path;
+the bundle lookup was corrected rather than labelling that a runtime failure.
+Use the final report/CI artifacts for subsequent native results.
+
+`--benchmark-matrix` builds once, then runs four independent native XCTest
+processes for 1–4 CPU threads. Each verifies the full assets, constructs one
+engine, performs an excluded warmup, and synthesizes seven original requests.
+It measures constructor time, first nonempty callback, complete-waveform RTF
+(arithmetic mean, nearest-rank p95, duration-weighted mean), and cumulative
+process peak RSS. With seven requests, nearest-rank p95 equals the maximum.
+The first request also feeds the actual WAV into AVAudioEngine and measures
+request-to-first-nonzero **simulator realtime mixer** output when an audio route
+exists. It is not a physical speaker/microphone audibility measurement.
+
+No WAV, model, bundle, DerivedData or xcresult is uploaded. Only small selected
+JSON and sanitized diagnostic tails go to `build/s02a-public/`; upload requires
+the export guard to succeed. `artifact-manifest.json` records file hashes/sizes.
+The report records the independently downloaded ZIP checks. Native metrics
+must carry the actual source SHA and `IOS_SIMULATOR`; compile-only, wrong-SHA,
+wrong-platform and inconsistent waveform data are rejected.
+
+Example explicit rerun (the workflow must already be registered in GitHub):
+
+```text
+gh workflow run s02a-ios.yml --repo Zhangsfish/eBOOK --ref codex/s02a-kokoro-ios-spike -f runner=macos-15
+```
+
+`scripts/inspect_native.py` reproduces exact archive/header/lipo checks.
+`scripts/audit_fst_sources.py` traces only the existing three Kokoro FSTs to a
+fixed shared artifact source; it downloads no other model weights. It does not
+clear the underlying grammar/data notices.
+
+## Minimal candidate, without modifying the original pack
+
+`scripts/make_minimal.py` verifies the full pinned pack and writes a **new**
+ignored candidate plus manifest; existing destinations are refused. Ten files
+retain model/voices/tokens, us-en+zh lexicons, three FSTs and LICENSE/README.
+The candidate is 176,296,499 bytes; 38,930,673 bytes are omitted in the new copy.
+The original archive and 377-file tree remain intact. The native matrix compares
+seven actual PCM16 WAV hashes and frame counts for fresh full/candidate engines
+at identical settings, warmup and request order. No output equality is inferred
+from filenames, silence or source inspection. A mismatch stays NOT_PROVEN;
+even a match does not establish redistribution clearance. Exact outcome is in
+the report and measured evidence.
+Both measured simulator runs produced bit-identical full/candidate outputs for
+all seven controlled cases. The original pack remains preserved; this is a
+limited tested resource equivalence, not a license or all-input guarantee.
 
 ## Bounded listening-session probe
 
@@ -84,8 +140,10 @@ python tools/local-tts-spike/scripts/run_desktop.py --model-dir MODEL_DIR --sess
 
 This optionally generates >=600 seconds of spoken audio in bounded requests,
 retaining only three session WAVs at a time. It is **not** real-time playback,
-background endurance, or iOS testing. The 600/900-second probe is NOT_RUN for this
-delivery; short generation results cannot stand in for it. The original seven
+background endurance, or iOS testing. The 600/900-second probe is
+NOT_RUN_PERFORMANCE_NOT_READY for S02A.1 because all measured thread
+configurations remain slower than playback. Short generation results cannot
+stand in for it. The original seven
 validation WAVs are separate finite fixtures and are retained for local checks.
 
 ## Measurement interpretation

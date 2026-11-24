@@ -37,6 +37,8 @@ if __name__ == '__main__':
         (OUTPUT / name).write_text(sanitize(raw) + '\n', encoding='utf-8')
     rows = []
     for path in OUTPUT.iterdir():
+        if path.name == 'artifact-manifest.json':
+            continue
         if not path.is_file() or path.suffix not in ['.json', '.log'] or path.stat().st_size > 512 * 1024:
             raise ValueError('Unexpected public evidence output')
         raw = path.read_bytes()
