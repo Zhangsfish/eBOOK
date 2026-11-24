@@ -3,16 +3,22 @@ on:
   push:
     branches: [codex/s02a-kokoro-ios-spike]
   workflow_dispatch:
+    inputs:
+      runner:
+        description: Ordinary free public runner architecture
+        type: choice
+        options: [macos-15-intel, macos-15]
+        default: macos-15-intel
 permissions:
   contents: read
 concurrency:
-  group: s02a-ios-${{ github.ref }}
+  group: s02a-ios-${{ github.ref }}-${{ inputs.runner || 'macos-15-intel' }}
   cancel-in-progress: false
 jobs:
   native-kokoro:
-    # Ordinary public-repository ARM64 runner. No -large/-xlarge/paid runner.
-    if: github.event.repository.private == false
-    runs-on: macos-15
+    # Both choices are ordinary public runners. No -large/-xlarge/paid runner.
+    if: github.event.repository.private == false && (inputs.runner == '' || inputs.runner == 'macos-15-intel' || inputs.runner == 'macos-15')
+    runs-on: ${{ inputs.runner || 'macos-15-intel' }}
     timeout-minutes: 55
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -21,7 +27,7 @@ jobs:
       - name: Offline source tests
         run: python3 -m unittest discover -s tools/local-tts-spike/Tests -v
       - name: Verify actual pinned native archives and simulator slices
-        run: python3 tools/local-tts-spike/scripts/inspect_native.py --require-simulator-arch arm64
+        run: python3 tools/local-tts-spike/scripts/inspect_native.py --require-simulator-arch "$(uname -m)"
       - name: Download and verify original model into ignored runner storage
         run: python3 tools/local-tts-spike/scripts/assets.py --download-to .local-test-data/s02a/model
       - name: Build and execute genuine iOS model inference
