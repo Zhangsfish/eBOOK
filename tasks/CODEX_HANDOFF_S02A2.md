@@ -1,0 +1,15 @@
+# Codex handoff — S02A.2 mobile TTS gate
+
+Work only on `Zhangsfish/eBOOK` Issue #9 and the existing PR #7 branch `codex/s02a-kokoro-ios-spike`.
+
+1. Check `git status --short --branch`, preserve all work, fetch and fast-forward safely. Never reset, force-push, or overwrite the user's local audio/model data.
+2. Read `AGENTS.md`, `tools/local-tts-spike/AGENTS.md`, `docs/PRODUCT_STRATEGY_ZERO_COST_TTS.md`, `tasks/S02A2_MOBILE_TTS_GATE.md`, Issue #9, and the latest `reports/S02A_LOCAL_TTS_FEASIBILITY.md`.
+3. Owner accepts Kokoro sound but finds it ordinary. The product must remain free and offline. No Google, cloud TTS, paid API, account, key or subscription.
+4. Give Kokoro one bounded attempt: inspect the exact iOS ONNX Runtime binary for CoreMLExecutionProvider, verify runtime provider availability and actual node assignment, and compare CPU vs genuine CoreML execution. Do not label CoreML active if nodes fall back to CPU. If an owner-authorized iPhone is connected and signed deployment is available, benchmark Kokoro on it. If not, mark DEVICE_NOT_RUN and provide a short install/test procedure; simulator is not iPhone evidence.
+5. Then test Matcha zh-baker (~73 MB acoustic model, one female voice) using the existing sherpa-onnx Swift runtime. Measure the complete package size, synthesis quality and actual iOS simulator/device RTF/memory/latency. Do not mistake the acoustic model file size for the complete package.
+6. Screen Suxin-Light (28.65M VITS student, custom decoder/frontend). Verify exact upstream model revision and MIT/model/runtime/data licenses. Determine whether the custom ONNX graphs and frontend can run in native iOS without a large custom port. Only implement a small isolated proof if feasible within a strict time cap. Author-reported Cortex-A55 Linux RTF is not iPhone evidence.
+7. M5-TTS is only a research/demo reference for higher expressivity; do not port it to iOS in this task. Its 50M LM excludes codec and the published CPU result is Xeon, not mobile.
+8. Use identical short original Chinese corpus for narration, dialogue, numbers/polyphones and mixed Chinese/English. Generate local WAVs and a private A/B player under ignored `.local-test-data/`; do not upload audio, models or book text.
+9. Record first audible output, average/weighted/p95 RTF, model init, total downloaded/unpacked pack size, peak physical memory, thermal/battery/15-minute session if a real device is available. If RTF >=1, do not claim continuous playback; no 15-minute long-session test needed. Keep all unavailable metrics explicitly NOT_RUN.
+10. Pass to S02B only if actual iPhone inference is real-time (weighted RTF <1; <=0.8 preferred), first audible <=5s, memory/thermal acceptable and the owner accepts sound. If no candidate passes, stop model work and recommend Apple AVSpeechSynthesizer only. Do not force three AI voices from a single-speaker model.
+11. Update `reports/S02A2_MOBILE_TTS_EVALUATION.md` and PR #7, exact HEAD SHA, test commands and evidence. No production `Sources/`, `Tests/`, Xcode project or PR #4/#5 changes. Stop READY_FOR_AUDIT; do not merge or start S02B.
