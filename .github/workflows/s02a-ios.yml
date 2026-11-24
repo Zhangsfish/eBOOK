@@ -1,46 +1,75 @@
-name: S02A isolated Kokoro iOS
+name: S02A isolated mobile TTS
 on:
-  push:
-    branches: [codex/s02a-kokoro-ios-spike]
+  # Manual phases prevent a documentation push from repeating Kokoro research.
   workflow_dispatch:
     inputs:
+      phase:
+        description: Bounded original-text experiment
+        type: choice
+        options: [verify-only, kokoro-final, matcha, suxin-backend]
+        default: verify-only
       runner:
-        description: Ordinary free public runner architecture
+        description: Ordinary free public runner
         type: choice
         options: [macos-15, macos-15-intel]
         default: macos-15
 permissions:
   contents: read
 concurrency:
-  group: s02a-ios-${{ github.ref }}-${{ inputs.runner || 'macos-15' }}
+  group: s02a2-${{ github.ref }}-${{ inputs.phase }}
   cancel-in-progress: false
 jobs:
-  native-kokoro:
-    # Both choices are ordinary public runners. No -large/-xlarge/paid runner.
-    if: github.event.repository.private == false && (inputs.runner == '' || inputs.runner == 'macos-15-intel' || inputs.runner == 'macos-15')
-    runs-on: ${{ inputs.runner || 'macos-15' }}
-    timeout-minutes: 55
+  native-screen:
+    if: github.event.repository.private == false && (inputs.runner == 'macos-15' || inputs.runner == 'macos-15-intel') && (inputs.phase == 'verify-only' || inputs.phase == 'kokoro-final' || inputs.phase == 'matcha' || inputs.phase == 'suxin-backend')
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
-      - name: Offline source tests
-        run: python3 -m unittest discover -s tools/local-tts-spike/Tests -v
-      - name: Verify actual pinned native archives and simulator slices
+          fetch-depth: 0
+      - name: Offline source and scope checks
+        run: |
+          python3 -m unittest discover -s tools/local-tts-spike/Tests -v
+          python3 scripts/generate_xcode_project.py --check
+          python3 tools/local-tts-spike/scripts/check_delivery.py --desktop-metrics tools/local-tts-spike/evidence/desktop-metrics.json
+      - name: Verify exact existing native binaries and slices
+        if: inputs.phase != 'verify-only'
         run: python3 tools/local-tts-spike/scripts/inspect_native.py --require-simulator-arch "$(uname -m)"
-      - name: Download and verify original model into ignored runner storage
-        run: python3 tools/local-tts-spike/scripts/assets.py --download-to .local-test-data/s02a/model
-      - name: Build and execute genuine iOS thread matrix and minimal-pack equality
-        run: python3 tools/local-tts-spike/scripts/run_ios.py --model-dir .local-test-data/s02a/model --benchmark-matrix
-      - name: Select only sanitized small text evidence
-        id: public-evidence
+      - name: Download only the selected pinned model into ignored storage
+        if: inputs.phase != 'verify-only'
+        env:
+          S02A2_PHASE: ${{ inputs.phase }}
+        run: |
+          case "$S02A2_PHASE" in
+            kokoro-final)
+              python3 tools/local-tts-spike/scripts/assets.py --download-to .local-test-data/s02a/model
+              echo 'S02A2_MODEL_DIR=.local-test-data/s02a/model' >> "$GITHUB_ENV"
+              ;;
+            matcha)
+              python3 tools/local-tts-spike/s02a2/scripts/model_assets.py --model matcha --download --directory .local-test-data/s02a2/assets/matcha
+              echo 'S02A2_MODEL_DIR=.local-test-data/s02a2/assets/matcha' >> "$GITHUB_ENV"
+              ;;
+            suxin-backend)
+              python3 tools/local-tts-spike/s02a2/scripts/model_assets.py --model suxin --download --directory .local-test-data/s02a2/assets/suxin
+              echo 'S02A2_MODEL_DIR=.local-test-data/s02a2/assets/suxin' >> "$GITHUB_ENV"
+              ;;
+          esac
+      - name: Actual bounded native experiment
+        if: inputs.phase != 'verify-only'
+        env:
+          S02A2_PHASE: ${{ inputs.phase }}
+        run: |
+          python3 tools/local-tts-spike/s02a2/scripts/run_native.py --phase "$S02A2_PHASE" --model-dir "$S02A2_MODEL_DIR" --prepared-ids tools/local-tts-spike/s02a2/fixtures/suxin-ids.json
+      - name: Export only small sanitized JSON metrics
+        id: metadata
         if: always()
-        run: python3 tools/local-tts-spike/scripts/publish_evidence.py
-      - name: Upload only verified JSON and sanitized diagnostics
-        if: always() && steps.public-evidence.outcome == 'success'
+        run: python3 tools/local-tts-spike/s02a2/scripts/publish_native.py
+      - name: Upload metadata only; no model, audio, profile or build outputs
+        if: always() && steps.metadata.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: s02a-ios-evidence-${{ github.sha }}
-          path: build/s02a-public/
+          name: s02a2-metadata-${{ inputs.phase }}-${{ github.sha }}
+          path: build/s02a2-public/
           if-no-files-found: error
           retention-days: 7

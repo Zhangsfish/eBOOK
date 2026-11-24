@@ -86,14 +86,15 @@ public final class KokoroSpike {
     private let engine: SherpaOnnxOfflineTtsWrapper
     private let lock = NSLock()
 
-    public init(modelDirectory: URL, threads: Int = 4) throws {
+    public init(modelDirectory: URL, threads: Int = 4, provider: String = "cpu", diagnostics: Bool = false) throws {
         guard (1...4).contains(threads) else { throw SpikeError.invalidRequest }
         func path(_ name: String) -> String { modelDirectory.appendingPathComponent(name).path }
         let kokoro = sherpaOnnxOfflineTtsKokoroModelConfig(
             model: path("model.int8.onnx"), voices: path("voices.bin"), tokens: path("tokens.txt"),
             lexicon: ["lexicon-us-en.txt", "lexicon-zh.txt"].map(path).joined(separator: ","))
         // v2.0.3 lexicon frontend: do not invoke deprecated eSpeak/dataDir path.
-        let model = sherpaOnnxOfflineTtsModelConfig(kokoro: kokoro, numThreads: threads, debug: 0, provider: "cpu")
+        let model = sherpaOnnxOfflineTtsModelConfig(kokoro: kokoro, numThreads: threads,
+            debug: diagnostics ? 1 : 0, provider: provider)
         var config = sherpaOnnxOfflineTtsConfig(model: model,
             ruleFsts: ["date-zh.fst", "number-zh.fst", "phone-zh.fst"].map(path).joined(separator: ","),
             maxNumSentences: 1)

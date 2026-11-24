@@ -5,10 +5,11 @@ import json
 import subprocess
 from assets import REPO, SPIKE, sha256
 
-BASE = '7d9f0e1dee06c36e5791ceac3f7064f370020ceb'
-ALLOWED_REPORT = 'reports/S02A_LOCAL_TTS_FEASIBILITY.md'
+BASE = 'd41b80d88780d5b483a1a2af873b1293ee22ba70'  # Issue #9 handoff, owner-authored task/template.
+ALLOWED_REPORTS = {'reports/S02A_LOCAL_TTS_FEASIBILITY.md', 'reports/S02A2_MOBILE_TTS_EVALUATION.md'}
 ALLOWED_WORKFLOW = '.github/workflows/s02a-ios.yml'  # Explicitly authorized by Issue #8.
-FORBIDDEN = {'.onnx', '.bin', '.wav', '.mp3', '.m4a', '.zip', '.bz2', '.whl', '.a', '.dylib', '.dll', '.ipa'}
+FORBIDDEN = {'.onnx', '.bin', '.wav', '.mp3', '.m4a', '.zip', '.bz2', '.whl', '.a', '.dylib', '.dll', '.ipa',
+             '.safetensors', '.npy', '.npz', '.mlmodel', '.tflite', '.p8', '.p12', '.pem', '.key'}
 
 
 def changed_files():
@@ -26,7 +27,7 @@ def main():
         raise RuntimeError('No delivery changes found')
     for name in paths:
         path = REPO / name
-        if not (name.startswith('tools/local-tts-spike/') or name in [ALLOWED_REPORT, ALLOWED_WORKFLOW]):
+        if not (name.startswith('tools/local-tts-spike/') or name in ALLOWED_REPORTS or name == ALLOWED_WORKFLOW):
             raise RuntimeError('Out-of-scope change: ' + name)
         if path.suffix.lower() in FORBIDDEN or path.stat().st_size > 262144:
             raise RuntimeError('Binary/large output must not be staged: ' + name)
@@ -51,14 +52,15 @@ def main():
         raise RuntimeError('Wrong branch')
     private_root = REPO / '.local-test-data'
     files = [p.relative_to(REPO).as_posix() for p in private_root.rglob('*') if p.is_file()]
-    ignored = subprocess.run(['git', '-C', str(REPO), 'check-ignore', '--stdin', '-z'],
-        input=('\0'.join(files) + '\0').encode(), capture_output=True, check=True)
-    if set(ignored.stdout.decode().rstrip('\0').split('\0')) != set(files):
-        raise RuntimeError('Some local output is not Git ignored')
+    if files:
+        ignored = subprocess.run(['git', '-C', str(REPO), 'check-ignore', '--stdin', '-z'],
+            input=('\0'.join(files) + '\0').encode(), capture_output=True, check=True)
+        if set(ignored.stdout.decode().rstrip('\0').split('\0')) != set(files):
+            raise RuntimeError('Some local output is not Git ignored')
     tracked_local = subprocess.check_output(['git', '-C', str(REPO), 'ls-files', '--', '.local-test-data'])
     if tracked_local.strip():
         raise RuntimeError('Local-only content already tracked')
-    print(json.dumps({'status': 'PASS', 'scope_files_checked': len(paths), 'ignored_outputs_checked': len(files),
+    print(json.dumps({'status': 'PASS', 'scope_base_sha': BASE, 'scope_files_checked': len(paths), 'ignored_outputs_checked': len(files),
         'runtime_sources_match_measurement': bool(args.desktop_metrics), 'production_sources_changed': False,
         'git_head': subprocess.check_output(['git', '-C', str(REPO), 'rev-parse', 'HEAD'], text=True).strip()}, indent=2))
 

@@ -49,7 +49,7 @@ public enum AudioProbe {
                 let first = clock.first
                 clock.lock.unlock()
                 if let first {
-                    return ["status": "OBSERVED_SIMULATOR_REALTIME_MIXER", "first_output_render_seconds": first,
+                    return ["status": SpikePlatform.name == "IOS_SIMULATOR" ? "OBSERVED_SIMULATOR_REALTIME_MIXER" : "OBSERVED_IOS_DEVICE_REALTIME_MIXER", "first_output_render_seconds": first,
                         "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
                         "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK"]
                 }

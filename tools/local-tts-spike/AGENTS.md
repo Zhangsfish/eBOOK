@@ -1,5 +1,22 @@
 # S02A isolated Kokoro feasibility
 
+## Current authorization: Issue #9 / S02A.2 (2026-11-25)
+The owner explicitly supersedes the historical Kokoro-only selection below.
+Continue this same branch and PR #7. Give Kokoro ONE bounded CoreML/device
+attempt, then test matcha-icefall-zh-baker, screen Suxin-Light, and inspect M5-TTS
+official demos/metadata only. Do not expand the shortlist or start S02B.
+tasks/S02A2_MOBILE_TTS_GATE.md and tasks/CODEX_HANDOFF_S02A2.md are current.
+Implementation stays here; the new report is reports/S02A2_MOBILE_TTS_EVALUATION.md.
+The existing dedicated s02a-ios.yml may run these isolated proofs; do not alter
+S00/S01 workflows or production code. Model/audio/build outputs remain ignored;
+only small metadata and sanitized diagnostics may be public evidence.
+Reuse the exact original fixtures/corpus.json for all generated candidates.
+One speaker is acceptable. Native backend with precomputed IDs does not prove
+a Swift text frontend. Provider symbols/listing do not prove CoreML execution.
+No iPhone evidence may be inferred from simulator/desktop results. If no
+candidate meets device performance and owner sound acceptance, recommend Apple
+system speech and stop local-model research. See s02a2/AGENTS.md for this run.
+
 ## Authority
 Issue #6 and tasks/S02A_KOKORO_IOS_SPIKE.md authorize this isolated spike.
 The owner has selected Kokoro; no more vendor comparisons or private book input.
