@@ -19,6 +19,15 @@ final class ReaderUITests: XCTestCase {
         let attachment = XCTAttachment(screenshot: app.screenshot()); attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)
     }
 
+    private func assertSpeechPanelHidden(_ app: XCUIApplication) {
+        // A tap can finish before the native sheet's dismissal animation ends.
+        // Require actual disappearance, with a bounded wait on both OS versions.
+        let hidden = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"),
+                                               object: app.buttons["speech.play"])
+        XCTAssertEqual(XCTWaiter.wait(for: [hidden], timeout: 10), .completed,
+                       "Speech controls must disappear after closing the panel")
+    }
+
     func testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch() throws {
         let app = launch("synthetic_long_gb18030.txt")
         open(app, title: "synthetic_long_gb18030")
@@ -70,11 +79,12 @@ final class ReaderUITests: XCTestCase {
         XCTAssertTrue(app.buttons["从当前阅读位置开始朗读"].exists)
         snapshot("speech-controls-expanded", app)
         app.buttons["speech.dismiss"].tap()
-        XCTAssertFalse(app.buttons["speech.play"].exists)
+        assertSpeechPanelHidden(app)
         XCTAssertEqual(app.staticTexts["reader.anchor"].label, anchor)
         app.buttons["reader.speech"].tap()
         XCTAssertTrue(app.buttons["speech.play"].waitForExistence(timeout: 10))
         app.buttons["speech.dismiss"].tap()
+        assertSpeechPanelHidden(app)
         snapshot("epub-reader-speech-hidden", app)
     }
 
