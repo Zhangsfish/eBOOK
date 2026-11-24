@@ -1,4 +1,70 @@
-# S02A isolated Kokoro spike
+# S02A isolated mobile TTS experiments
+
+## Current: Issue #9 / S02A.2
+
+The owner's Issue #9 supersedes the historical Kokoro-only choice below. The
+current handoff is [S02A.2 measured report](../../reports/S02A2_MOBILE_TTS_EVALUATION.md).
+Kokoro's ONE final CPU/CoreML experiment is complete: actual iOS CoreML node
+events were observed, but weighted RTF was 1.654 versus CPU 1.712. No ORT rebuild
+was needed. Stop optimizing Kokoro. This is simulator evidence, not ANE/iPhone.
+
+Matcha **monolingual zh-baker** genuinely ran on Windows and native ARM64 iOS
+simulator. Five original WAVs are private; iOS 4-thread weighted RTF 0.576 has
+p95 1.084 and first full-buffer mixer output 9.815 s. It has one female speaker,
+skips English OOVs, and its card warns of non-commercial training data. It is
+not cleared for integration. Suxin has only a verified desktop graph-load result;
+frontend installation approval, speech inference and native text frontend are
+pending. M5 is official demo/metadata reference only, with no weights downloaded.
+
+**NO_GO for local-AI integration.** No authorized connected Xcode/iPhone path,
+thermal/battery/endurance evidence or owner acceptance of the alternative exists.
+Keep Apple system speech as the product choice. No production changes/S02B/merge.
+
+Reproduce using existing environments (no installer runs from these commands):
+
+```text
+python -m unittest discover -s tools/local-tts-spike/Tests -v
+python scripts/generate_xcode_project.py --check
+python tools/local-tts-spike/scripts/check_delivery.py --desktop-metrics tools/local-tts-spike/evidence/desktop-metrics.json
+python tools/local-tts-spike/s02a2/scripts/model_assets.py --model matcha --download --directory .local-test-data/s02a2/assets/matcha
+python tools/local-tts-spike/s02a2/scripts/benchmark_desktop.py --model matcha --model-dir .local-test-data/s02a2/assets/matcha --threads 4
+python tools/local-tts-spike/s02a2/scripts/model_assets.py --model suxin --download --directory .local-test-data/s02a2/assets/suxin
+python tools/local-tts-spike/s02a2/scripts/screen_suxin.py --load-only --model-dir .local-test-data/s02a2/assets/suxin
+python tools/local-tts-spike/s02a2/scripts/make_listening_page.py --matcha-metrics LOCAL_MATCHA_METRICS
+```
+
+Matcha uses the already-approved isolated sherpa/core 2.0.3 + NumPy 1.26.4
+environment recorded in the report. Suxin load-only uses existing ORT 1.20.1;
+it produces **no speech**, no RTF and no substitute audio. The proposed three
+frontend packages are version/hash pinned in `s02a2/manifests/suxin-frontend-proposal.json`,
+marked NOT_INSTALLED. Do not install them without the pending confirmation.
+
+Private comparison generation verifies original text hashes, source WAV hashes,
+PCM format and all frames before making a new UUID directory/ZIP. It reuses the
+historical zf_001 original-corpus outputs; it never reads private novel previews.
+Scores start blank and remain local. All locally playable samples are **desktop**
+outputs. CI-generated iOS WAVs are verified in the runner, then discarded with
+the temporary workspace; only JSON metadata is exported, never audio/profiles.
+
+On free public `macos-15`, the dedicated manual workflow has `verify-only`,
+`matcha` and an unexecuted `suxin-backend` mode. The latter requires genuine
+author-frontend IDs which are not yet present; its C++ graph bridge is compiled
+but not inference-tested. Precomputed IDs cannot prove Swift frontend support.
+The historical `kokoro-final` mode is retained for source reproducibility,
+**not authorization to launch another optimization**. No automatic push reruns.
+
+Actual native runs: [Kokoro final](https://github.com/Zhangsfish/eBOOK/actions/runs/45442045004),
+[Matcha 2/4 threads](https://github.com/Zhangsfish/eBOOK/actions/runs/45445046800),
+both at `f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0`.
+JSON-only artifacts are independently checked by `s02a2/scripts/verify_ci_artifact.py`
+against the GitHub ZIP digest, CRC, strict filenames, per-file hashes and source.
+
+See [license gaps](s02a2/LICENSE_REVIEW.md), [smallest signed-device plan](s02a2/DEVICE_TEST_PLAN.md)
+and [task memory](s02a2/AGENTS.md). A first generation callback is not first
+audible output. Existing playback probes start after whole-buffer generation;
+they observe a real nonzero AVAudioEngine mixer buffer, not physical sound.
+
+## Historical S02A / S02A.1 (preserved)
 
 S02A.1 / Issue #8 updates the same branch and PR #7. The current measured native
 results, exact tested revisions and remaining gates are in

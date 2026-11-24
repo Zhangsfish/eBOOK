@@ -1,0 +1,417 @@
+{
+  "status": "COMPLETED_MEASUREMENTS_DEVICE_NOT_RUN",
+  "phase": "kokoro-final",
+  "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0",
+  "host": "Darwin",
+  "host_architecture": "arm64",
+  "measurements": [
+    {
+      "available_providers": [
+        "CoreMLExecutionProvider",
+        "XnnpackExecutionProvider",
+        "CPUExecutionProvider"
+      ],
+      "environment": "IOS_SIMULATOR",
+      "kind": "runtime_providers",
+      "ort_version": "1.28.2",
+      "run_context": {
+        "corpus_sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+        "phase": "kokoro-final",
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0"
+      },
+      "status": "RUNTIME_ENUMERATED",
+      "test_method": "testRuntimeProviders"
+    },
+    {
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.5 (Build 22F77)",
+      "kind": "kokoro_pair",
+      "model_initialization_seconds": 10.52378487499999,
+      "physical_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+      "profile": {
+        "ane_execution": "NOT_MEASURED_NO_ANE_DEVICE_COUNTERS",
+        "coreml_node_execution_observed": false,
+        "profile_files": 1,
+        "provider_node_duration_us": {
+          "CPUExecutionProvider": 73520274
+        },
+        "provider_node_event_counts": {
+          "CPUExecutionProvider": 51613
+        },
+        "provider_unique_executed_nodes": {
+          "CPUExecutionProvider": 2371
+        },
+        "scope": "Includes warmup; fused node events are not original graph operator counts.",
+        "status": "ACTUAL_ORT_PROFILE_INSPECTED"
+      },
+      "profile_enabled_during_timing": true,
+      "provider_registration": {
+        "available_providers": [
+          "CoreMLExecutionProvider",
+          "XnnpackExecutionProvider",
+          "CPUExecutionProvider"
+        ],
+        "ort_version": "1.28.2",
+        "status": "RUNTIME_ENUMERATED"
+      },
+      "provider_requested": "cpu",
+      "records": [
+        {
+          "duration_seconds": 8.9295,
+          "first_callback_seconds": 8.16378129166668,
+          "first_output_probe": {
+            "first_output_render_seconds": 22.518226708333316,
+            "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+            "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+            "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+          },
+          "fixture_id": "narration",
+          "frames": 214308,
+          "generation_seconds": 21.111809624999978,
+          "process_peak_rss_cumulative_bytes": 380256256,
+          "rms": 0.06901401119055783,
+          "rtf": 2.364276793213503,
+          "sample_rate": 24000,
+          "wav_sha256": "32b773ea90191f37807aca57eda468113e2bbfb898114f9311ef1049d8b8e91b"
+        },
+        {
+          "duration_seconds": 6.727125,
+          "first_callback_seconds": 5.862942708333321,
+          "fixture_id": "dialogue",
+          "frames": 161451,
+          "generation_seconds": 14.89250450000003,
+          "process_peak_rss_cumulative_bytes": 405700608,
+          "rms": 0.06966998854434436,
+          "rtf": 2.2137992827545245,
+          "sample_rate": 24000,
+          "wav_sha256": "f7cb194c0d33f1e0969f4fc85911376d7a0385974b6d7f609157b7cb2ae51847"
+        },
+        {
+          "duration_seconds": 10.476166666666666,
+          "first_callback_seconds": 4.224585166666657,
+          "fixture_id": "numbers",
+          "frames": 251428,
+          "generation_seconds": 14.503653333333318,
+          "process_peak_rss_cumulative_bytes": 419921920,
+          "rms": 0.06565855387765557,
+          "rtf": 1.3844427828245052,
+          "sample_rate": 24000,
+          "wav_sha256": "d2e7de688c865a1d614da285ba9908b2b72adaf107c145f9730a07bf737592f6"
+        },
+        {
+          "duration_seconds": 7.835375,
+          "first_callback_seconds": 3.4936638333333576,
+          "fixture_id": "polyphones",
+          "frames": 188049,
+          "generation_seconds": 10.439246000000026,
+          "process_peak_rss_cumulative_bytes": 419921920,
+          "rms": 0.06476464745834745,
+          "rtf": 1.332322447872632,
+          "sample_rate": 24000,
+          "wav_sha256": "4c4761b1f4a5fa34a3fbf586d39bb63be285d4983284c98b40f070ced223841d"
+        },
+        {
+          "duration_seconds": 6.583583333333333,
+          "first_callback_seconds": 3.024756000000025,
+          "fixture_id": "mixed",
+          "frames": 158006,
+          "generation_seconds": 8.486871041666689,
+          "process_peak_rss_cumulative_bytes": 419921920,
+          "rms": 0.06725593037305373,
+          "rtf": 1.289096015341193,
+          "sample_rate": 24000,
+          "wav_sha256": "0775afb67bdbbba8cf966a7b013972e00a91c232049b8b7af0501d721b9529c6"
+        }
+      ],
+      "run_context": {
+        "corpus_sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+        "phase": "kokoro-final",
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0"
+      },
+      "speed": 1,
+      "threads": 2,
+      "warmup_generation_seconds": 7.178705875000048,
+      "statistics": {
+        "mean_rtf": 1.7167874644012715,
+        "p95_rtf_nearest_rank": 2.364276793213503,
+        "weighted_rtf": 1.7122339849698236,
+        "peak_process_rss_bytes": 419921920
+      },
+      "effective_coreml_execution": "CPU_FALLBACK_NO_COREML_NODE_EVENTS",
+      "runtime_assignment_messages": [
+        "2026-11-24 16:56:19.101504+0000 xctest[6441:23549] 2026-11-24 16:56:19.101492 [V:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Node placements",
+        "2026-11-24 16:56:19.101670+0000 xctest[6441:23549] 2026-11-24 16:56:19.101663 [V:onnxruntime:, session_state.cc:1370 VerifyEachNodeIsAssignedToAnEp]  All nodes placed on [CPUExecutionProvider]. Number of nodes: 2373"
+      ],
+      "test_method": "testKokoroCPUFinal"
+    },
+    {
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.5 (Build 22F77)",
+      "kind": "kokoro_pair",
+      "model_initialization_seconds": 22.458206874999973,
+      "physical_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+      "profile": {
+        "ane_execution": "NOT_MEASURED_NO_ANE_DEVICE_COUNTERS",
+        "coreml_node_execution_observed": true,
+        "profile_files": 1,
+        "provider_node_duration_us": {
+          "CoreMLExecutionProvider": 5833338,
+          "CPUExecutionProvider": 63642229
+        },
+        "provider_node_event_counts": {
+          "CoreMLExecutionProvider": 2527,
+          "CPUExecutionProvider": 39054
+        },
+        "provider_unique_executed_nodes": {
+          "CoreMLExecutionProvider": 133,
+          "CPUExecutionProvider": 1710
+        },
+        "scope": "Includes warmup; fused node events are not original graph operator counts.",
+        "status": "ACTUAL_ORT_PROFILE_INSPECTED"
+      },
+      "profile_enabled_during_timing": true,
+      "provider_registration": {
+        "available_providers": [
+          "CoreMLExecutionProvider",
+          "XnnpackExecutionProvider",
+          "CPUExecutionProvider"
+        ],
+        "ort_version": "1.28.2",
+        "status": "RUNTIME_ENUMERATED"
+      },
+      "provider_requested": "coreml",
+      "records": [
+        {
+          "duration_seconds": 8.953125,
+          "first_callback_seconds": 3.011332124999967,
+          "first_output_probe": {
+            "first_output_render_seconds": 14.86472895833333,
+            "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+            "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+            "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+          },
+          "fixture_id": "narration",
+          "frames": 214875,
+          "generation_seconds": 13.835925999999972,
+          "process_peak_rss_cumulative_bytes": 531447808,
+          "rms": 0.0691269552472292,
+          "rtf": 1.5453739336823704,
+          "sample_rate": 24000,
+          "wav_sha256": "81853e900cab2d019d47ceac4f41f02c433823605be826821cfa69e08035de5f"
+        },
+        {
+          "duration_seconds": 6.726625,
+          "first_callback_seconds": 3.4141654166667195,
+          "fixture_id": "dialogue",
+          "frames": 161439,
+          "generation_seconds": 11.173552083333334,
+          "process_peak_rss_cumulative_bytes": 535855104,
+          "rms": 0.06957266613225405,
+          "rtf": 1.6610933541461481,
+          "sample_rate": 24000,
+          "wav_sha256": "3e792cde3ba3ab20240d598801682ea5f6c718ea74a2aca62ee15ac4530fcde8"
+        },
+        {
+          "duration_seconds": 10.508583333333334,
+          "first_callback_seconds": 4.88840037500006,
+          "fixture_id": "numbers",
+          "frames": 252206,
+          "generation_seconds": 16.59531404166671,
+          "process_peak_rss_cumulative_bytes": 591544320,
+          "rms": 0.06595927438710104,
+          "rtf": 1.579215153485647,
+          "sample_rate": 24000,
+          "wav_sha256": "d44ab6afe653a5118e8479975a8393042d8a62371962002f2b4763b1054bb212"
+        },
+        {
+          "duration_seconds": 7.834125,
+          "first_callback_seconds": 4.565657916666623,
+          "fixture_id": "polyphones",
+          "frames": 188019,
+          "generation_seconds": 14.000483333333364,
+          "process_peak_rss_cumulative_bytes": 607830016,
+          "rms": 0.06487353463813743,
+          "rtf": 1.787115131981346,
+          "sample_rate": 24000,
+          "wav_sha256": "dc1b93d592efeeacb0a8b86852ee0d3e63092bfa63368a36f21cdaa8d4780621"
+        },
+        {
+          "duration_seconds": 6.582583333333333,
+          "first_callback_seconds": 4.308308041666692,
+          "fixture_id": "mixed",
+          "frames": 157982,
+          "generation_seconds": 11.538945500000068,
+          "process_peak_rss_cumulative_bytes": 607830016,
+          "rms": 0.06702142305483032,
+          "rtf": 1.7529509184590755,
+          "sample_rate": 24000,
+          "wav_sha256": "4014f1473541b65dc944dc6e95d2e2632fedd740587052c3720484dc91ee284c"
+        }
+      ],
+      "run_context": {
+        "corpus_sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+        "phase": "kokoro-final",
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0"
+      },
+      "speed": 1,
+      "threads": 2,
+      "warmup_generation_seconds": 2.858175625000058,
+      "statistics": {
+        "mean_rtf": 1.6651496983509173,
+        "p95_rtf_nearest_rank": 1.787115131981346,
+        "weighted_rtf": 1.653593204251117,
+        "peak_process_rss_bytes": 607830016
+      },
+      "effective_coreml_execution": "COREML_NODE_EVENTS_OBSERVED_ANE_NOT_MEASURED",
+      "runtime_assignment_messages": [
+        "2026-11-24 16:59:45.741001+0000 xctest[9736:34566] 2026-11-24 16:59:45.740957 [W:onnxruntime:, coreml_execution_provider.cc:137 GetCapability] CoreMLExecutionProvider::GetCapability, number of partitions supported by CoreML: 133 number of nodes in the graph: 3113 number of nodes supported by CoreML: 1415",
+        "2026-11-24 16:59:50.042874+0000 xctest[9736:34566] 2026-11-24 16:59:50.042853 [V:onnxruntime:, session_state.cc:1367 VerifyEachNodeIsAssignedToAnEp] Node placements",
+        "2026-11-24 16:59:50.042977+0000 xctest[9736:34566] 2026-11-24 16:59:50.042972 [V:onnxruntime:, session_state.cc:1373 VerifyEachNodeIsAssignedToAnEp]  Node(s) placed on [CoreMLExecutionProvider]. Number of nodes: 133",
+        "2026-11-24 16:59:50.043036+0000 xctest[9736:34566] 2026-11-24 16:59:50.043031 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_0 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_0_0)",
+        "2026-11-24 16:59:50.043073+0000 xctest[9736:34566] 2026-11-24 16:59:50.043070 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_1 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_1_1)",
+        "2026-11-24 16:59:50.043177+0000 xctest[9736:34566] 2026-11-24 16:59:50.043171 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_2 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_2_2)",
+        "2026-11-24 16:59:50.043346+0000 xctest[9736:34566] 2026-11-24 16:59:50.043342 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_3 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_3_3)",
+        "2026-11-24 16:59:50.043386+0000 xctest[9736:34566] 2026-11-24 16:59:50.043378 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_4 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_4_4)",
+        "2026-11-24 16:59:50.043441+0000 xctest[9736:34566] 2026-11-24 16:59:50.043438 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_5 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_5_5)",
+        "2026-11-24 16:59:50.043493+0000 xctest[9736:34566] 2026-11-24 16:59:50.043490 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_6 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_6_6)",
+        "2026-11-24 16:59:50.043800+0000 xctest[9736:34566] 2026-11-24 16:59:50.043795 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_7 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_7_7)",
+        "2026-11-24 16:59:50.043891+0000 xctest[9736:34566] 2026-11-24 16:59:50.043884 [V:onnxruntime:, session_state.cc:1375 VerifyEachNodeIsAssignedToAnEp]   5197470951665331270_CoreML_5197470951665331270_8 (CoreMLExecutionProvider_5197470951665331270_CoreML_5197470951665331270_8_8)"
+      ],
+      "test_method": "testKokoroCoreMLFinal"
+    }
+  ],
+  "physical_device": "DEVICE_NOT_RUN",
+  "thermal": "DEVICE_NOT_RUN",
+  "battery": "DEVICE_NOT_RUN",
+  "locked_screen_playback": "DEVICE_NOT_RUN",
+  "human_quality": "OWNER_LISTENING_PENDING",
+  "genuine_ios_inference": true,
+  "genuine_ios_graph_inference": false,
+  "production_app_changed": false,
+  "cloud_tts_calls": 0,
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "simulator_name": "iPhone 16 Pro",
+  "xcode_version": "Xcode 16.4\nBuild version 16F6",
+  "host_cpu": "Apple M1 (Virtual)",
+  "commands": [
+    {
+      "name": "resolve",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resolvePackageDependencies"
+      ],
+      "timeout_seconds": 300
+    },
+    {
+      "name": "build",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "build-for-testing"
+      ],
+      "timeout_seconds": 600
+    },
+    {
+      "name": "providers",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/providers.xcresult",
+        "-only-testing:LocalTTSSpikeTests/MobileCandidateTests/testRuntimeProviders",
+        "test-without-building"
+      ],
+      "timeout_seconds": 120
+    },
+    {
+      "name": "cpu",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/cpu.xcresult",
+        "-only-testing:LocalTTSSpikeTests/MobileCandidateTests/testKokoroCPUFinal",
+        "test-without-building"
+      ],
+      "timeout_seconds": 600
+    },
+    {
+      "name": "coreml",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-kokoro-final-ccb66d22b52d4933a479b6cfbb6359fd/coreml.xcresult",
+        "-only-testing:LocalTTSSpikeTests/MobileCandidateTests/testKokoroCoreMLFinal",
+        "test-without-building"
+      ],
+      "timeout_seconds": 720
+    }
+  ],
+  "actual_resolved_source_revisions": {
+    "sherpa-onnx": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+    "onnxruntime-libs": "8ebc5ebf92190903c274a7621ba4c96a732335ec"
+  },
+  "build_exit_code": 0,
+  "decision": "KOKORO_DEVICE_PERFORMANCE_NOT_READY_STOP_OPTIMIZING"
+}

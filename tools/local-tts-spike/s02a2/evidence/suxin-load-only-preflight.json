@@ -1,0 +1,48 @@
+{
+  "status": "MODEL_LOAD_ONLY_NO_SPEECH_INFERENCE",
+  "environment": "WINDOWS_DESKTOP_CPU",
+  "onnxruntime": "1.20.1",
+  "genuine_audio_generation": false,
+  "frontend": "NOT_RUN_DEPENDENCY_APPROVAL_PENDING",
+  "model_initialization_seconds": 6.37123239999346,
+  "inputs": [
+    {
+      "name": "input",
+      "shape": [
+        "batch_size",
+        "phonemes"
+      ],
+      "type": "tensor(int64)"
+    },
+    {
+      "name": "input_lengths",
+      "shape": [
+        "batch_size"
+      ],
+      "type": "tensor(int64)"
+    },
+    {
+      "name": "scales",
+      "shape": [
+        3
+      ],
+      "type": "tensor(float)"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "shape": [
+        "batch_size",
+        1,
+        1,
+        "Unsqueezeoutput_dim_3"
+      ],
+      "type": "tensor(float)"
+    }
+  ],
+  "actual_providers": [
+    "CPUExecutionProvider"
+  ],
+  "peak_process_rss_bytes": 175022080
+}
