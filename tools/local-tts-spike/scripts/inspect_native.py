@@ -119,6 +119,10 @@ def main():
                 if not matches:
                     result.update(status='BLOCKED_ARCHITECTURE', reason=name + ' lacks requested simulator architecture')
                     return 3
+                if platform.system() == 'Darwin' and not any(r.get('actual_lipo_exit') == 0 and
+                        args.require_simulator_arch in r.get('actual_lipo_output', '') for r in matches):
+                    result.update(status='BLOCKED_ARCHITECTURE', reason=name + ' actual lipo result does not confirm required slice')
+                    return 3
         result['status'] = 'PASS_PINNED_ARCHIVES_INSPECTED'
         return 0
     except Exception as error:

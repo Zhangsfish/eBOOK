@@ -16,7 +16,11 @@ from assets import REPO, SPIKE, verify
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--model-dir', type=Path, required=True)
+    parser.add_argument('--benchmark-matrix', action='store_true')
     args = parser.parse_args()
+    if args.benchmark_matrix:
+        from run_matrix import run
+        return run(args.model_dir)
     output = REPO / '.local-test-data/s02a' / ('ios-' + uuid.uuid4().hex)
     output.mkdir(parents=True, exist_ok=False)
     result = {'status': 'BLOCKED_IOS_RUNTIME', 'host': platform.system(),
@@ -49,7 +53,8 @@ def main():
         'runtime_revision': '38016c6e0622e90bf417c35e8b47e0eb805af417'}), encoding='utf-8')
     command = ['xcodebuild', '-scheme', 'LocalTTSSpike', '-destination', 'platform=iOS Simulator,id=' + simulator['udid'],
         '-derivedDataPath', str(output / 'DerivedData'), '-resultBundlePath', str(output / 'Native.xcresult'),
-        'CODE_SIGNING_ALLOWED=NO', 'test']
+        'CODE_SIGNING_ALLOWED=NO',
+        '-only-testing:LocalTTSSpikeTests/KokoroInferenceTests/testActualOriginalMandarinInference', 'test']
     result['command'] = command
     result['xcode_version'] = subprocess.check_output(['xcodebuild', '-version'], text=True).strip()
     with (output / 'xcode-test.log').open('w', encoding='utf-8') as log:

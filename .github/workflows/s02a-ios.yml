@@ -30,8 +30,8 @@ jobs:
         run: python3 tools/local-tts-spike/scripts/inspect_native.py --require-simulator-arch "$(uname -m)"
       - name: Download and verify original model into ignored runner storage
         run: python3 tools/local-tts-spike/scripts/assets.py --download-to .local-test-data/s02a/model
-      - name: Build and execute genuine iOS model inference
-        run: python3 tools/local-tts-spike/scripts/run_ios.py --model-dir .local-test-data/s02a/model
+      - name: Build and execute genuine iOS thread matrix and minimal-pack equality
+        run: python3 tools/local-tts-spike/scripts/run_ios.py --model-dir .local-test-data/s02a/model --benchmark-matrix
       - name: Select only sanitized small text evidence
         if: always()
         run: python3 tools/local-tts-spike/scripts/publish_evidence.py

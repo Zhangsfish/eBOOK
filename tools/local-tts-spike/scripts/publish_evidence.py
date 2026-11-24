@@ -14,6 +14,7 @@ OUTPUT = REPO / 'build/s02a-public'
 def sanitize(text):
     text = re.sub(r'(?i)(Bearer\s+|ghp_|github_pat_)[A-Za-z0-9_\-.]+', '<REDACTED>', text)
     text = text.replace(str(REPO), '<WORKSPACE>').replace(str(Path.home()), '<HOME>')
+    text = re.sub(r'\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b', '<EPHEMERAL_ID>', text)
     return '\n'.join(line for line in text.splitlines() if not any(w in line for w in ['TokenizeFromLexiconStr:', 'Lexicon matched:', 'text=']))
 
 
@@ -22,7 +23,7 @@ if __name__ == '__main__':
     selected = [(ROOT / 's02a1/native-audit.json', 'native-audit.json')]
     for index, path in enumerate(sorted(ROOT.glob('s02a/ios-*/result.json'))):
         selected.append((path, f'ios-result-{index}.json'))
-    for index, path in enumerate(sorted(ROOT.glob('s02a/ios-*/xcode-test.log'))):
+    for index, path in enumerate(sorted(ROOT.glob('s02a/ios-*/xcode-*.log'))):
         selected.append((path, f'xcode-diagnostic-{index}.log'))
     for path, name in selected:
         if not path.is_file():
