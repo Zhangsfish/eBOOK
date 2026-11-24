@@ -1,0 +1,69 @@
+{
+  "status": "PASS_NATIVE_MEASURED_IMPLEMENTATION_UNCHANGED",
+  "native_measured_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0",
+  "comparison_sha": "39522a04ca4f4426633516f396323aa5421eb76e",
+  "files_compared": [
+    {
+      "path": "tools/local-tts-spike/Package.swift",
+      "git_blob": "574e4946debc4badce7b0dcd096cb072e1f74f03"
+    },
+    {
+      "path": "tools/local-tts-spike/Sources/LocalTTSSpike/AudioProbe.swift",
+      "git_blob": "8168f116789955720d87f9e89966f5e9c58c7576"
+    },
+    {
+      "path": "tools/local-tts-spike/Sources/LocalTTSSpike/KokoroSpike.swift",
+      "git_blob": "342fc7c39520dc65ce9498cfbacc4d6d5692f4db"
+    },
+    {
+      "path": "tools/local-tts-spike/Sources/LocalTTSSpike/MatchaSpike.swift",
+      "git_blob": "2f59cc48fb37011f1dab1b6684eabd3efd46763b"
+    },
+    {
+      "path": "tools/local-tts-spike/Sources/MobileOrtProbe/MobileOrtProbe.cpp",
+      "git_blob": "620230332b6bfdad79d64e378a4984b2fadf11c7"
+    },
+    {
+      "path": "tools/local-tts-spike/Sources/MobileOrtProbe/include/MobileOrtProbe.h",
+      "git_blob": "55cd91f8c954a50d3d2a1748d4da4138d2ef8cf9"
+    },
+    {
+      "path": "tools/local-tts-spike/Tests/LocalTTSSpikeTests/KokoroBenchmarkTests.swift",
+      "git_blob": "f552653bca4096ceb31a24e73f73771257f8062a"
+    },
+    {
+      "path": "tools/local-tts-spike/Tests/LocalTTSSpikeTests/KokoroInferenceTests.swift",
+      "git_blob": "2cf13cd4933c276709dfc7a21c3660fb76d498bb"
+    },
+    {
+      "path": "tools/local-tts-spike/Tests/LocalTTSSpikeTests/MobileCandidateTests.swift",
+      "git_blob": "890df2dd8d3e753091b7ffd12e2e369fb05c618a"
+    },
+    {
+      "path": "tools/local-tts-spike/Tests/LocalTTSSpikeTests/Resources/README.txt",
+      "git_blob": "966c89de70ec052439da9a2f1a3664b86dd41c62"
+    },
+    {
+      "path": "tools/local-tts-spike/fixtures/corpus.json",
+      "git_blob": "b9618f1d0e19738c5271b8ce3066ca002378da12"
+    },
+    {
+      "path": "tools/local-tts-spike/s02a2/manifests/matcha.json",
+      "git_blob": "c434ae64dce0d760ce923e053fe1446302eb2802"
+    },
+    {
+      "path": "tools/local-tts-spike/s02a2/scripts/benchmark_desktop.py",
+      "git_blob": "e5c894cf3974910b298c0f444e35a750d2b0e546"
+    },
+    {
+      "path": "tools/local-tts-spike/s02a2/scripts/model_assets.py",
+      "git_blob": "440708cc227eceb13cdf7c4abd268c828e0c7c68"
+    },
+    {
+      "path": "tools/local-tts-spike/s02a2/scripts/run_native.py",
+      "git_blob": "9dfcfc14de5c7df4bc3fdae785aee8e7d3b4fb4f"
+    }
+  ],
+  "changed_files": [],
+  "interpretation": "Exact Git blobs, not local line-ending hashes. New helpers, tests and metadata are separate from the measured native implementation. This is not a new inference benchmark."
+}

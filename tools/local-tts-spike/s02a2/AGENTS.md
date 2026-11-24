@@ -35,3 +35,23 @@ Base after safe fast-forward: d41b80d (full SHA is recorded in delivery).
 - Quality is owner listening acceptance, never a fabricated score from RTF/ASR.
 - New package installation requires the pending owner confirmation; Matcha and
   native CoreML inspection can proceed using existing environments meanwhile.
+
+## Measured handoff
+- f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0: Kokoro final run 45442045004
+  and Matcha run 45445046800 both actually compiled/generated on ARM64 iOS 18.5
+  simulator, Xcode 16.4. JSON-only ZIP digests/CRCs/member hashes were verified.
+- Kokoro CPU/CoreML weighted RTF 1.7122/1.6536; real CoreML profile events exist
+  but no ANE measurement. No replacement ORT build; final opportunity CLOSED.
+- Matcha 2/4T weighted RTF 0.9205/0.5759 with p95 3.7696/1.0837. Full-buffer
+  first mixer outputs 8.916/9.815 s. This is not device/continuous-playback proof.
+- Full Matcha pack 145676531 bytes; its model card explicitly warns about
+  non-commercial training data and omits separate weight license metadata.
+- Desktop Matcha original 5 real WAVs are at f015. Private comparison A/B has
+  10 real Windows WAVs, all fully decoded; ratings remain OWNER_PENDING.
+- Suxin load-only formal source 39522a04ca4f4426633516f396323aa5421eb76e,
+  existing ORT 1.20.1; initialization 6.590 s, peak RSS 179015680 bytes. No
+  session.run, WAV or native frontend inference; new dependencies NOT_INSTALLED.
+- stage_device.py only prepared an ignored Matcha test package. It did not
+  sign/install/run anything. Physical device, 15 min, heat and battery NOT_RUN.
+- Product NO_GO; recommend existing Apple system speech. Delivery READY_FOR_AUDIT
+  with device/license/Suxin-approval blockers. No S02B, merge or further research.
