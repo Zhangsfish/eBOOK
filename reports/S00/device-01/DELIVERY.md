@@ -11,6 +11,19 @@ State: PREPARING. No signed or installable build has been delivered yet.
 - Signing, upload, Apple processing and phone installation: NOT_RUN.
 - Physical background/call/Bluetooth, memory and accessibility checks: NOT_RUN.
 
+First attempt: `615ea7f82a134b3dba33af55ebeb5c241be0e7ee`, Actions
+https://github.com/Zhangsfish/eBOOK/actions/runs/45321224169 .
+The real arm64 iPhone Release archive and package metadata passed with Xcode
+26.6 (17F113), iOS SDK 26.5, macOS 26.7.2 arm64; package `0.1.0 (1.1)`.
+Unsigned IPA SHA-256:
+`b686439deac78acf2b97570d72891371d9115c8124c8099132c84f6504c2242d`.
+No books/keys/profile were bundled. It is unsigned and cannot be installed.
+The job then failed during the fresh iPhone 17 Pro simulator's system migration:
+`simctl bootstatus` exceeded 300 seconds. App tests had not started. This is not
+a passing simulator run. The next attempt retains a 300-second default for the
+original CI and uses a bounded 900-second cold-boot wait for this Xcode 26 job,
+with migration output saved to a separate log.
+
 The existing Lecture Asset public repository has a working automatic distribution
 export/TestFlight pipeline and three encrypted App Store Connect secrets.
 The eBOOK repository has no Apple secrets. GitHub secret values cannot be read or

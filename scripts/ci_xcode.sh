@@ -34,7 +34,19 @@ PY
 xcrun simctl boot "$SIMULATOR_ID" || true
 python3 - <<'PY'
 import os, subprocess
-subprocess.run(['xcrun', 'simctl', 'bootstatus', os.environ['SIMULATOR_ID'], '-b'], check=True, timeout=300)
+from pathlib import Path
+
+log_path = Path('build/simulator-boot.log')
+timeout = int(os.environ.get('SIMULATOR_BOOT_TIMEOUT_SECONDS', '300'))
+print(f'Waiting up to {timeout} seconds for initial simulator migration', flush=True)
+with log_path.open('w') as log:
+    try:
+        subprocess.run(['xcrun', 'simctl', 'bootstatus', os.environ['SIMULATOR_ID'], '-b'],
+                       stdout=log, stderr=subprocess.STDOUT, check=True, timeout=timeout)
+    except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+        print('\n'.join(log_path.read_text().splitlines()[-25:]), flush=True)
+        raise
+print('Simulator boot completed', flush=True)
 PY
 COMMON=(-project eBOOK.xcodeproj -scheme eBOOK -destination "id=$SIMULATOR_ID" -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO)
 echo 'Starting Debug build-for-testing'

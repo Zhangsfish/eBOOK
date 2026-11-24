@@ -25,6 +25,8 @@ jobs:
       - name: Unsigned iPhone Release archive and metadata checks
         run: bash scripts/ci_device.sh
       - name: Xcode 26 simulator regression of unchanged reader
+        env:
+          SIMULATOR_BOOT_TIMEOUT_SECONDS: '900'
         run: |
           export DEVELOPER_DIR="$(xcode-select -p)"
           bash scripts/ci_xcode.sh
@@ -38,6 +40,7 @@ jobs:
             build/device-preflight.json
             build/xcode-*.log
             build/environment.json
+            build/simulator-boot.log
             build/test-summary.json
             build/test-details.json
             build/reader-metrics*.json
