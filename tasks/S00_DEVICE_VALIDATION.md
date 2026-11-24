@@ -11,6 +11,11 @@ iPhone; ChatGPT web independently reviews S01. This is separate from S02.
   Owner feedback after installing35.1 explicitly requests on-demand speech controls:
   hide the persistent bottom player, add a toolbar entry and dismissible control
   sheet, preserve playback while hidden, and verify show/hide preserves reading.
+  The owner confirmed37.1 works, then requested immersive reading: hide back,
+  speech/TOC/font buttons and progress until needed. The latest accepted option
+  is one subtle theme-aware ellipsis entry (no white background/border), opening
+  the complete reading controls. Body taps/scrolls must not open it. Keep a clear
+  accessible way back to the library and preserve the reading anchor.
   Repair native UI-test interaction only when actual new-OS evidence requires it;
   keep real file selection and final imported-book assertions.
 - Prepare unique bundle identity, original icon and build/export metadata.

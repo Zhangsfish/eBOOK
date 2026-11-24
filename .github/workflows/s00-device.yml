@@ -24,7 +24,7 @@ jobs:
           python3 scripts/generate_xcode_project.py --check
       - name: Unsigned iPhone Release archive and metadata checks
         run: bash scripts/ci_device.sh
-      - name: Xcode 26 simulator regression of unchanged reader
+      - name: Xcode 26 full reader regression
         env:
           SIMULATOR_BOOT_TIMEOUT_SECONDS: '900'
         run: |

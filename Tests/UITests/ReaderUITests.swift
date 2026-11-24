@@ -28,21 +28,55 @@ final class ReaderUITests: XCTestCase {
                        "Speech controls must disappear after closing the panel")
     }
 
+    private func assertImmersive(_ app: XCUIApplication) {
+        let entry = app.buttons["reader.controls"]
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            entry.exists && entry.isHittable
+        }, object: entry)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed)
+        for identifier in ["reader.back", "reader.speech", "reader.toc", "reader.settings", "reader.controls.dismiss", "speech.play"] {
+            XCTAssertFalse(app.buttons[identifier].exists, "Hidden reading control: \(identifier)")
+        }
+        XCTAssertFalse(app.sliders["reader.seek"].exists)
+        XCTAssertFalse(app.staticTexts["reader.progress"].exists)
+        XCTAssertEqual(app.navigationBars.count, 0, "The reader has no permanent navigation bar")
+        XCTAssertGreaterThanOrEqual(entry.frame.width, 44)
+        XCTAssertGreaterThanOrEqual(entry.frame.height, 44)
+    }
+
+    private func showControls(_ app: XCUIApplication) {
+        let entry = app.buttons["reader.controls"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10)); entry.tap()
+        XCTAssertTrue(app.buttons["reader.controls.dismiss"].waitForExistence(timeout: 10))
+    }
+
+    private func hideControls(_ app: XCUIApplication) {
+        app.buttons["reader.controls.dismiss"].tap()
+        assertImmersive(app)
+    }
+
     func testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch() throws {
         let app = launch("synthetic_long_gb18030.txt")
         open(app, title: "synthetic_long_gb18030")
         let table = app.tables["reader.table"]
+        assertImmersive(app)
+        showControls(app)
         XCTAssertTrue(app.staticTexts["reader.anchor"].waitForExistence(timeout: 10))
         let beginning = app.staticTexts["reader.anchor"].label
+        hideControls(app)
         for _ in 0..<42 { table.swipeUp() }
-        XCTAssertNotEqual(app.staticTexts["reader.anchor"].label, beginning)
+        assertImmersive(app) // Scrolling must not reveal the panel.
         snapshot("long-book-warm", app)
+        showControls(app)
+        XCTAssertNotEqual(app.staticTexts["reader.anchor"].label, beginning)
         app.buttons["reader.toc"].tap()
         let search = app.searchFields.firstMatch
         XCTAssertTrue(search.waitForExistence(timeout: 10)); search.tap(); search.typeText("624")
         let chapter = app.buttons["toc.entry.623"]
         XCTAssertTrue(chapter.waitForExistence(timeout: 10)); chapter.tap()
         XCTAssertTrue(table.waitForExistence(timeout: 10))
+        assertImmersive(app)
+        showControls(app)
         let anchor = app.staticTexts["reader.anchor"].label
         XCTAssertNotEqual(anchor, beginning)
         XCTAssertEqual(anchor.components(separatedBy: "/")[0].filter(\.isNumber), "1870")
@@ -50,29 +84,46 @@ final class ReaderUITests: XCTestCase {
         let font = app.sliders["settings.font"]
         XCTAssertTrue(font.waitForExistence(timeout: 10)); font.adjust(toNormalizedSliderPosition: 0.65)
         app.buttons["夜间"].tap(); app.buttons["完成"].tap()
+        assertImmersive(app)
         snapshot("long-book-dark", app)
+        showControls(app)
         let saved = app.staticTexts["reader.anchor"].label
         XCTAssertEqual(saved, anchor, "Typography changes must retain the absolute reading block")
         app.terminate()
         let reopened = launch("synthetic_long_gb18030.txt", reset: false)
         open(reopened, title: "synthetic_long_gb18030")
+        assertImmersive(reopened)
+        showControls(reopened)
         XCTAssertEqual(reopened.staticTexts["reader.anchor"].label, saved)
         reopened.buttons["reader.settings"].tap()
         XCTAssertTrue(reopened.buttons["夜间"].isSelected)
         reopened.buttons["完成"].tap()
+        assertImmersive(reopened)
         snapshot("long-book-restored", reopened)
     }
 
     func testEPUBTOCImageAndReaderControls() throws {
         let app = launch("synthetic.epub")
         open(app, title: "合成的清晨")
+        assertImmersive(app)
+        let table = app.tables["reader.table"]
+        let viewport = table.frame
+        table.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        assertImmersive(app) // Only the deliberate ellipsis entry opens controls.
         snapshot("epub-reader", app)
+        showControls(app)
+        XCTAssertEqual(table.frame, viewport, "Showing controls must not resize the text viewport")
         app.buttons["reader.toc"].tap()
         let chapter = app.buttons["toc.entry.2"]
         XCTAssertTrue(chapter.waitForExistence(timeout: 10)); chapter.tap()
         XCTAssertTrue(app.tables["reader.table"].waitForExistence(timeout: 10))
-        XCTAssertFalse(app.buttons["speech.play"].exists, "Reading starts without the speech panel")
+        assertImmersive(app)
+        showControls(app)
         let anchor = app.staticTexts["reader.anchor"].label
+        hideControls(app)
+        showControls(app)
+        XCTAssertEqual(app.staticTexts["reader.anchor"].label, anchor)
+        snapshot("reading-controls-expanded", app)
         app.buttons["reader.speech"].tap()
         XCTAssertTrue(app.buttons["speech.play"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["下一章"].exists)
@@ -80,12 +131,27 @@ final class ReaderUITests: XCTestCase {
         snapshot("speech-controls-expanded", app)
         app.buttons["speech.dismiss"].tap()
         assertSpeechPanelHidden(app)
+        assertImmersive(app)
+        showControls(app)
         XCTAssertEqual(app.staticTexts["reader.anchor"].label, anchor)
         app.buttons["reader.speech"].tap()
         XCTAssertTrue(app.buttons["speech.play"].waitForExistence(timeout: 10))
         app.buttons["speech.dismiss"].tap()
         assertSpeechPanelHidden(app)
+        assertImmersive(app)
         snapshot("epub-reader-speech-hidden", app)
+        for (theme, name) in [("明亮", "light"), ("护眼", "warm"), ("夜间", "dark")] {
+            showControls(app)
+            app.buttons["reader.settings"].tap()
+            XCTAssertTrue(app.buttons[theme].waitForExistence(timeout: 10)); app.buttons[theme].tap()
+            app.buttons["完成"].tap()
+            assertImmersive(app)
+            XCTAssertEqual(table.frame, viewport)
+            snapshot("immersive-\(name)", app)
+        }
+        showControls(app)
+        app.buttons["reader.back"].tap()
+        XCTAssertTrue(app.buttons["library.book.合成的清晨"].waitForExistence(timeout: 10))
     }
 
     func testSystemDocumentPickerPresentsAndCanCancel() throws {
