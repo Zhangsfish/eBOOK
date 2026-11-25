@@ -81,12 +81,15 @@ public final class ReaderInstrumentation extends Instrumentation {
     private boolean clickAx(String text){AccessibilityNodeInfo n=ax(text);for(int i=0;n!=null&&i<6;i++,n=n.getParent())if(n.isClickable())return n.performAction(AccessibilityNodeInfo.ACTION_CLICK);return false;}
     private void tapAx(String text)throws Exception{
         AccessibilityNodeInfo node=ax(text);expect(node!=null,"Missing tap target: "+text);Rect bounds=new Rect();node.getBoundsInScreen(bounds);
-        expect(!bounds.isEmpty(),"Empty system picker target: "+text);long now=SystemClock.uptimeMillis();
-        MotionEvent down=MotionEvent.obtain(now,now,MotionEvent.ACTION_DOWN,bounds.centerX(),bounds.centerY(),0);
-        MotionEvent up=MotionEvent.obtain(now,now+80,MotionEvent.ACTION_UP,bounds.centerX(),bounds.centerY(),0);
-        down.setSource(InputDevice.SOURCE_TOUCHSCREEN);up.setSource(InputDevice.SOURCE_TOUCHSCREEN);
-        try{expect(getUiAutomation().injectInputEvent(down,true),"System tap down failed");expect(getUiAutomation().injectInputEvent(up,true),"System tap up failed");}
-        finally{down.recycle();up.recycle();}waitForIdleSync();
+        expect(!bounds.isEmpty(),"Empty system picker target: "+text);
+        Bundle trace=new Bundle();trace.putString("stream","System file tap: "+node+"\n");sendStatus(0,trace);
+        // Android's input command supplies a complete native touchscreen event
+        // (tool type/device/timestamps), including on the older AOSP image.
+        shell("input tap "+bounds.centerX()+" "+bounds.centerY());waitForIdleSync();
+    }
+    private void dumpNodes(AccessibilityNodeInfo node,Writer out,int depth)throws IOException{
+        if(node==null||depth>24)return;out.write(String.join("",Collections.nCopies(depth,"  "))+node+"\n");
+        for(int i=0;i<node.getChildCount();i++)dumpNodes(node.getChild(i),out,depth+1);
     }
     private void shell(String command)throws Exception{try(ParcelFileDescriptor fd=getUiAutomation().executeShellCommand(command);InputStream in=new ParcelFileDescriptor.AutoCloseInputStream(fd)){byte[]bytes=new byte[1024];while(in.read(bytes)!=-1){}}}
     private void launch()throws Exception{
@@ -139,7 +142,10 @@ public final class ReaderInstrumentation extends Instrumentation {
         for(int i=0;i<12&&ax(filename)==null;i++){AccessibilityNodeInfo current=getUiAutomation().getRootInActiveWindow();AccessibilityNodeInfo scroll=scrollable(current);if(scroll!=null)scroll.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);SystemClock.sleep(250);}
         // AOSP11's grid does not activate files reliably through a child's
         // accessibility ACTION_CLICK. Tap the actual, observed filename bounds.
-        waitFor(()->ax(filename)!=null,"Fixture missing in picker: "+filename);tapAx(filename);SystemClock.sleep(300);
+        waitFor(()->ax(filename)!=null,"Fixture missing in picker: "+filename);
+        try(Writer trace=new OutputStreamWriter(new FileOutputStream(new File(evidence,"picker-"+filename+".txt")),StandardCharsets.UTF_8)){dumpNodes(getUiAutomation().getRootInActiveWindow(),trace,0);}
+        screenshot("picker-"+filename);
+        if(Build.VERSION.SDK_INT<=30)tapAx(filename);else expect(clickAx(filename),"System picker accessibility click failed");SystemClock.sleep(300);
         if(ax("Open")!=null)clickAx("Open");else if(ax("OPEN")!=null)clickAx("OPEN");
         if(filename.endsWith(".txt")){waitFor(()->ax("使用自动识别")!=null,"Encoding choice missing");clickAx("使用自动识别");}
         waitFor(()->reader()!=null&&reader().getChildCount()>0,"Import didn't reach reader");SystemClock.sleep(300);

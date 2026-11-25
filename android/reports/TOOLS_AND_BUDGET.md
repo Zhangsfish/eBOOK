@@ -11,7 +11,9 @@ SSH复用`F:/anaconda3/python.exe`的Paramiko2.8.1/pywin32；加密解包复用c
 
 本次新租AutoDL重庆A区151机：纯CPU32核、120GB内存，按量¥0.88/小时，
 系统盘30GB、免费数据盘50GB，没有扩容。控制台已保存2026-11-26 07:30
-（Asia/Shanghai）定时关机，设置时估算累计¥6.96。最终以关机和账单读回为准。
+（Asia/Shanghai）定时关机，设置时估算累计¥6.96，低于10元预算。
+已于2026-11-26约01:07主动关机，控制台明确读回“已关机”；没有等待定时器空跑。
+¥6.96是原定时上限估算，不是实际账单；未把它当作实付金额。
 容器未提供`/dev/kvm`；不能把它称为硬件加速模拟器环境。
 
 云端任务根：`/root/autodl-tmp/ebook_android_20261125`。这是本任务单独新租的容器，
@@ -31,6 +33,8 @@ Android SDK官方来源和验收：
 原始`manifest.json`由bootstrap脚本生成，包含官方URL、SHA1、字节数和SHA256。
 不安装Android Studio、Gradle或第三方阅读/语音库。编译用原生Java、aapt2、D8、zipalign；
 最终用官方apksigner在AutoDL签名和验证，升级密钥先DPAPI回收核验再清理云端。
+5d85816的签名APK已下载并核对SHA256；升级密钥DPAPI往返验证完成，云端
+`private-signing/`已删除并通过不存在检查。本机没有下载或运行apksigner JAR。
 
 独立免费标准GitHub `ubuntu-24.04` runner已读回预装SDK35/build-tools35和KVM。
 仅新增Android工作流。Android11/API30使用AOSP镜像，Android15/API35使用Google APIs

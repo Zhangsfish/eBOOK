@@ -96,9 +96,19 @@ def main():
         else:
             raise RuntimeError('Emulator did not finish booting')
         stage('isolated test VM setup')
-        adb('root')
-        adb('wait-for-device', timeout=30)
-        if subprocess.check_output([str(ADB), 'shell', 'id', '-u'], text=True, timeout=10).strip() != '0':
+        root_deadline = time.monotonic() + 45
+        while time.monotonic() < root_deadline:
+            # Boot can report complete while adbd is still reconnecting. A
+            # transient "unable to connect for root: closed" is not app evidence.
+            subprocess.run([str(ADB), 'root'], check=False, timeout=10)
+            try:
+                adb('wait-for-device', timeout=10)
+                if subprocess.check_output([str(ADB), 'shell', 'id', '-u'], text=True, timeout=10).strip() == '0':
+                    break
+            except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+                pass
+            time.sleep(1)
+        else:
             raise RuntimeError('Test-only VM root required to collect private instrumentation evidence')
         for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
             adb('shell', 'settings', 'put', 'global', setting, '0')
