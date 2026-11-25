@@ -286,10 +286,12 @@ final class ReaderUITests: XCTestCase {
                     else { folder.tap() }
                 }
             }
-            if #available(iOS 26.0, *) {
-                // Current Files icon previews can consume an automation tap.
-                // Use the native List view and activate the actual file row.
-                let more = app.buttons["OverflowBarButtonItem"]
+            do {
+                // Both runtimes expose icon previews separately from filename
+                // activation. Use the same native List mode on 18.5 and26.5.
+                let more: XCUIElement
+                if #available(iOS 26.0, *) { more = app.buttons["OverflowBarButtonItem"] }
+                else { more = app.buttons.matching(NSPredicate(format: "label == '更多' OR label == 'More'")).firstMatch }
                 XCTAssertTrue(more.waitForExistence(timeout: 10)); more.tap()
                 let list = app.buttons.matching(NSPredicate(format: "label == '列表' OR label == 'List'")).firstMatch
                 if !list.waitForExistence(timeout: 10) { print("S00_PICKER_VIEW_MENU \(app.debugDescription)") }
