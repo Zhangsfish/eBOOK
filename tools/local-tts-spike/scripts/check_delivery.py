@@ -6,7 +6,10 @@ import subprocess
 from assets import REPO, SPIKE, sha256
 
 BASE = 'd41b80d88780d5b483a1a2af873b1293ee22ba70'  # Issue #9 handoff, owner-authored task/template.
-ALLOWED_REPORTS = {'reports/S02A_LOCAL_TTS_FEASIBILITY.md', 'reports/S02A2_MOBILE_TTS_EVALUATION.md'}
+ALLOWED_REPORTS = {'reports/S02A_LOCAL_TTS_FEASIBILITY.md', 'reports/S02A2_MOBILE_TTS_EVALUATION.md',
+                   'reports/S02A3_SUXIN_MATCHA_LISTENING.md'}
+# Owner-authored Issue10 handoff files arrived in the safe fast-forward.
+ALLOWED_TASKS = {'tasks/S02A3_SUXIN_MATCHA_LISTENING.md', 'tasks/CODEX_HANDOFF_S02A3.md'}
 ALLOWED_WORKFLOW = '.github/workflows/s02a-ios.yml'  # Explicitly authorized by Issue #8.
 FORBIDDEN = {'.onnx', '.bin', '.wav', '.mp3', '.m4a', '.zip', '.bz2', '.whl', '.a', '.dylib', '.dll', '.ipa',
              '.safetensors', '.npy', '.npz', '.mlmodel', '.tflite', '.p8', '.p12', '.pem', '.key'}
@@ -27,7 +30,7 @@ def main():
         raise RuntimeError('No delivery changes found')
     for name in paths:
         path = REPO / name
-        if not (name.startswith('tools/local-tts-spike/') or name in ALLOWED_REPORTS or name == ALLOWED_WORKFLOW):
+        if not (name.startswith('tools/local-tts-spike/') or name in ALLOWED_REPORTS or name in ALLOWED_TASKS or name == ALLOWED_WORKFLOW):
             raise RuntimeError('Out-of-scope change: ' + name)
         if path.suffix.lower() in FORBIDDEN or path.stat().st_size > 262144:
             raise RuntimeError('Binary/large output must not be staged: ' + name)

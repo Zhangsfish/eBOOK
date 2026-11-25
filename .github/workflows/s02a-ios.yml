@@ -60,7 +60,7 @@ jobs:
         env:
           S02A2_PHASE: ${{ inputs.phase }}
         run: |
-          python3 tools/local-tts-spike/s02a2/scripts/run_native.py --phase "$S02A2_PHASE" --model-dir "$S02A2_MODEL_DIR" --prepared-ids tools/local-tts-spike/s02a2/fixtures/suxin-ids.json
+          python3 tools/local-tts-spike/s02a2/scripts/run_native.py --phase "$S02A2_PHASE" --model-dir "$S02A2_MODEL_DIR" --prepared-ids tools/local-tts-spike/s02a3/fixtures/suxin-author-ids.json
       - name: Export only small sanitized JSON metrics
         id: metadata
         if: always()

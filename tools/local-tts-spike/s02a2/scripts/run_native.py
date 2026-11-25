@@ -151,9 +151,13 @@ def main():
         shutil.copy2(SPIKE / 'fixtures/corpus.json', resources / 'corpus.json')
         if label == 'suxin':
             if not args.prepared_ids or not args.prepared_ids.is_file(): raise ValueError('Actual author-prepared IDs required; no native frontend substitution')
+            sys.path.insert(0, str(SPIKE / 's02a3/scripts'))
+            from validate_precomputed import validate_precomputed
+            result['precomputed_frontend_provenance'] = validate_precomputed(args.prepared_ids)
             shutil.copy2(args.prepared_ids, resources / 'suxin-ids.json')
         context = {'source_sha': source_sha, 'phase': args.phase, 'runtime_revision': PINS['sherpa-onnx'],
             'corpus_sha256': sha256(resources / 'corpus.json')}
+        if label == 'suxin': context['precomputed_frontend_provenance'] = result['precomputed_frontend_provenance']
         (resources / 's02a2-context.json').write_text(json.dumps(context), encoding='utf-8')
         common = ['xcodebuild', '-scheme', 'LocalTTSSpike', '-destination', 'platform=iOS Simulator,id=' + device['udid'],
             '-derivedDataPath', str(output / 'DerivedData'), '-clonedSourcePackagesDirPath', str(output / 'SourcePackages'),
@@ -195,7 +199,7 @@ def main():
             save()
         result['status'] = 'COMPLETED_MEASUREMENTS_DEVICE_NOT_RUN' if not result.get('failures') else 'PARTIAL_MEASUREMENTS_WITH_BLOCKERS'
         if args.phase == 'kokoro-final': result['decision'] = 'KOKORO_DEVICE_PERFORMANCE_NOT_READY_STOP_OPTIMIZING'
-        else: result['decision'] = 'NO_GO_FOR_INTEGRATION_DEVICE_AND_OWNER_QUALITY_PENDING'
+        else: result['decision'] = 'EXPERIMENTAL_CANDIDATE_DEVICE_FRONTEND_LICENSE_AND_OWNER_GATES_PENDING'
         return 0 if not result.get('failures') else 3
     except Exception as error:
         result.update(status='BLOCKED_NATIVE_EXECUTION', reason=type(error).__name__ + ': ' + str(error)[:500])

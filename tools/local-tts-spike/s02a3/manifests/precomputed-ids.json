@@ -1,0 +1,11 @@
+{
+  "status": "AUTHOR_PYTHON_FRONTEND_PRECOMPUTED_IDS",
+  "end_to_end_native_text": false,
+  "prepared_ids_sha256": "f07ac7e64ad94dcef10e1504dcd89a72a70a5b646705eb148293b1dc406c474e",
+  "desktop_generation_source_sha": "a7b073d572fe7e4862679678dc872f0887a5e19d",
+  "source_metrics_sha256": "edf3d35b08a6d778ae252ab55943f573f385fd9e18388793d9ba24e8ffc3722e",
+  "author_revision": "5ee2da546f3635da263602842d238d8624cb7a81",
+  "author_frontend_file_sha256": "6bbf508c0e7fb6a887da787631d23a09d8e712d5d231e08b8d3a33325cbd333e",
+  "corpus_sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+  "phoneme_ids_manually_edited": false
+}
