@@ -235,6 +235,27 @@ final class ReaderUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 10))
     }
 
+    func testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains() throws {
+        let app = launch("synthetic.epub")
+        open(app, title: "合成的清晨")
+        showControls(app); app.buttons["reader.settings"].tap()
+        let voice = app.buttons["settings.voice"]
+        XCTAssertTrue(voice.waitForExistence(timeout: 15)); voice.tap()
+        let suxin = app.buttons["苏心 · 离线中文 · zh-CN"]
+        XCTAssertTrue(suxin.waitForExistence(timeout: 10)); suxin.tap()
+        let rate = app.sliders["settings.suxinRate"]
+        XCTAssertTrue(rate.waitForExistence(timeout: 10)); rate.adjust(toNormalizedSliderPosition: 2.0 / 3.0)
+        let saved = rate.value as? String
+        app.buttons["完成"].tap(); assertImmersive(app)
+        app.terminate()
+        let reopened = launch("synthetic.epub", reset: false)
+        open(reopened, title: "合成的清晨"); showControls(reopened)
+        reopened.buttons["reader.settings"].tap()
+        XCTAssertTrue(reopened.sliders["settings.suxinRate"].waitForExistence(timeout: 10))
+        XCTAssertEqual(reopened.sliders["settings.suxinRate"].value as? String, saved)
+        reopened.buttons["完成"].tap(); assertImmersive(reopened)
+    }
+
     func testFilesPickerImportsSelectedTXTAndEPUB() throws {
         let app = XCUIApplication()
         app.launchArguments = ["--uitesting", "--reset-library", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]

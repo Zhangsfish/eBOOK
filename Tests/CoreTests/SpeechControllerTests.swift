@@ -87,6 +87,26 @@ import AVFoundation
         XCTAssertEqual(fake.requests.last?.rate, 0.6)
     }
 
+    func testSuxinRateLookaheadAndCancelledSameBlockEventsDoNotMoveNewPosition() throws {
+        let (library, book, doc, storage) = try context(text: String(repeating: "清晨的风吹过石桥，她把书轻轻合上。", count: 45))
+        var preferences = library.state.preferences
+        preferences.voiceIdentifier = SuxinSpeechProvider.voiceID; preferences.suxinRate = 1.5
+        library.setPreferences(preferences)
+        let fake = FakeSpeechProvider()
+        let controller = SpeechController(provider: fake, managesAudio: false)
+        controller.attach(library); controller.load(book, document: doc, storage: storage); controller.play()
+        XCTAssertEqual(fake.requests.first?.rate, 1.5)
+        XCTAssertLessThanOrEqual(fake.requests[0].chunk.text.utf16.count, 240)
+        let old = fake.onEvent
+        fake.onEvent?(.finished)
+        let next = controller.position
+        old?(.range(startUTF16: 1, length: 1)); old?(.failed("stale failure"))
+        XCTAssertEqual(controller.position, next); XCTAssertNil(controller.error)
+        controller.pause()
+        XCTAssertEqual(library.record(book.id)?.reading, ReadingAnchor())
+        XCTAssertEqual(try storage.loadLibrary().preferences.suxinRate, 1.5)
+    }
+
     func testCorruptLibraryBlocksWritesRatherThanReplacingExistingState() throws {
         let storage = try BookStorage(root: root.appendingPathComponent("corrupt"))
         let url = storage.root.appendingPathComponent("library.json")

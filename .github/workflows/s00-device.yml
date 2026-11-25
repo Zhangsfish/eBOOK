@@ -27,6 +27,8 @@ jobs:
       - name: Check deterministic project and original fixture
         run: |
           python3 scripts/generate_long_gb18030_fixture.py
+          python3 tools/suxin/scripts/prepare_resources.py
+          python3 tools/suxin/scripts/inspect_runtime.py
           python3 scripts/generate_xcode_project.py --check
       - name: Unsigned iPhone Release archive and metadata checks
         run: bash scripts/ci_device.sh
@@ -53,5 +55,4 @@ jobs:
             build/reader-metrics*.json
             build/screenshots/
             build/attachments/manifest.json
-            build/eBOOK-device-unsigned.ipa
           retention-days: 7

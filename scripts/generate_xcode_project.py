@@ -45,7 +45,8 @@ def generate():
         return obj('resources:' + name, 'PBXResourcesBuildPhase', buildActionMask='2147483647', files=builds, runOnlyForDeploymentPostprocessing='0')
     app_resources = resources('app', [('Sources/eBOOK/PrivacyInfo.xcprivacy', 'text.xml'),
                                       ('Sources/eBOOK/Assets.xcassets', 'folder.assetcatalog'),
-                                      ('.local-test-data/s02b/bundle/Suxin', 'folder')])
+                                      ('.local-test-data/s02b/bundle/Suxin', 'folder'),
+                                      ('.local-test-data/s02b/bundle/NativeNotices', 'folder')])
     unit_resources = resources('unit', [('Tests/Fixtures', 'folder'), ('.local-test-data/synthetic_long_gb18030.txt', 'text')])
     ui_resources = resources('ui', [])
     products = []

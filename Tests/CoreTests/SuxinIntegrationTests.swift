@@ -46,8 +46,9 @@ private final class OutputProbe: @unchecked Sendable {
         buffer.frameLength = buffer.frameCapacity
         normal.samples.withUnsafeBufferPointer { source in buffer.floatChannelData![0].update(from: source.baseAddress!, count: source.count) }
         let wave = temporary.appendingPathComponent("actual-native-original.wav")
-        let file = try AVAudioFile(forWriting: wave, settings: format.settings)
-        try file.write(from: buffer)
+        var file: AVAudioFile? = try AVAudioFile(forWriting: wave, settings: format.settings)
+        try file!.write(from: buffer)
+        file = nil // Close/finalize the WAV header before independently reopening.
         let reopened = try AVAudioFile(forReading: wave)
         XCTAssertEqual(reopened.length, AVAudioFramePosition(normal.samples.count))
         let digest = SHA256.hash(data: try Data(contentsOf: wave)).map { String(format: "%02x", $0) }.joined()
@@ -71,7 +72,7 @@ private final class OutputProbe: @unchecked Sendable {
         let probe = OutputProbe()
         provider.installTestOutputProbe { buffer, _ in probe.receive(buffer) }
         defer { provider.cancel(); provider.removeTestOutputProbe(); try? AVAudioSession.sharedInstance().setActive(false) }
-        let text = "清晨的风很轻，小船经过石桥。她收起书，向岸边挥了挥手。远处的钟声响了，今天的故事才刚刚开始。"
+        let text = "清晨的风很轻，小船经过石桥。她收起书，向岸边挥了挥手。远处的钟声响了，今天的故事才刚刚开始。她回头看了一眼熟悉的街道，又想起昨晚没有读完的那一页。"
         var playedOffsets: [Int] = []
         provider.onEvent = { event in
             if case .range(let start, _) = event { playedOffsets.append(start) }

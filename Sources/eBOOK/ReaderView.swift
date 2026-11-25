@@ -267,7 +267,7 @@ struct ReaderSettings: View {
                         LabeledContent("苏心语速", value: String(format: "%.2f×", library.state.preferences.suxinRate))
                         Slider(value: Binding(get: { Double(library.state.preferences.suxinRate) }, set: {
                             var value = library.state.preferences; value.suxinRate = Float($0); library.setPreferences(value); speech.preferencesChanged()
-                        }), in: 0.5...2, step: 0.05).accessibilityLabel("苏心朗读语速")
+                        }), in: 0.5...2, step: 0.05).accessibilityLabel("苏心朗读语速").accessibilityIdentifier("settings.suxinRate")
                     } else {
                     LabeledContent("语速", value: String(format: "%.2f", library.state.preferences.speechRate))
                     Slider(value: Binding(get: { Double(library.state.preferences.speechRate) }, set: {
@@ -279,7 +279,7 @@ struct ReaderSettings: View {
                     })) {
                         Text("默认中文语音").tag("")
                         ForEach(speech.provider.voices.filter { $0.language.hasPrefix("zh") }) { Text("\($0.name) · \($0.language)").tag($0.id) }
-                    }
+                    }.accessibilityIdentifier("settings.voice")
                 }
             }.navigationTitle("阅读设置").toolbar { ToolbarItem(placement: .topBarTrailing) { Button("完成") { dismiss() } } }
         }

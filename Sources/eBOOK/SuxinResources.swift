@@ -87,6 +87,15 @@ actor SuxinModel {
         if resources == nil { resources = try SuxinResources(root: root) }
         return resources!.fingerprint
     }
+    func preflight(_ text: String) throws -> [SpeechChunk] {
+        _ = try prepare(text)
+        let parts = SuxinSegmentation.chunks(text)
+        for part in parts {
+            let ids = try prepare(part.text)
+            guard ids.count <= 512 else { throw SuxinFrontend.Failure.unsupportedText }
+        }
+        return parts
+    }
     func wave(text: String, speed: Float) throws -> SuxinWave {
         try Task.checkCancellation()
         let ids = try prepare(text)

@@ -14,6 +14,7 @@ enum SuxinSegmentation {
             } else {
                 func numeric(_ scalar: Unicode.Scalar) -> Bool { "0123456789:.-/".unicodeScalars.contains(scalar) }
                 while end < scalars.count, end > start, numeric(scalars[end - 1]), numeric(scalars[end]) { end += 1 }
+                if end < scalars.count, numeric(scalars[end - 1]), "年月日点分秒岁元度".unicodeScalars.contains(scalars[end]) { end += 1 }
             }
             let value = String(String.UnicodeScalarView(scalars[start..<end]))
             if !result.isEmpty, value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

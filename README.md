@@ -2,10 +2,23 @@
 
 A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-quality Mandarin text-to-speech experience.
 
-## Build and run S00
+## Current work: S02B local Suxin speech
+
+The selected Suxin-Light voice is being integrated on
+`codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12).
+See [the task](tasks/S02B_SUXIN_IOS_INTEGRATION.md) and
+[delivery evidence](reports/S02B_SUXIN_IOS_INTEGRATION.md). Desktop, simulator,
+device and TestFlight states are reported separately. A successful CI build is
+not a new installable phone release. The later model-training work in PR #11
+does not block this implementation.
+
+## Build and run
 
 Requires a Mac with Xcode 16.4 or later and an iOS 17+ simulator/device. There
-are no runtime third-party packages and no XcodeGen dependency.
+is no XcodeGen dependency. The App now uses a revision-pinned ONNX Runtime
+SPM binary and verified local Suxin/model/dictionary resources. Preparation
+downloads data only, installs no Python package and makes no TTS API call.
+Models, dictionaries and generated audio stay under Git-ignored directories.
 The device-preparation branch uses `com.zhangsfish.ebook`; select your own team
 for local device signing. Existing unsigned CI packages require signing and cannot
 be installed directly. Apple account setup/internal distribution is a separate
@@ -13,6 +26,9 @@ follow-up; see `tasks/S00_DEVICE_VALIDATION.md` and `reports/S00/device-01/`.
 
 ```bash
 python3 scripts/generate_long_gb18030_fixture.py
+python3 tools/suxin/scripts/prepare_resources.py
+python3 tools/suxin/scripts/inspect_runtime.py
+python3 scripts/generate_xcode_project.py --check
 open eBOOK.xcodeproj
 ```
 
@@ -20,13 +36,16 @@ Choose the shared **eBOOK** scheme and an iPhone simulator, then Run. Product �
 Test runs unit and UI tests. For the complete reproducible CI flow:
 
 ```bash
-bash scripts/ci_xcode.sh
+python3 tools/suxin/scripts/ci_integration.py --scope all
 ```
 
 The script uses installed Xcode (prefers `/Applications/Xcode_16.4.app` when
-available), boots an installed iPhone simulator, builds without signing, seeds
-original test files into that simulator's app Documents, runs the tests, and
-builds the Release simulator app. It does not install tools or call paid APIs.
+available), boots an installed simulator, builds without signing, seeds original
+test files into App Documents, runs unit/UI tests and archives an unsigned arm64
+Release App. The `integration` scope runs eleven native frontend, real-graph,
+PCM-playback and state/cache test methods; `frontend` checks the author oracle
+alone. Only allowlisted JSON/log evidence is uploaded by S02B CI. Model-containing
+App/IPA/WAV files are not public artifacts. No tool installation or paid API.
 
 `scripts/generate_xcode_project.py` recreates the checked-in project with Python
 stdlib; use `--check` to verify it matches the sources. Recreate small original
@@ -55,7 +74,11 @@ continuous reading with progress navigation.
 Listening has separate saved progress. Use play/pause, previous/next text block
 or chapter, voice selection and rate. **从当前阅读位置开始朗读** explicitly moves
 listening to the reading anchor. Apple speech stays local; install/download a
-Mandarin voice through iOS accessibility settings if none is present. No book
+Mandarin voice through iOS accessibility settings if none is present. Choose
+**苏心 · 离线中文** in 阅读设置 for native Mandarin synthesis and its separate
+0.5–2.0× rate. English or unsupported-character spans explicitly use Apple speech;
+the playback panel displays that fallback. Model/resource failures show an error
+and let the user select system speech. No book
 body is sent by this application to a cloud TTS service.
 
 ## Storage, safety and limits
@@ -80,21 +103,30 @@ body is sent by this application to a cloud TTS service.
   rejected. There is no general ZIP import.
 - Reading saves a text-block/fraction anchor; restoring after a typography or
   Dynamic Type change is approximate within that block. Listening saves UTF-16
-  word/chunk position and can repeat a word after process termination.
+  position. Apple may repeat a word; Suxin commits completed short audio clauses
+  only, so process termination can repeat the current clause. Pausing/resuming
+  within the same process retains the audio player's frame position.
 - Audio background mode, spoken-audio session, interruption/route handling and
   lock-screen play/pause/chapter commands are implemented. Physical lock-screen,
   calls and Bluetooth behavior require device validation; simulator state tests
   cannot establish those results. Audio has no trustworthy precomputed duration,
   so the lock-screen time-seek command is disabled; text/chapter seeking is in-app.
-- Future synthesis contracts are design seams only. No cloud provider, backend,
-  audio-cache implementation or vendor credentials ship in S00.
+- Suxin uses one background ORT session, a queue of at most three PCM buffers,
+  at most two prefetched clauses from one next text window, and a 64 MiB
+  App-private cache. Identities contain model/frontend hashes, text digest, voice
+  and rate. Cache files contain derived book audio and are excluded from backup;
+  deleting App data removes them. There is no cloud provider or vendor credential.
+- Resource hashes and author/pypinyin license declarations are bundled. Full
+  model/data/static-runtime distribution clearance is incomplete; see
+  [the notice status](tools/suxin/NOTICE.md). This is separate from executing local
+  tests and remains a gate for a new internal distribution.
 
 ## Evidence and review
 
 See `STATUS.md`, `reports/S00_DELIVERY.md`, `reports/S00_TEST_RESULTS.md` and the
 S00 native iOS Actions run. Build/test evidence is tied to the run's exact commit.
-Never infer device success from simulator results. Do not merge or begin S01
-until independent audit authorization.
+Never infer device success from simulator results. S02B requires independent
+audit before a new internal TestFlight build; do not self-merge.
 
 ## Product boundary
 
@@ -105,7 +137,9 @@ until independent audit authorization.
 
 ## Codex handoff
 
-The currently authorized task is [S00 — Reader Foundation](tasks/S00_READER_FOUNDATION.md). The copy-ready local Codex prompt is [tasks/CODEX_HANDOFF_S00.md](tasks/CODEX_HANDOFF_S00.md). Track progress in [GitHub Issue #1](https://github.com/Zhangsfish/eBOOK/issues/1).
+The currently authorized task is [S02B — Suxin iOS integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
+Use [the current handoff](tasks/CODEX_HANDOFF_S02B.md) and [workstream boundaries](docs/TTS_WORKSTREAMS.md).
+S00 reports remain historical evidence for the reader baseline.
 
 ## Test data
 

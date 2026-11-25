@@ -34,7 +34,8 @@ assert info['CFBundleIcons']['CFBundlePrimaryIcon']['CFBundleIconName'] == 'AppI
 assert (app / 'Assets.car').is_file()
 assert (app / 'PrivacyInfo.xcprivacy').is_file()
 assert not list(app.rglob('*.p8')) and not list(app.rglob('*.p12'))
-assert not list(app.rglob('*.txt')) and not list(app.rglob('*.epub'))
+allowed_notices = {app / 'Suxin/author-LICENSE.txt', app / 'Suxin/pypinyin-LICENSE.txt'}
+assert set(app.rglob('*.txt')) == allowed_notices and not list(app.rglob('*.epub'))
 assert not (app / 'embedded.mobileprovision').exists()
 arch = subprocess.check_output(['lipo', '-archs', str(app / 'eBOOK')], text=True).strip()
 assert arch == 'arm64', arch

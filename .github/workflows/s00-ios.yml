@@ -27,6 +27,8 @@ jobs:
       - name: Generate original local-only long fixture
         run: |
           python3 scripts/generate_long_gb18030_fixture.py
+          python3 tools/suxin/scripts/prepare_resources.py
+          python3 tools/suxin/scripts/inspect_runtime.py
           python3 scripts/generate_xcode_project.py --check
       - name: Real Xcode build and simulator tests
         env:

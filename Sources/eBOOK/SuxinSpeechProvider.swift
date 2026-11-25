@@ -35,16 +35,17 @@ import AVFoundation
         guard let model else { throw ReaderError.invalid("苏心资源缺失，请选择系统语音。") }
         paused = false; hasStarted = false; measurement = Measurement()
         let current = token
-        let parts = SuxinSegmentation.chunks(request.chunk.text)
-        planned = parts.count; requestedAt = ProcessInfo.processInfo.systemUptime
+        requestedAt = ProcessInfo.processInfo.systemUptime
         onEvent?(.preparing(true))
         task = Task { [weak self] in
             guard let self else { return }
             do {
                 // Validate the entire outer request before speaking any of it.
                 // Mixed English/unknown symbols explicitly route the whole span.
-                _ = try await model.prepare(request.chunk.text)
+                let parts = try await model.preflight(request.chunk.text)
                 try Task.checkCancellation()
+                guard self.token == current else { return }
+                self.planned = parts.count
                 for part in parts {
                     while self.queued >= 3 {
                         await withCheckedContinuation { self.spaceWaiter = $0 }
@@ -58,7 +59,7 @@ import AVFoundation
                 }
                 if parts.isEmpty, self.token == current { self.onEvent?(.preparing(false)); self.onEvent?(.finished) }
             } catch is CancellationError { /* explicit cancel owns the state */
-            } catch is SuxinFrontend.Failure {
+            } catch SuxinFrontend.Failure.unsupportedText {
                 guard self.token == current else { return }
                 self.onEvent?(.preparing(false)); self.onUnsupported?()
             } catch {
@@ -69,7 +70,7 @@ import AVFoundation
     }
     private func enqueue(_ wave: SuxinWave, part: SpeechChunk, token current: Int) throws {
         guard token == current else { return }
-        if !engine.isRunning { engine.prepare(); try engine.start() }
+        if !paused && !engine.isRunning { engine.prepare(); try engine.start() }
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(wave.samples.count)),
               let destination = buffer.floatChannelData?[0] else { throw ReaderError.invalid("无法准备本地语音播放。") }
         buffer.frameLength = buffer.frameCapacity
@@ -124,9 +125,9 @@ import AVFoundation
         lookahead = nil
         prefetchTask = Task(priority: .utility) {
             do {
-                _ = try await model.prepare(request.chunk.text)
+                let parts = try await model.preflight(request.chunk.text)
                 // Only one next request and its first two short clauses, not a book.
-                for part in SuxinSegmentation.chunks(request.chunk.text).prefix(2) {
+                for part in parts.prefix(2) {
                     try Task.checkCancellation()
                     _ = try await model.wave(text: part.text, speed: request.rate)
                 }
