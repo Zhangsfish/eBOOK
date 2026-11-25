@@ -1,0 +1,6 @@
+<resources>
+  <item name="reader_list" type="id"/><item name="reader_controls" type="id"/>
+  <item name="library_import" type="id"/><item name="library_list" type="id"/>
+  <item name="toc_list" type="id"/><item name="toc_query" type="id"/>
+  <item name="speech_status" type="id"/><item name="speech_play" type="id"/>
+</resources>

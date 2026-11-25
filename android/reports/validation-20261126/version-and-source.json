@@ -1,0 +1,24 @@
+{
+  "source_sha": "5d85816e829a05414c1d13b3e4daf5e54586f4a6",
+  "source_dirty": false,
+  "sdk_platform": 35,
+  "build_tools": "35.0.0",
+  "min_sdk": 26,
+  "target_sdk": 35,
+  "version_name": "0.1.0-android.1",
+  "version_code": 1,
+  "runtime_dependencies": [],
+  "signed": true,
+  "signing": "internal-test RSA3072 / SHA256; official verification v2+v3 PASS",
+  "apk_file": "eBOOK-0.1.0-android.1.apk",
+  "apk_bytes": 61913,
+  "apk_sha256": "b20d523511cda64d95cd02bde74a33c79e897dd24ded9b6e4ef43dd850f7eb18",
+  "certificate_sha256": "a15787f486fdcf5e5f68effe47b9f5aad6460f4a2c7a122bcdde0975a0262ff7",
+  "apk_payload_sha256": {
+    "AndroidManifest.xml": "122ccf647ed71a4868d4e81e89198e6c353d41e03767a6acc1b22b2ab61dd8e1",
+    "res/drawable/ic_book.xml": "914717f4b778c4a5ba0107f78be5a8490a4468e2a1f1fcdbb7634f0a98e2aa97",
+    "resources.arsc": "80ed6c62b3ff9253b9c46d1a7eb11e8f077e9d8e4e1efd032d77aa640f0ef5e1",
+    "classes.dex": "dee8e2dea8e6c0832872ac91efa347cb91938ac48bc96135e4646527573208ca"
+  },
+  "physical_Huawei": "NOT_RUN"
+}

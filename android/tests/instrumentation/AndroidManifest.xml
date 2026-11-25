@@ -1,0 +1,11 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="cn.zhangsfish.ebook.tests" android:versionCode="1" android:versionName="test-only">
+  <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35"/>
+  <queries><package android:name="cn.zhangsfish.ebook"/></queries>
+  <application android:label="eBOOK 原创测试材料" android:testOnly="true" android:allowBackup="false">
+    <service android:name=".OfflineTestEngine" android:exported="true" android:label="eBOOK 测试引擎（非真实声线）">
+      <intent-filter><action android:name="android.intent.action.TTS_SERVICE"/><category android:name="android.intent.category.DEFAULT"/></intent-filter>
+    </service>
+    <receiver android:name=".EngineModeReceiver" android:exported="true"><intent-filter><action android:name="cn.zhangsfish.ebook.tests.MODE"/></intent-filter></receiver>
+  </application>
+  <instrumentation android:name=".ReaderInstrumentation" android:targetPackage="cn.zhangsfish.ebook" android:label="原创材料行为验证" android:functionalTest="true"/>
+</manifest>

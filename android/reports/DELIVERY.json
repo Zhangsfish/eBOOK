@@ -1,0 +1,56 @@
+{
+  "status": "READY_FOR_AUDIT",
+  "archive": "android/delivery/HUAWEI_Mate_X3_eBOOK_Android_0.1.0_20261126.zip",
+  "archive_bytes": 70164,
+  "archive_sha256": "addcc1d6117dabe090ea4242df7f341f0530c09481c3243cab79e3d861998d6c",
+  "production_source_sha": "5d85816e829a05414c1d13b3e4daf5e54586f4a6",
+  "tested_head_sha": "dd7333c80ab5379a306e71fee0bb2684838ff2ea",
+  "apk_sha256": "b20d523511cda64d95cd02bde74a33c79e897dd24ded9b6e4ef43dd850f7eb18",
+  "zip_CRC_and_all_member_SHA256": "PASS",
+  "nested_APK_payload": "PASS",
+  "Chinese_UTF8_BOM": "PASS",
+  "physical_Huawei": "NOT_RUN",
+  "cloud_state": "OFF",
+  "members": [
+    {
+      "name": "eBOOK-0.1.0-android.1.apk",
+      "bytes": 61913,
+      "sha256": "b20d523511cda64d95cd02bde74a33c79e897dd24ded9b6e4ef43dd850f7eb18"
+    },
+    {
+      "name": "安装与使用说明.txt",
+      "bytes": 4374,
+      "sha256": "cf310d267c06cd129ca308811cfc780f4a4015129a83d5cb8f58e67418576fda"
+    },
+    {
+      "name": "真实测试报告.txt",
+      "bytes": 5672,
+      "sha256": "331aa4d2bc8434d13f18aa0735051d8c204798b1df68d69fbd29039c0eba6f3b"
+    },
+    {
+      "name": "版本与源码.json",
+      "bytes": 1035,
+      "sha256": "1218c24ad63e860a6ef5431cb765ac90421ff9b0e4533d3fd6e482da9f83742c"
+    },
+    {
+      "name": "TEST_RESULTS.json",
+      "bytes": 17053,
+      "sha256": "7fe369c83e8ed3a16f50279467b934c57f1f4fdbae85ba4dab3015ac3ce5bea8"
+    },
+    {
+      "name": "签名验证.txt",
+      "bytes": 972,
+      "sha256": "e422791551026fa8b60dbc71dc08666b3749f2132d5ce80d06dd7732e99d983a"
+    },
+    {
+      "name": "包信息.txt",
+      "bytes": 1024,
+      "sha256": "8ffaa083a4d8890244925247961e3e2e707381f1c508403c1f46016b22af7e2e"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 607,
+      "sha256": "b8787dc36543d2b4d524154f953f421f3d888030f749beb64e440f273b29a692"
+    }
+  ]
+}
