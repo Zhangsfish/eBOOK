@@ -1,5 +1,18 @@
 # S02A isolated Kokoro feasibility
 
+## Current authorization: Issue #10 / S02A.3 (2026-11-25)
+The owner supersedes the historical Apple-only recommendation and authorizes
+actual Suxin-Light audition with pinned free dependencies in a NEW ignored venv.
+Matcha is the current preferred AI candidate; the owner decides voice suitability.
+Kokoro is paused, with no new candidates/cloud TTS. Continue PR #7 / this branch.
+Read tasks/S02A3_SUXIN_MATCHA_LISTENING.md, CODEX_HANDOFF_S02A3.md and
+s02a3/AGENTS.md. New report: reports/S02A3_SUXIN_MATCHA_LISTENING.md.
+The existing dedicated native workflow may run a clearly labelled Suxin graph
+proof with real author-produced precomputed IDs; it is not a Swift frontend.
+Do not edit the production reader or start S02B. Local audition, portability and
+redistribution clearance are separate gates; missing release rights do not mean
+the locally generated voice failed. Stop READY_FOR_AUDIT / OWNER_LISTENING_PENDING.
+
 ## Current authorization: Issue #9 / S02A.2 (2026-11-25)
 The owner explicitly supersedes the historical Kokoro-only selection below.
 Continue this same branch and PR #7. Give Kokoro ONE bounded CoreML/device
