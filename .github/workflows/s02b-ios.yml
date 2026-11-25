@@ -18,7 +18,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: s02b-${{ github.ref }}-${{ inputs.scope || 'all' }}
+  group: s02b-${{ github.ref }}-${{ inputs.runner || 'macos-26' }}-${{ inputs.scope || 'all' }}
   cancel-in-progress: false
 jobs:
   native:

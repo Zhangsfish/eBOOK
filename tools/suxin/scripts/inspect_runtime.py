@@ -85,12 +85,21 @@ def main():
     evidence['source_notice_queries'] = queries
     if args.verify_spm_dir:
         resolved = []
+        # SPM may resolve unused static AND shared products from this package.
+        # Inspect the exact binary target in Xcode's ProcessXCFramework command,
+        # not all unrelated frameworks sharing the leaf name onnxruntime.
+        target = args.verify_spm_dir / 'artifacts/onnxruntime-libs/OnnxruntimeIOS'
         for item in binaries:
-            matches = [path for path in args.verify_spm_dir.rglob('onnxruntime')
-                       if path.as_posix().endswith(item['member'])]
-            if len(matches) != 1 or digest(matches[0]) != item['sha256']:
+            binary = target / item['member']
+            actual = digest(binary) if binary.is_file() else None
+            if actual != item['sha256']:
+                details = {'member': item['member'], 'expected_sha256': item['sha256'], 'actual_sha256': actual,
+                           'target_exists': target.is_dir(), 'state': 'FAIL_RESOLVED_RUNTIME_INTEGRITY'}
+                build = ROOT / 'build'; build.mkdir(exist_ok=True)
+                (build / 's02b-runtime-verification-failed.json').write_text(json.dumps(details, indent=2) + '\n')
+                print(json.dumps(details), flush=True)
                 raise ValueError('Resolved Xcode runtime differs from pinned XCFramework')
-            archs = subprocess.check_output(['lipo', '-archs', str(matches[0])], text=True).strip()
+            archs = subprocess.check_output(['lipo', '-archs', str(binary)], text=True).strip()
             resolved.append({'member': item['member'], 'actual_architectures': archs, 'sha256': item['sha256']})
         if len(resolved) != 2:
             raise ValueError('Both device and simulator slices must be inspected')
