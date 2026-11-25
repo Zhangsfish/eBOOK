@@ -36,12 +36,25 @@ def adb(*args, **kwargs):
 
 def main():
     os.environ['PATH'] = str(JAVA) + os.pathsep + os.environ['PATH']
+    avd_home = BUILD / 'avd'
+    android_home = BUILD / 'android-user'
+    avd_home.mkdir(exist_ok=True)
+    android_home.mkdir(exist_ok=True)
+    # sdkmanager/avdmanager and the newer emulator otherwise disagree about
+    # XDG vs legacy user-home defaults on this runner image.
+    os.environ['ANDROID_AVD_HOME'] = str(avd_home)
+    os.environ['ANDROID_USER_HOME'] = str(android_home)
+    os.environ['ANDROID_EMULATOR_HOME'] = str(android_home)
     manager = SDK / 'cmdline-tools/latest/bin/sdkmanager'
     avdmanager = SDK / 'cmdline-tools/latest/bin/avdmanager'
     stage('SDK system image')
     run([manager, '--install', IMAGE], stdin=subprocess.DEVNULL, timeout=480)
     stage('AVD profile')
-    run([avdmanager, 'create', 'avd', '--force', '--name', AVD, '--package', IMAGE, '--device', 'pixel_2'], input='no\n', text=True)
+    run([avdmanager, 'create', 'avd', '--force', '--name', AVD, '--path', avd_home / (AVD + '.avd'), '--package', IMAGE, '--device', 'pixel_2'], input='no\n', text=True)
+    available_avds = subprocess.check_output([str(SDK / 'emulator/emulator'), '-list-avds'], text=True, timeout=20)
+    print('Registered AVDs:', available_avds.strip(), flush=True)
+    if AVD not in available_avds.splitlines():
+        raise RuntimeError('AVD registration failed in explicit task-local home')
     key = BUILD / 'ephemeral-ci-only.jks'
     stage('ephemeral test signing')
     os.environ['EBOOK_CI_KEY_PASS'] = secrets.token_hex(20)
