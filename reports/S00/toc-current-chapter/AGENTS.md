@@ -13,10 +13,16 @@
 - Sources/eBOOK/ReaderView.swift: clear stale search, scroll to and mark that row.
 - Tests/: actual chapter-boundary and long-book UI regression checks.
 - DELIVERY.md: actual tested SHA, CI, internal beta availability and limitations.
+- TEST_RESULTS.json: sanitized actual counts/environments/ZIP verification, with
+  initial failures preserved and focused reruns recorded separately.
 - scripts/ci_xcode.sh + existing workflows: optional reader-toc scope runs the
-  exact boundary + full long-reader UI methods with expected count2/no skips;
+  exact boundary + dedicated live-chapter/search/relaunch UI methods with count2/no skips;
   original all/native-picker modes remain. This avoids rerunning unrelated tests
   after the first run exposed a localized-number parsing error in the new helper.
+- The dedicated case crosses a chapter by genuine reader swipes after a TOC
+  jump, so retaining the previous selected chapter cannot falsely pass it.
+- iOS18.5 exposed an auto-collapsing search drawer after deep TOC scrolling;
+  navigationBarDrawer(displayMode:.always) preserves the search affordance.
 - .local-test-data/toc-current-chapter/: ignored raw evidence; synthetic books only.
 
 ## Handoff

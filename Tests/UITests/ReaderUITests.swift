@@ -55,19 +55,24 @@ final class ReaderUITests: XCTestCase {
         assertImmersive(app)
     }
 
+    private func longBookBlock(from anchor: String) -> Int {
+        let digits = anchor.components(separatedBy: "/")[0].filter(\.isNumber)
+        guard let block = Int(digits), block > 0 else {
+            XCTFail("Missing live reading anchor: \(anchor)"); return 0
+        }
+        return block - 1
+    }
+
     private func assertLongBookTOCTracksReading(_ app: XCUIApplication, snapshotName: String) {
         // The original 625-chapter fixture has three bounded blocks per chapter.
         // Read the live anchor, rather than assuming a previous navigation target.
         let anchor = app.staticTexts["reader.anchor"].label
-        let digits = anchor.components(separatedBy: "/")[0].filter(\.isNumber)
-        guard let block = Int(digits), block > 0 else {
-            XCTFail("Missing live reading anchor: \(anchor)"); return
-        }
+        let block = longBookBlock(from: anchor)
         app.buttons["reader.toc"].tap()
         let search = app.searchFields.firstMatch
         XCTAssertTrue(search.waitForExistence(timeout: 10))
         XCTAssertNotEqual(search.value as? String, "624", "Opening the TOC clears the previous search")
-        let current = app.buttons["toc.entry.\((block - 1) / 3)"]
+        let current = app.buttons["toc.entry.\(block / 3)"]
         let visible = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
             current.exists && current.isHittable && current.isSelected
         }, object: current)
@@ -79,6 +84,47 @@ final class ReaderUITests: XCTestCase {
         assertImmersive(app)
         showControls(app)
         XCTAssertEqual(app.staticTexts["reader.anchor"].label, anchor, "Opening the TOC must not move the reader")
+    }
+
+    private func jumpLongBook(_ app: XCUIApplication, to chapter: Int) {
+        app.buttons["reader.toc"].tap()
+        let search = app.searchFields.firstMatch
+        XCTAssertTrue(search.waitForExistence(timeout: 10))
+        search.tap(); search.typeText(String(chapter))
+        let entry = app.buttons["toc.entry.\(chapter - 1)"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10)); entry.tap()
+        assertImmersive(app)
+        showControls(app)
+    }
+
+    func testTOCReopensAtLiveChapterAfterScrollingSearchAndRelaunch() throws {
+        let app = launch("synthetic_long_gb18030.txt")
+        open(app, title: "synthetic_long_gb18030")
+        showControls(app)
+        jumpLongBook(app, to: 500)
+        let previousChapter = longBookBlock(from: app.staticTexts["reader.anchor"].label) / 3
+        var currentChapter = previousChapter
+        // Cross an actual chapter boundary by reading, independently of the
+        // last TOC selection. Bound the gesture count on both simulator sizes.
+        for _ in 0..<4 {
+            hideControls(app)
+            for _ in 0..<8 { app.tables["reader.table"].swipeUp() }
+            showControls(app)
+            currentChapter = longBookBlock(from: app.staticTexts["reader.anchor"].label) / 3
+            if currentChapter > previousChapter { break }
+        }
+        XCTAssertGreaterThan(currentChapter, previousChapter)
+        assertLongBookTOCTracksReading(app, snapshotName: "toc-follows-manual-reading")
+        jumpLongBook(app, to: 624)
+        XCTAssertEqual(longBookBlock(from: app.staticTexts["reader.anchor"].label), 1869)
+        assertLongBookTOCTracksReading(app, snapshotName: "toc-current-chapter-624")
+        let saved = app.staticTexts["reader.anchor"].label
+        app.terminate()
+        let reopened = launch("synthetic_long_gb18030.txt", reset: false)
+        open(reopened, title: "synthetic_long_gb18030")
+        showControls(reopened)
+        XCTAssertEqual(reopened.staticTexts["reader.anchor"].label, saved)
+        assertLongBookTOCTracksReading(reopened, snapshotName: "toc-follows-restored-reading")
     }
 
     func testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch() throws {
@@ -95,7 +141,6 @@ final class ReaderUITests: XCTestCase {
         snapshot("long-book-warm", app)
         showControls(app)
         XCTAssertNotEqual(app.staticTexts["reader.anchor"].label, beginning)
-        assertLongBookTOCTracksReading(app, snapshotName: "toc-follows-manual-reading")
         app.buttons["reader.toc"].tap()
         let search = app.searchFields.firstMatch
         XCTAssertTrue(search.waitForExistence(timeout: 10)); search.tap(); search.typeText("624")
@@ -107,7 +152,6 @@ final class ReaderUITests: XCTestCase {
         let anchor = app.staticTexts["reader.anchor"].label
         XCTAssertNotEqual(anchor, beginning)
         XCTAssertEqual(anchor.components(separatedBy: "/")[0].filter(\.isNumber), "1870")
-        assertLongBookTOCTracksReading(app, snapshotName: "toc-current-chapter-624")
         app.buttons["reader.settings"].tap()
         let font = app.sliders["settings.font"]
         XCTAssertTrue(font.waitForExistence(timeout: 10)); font.adjust(toNormalizedSliderPosition: 0.65)
@@ -123,7 +167,6 @@ final class ReaderUITests: XCTestCase {
         assertImmersive(reopened)
         showControls(reopened)
         XCTAssertEqual(reopened.staticTexts["reader.anchor"].label, saved)
-        assertLongBookTOCTracksReading(reopened, snapshotName: "toc-follows-restored-reading")
         reopened.buttons["reader.settings"].tap()
         XCTAssertTrue(reopened.buttons["夜间"].isSelected)
         reopened.buttons["完成"].tap()

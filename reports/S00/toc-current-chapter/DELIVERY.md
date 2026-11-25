@@ -38,3 +38,16 @@ affected tests (TOC boundary core test and complete long-reader UI case) through
 the explicit reader-toc CI scope on both OS versions. It still checks real
 scrolling/selection/search reset/relaunch and bounded renderer telemetry. No
 assertion is skipped or weakened; full-suite mode remains the default.
+
+The first corrected focused18.5 run45545438020 executed exactly2 tests:1 passed /
+1 failed /0 skipped. Its UI trace reached the late-chapter TOC reopening, where
+the automatic navigation search drawer was no longer exposed after scrolling.
+Keep the TOC search drawer always visible; do not weaken the search-clear check.
+The same source34d5289 passed both focused tests on26.5 in run45545433809,
+including chapter624, typography/relaunch and renderer checks.
+
+The final focused UI case is dedicated to this product behavior: search-jump to
+chapter500, manually read past that chapter, assert the live current row, then
+search-jump to624 and relaunch. The original long scrolling/typography case is
+restored unchanged and remains in full-suite mode. The focused scope still runs
+two named methods with a strict expected count/no skips and actual render metrics.

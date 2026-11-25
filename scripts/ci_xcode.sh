@@ -56,7 +56,7 @@ case "$TEST_SCOPE" in
   native-picker) TEST_COMMAND+=(-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB) ;;
   reader-toc) TEST_COMMAND+=(
     -only-testing:EBookTests/ReaderCoreTests/testTOCFollowsChapterBodyBoundariesAndNestedEPUBDestinations
-    -only-testing:EBookUITests/ReaderUITests/testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch
+    -only-testing:EBookUITests/ReaderUITests/testTOCReopensAtLiveChapterAfterScrollingSearchAndRelaunch
   ) ;;
   *) echo "Unsupported Xcode test scope: $TEST_SCOPE"; exit 2 ;;
 esac

@@ -196,7 +196,8 @@ struct ReaderView: View {
                 .onChange(of: tocQuery) { _, query in
                     if query.isEmpty, let currentEntryID { proxy.scrollTo(currentEntryID, anchor: .center) }
                 }
-                .navigationTitle("目录").searchable(text: $tocQuery, prompt: "查找章节")
+                .navigationTitle("目录")
+                .searchable(text: $tocQuery, placement: .navigationBarDrawer(displayMode: .always), prompt: "查找章节")
                 .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("完成") { showingTOC = false } } }
             }
         }
