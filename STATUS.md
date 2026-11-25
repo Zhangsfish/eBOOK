@@ -2,9 +2,14 @@
 
 - Current owner decision (2026-11-25): two independent conversations share this repository; Suxin ships first and model training targets a later version.
 - Current branch/task: `codex/s02b-suxin-ios-integration` / [S02B — Suxin integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
-- State: **IN_PROGRESS**. Native Mandarin frontend and verified resource preparation implemented;
-  author-oracle fixtures contain92 original cases. Native compilation/inference validation pending;
-  App voice/player integration, physical-device acceptance and new distribution remain NOT_RUN.
+- State: **IN_PROGRESS**. Native Mandarin frontend, actual ORT adapter, short PCM queue,
+  verified resources/cache, voice/rate settings and cancellation are implemented.
+  Latest native frontend/model/PCM/controller checks are12/12 on iOS18.5 and26.5 at7c1dba2,
+  with real waveform generation/playback and successful unsigned arm64 Release archives.
+  Full42-method runs at31951f2 are41PASS/1FAIL each: native Files selection remains unresolved;
+  filename activation retry also failed. An explicit UIKit document-picker bridge is under focused validation.
+  Physical-device acceptance and new distribution remain NOT_RUN; full static-runtime/model
+  distribution notice clearance is incomplete. See `reports/S02B_SUXIN_IOS_INTEGRATION.md`.
 - Coordination: [docs/TTS_WORKSTREAMS.md](docs/TTS_WORKSTREAMS.md). Later-version model work: [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11), `codex/s02a4-teacher-student-tts`; first release does not wait for it.
 - Reader baseline: main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; Suxin experiment frozen at PR #7 `eeee1443c1aac561035cf30590ff323c30ccab8a`.
 - Current executor: Windows without Xcode or attached iPhone. Existing approved Python tools,
