@@ -298,22 +298,19 @@ final class ReaderUITests: XCTestCase {
             snapshot("system-picker-\(name)", app)
             if !file.waitForExistence(timeout: 10) { print("S00_PICKER_TREE \(app.debugDescription)") }
             XCTAssertTrue(file.waitForExistence(timeout: 10))
-            let suffix = (filename as NSString).pathExtension
-            if #available(iOS 26.0, *) {
-                let row = app.collectionViews["File View"].cells.containing(.staticText, identifier: file.label).firstMatch
-                XCTAssertTrue(row.waitForExistence(timeout: 10)); row.tap()
-            } else {
-                let cell = app.collectionViews["File View"].cells.matching(NSPredicate(
-                    format: "identifier == %@ OR identifier == %@", "\(name), \(suffix)", "\(filename), \(suffix)"
-                )).firstMatch
-                XCTAssertTrue(cell.waitForExistence(timeout: 10))
-                let thumbnail = cell.images.firstMatch
-                if thumbnail.exists && thumbnail.isHittable { thumbnail.tap() }
-                else { cell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap() }
-            }
+            // Activate the actual filename. Row centers and icon-preview taps
+            // remained in DocumentManager without selecting on both OS versions.
+            XCTAssertTrue(file.isHittable); file.tap()
             let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
             if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
             let libraryBook = app.buttons["library.book.\(expectedTitle)"]
+            if !libraryBook.waitForExistence(timeout: 5), file.exists, file.isHittable {
+                // Bounded native activation retry; still import the real Files
+                // selection, never seed the library or bypass the picker here.
+                print("S02B_PICKER_SECOND_ACTIVATION \(filename)")
+                file.doubleTap()
+                if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
+            }
             let imported = libraryBook.waitForExistence(timeout: 30)
             if !imported {
                 snapshot("system-picker-import-result-\(name)", app)

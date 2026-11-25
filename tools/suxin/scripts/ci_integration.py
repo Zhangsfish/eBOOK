@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[3]
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--scope', choices=['frontend', 'integration', 'all'], default='integration')
+    parser.add_argument('--scope', choices=['frontend', 'integration', 'picker', 'all'], default='integration')
     args = parser.parse_args()
     build = ROOT / 'build'; build.mkdir(exist_ok=True)
     env = dict(os.environ)
@@ -52,7 +52,7 @@ def main():
         raise RuntimeError('Actual App/test compilation failed')
     subprocess.run([sys.executable, 'tools/suxin/scripts/inspect_runtime.py', '--verify-spm-dir',
                     'build/S02B-DerivedData/SourcePackages'], cwd=ROOT, env=env, check=True)
-    if args.scope == 'all':
+    if args.scope in ['all', 'picker']:
         app = build / 'S02B-DerivedData/Build/Products/Debug-iphonesimulator/eBOOK.app'
         subprocess.run(['xcrun', 'simctl', 'install', device['udid'], str(app)], env=env, check=True)
         container = Path(output(['xcrun', 'simctl', 'get_app_container', device['udid'], 'com.zhangsfish.ebook', 'data']))
@@ -65,6 +65,8 @@ def main():
     elif args.scope == 'integration':
         command += ['-only-testing:EBookTests/SuxinFrontendTests', '-only-testing:EBookTests/SuxinIntegrationTests',
                     '-only-testing:EBookTests/SuxinStateTests']
+    elif args.scope == 'picker':
+        command += ['-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB']
     code = execute(command + ['test-without-building'], 'test', 1500)
     raw = output(['xcrun', 'xcresulttool', 'get', 'test-results', 'summary', '--path', 'build/S02B-tests.xcresult', '--format', 'json'])
     summary = json.loads(raw)
@@ -82,17 +84,17 @@ def main():
               'host_cpu': output(['sysctl', '-n', 'machdep.cpu.brand_string']), 'host_logical_cpus': os.cpu_count(),
               'actual_counts': {key: summary[key] for key in ['totalTestCount', 'passedTests', 'failedTests', 'skippedTests']},
               'neural_audio_generation': neural, 'metrics': metrics, 'physical_device': 'NOT_RUN',
-              'status': ('PASS_NATIVE_FRONTEND_ONLY' if args.scope == 'frontend' else 'PASS_NATIVE_INTEGRATION') if not code else 'FAIL_ACTUAL_XCTEST'}
+              'status': ({'frontend': 'PASS_NATIVE_FRONTEND_ONLY', 'picker': 'PASS_NATIVE_PICKER_ONLY'}.get(args.scope, 'PASS_NATIVE_INTEGRATION')) if not code else 'FAIL_ACTUAL_XCTEST'}
     (build / 's02b-result.json').write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result), flush=True)
     if args.scope == 'frontend' and (summary['totalTestCount'] != 3 or summary['skippedTests'] != 0):
         raise RuntimeError('All three native frontend methods must actually execute')
     if args.scope == 'integration' and (summary['totalTestCount'] != 12 or summary['skippedTests'] != 0):
         raise RuntimeError('All twelve integration methods must actually execute')
-    if args.scope != 'frontend' and (not neural or len(metrics) != 2):
+    if args.scope in ['integration', 'all'] and (not neural or len(metrics) != 2):
         raise RuntimeError('Missing actual native waveform or PCM mixer evidence')
-    if code or summary['failedTests']:
-        raise RuntimeError('Actual native test failure')
+    if args.scope == 'picker' and (summary['totalTestCount'] != 1 or summary['skippedTests'] != 0):
+        raise RuntimeError('The native Files selection test must actually execute')
     if args.scope == 'all':
         container = Path(output(['xcrun', 'simctl', 'get_app_container', device['udid'], 'com.zhangsfish.ebook', 'data']))
         source = container / 'Documents/.s00-render-metrics-long.json'
@@ -101,6 +103,7 @@ def main():
         shutil.copyfile(source, build / 'reader-metrics.json')
         subprocess.run([sys.executable, 'scripts/check_reader_metrics.py'], cwd=ROOT, env=env, check=True)
         shutil.copyfile(build / 'reader-metrics-summary.json', build / 's02b-reader-metrics-summary.json')
+    if args.scope in ['all', 'picker']:
         archive = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK', '-configuration', 'Release',
                    '-destination', 'generic/platform=iOS', '-archivePath', 'build/S02B-device.xcarchive',
                    '-derivedDataPath', 'build/S02B-DerivedData', 'CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'archive']
@@ -127,6 +130,8 @@ def main():
                     'distribution_clearance': 'INCOMPLETE', 'public_binary_artifact': False}
         (build / 's02b-device-archive.json').write_text(json.dumps(metadata, indent=2) + '\n')
         print(json.dumps(metadata), flush=True)
+    if code or summary['failedTests']:
+        raise RuntimeError('Actual native test failure (archive status is separate)')
 
 
 if __name__ == '__main__':
