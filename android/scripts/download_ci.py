@@ -27,11 +27,11 @@ def main():
         name = artifact['name']
         if name not in ('android-api30-encrypted', 'android-api35-encrypted'):
             continue
-        raw = api('/repos/Zhangsfish/eBOOK/actions/artifacts/' + str(artifact['id']) + '/zip')
+        archive = base / (name + '.zip')
+        raw = archive.read_bytes() if archive.exists() else api('/repos/Zhangsfish/eBOOK/actions/artifacts/' + str(artifact['id']) + '/zip')
         digest = 'sha256:' + hashlib.sha256(raw).hexdigest()
         if digest != artifact['digest']:
             raise ValueError('GitHub artifact SHA256 mismatch')
-        archive = base / (name + '.zip')
         archive.write_bytes(raw)
         sealed = base / (name + '-sealed')
         with zipfile.ZipFile(archive) as z:

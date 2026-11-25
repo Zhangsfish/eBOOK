@@ -85,10 +85,13 @@ public final class ReaderInstrumentation extends Instrumentation {
             // startActivitySync waits for onCreate; bringing an existing task
             // back from the background does not create another Activity.
             shell("am start -n cn.zhangsfish.ebook/.MainActivity -f 0x10020000");
-            waitFor(()->activity.hasWindowFocus(),"Reader task didn't return to foreground");waitForIdleSync();return;
+            waitFor(this::readerWindowFocused,"Reader task didn't return to foreground");waitForIdleSync();return;
         }
         Intent intent=new Intent().setClassName("cn.zhangsfish.ebook","cn.zhangsfish.ebook.MainActivity").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity=(MainActivity)startActivitySync(intent);waitForIdleSync();
+    }
+    private boolean readerWindowFocused()throws Exception{
+        Dialog shown=dialog();return activity.hasWindowFocus()||(shown!=null&&shown.isShowing()&&shown.getWindow().getDecorView().hasWindowFocus());
     }
     private void controls()throws Exception{ui(()->activity.findViewById(R.id.reader_controls).performClick());}
     private void dismiss()throws Exception{Dialog d=dialog();if(d!=null)ui(d::dismiss);}
@@ -194,7 +197,7 @@ public final class ReaderInstrumentation extends Instrumentation {
                 NotificationManager manager=(NotificationManager)getTargetContext().getSystemService(Context.NOTIFICATION_SERVICE);expect(manager.getActiveNotifications().length>0,"no playback notification");
                 MediaSession session=field(service,"media");session.getController().getTransportControls().pause();waitFor(()->service.state()==SpeechService.State.PAUSED,"media pause failed");
                 session.getController().getTransportControls().play();waitFor(()->service.state()==SpeechService.State.PLAYING,"media play failed");
-            }finally{shell("input keyevent 224");shell("wm dismiss-keyguard");launch();waitFor(()->speech()!=null&&reader()!=null&&activity.hasWindowFocus(),"service/reader didn't return to foreground");}
+            }finally{shell("input keyevent 224");shell("wm dismiss-keyguard");launch();waitFor(()->speech()!=null&&reader()!=null&&readerWindowFocused(),"service/reader didn't return to foreground");}
         });
         test("audio_focus_and_user_pause_interruption",()->{
             SpeechService service=speech();AudioManager audio=(AudioManager)getTargetContext().getSystemService(Context.AUDIO_SERVICE);
@@ -216,7 +219,8 @@ public final class ReaderInstrumentation extends Instrumentation {
         });
         test("engine_error_visible_and_retryable",()->{
             engineMode(false,true);ui(()->SpeechService.command(activity,SpeechService.PLAY,bookUnchecked(),null));waitFor(()->speech().state()==SpeechService.State.ERROR,"engine error not surfaced");
-            engineMode(false,false);ui(()->SpeechService.command(activity,SpeechService.PLAY,bookUnchecked(),null));waitFor(()->speech().state()==SpeechService.State.PLAYING,"retry failed");ui(()->SpeechService.command(activity,SpeechService.STOP,null,null));
+            controls();click("朗读");TextView status=dialogView().findViewById(R.id.speech_status);expect(status.getText().toString().contains("失败"),"engine error not visible in panel");screenshot("engine-error");
+            engineMode(false,false);click("继续听书");waitFor(()->speech().state()==SpeechService.State.PLAYING,"retry failed");click("停止");dismiss();
         });
         test("bounded_visible_text_and_durable_checkpoint",()->{
             selectChapter("第624章");BookDocument.Position at=live();expect(document().currentChapter(at.block)==623,"deep checkpoint wrong");

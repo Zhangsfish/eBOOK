@@ -23,16 +23,16 @@ public final class OfflineTestEngine extends TextToSpeechService {
     @Override public String onGetDefaultVoiceNameFor(String language,String country,String variant){return "test-offline-zh";}
     @Override protected void onSynthesizeText(SynthesisRequest request,SynthesisCallback callback){
         stopped=false;
-        if(getSharedPreferences("engine",0).getBoolean("error",false)){callback.error(TextToSpeech.ERROR_SYNTHESIS);return;}
+        if(getSharedPreferences("engine",0).getBoolean("error",false)){callback.error(TextToSpeech.ERROR_SYNTHESIS);callback.done();return;}
         String text=request.getCharSequenceText().toString();
-        if(callback.start(16000,AudioFormat.ENCODING_PCM_16BIT,1)!=TextToSpeech.SUCCESS)return;
+        if(callback.start(16000,AudioFormat.ENCODING_PCM_16BIT,1)!=TextToSpeech.SUCCESS){callback.done();return;}
         int frame=0;float rate=Math.max(.5f,request.getSpeechRate()/100f);int frames=Math.round(1600/rate);
         for(int index=0;index<text.length()&&!stopped;){
             int width=Character.charCount(text.codePointAt(index));callback.rangeStart(frame,index,index+width);
             byte[]pcm=new byte[frames*2];for(int i=0;i<frames;i++){short value=(short)(Math.sin((frame+i)*2*Math.PI*220/16000)*320);pcm[i*2]=(byte)value;pcm[i*2+1]=(byte)(value>>>8);}
-            for(int at=0;at<pcm.length&&!stopped;){int n=Math.min(callback.getMaxBufferSize(),pcm.length-at);if(callback.audioAvailable(pcm,at,n)!=TextToSpeech.SUCCESS)return;at+=n;}
+            for(int at=0;at<pcm.length&&!stopped;){int n=Math.min(callback.getMaxBufferSize(),pcm.length-at);if(callback.audioAvailable(pcm,at,n)!=TextToSpeech.SUCCESS){callback.done();return;}at+=n;}
             index+=width;frame+=frames;
         }
-        if(!stopped)callback.done();
+        callback.done();
     }
 }

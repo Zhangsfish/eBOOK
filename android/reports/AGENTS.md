@@ -39,10 +39,16 @@ Native CI is still being debugged, NOT PASS. Early runs:
  storage. API35 was still running at last check. Both issues fixed in e68a820:
  use actual system Downloads with pushed original files, rooted TEST VM to collect
  app-private evidence. No root required on friend's real phone.
--45656435724/e68a820: running at last check, before test TTS DEFAULT-category fix.
--Current HEAD5c84e34 adds DEFAULT category to the controlled TTS engine per AOSP
- CTS manifest and sends simulated headset broadcast from shell; latest run ID
- should be looked up. No provider in test manifest now; obsolete class removed.
+-45656435724/e68a820: API35 reading12 cases passed; missing test-engine DEFAULT
+ category caused later TTS failures. Full suite did not pass.
+-45656785782/5c84e34 and45658299140/f88af81: cancelled while fixing the harness's
+ startActivitySync wait on an already existing task. Not full-suite evidence.
+-45658576919/1f28647: API35 completed18/21 main +4/4 resume. Reading cases all
+ passed. Found a production dialog-dismiss race that cleared the newer speech
+ panel's status references; fixed by checking dialog identity. Background task
+ return check must accept the app's dialog window focus. Test engine error path
+ must call SynthesisCallback.done() after error(), per official Android contract.
+ These three fixes require a fresh native run. API30 still running at last check.
 
 Actual native suite expects21 main +4 resume cases PER API30/35. Process killed
 between phases. Test-only PCM engine tests Android callbacks; never a Huawei voice

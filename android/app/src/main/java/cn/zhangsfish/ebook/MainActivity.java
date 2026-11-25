@@ -154,6 +154,7 @@ public final class MainActivity extends Activity implements SpeechService.Listen
         });
     }
     private void open(String id){
+        capture();saveAnchor.run();main.removeCallbacks(saveAnchor);
         base(false);TextView opening=text("正在打开书籍…",18);opening.setGravity(Gravity.CENTER);root.addView(opening,new FrameLayout.LayoutParams(-1,-1));
         io.execute(()->{try{BookDocument loaded=store.open(id);main.post(()->{if(!destroyed)openLoaded(id,loaded);});}
             catch(IOException failure){main.post(()->{if(!destroyed){library();error(failure.getMessage());}});}});
@@ -229,7 +230,11 @@ public final class MainActivity extends Activity implements SpeechService.Listen
     private Dialog present(String title,LinearLayout content,boolean bottom){
         if(dialog!=null)dialog.dismiss();Dialog shown=new Dialog(this);shown.setTitle(title);shown.setContentView(content);shown.setCanceledOnTouchOutside(true);
         Window window=shown.getWindow();if(window!=null){window.setBackgroundDrawable(surface());window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING|WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);}
-        shown.setOnDismissListener(d->{speechStatus=null;listenProgress=null;playButton=null;immersive(doc!=null);});
+        shown.setOnDismissListener(d->{
+            // Dialog dismissal is delivered asynchronously. An older panel must
+            // not clear the live speech panel's references after it has opened.
+            if(dialog==shown){dialog=null;speechStatus=null;listenProgress=null;playButton=null;immersive(doc!=null);}
+        });
         dialog=shown;shown.show();
         int available=getResources().getDisplayMetrics().widthPixels;
         shown.getWindow().setLayout(Math.min(available-dp(16),dp(620)),ViewGroup.LayoutParams.WRAP_CONTENT);
