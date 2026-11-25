@@ -2,10 +2,14 @@
 
 - Current owner decision (2026-11-25): two independent conversations share this repository; Suxin ships first and model training targets a later version.
 - Current branch/task: `codex/s02b-suxin-ios-integration` / [S02B — Suxin integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
-- State: **READY** for implementation. Task split and handoffs prepared; App integration `NOT_IMPLEMENTED`, physical-device acceptance and new distribution `NOT_RUN`.
+- State: **IN_PROGRESS**. Native Mandarin frontend and verified resource preparation implemented;
+  author-oracle fixtures contain92 original cases. Native compilation/inference validation pending;
+  App voice/player integration, physical-device acceptance and new distribution remain NOT_RUN.
 - Coordination: [docs/TTS_WORKSTREAMS.md](docs/TTS_WORKSTREAMS.md). Later-version model work: [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11), `codex/s02a4-teacher-student-tts`; first release does not wait for it.
 - Reader baseline: main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; Suxin experiment frozen at PR #7 `eeee1443c1aac561035cf30590ff323c30ccab8a`.
-- Current executor: Linux without Xcode, signing session or attached iPhone. Native/device checks require a usable macOS CI / signing / device path; no new result is claimed.
+- Current executor: Windows without Xcode or attached iPhone. Existing approved Python tools,
+  ordinary free macOS CI and the owner internal-TestFlight signing bridge are available;
+  new native/device results are not claimed until actually observed.
 - First delivery uses the existing owner internal-TestFlight path after real integration, validation and independent review. No App Store public release is claimed or newly scheduled.
 
 ## Historical S00 status (retained for evidence)
