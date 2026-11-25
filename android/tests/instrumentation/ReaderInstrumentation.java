@@ -123,6 +123,7 @@ public final class ReaderInstrumentation extends Instrumentation {
         if(ax("Open")!=null)clickAx("Open");else if(ax("OPEN")!=null)clickAx("OPEN");
         if(filename.endsWith(".txt")){waitFor(()->ax("使用自动识别")!=null,"Encoding choice missing");clickAx("使用自动识别");}
         waitFor(()->reader()!=null&&reader().getChildCount()>0,"Import didn't reach reader");SystemClock.sleep(300);
+        if(ax("Got it")!=null){clickAx("Got it");SystemClock.sleep(250);}
     }
     private AccessibilityNodeInfo scrollable(AccessibilityNodeInfo node){if(node==null)return null;if(node.isScrollable())return node;for(int i=0;i<node.getChildCount();i++){AccessibilityNodeInfo found=scrollable(node.getChild(i));if(found!=null)return found;}return null;}
     private void mainPhase()throws Exception{
@@ -131,6 +132,7 @@ public final class ReaderInstrumentation extends Instrumentation {
         test("real_system_picker_long_TXT_import",()->{importWithPicker("original_long_gb18030.txt");expect(document().toc.size()==625,"625 chapters required");expect(document().blocks.size()==1888,"incremental block index");screenshot("warm-reader");});
         if(reader()==null)throw new AssertionError("No reader after import");
         test("quiet_ellipsis_and_48dp_hit_target",()->{
+            AccessibilityNodeInfo active=getUiAutomation().getRootInActiveWindow();expect(active!=null&&"cn.zhangsfish.ebook".contentEquals(active.getPackageName()),"Reader is covered by another window");
             View entry=activity.findViewById(R.id.reader_controls);float density=getTargetContext().getResources().getDisplayMetrics().density;
             expect(entry.getWidth()/density>=48&&entry.getHeight()/density>=48,"hit target smaller than48dp");
             for(View view:walk(activity.getWindow().getDecorView()))if(view instanceof Button)throw new AssertionError("Persistent reader button: "+((Button)view).getText());
@@ -179,11 +181,14 @@ public final class ReaderInstrumentation extends Instrumentation {
             expect(live().block==readingBefore[0].block&&live().offset==readingBefore[0].offset,"listening moved reading");dismiss();
         });
         test("background_lockscreen_and_media_controls",()->{
-            SpeechService service=speech();BookDocument.Position before=service.position();ui(()->activity.moveTaskToBack(true));shell("input keyevent 223");SystemClock.sleep(2200);
-            BookDocument.Position after=service.position();expect(after.block>before.block||after.offset>before.offset,"no lockscreen callback progress");
-            NotificationManager manager=(NotificationManager)getTargetContext().getSystemService(Context.NOTIFICATION_SERVICE);expect(manager.getActiveNotifications().length>0,"no playback notification");
-            MediaSession session=field(service,"media");session.getController().getTransportControls().pause();waitFor(()->service.state()==SpeechService.State.PAUSED,"media pause failed");
-            session.getController().getTransportControls().play();waitFor(()->service.state()==SpeechService.State.PLAYING,"media play failed");shell("input keyevent 224");shell("wm dismiss-keyguard");launch();waitFor(()->speech()!=null,"service didn't rebind");
+            SpeechService service=speech();expect(service!=null,"service is not connected");
+            try{
+                BookDocument.Position before=service.position();ui(()->activity.moveTaskToBack(true));shell("input keyevent 223");SystemClock.sleep(2200);
+                BookDocument.Position after=service.position();expect(after.block>before.block||after.offset>before.offset,"no lockscreen callback progress");
+                NotificationManager manager=(NotificationManager)getTargetContext().getSystemService(Context.NOTIFICATION_SERVICE);expect(manager.getActiveNotifications().length>0,"no playback notification");
+                MediaSession session=field(service,"media");session.getController().getTransportControls().pause();waitFor(()->service.state()==SpeechService.State.PAUSED,"media pause failed");
+                session.getController().getTransportControls().play();waitFor(()->service.state()==SpeechService.State.PLAYING,"media play failed");
+            }finally{shell("input keyevent 224");shell("wm dismiss-keyguard");launch();waitFor(()->speech()!=null&&reader()!=null&&activity.hasWindowFocus(),"service/reader didn't return to foreground");}
         });
         test("audio_focus_and_user_pause_interruption",()->{
             SpeechService service=speech();AudioManager audio=(AudioManager)getTargetContext().getSystemService(Context.AUDIO_SERVICE);

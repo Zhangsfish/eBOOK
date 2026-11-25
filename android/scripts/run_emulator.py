@@ -102,6 +102,8 @@ def main():
             raise RuntimeError('Test-only VM root required to collect private instrumentation evidence')
         for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
             adb('shell', 'settings', 'put', 'global', setting, '0')
+        # Test-device first-use full-screen coaching must not cover UI assertions.
+        adb('shell', 'settings', 'put', 'secure', 'immersive_mode_confirmations', 'confirmed')
         adb('shell', 'input', 'keyevent', '82')
         adb('shell', 'wm', 'dismiss-keyguard')
         adb('shell', 'mkdir', '-p', '/sdcard/Download')

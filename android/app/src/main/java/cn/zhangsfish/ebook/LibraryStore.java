@@ -52,7 +52,12 @@ public final class LibraryStore {
             }
             StringBuilder id=new StringBuilder();for(byte b:hash.digest())id.append(String.format(Locale.ROOT,"%02x",b&255));
             File dest=directory(id.toString());
-            if(dest.exists())return new Record(id.toString(),BookDocument.load(dest));
+            if(dest.exists()){
+                BookDocument existing=BookDocument.load(dest);
+                if(!epub&&hint!=null&&!hint.equals("自动")&&!existing.encoding.equalsIgnoreCase(hint))
+                    throw new IOException("同一文件已在书架。若需更换编码，请先长按移除书架副本再重新导入；原文件不会被删除。");
+                return new Record(id.toString(),existing);
+            }
             String title=name.substring(0,name.lastIndexOf('.'));if(title.length()>500)title=title.substring(0,500);
             BookDocument doc=epub?EpubImporter.parse(input,pending,title):TxtImporter.parse(input,pending,title,hint);
             if(!input.delete())throw new IOException("无法清理导入中间文件。");
