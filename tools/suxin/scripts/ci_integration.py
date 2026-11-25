@@ -66,7 +66,8 @@ def main():
         command += ['-only-testing:EBookTests/SuxinFrontendTests', '-only-testing:EBookTests/SuxinIntegrationTests',
                     '-only-testing:EBookTests/SuxinStateTests']
     elif args.scope == 'picker':
-        command += ['-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB']
+        command += ['-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB',
+                    '-only-testing:EBookUITests/ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel']
     code = execute(command + ['test-without-building'], 'test', 1500)
     raw = output(['xcrun', 'xcresulttool', 'get', 'test-results', 'summary', '--path', 'build/S02B-tests.xcresult', '--format', 'json'])
     summary = json.loads(raw)
@@ -93,8 +94,8 @@ def main():
         raise RuntimeError('All twelve integration methods must actually execute')
     if args.scope in ['integration', 'all'] and (not neural or len(metrics) != 2):
         raise RuntimeError('Missing actual native waveform or PCM mixer evidence')
-    if args.scope == 'picker' and (summary['totalTestCount'] != 1 or summary['skippedTests'] != 0):
-        raise RuntimeError('The native Files selection test must actually execute')
+    if args.scope == 'picker' and (summary['totalTestCount'] != 2 or summary['skippedTests'] != 0):
+        raise RuntimeError('Both real Files selection and cancellation tests must execute')
     if args.scope == 'all':
         container = Path(output(['xcrun', 'simctl', 'get_app_container', device['udid'], 'com.zhangsfish.ebook', 'data']))
         source = container / 'Documents/.s00-render-metrics-long.json'

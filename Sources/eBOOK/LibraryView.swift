@@ -70,10 +70,10 @@ struct LibraryView: View {
                     ProgressView("正在导入并建立索引…").padding(24).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
                 }
             }
-            .fileImporter(isPresented: $importing, allowedContentTypes: [.plainText, UTType(filenameExtension: "epub") ?? .data], allowsMultipleSelection: false) { result in
-                switch result {
-                case .success(let urls): if let url = urls.first { Task { await library.importFile(url, encoding: encoding) } }
-                case .failure(let error): library.error = error.localizedDescription
+            .sheet(isPresented: $importing) {
+                BookDocumentPicker { url in
+                    importing = false
+                    if let url { Task { await library.importFile(url, encoding: encoding) } }
                 }
             }
             .alert("无法完成操作", isPresented: Binding(get: { library.error != nil }, set: { if !$0 { library.error = nil } })) {
