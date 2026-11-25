@@ -3,6 +3,14 @@
 Read `AGENTS.md`, `STATUS.md`, `docs/PRODUCT_SPEC.md`,
 `docs/TECHNICAL_PLAN.md`, and `tasks/S02A4_TEACHER_STUDENT_TTS.md` first.
 
+## Priority override: owner approved MOSS-TTS-Nano sample (2026-11-25)
+
+The owner explicitly approved the **actual** "深夜温柔晚安" demo voice. **Do not continue an open-ended Qwen/CosyVoice voice search or treat the demo as unapproved.** Read the exact pinned model/demo commits, `zh_6.wav` Git blob and new "Owner-selected first target voice" section of `tasks/S02A4_TEACHER_STUDENT_TTS.md`.
+
+Execute in order: (1) reproduce this voice on the existing six original fiction scenes using the genuine official model and reference audio; (2) deliver a private playable real WAV narration with pinned hashes for owner verification; (3) benchmark direct ONNX streaming/short chunks and its potential native iPhone integration, clearly separating desktop/simulator/iPhone facts; (4) only when needed, pilot SFT/distillation using the actual published `finetuning/` pipeline or another validated student implementation. If reproduction fails, show the error and bounded fix; no fabricated audio, forced teacher substitution or vendor research.
+
+Record the `zh_6.wav` reference voice's provenance and outstanding recording/speaker commercial-use rights separately from model Apache license. No batch generation/student training until reproduced-fiction voice is accepted and rights are sufficiently clear. Do not automatically merge or change production App.
+
 ## Owner's instruction
 
 The owner delegates the architecture and training method. Deliver a voice that
