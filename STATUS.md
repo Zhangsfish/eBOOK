@@ -5,7 +5,10 @@
 - Current authorized task on this branch: `tasks/S00_DEVICE_VALIDATION.md`.
 - GitHub issue: [#1 — S00 reader foundation](https://github.com/Zhangsfish/eBOOK/issues/1)
 - Copy-ready handoff: [tasks/CODEX_HANDOFF_S00.md](tasks/CODEX_HANDOFF_S00.md)
-- State: `READY_FOR_AUDIT` — immersive entry available in internal `0.1.0 (38.1)`,
+- State: `IN_PROGRESS` — owner feedback 2026-11-25: reopen the TOC at the current
+  reading chapter with a selected marker, clear stale search and preserve the
+  reading anchor. Follow-up: `reports/S00/toc-current-chapter/`.
+  Previous immersive entry available in internal `0.1.0 (38.1)`,
   tested implementation `326c5438794c76a8978c3cdb049b905ace703f66`. iOS18.5:26/26 PASS;
   iOS26.5:25/26, native Files import UI still FAIL. PR #5 remains draft pending
   independent audit/compatibility triage; do not merge. Owner38.1 feedback pending.

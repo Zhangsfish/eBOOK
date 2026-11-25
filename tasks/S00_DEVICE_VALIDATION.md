@@ -4,6 +4,13 @@ State: READY_FOR_AUDIT — internal38.1 available; implementation326c543 tested 
 18.5 and26.5. The26.5 native Files failure is retained as a pre-merge audit gate.
 No remaining implementation is authorized without new owner/auditor feedback.
 
+New owner feedback on 2026-11-25 authorizes the narrow current-chapter TOC fix:
+each opening must reveal/mark the chapter at the live reading anchor, including
+after manual scrolling, a prior TOC search/jump and relaunch. Clear stale search
+on entry. Preserve reading position and the existing quiet controls. Reports:
+`reports/S00/toc-current-chapter/`. Existing internal-testing authorization remains
+applicable; no public release, merge or local-AI integration.
+
 Owner request on 2026-11-24: Codex handles tests while the owner installs on the
 iPhone; ChatGPT web independently reviews S01. This is separate from S02.
 

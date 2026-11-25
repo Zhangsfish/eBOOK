@@ -125,6 +125,7 @@ struct ReaderView: View {
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }.accessibilityLabel("朗读控制").accessibilityIdentifier("reader.speech")
                 Button {
+                    tocQuery = ""
                     showingControls = false; showingTOC = true
                 } label: {
                     Label("目录", systemImage: "list.bullet").frame(maxWidth: .infinity, minHeight: 44)
@@ -151,25 +152,53 @@ struct ReaderView: View {
     }
 
     private var toc: some View {
-        NavigationStack {
-            List {
-                if let document {
-                    if document.heuristicTOC {
-                        Text("TXT 目录由标题格式推测，可能有遗漏。").font(.footnote).foregroundStyle(.secondary)
-                    }
-                    if document.toc.isEmpty {
-                        Text("未检测到可靠章节，可使用阅读进度浏览全文。").foregroundStyle(.secondary)
-                    }
-                    ForEach(document.toc.filter { tocQuery.isEmpty || $0.title.localizedCaseInsensitiveContains(tocQuery) }) { entry in
-                        Button {
-                            jump = ReaderJump(block: entry.block); showingTOC = false
-                        } label: {
-                            Text(entry.title).padding(.leading, CGFloat(entry.depth) * 14).foregroundStyle(.primary)
-                        }.accessibilityIdentifier("toc.entry.\(entry.id)")
+        let currentEntryID = document?.tocEntry(atBlock: current.block)?.id
+        return NavigationStack {
+            ScrollViewReader { proxy in
+                List {
+                    if let document {
+                        if document.heuristicTOC {
+                            Text("TXT 目录由标题格式推测，可能有遗漏。").font(.footnote).foregroundStyle(.secondary)
+                        }
+                        if document.toc.isEmpty {
+                            Text("未检测到可靠章节，可使用阅读进度浏览全文。").foregroundStyle(.secondary)
+                        }
+                        ForEach(document.toc.filter { tocQuery.isEmpty || $0.title.localizedCaseInsensitiveContains(tocQuery) }) { entry in
+                            Button {
+                                jump = ReaderJump(block: entry.block); showingTOC = false
+                            } label: {
+                                HStack {
+                                    Text(entry.title)
+                                        .fontWeight(entry.id == currentEntryID ? .semibold : .regular)
+                                        .padding(.leading, CGFloat(entry.depth) * 14)
+                                        .foregroundStyle(.primary)
+                                    Spacer(minLength: 12)
+                                    if entry.id == currentEntryID {
+                                        Image(systemName: "checkmark").foregroundStyle(.tint)
+                                            .accessibilityHidden(true)
+                                    }
+                                }
+                            }
+                            .id(entry.id)
+                            .accessibilityIdentifier("toc.entry.\(entry.id)")
+                            .accessibilityValue(entry.id == currentEntryID ? "当前阅读章节" : "")
+                            .accessibilityAddTraits(entry.id == currentEntryID ? .isSelected : [])
+                        }
                     }
                 }
-            }.navigationTitle("目录").searchable(text: $tocQuery, prompt: "查找章节")
+                .accessibilityIdentifier("toc.list")
+                .task {
+                    // Let the sheet's list register its rows before scrolling.
+                    // Run once per presentation, so browsing the TOC stays free.
+                    await Task.yield()
+                    if let currentEntryID { proxy.scrollTo(currentEntryID, anchor: .center) }
+                }
+                .onChange(of: tocQuery) { _, query in
+                    if query.isEmpty, let currentEntryID { proxy.scrollTo(currentEntryID, anchor: .center) }
+                }
+                .navigationTitle("目录").searchable(text: $tocQuery, prompt: "查找章节")
                 .toolbar { ToolbarItem(placement: .topBarTrailing) { Button("完成") { showingTOC = false } } }
+            }
         }
     }
 

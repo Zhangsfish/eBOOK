@@ -105,6 +105,29 @@ final class ReaderCoreTests: XCTestCase {
         XCTAssertEqual(last.upperBound, 1875); XCTAssertFalse(last.shouldMove(at: 1874))
     }
 
+    func testTOCFollowsChapterBodyBoundariesAndNestedEPUBDestinations() {
+        let blocks = (0..<12).map {
+            BookBlock(id: $0, byteOffset: 0, byteCount: 1, utf16Count: 1, textStart: $0,
+                      chapter: 0, imagePath: nil, imageDescription: nil)
+        }
+        var document = BookDocument(title: "原创目录测试", author: nil, encoding: .utf8,
+            blocks: blocks, chapters: [], toc: [
+                TOCEntry(id: 30, title: "第三章", block: 8),
+                TOCEntry(id: 10, title: "第一章", block: 0),
+                TOCEntry(id: 20, title: "第二章", block: 4),
+                TOCEntry(id: 21, title: "第二章小节", block: 4, depth: 1)
+            ], totalUTF16: 12, heuristicTOC: false)
+        for block in [-1, 0, 1, 3] { XCTAssertEqual(document.tocEntry(atBlock: block)?.id, 10) }
+        for block in [4, 5, 7] { XCTAssertEqual(document.tocEntry(atBlock: block)?.id, 21) }
+        for block in [8, 11, 99] { XCTAssertEqual(document.tocEntry(atBlock: block)?.id, 30) }
+        document.toc = [TOCEntry(id: 1, title: "正文", block: 4)]
+        XCTAssertNil(document.tocEntry(atBlock: 0), "A preface is not the later chapter")
+        document.toc = []
+        XCTAssertNil(document.tocEntry(atBlock: 5))
+        document.blocks = []
+        XCTAssertNil(document.tocEntry(atBlock: 0))
+    }
+
     func testTXTImportAtomicStorageReadingAndListeningPersistence() throws {
         let storage = try storage()
         let record = try BookImporter.importFile(fixture("sample_gbk.txt"), storage: storage)
