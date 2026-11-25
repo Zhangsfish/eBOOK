@@ -74,6 +74,20 @@ leave an untested generic installation recipe as a completed deliverable.
 
 ## First delivery: the owner can actually choose a teacher voice
 
+## New owner audition feedback: narration restraint versus dramatic demo
+
+The owner listened to the public official fiction/dramatic demonstration and judged the **model's expressive technical ability positively**. However, its high-emotion delivery may sound like a stage speech, public announcement or dramatic monologue rather than a book narrator. The three short single-voice fixed presets were considered ordinary. **This is not teacher-voice approval.**
+
+For teacher audition and student-data generation, favor **restrained long-form audiobook narration**:
+- One stable, recognizable narrator timbre across entire paragraphs and chapters. Do not use the demo's multi-character voice switching or extreme character imitation as a default training target.
+- Neutral-to-gentle baseline: intimate, conversational, clear, unhurried; natural syntactic phrasing, emphasis only on meaning-bearing words, no excessive rhetorical rises/falls, proclamatory projection or breathy affectation.
+- Emotion follows the story **subtly**, especially suspense, sadness and dialogue. A single narrator may slightly vary speech rhythm and intonation for a character, but must not turn each sentence into a performance.
+- Preserve pauses between sentences and paragraphs while avoiding slow/robotic monotonous delivery. Aim for continuous 10–15-minute fatigue resistance, not a ten-second spectacular showcase.
+- Keep **timbre** and **delivery style** as distinct controllable variables. First test the same fixed teacher voice reading identical quiet narration/dialogue/suspense in (A) neutral-natural and (B) restrained expressive styles. The owner chooses both the underlying sound and actual narration style. All teacher audio must be newly generated from original text and clearly labelled, never infer approval from official pre-recorded samples.
+- Prefer 2–5 minute coherent single-speaker clips before teacher approval; after shortlist, compare 10–15-minute coherent narration. Include anti-pattern examples (speech-like proclamation, commercial announcer, audiobook overacting) as rejected targets. Do not create student training data until an exact teacher + style is explicitly approved.
+
+Use these criteria for the owner-listening rubric; do not treat a highly theatrical demo as a proven single-voice audiobook teacher.
+
 Produce a small private listening package, with real playable audio, a plain
 description of each fixed voice and precise provenance. Include quiet narration,
 dialogue, tension, emotional restraint, numbers, names and polyphones. Use the
