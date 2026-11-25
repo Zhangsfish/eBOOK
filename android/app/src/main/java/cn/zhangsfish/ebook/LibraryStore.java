@@ -32,7 +32,7 @@ public final class LibraryStore {
     }
     public String displayName(Uri uri){
         try(Cursor cursor=context.getContentResolver().query(uri,new String[]{OpenableColumns.DISPLAY_NAME},null,null,null)){
-            if(cursor!=null&&cursor.moveToFirst())return cursor.getString(0);
+            if(cursor!=null&&cursor.moveToFirst()){String value=cursor.getString(0);if(value!=null&&!value.trim().isEmpty())return value;}
         }catch(RuntimeException ignored){/* fallback */}
         return "导入书籍";
     }

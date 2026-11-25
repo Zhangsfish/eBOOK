@@ -32,6 +32,7 @@ public final class SpeechService extends Service {
     private String message="正在查询系统离线语音…",bookId="",activeUtterance="",voiceName="";
     private BookDocument doc;
     private int block,offset,chunkStart,chunkEnd;
+    private long lastRangeSave;
     private boolean engineReady,foreground,resumeAfterFocus,destroyed;
     private MediaSession media;
     private AudioManager audio;
@@ -190,7 +191,7 @@ public final class SpeechService extends Service {
             if(!valid(id))return;offset=chunkEnd;activeUtterance="";persist();publish();main.post(SpeechService.this::speakNext);
         });}
         @Override public void onRangeStart(String id,int start,int end,int frame){main.post(()->{
-            if(valid(id)){offset=Math.max(chunkStart,Math.min(chunkEnd,chunkStart+start));persist();}
+            if(valid(id)){offset=Math.max(chunkStart,Math.min(chunkEnd,chunkStart+start));if(SystemClock.elapsedRealtime()-lastRangeSave>=500){lastRangeSave=SystemClock.elapsedRealtime();persist();}}
         });}
         @Override public void onError(String id){onError(id,TextToSpeech.ERROR);}
         @Override public void onError(String id,int code){main.post(()->{if(valid(id))error("系统朗读失败（"+code+"）；听书位置已保留，可重试或检查离线语音数据。");});}
@@ -206,10 +207,11 @@ public final class SpeechService extends Service {
     }
     private void finish(){pause(false,"已读到全书结尾。");state=State.COMPLETE;media.setActive(false);demote();publish();stopSelf();}
     private void error(String reason){pause(false,reason);state=State.ERROR;demote();publish();stopSelf();}
-    private void missing(String reason){pause(false,reason);state=State.MISSING_VOICE;demote();publish();stopSelf();}
+    private void missing(String reason){pause(false,reason);engineReady=false;state=State.MISSING_VOICE;demote();publish();stopSelf();}
     public void paragraph(int direction){
         if(doc==null)return;boolean running=state==State.PLAYING;pause(false,"已移动到相邻段落。");
-        block=Math.max(0,Math.min(doc.blocks.size()-1,block+direction));offset=0;persist();publish();if(running){promote();play();}
+        try{BookDocument.Position next=doc.paragraph(new BookDocument.Position(block,offset),direction);block=next.block;offset=next.offset;persist();publish();if(running){promote();play();}}
+        catch(IOException failure){error("段落读取失败："+failure.getMessage());}
     }
     public void navigateChapter(int direction){
         if(doc==null)return;boolean running=state==State.PLAYING;pause(false,"已切换听书章节。");

@@ -75,6 +75,34 @@ public final class BookDocument {
         }
         return new String(buffer, StandardCharsets.UTF_8);
     }
+    /** Navigate actual newline paragraphs, independently of rendering block size. */
+    public Position paragraph(Position position,int direction)throws IOException{
+        Position p=clamp(position.block,position.offset);
+        if(direction>=0){
+            boolean crossed=false;
+            for(int b=p.block;b<blocks.size();b++){
+                String value=text(b);int from=b==p.block?SpeechChunks.safeOffset(value,p.offset):0;
+                for(int i=from;i<value.length();){int cp=value.codePointAt(i);
+                    if(crossed&&!Character.isWhitespace(cp))return new Position(b,i);
+                    if(cp=='\n')crossed=true;i+=Character.charCount(cp);
+                }
+            }
+            return clamp(blocks.size()-1,blocks.get(blocks.size()-1).chars);
+        }
+        boolean content=false;
+        for(int b=p.block;b>=0;b--){
+            String value=text(b);int from=b==p.block?Math.min(value.length(),p.offset)-1:value.length()-1;
+            for(int i=from;i>=0;i--){char c=value.charAt(i);
+                if(content&&c=='\n'){
+                    for(int next=b;next<blocks.size();next++){
+                        String v=text(next);for(int j=next==b?i+1:0;j<v.length();j++)if(!Character.isWhitespace(v.charAt(j)))return new Position(next,j);
+                    }
+                }
+                if(!Character.isWhitespace(c))content=true;
+            }
+        }
+        return new Position(0,0);
+    }
     public void save() throws IOException {
         try (DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(new File(directory, "index.bin"))))) {
             out.writeInt(MAGIC); out.writeUTF(title); out.writeUTF(author); out.writeUTF(encoding);

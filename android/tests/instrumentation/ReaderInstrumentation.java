@@ -183,7 +183,7 @@ public final class ReaderInstrumentation extends Instrumentation {
             ui(()->SpeechService.command(activity,SpeechService.RESUME,null,null));waitFor(()->speech().state()==SpeechService.State.PLAYING,"resume missing");getTargetContext().sendBroadcast(new Intent(AudioManager.ACTION_AUDIO_BECOMING_NOISY).setPackage(getTargetContext().getPackageName()));waitFor(()->speech().state()==SpeechService.State.PAUSED,"noisy event ignored");
         });
         test("speech_rate_chapter_and_paragraph_navigation",()->{
-            SpeechService service=speech();ui(()->service.changeRate(1.5f));expect(store().preferences.getFloat("speech_rate",1)!=1,"rate not saved");int before=service.position().block;ui(()->service.navigateChapter(1));expect(service.position().block>before,"next chapter failed");int chapter=service.position().block;ui(()->service.paragraph(1));expect(service.position().block==chapter+1,"next paragraph failed");
+            SpeechService service=speech();ui(()->service.changeRate(1.5f));expect(store().preferences.getFloat("speech_rate",1)!=1,"rate not saved");int before=service.position().block;ui(()->service.navigateChapter(1));expect(service.position().block>before,"next chapter failed");BookDocument.Position chapter=service.position();ui(()->service.paragraph(1));BookDocument.Position next=service.position();expect(next.block>chapter.block||(next.block==chapter.block&&next.offset>chapter.offset),"next paragraph failed");
             expect(live().block==readingBefore[0].block,"speech navigation changed reading");
         });
         test("missing_offline_voice_never_blocks_reading",()->{

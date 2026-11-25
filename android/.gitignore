@@ -4,3 +4,6 @@ local.properties
 *.jks
 *.keystore
 captures/
+/delivery/
+*.apk
+*.aab

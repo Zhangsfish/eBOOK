@@ -2,6 +2,7 @@
 Produces unsigned aligned APKs. Upgrade signing is a separate LOCAL-only step.
 """
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -107,8 +108,17 @@ def main():
         test_jar = BUILD / 'test-classes.jar'
         run([jar, 'cf', test_jar, '-C', test_classes, '.'])
         apk('tests', test_base, test_jar, app_jar)
-    sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    info = dict(source_sha=sha, source_dirty=bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT)),
+    source_manifest = ROOT / 'SOURCE.json'
+    if source_manifest.exists():
+        provenance = json.loads(source_manifest.read_text('utf-8'))
+        for name, expected in provenance['files'].items():
+            if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
+                raise ValueError('Deployed source digest changed: ' + name)
+        sha, dirty = provenance['source_sha'], False
+    else:
+        sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+        dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT))
+    info = dict(source_sha=sha, source_dirty=dirty,
                 sdk_platform=35, build_tools='35.0.0', min_sdk=26, target_sdk=35,
                 version_name='0.1.0-android.1', version_code=1, runtime_dependencies=[], signed=False)
     (BUILD / 'build-info.json').write_text(json.dumps(info, ensure_ascii=False, indent=2), encoding='utf-8')

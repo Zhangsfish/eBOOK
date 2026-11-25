@@ -82,6 +82,13 @@ public final class CoreTests {
         test("speech_punctuation_and_surrogates",()->{
             String s="甲😀乙。下一句！最后一行\n";int at=0;StringBuilder joined=new StringBuilder();while(at<s.length()){int end=SpeechChunks.end(s,at,8);expect(end>at&&end-at<=8,"chunk limit");joined.append(s,at,end);at=end;}expect(joined.toString().equals(s),"speech content changed");expect(SpeechChunks.safeOffset(s,2)==1,"resume bisected surrogate");
         });
+        test("paragraph_navigation_within_and_across_disk_blocks",()->{
+            BookDocument d=txt("第一段。\n\n  第二段。\n第三段。","UTF-8");
+            BookDocument.Position second=d.paragraph(new BookDocument.Position(0,0),1);expect(second.block==0&&second.offset==8,"next logical paragraph");
+            BookDocument.Position previous=d.paragraph(second,-1);expect(previous.block==0&&previous.offset==0,"previous paragraph");
+            StringBuilder line=new StringBuilder();for(int i=0;i<5000;i++)line.append('风');line.append("\n下一段。");BookDocument longLine=txt(line.toString(),"UTF-8");
+            BookDocument.Position next=longLine.paragraph(new BookDocument.Position(0,0),1);expect(longLine.blocks.get(next.block).textStart+next.offset==5001,"cross-block paragraph");
+        });
         test("independent_reading_listening_values",()->{BookDocument d=txt("第1章 起点\n第一段。\n第2章 远处\n第二段。","UTF-8");BookDocument.Position reading=d.clamp(0,3),listening=d.clamp(1,5);expect(reading.block==0&&reading.offset==3,"reading");expect(listening.block==1&&listening.offset==5,"listening");expect(d.currentChapter(-1)==-1,"preface/no chapter boundary");});
         String json="{\"suite\":\"JVM core\",\"passed\":"+passed+",\"failed\":"+failed+",\"tests\":["+String.join(",",results)+"]}";
         Files.write(new File(temporary,"core-results.json").toPath(),json.getBytes(StandardCharsets.UTF_8));System.out.println(json);if(failed>0)System.exit(1);
