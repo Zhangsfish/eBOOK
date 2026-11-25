@@ -2,9 +2,6 @@
   <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35"/>
   <queries><package android:name="cn.zhangsfish.ebook"/></queries>
   <application android:label="eBOOK 原创测试材料" android:testOnly="true" android:allowBackup="false">
-    <provider android:name=".FixtureProvider" android:authorities="cn.zhangsfish.ebook.tests.documents" android:exported="true" android:grantUriPermissions="true" android:permission="android.permission.MANAGE_DOCUMENTS">
-      <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER"/></intent-filter>
-    </provider>
     <service android:name=".OfflineTestEngine" android:exported="true" android:label="eBOOK 测试引擎（非真实声线）">
       <intent-filter><action android:name="android.intent.action.TTS_SERVICE"/></intent-filter>
     </service>

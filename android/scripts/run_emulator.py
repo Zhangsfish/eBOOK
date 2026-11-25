@@ -95,9 +95,19 @@ def main():
             time.sleep(2)
         else:
             raise RuntimeError('Emulator did not finish booting')
+        stage('isolated test VM setup')
+        adb('root')
+        adb('wait-for-device', timeout=30)
+        if subprocess.check_output([str(ADB), 'shell', 'id', '-u'], text=True, timeout=10).strip() != '0':
+            raise RuntimeError('Test-only VM root required to collect private instrumentation evidence')
         for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
             adb('shell', 'settings', 'put', 'global', setting, '0')
         adb('shell', 'input', 'keyevent', '82')
+        adb('shell', 'wm', 'dismiss-keyguard')
+        adb('shell', 'mkdir', '-p', '/sdcard/Download')
+        for filename in ('original_long_gb18030.txt', 'synthetic.epub'):
+            adb('push', str(BUILD / 'test-assets' / filename), '/sdcard/Download/' + filename)
+            adb('shell', 'am', 'broadcast', '-a', 'android.intent.action.MEDIA_SCANNER_SCAN_FILE', '-d', 'file:///sdcard/Download/' + filename)
         stage('APK installation')
         adb('install', '-t', str(BUILD / 'ebook-ci.apk'))
         adb('install', '-t', str(BUILD / 'tests-ci.apk'))
@@ -117,7 +127,9 @@ def main():
                 raise RuntimeError('Instrumentation timed out in phase ' + phase)
             (OUT / ('instrumentation-' + phase + '.txt')).write_text(response.stdout + response.stderr, encoding='utf-8')
             print(response.stdout, flush=True)
-            adb('pull', '/sdcard/Android/data/cn.zhangsfish.ebook/files/evidence/.', str(OUT))
+            with (OUT / ('host-after-' + phase + '.png')).open('wb') as snapshot:
+                subprocess.run([str(ADB), 'exec-out', 'screencap', '-p'], stdout=snapshot, check=False, timeout=15)
+            adb('pull', '/data/user/0/cn.zhangsfish.ebook/files/test-evidence/.', str(OUT))
             report = json.loads((OUT / ('results-' + phase + '.json')).read_text('utf-8'))
             if report['failed'] or report['passed'] != (21 if phase == 'main' else 4):
                 failures.append(phase)
@@ -128,7 +140,7 @@ def main():
             raise RuntimeError('Native instrumentation failures: ' + ', '.join(failures))
     finally:
         # A disconnected emulator must never hang diagnostic collection forever.
-        for command, filename in [(['pull', '/sdcard/Android/data/cn.zhangsfish.ebook/files/evidence/.', str(OUT)], 'pull.txt'),
+        for command, filename in [(['pull', '/data/user/0/cn.zhangsfish.ebook/files/test-evidence/.', str(OUT)], 'pull.txt'),
                                   (['logcat', '-d', '-v', 'threadtime'], 'logcat.txt'),
                                   (['shell', 'dumpsys', 'meminfo', 'cn.zhangsfish.ebook'], 'memory.txt'),
                                   (['emu', 'kill'], 'stop-emulator.txt')]:

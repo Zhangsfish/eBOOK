@@ -25,21 +25,28 @@ public final class ReaderInstrumentation extends Instrumentation {
     private File evidence;
     private final List<String>results=new ArrayList<>();
     private int passed,failed;
+    private long peakPssBytes,peakRssBytes;
+    private int maxVisibleRows,maxTextUTF16;
     interface Check{void run()throws Exception;}
     interface Condition{boolean get()throws Exception;}
     @Override public void onCreate(Bundle args){arguments=args==null?new Bundle():args;start();}
     @Override public void onStart(){
-        String phase=arguments.getString("phase","main");evidence=new File(getTargetContext().getExternalFilesDir(null),"evidence");evidence.mkdirs();
+        String phase=arguments.getString("phase","main");evidence=new File(getTargetContext().getFilesDir(),"test-evidence");evidence.mkdirs();
         try{
             if(phase.equals("main"))mainPhase();else resumePhase();
         }catch(Throwable failure){recordFailure("suite_setup",failure);}
-        String report="{\"suite\":\"Android instrumentation\",\"completed\":true,\"phase\":\""+phase+"\",\"api\":"+Build.VERSION.SDK_INT+",\"passed\":"+passed+",\"failed\":"+failed+",\"tests\":["+String.join(",",results)+"]}";
+        String report="{\"suite\":\"Android instrumentation\",\"completed\":true,\"phase\":\""+phase+"\",\"api\":"+Build.VERSION.SDK_INT+",\"passed\":"+passed+",\"failed\":"+failed+",\"metrics\":{\"peakSampledPssBytes\":"+peakPssBytes+",\"processVmHwmBytes\":"+peakRssBytes+",\"maxVisibleRows\":"+maxVisibleRows+",\"maxTextUTF16\":"+maxTextUTF16+"},\"tests\":["+String.join(",",results)+"]}";
         try(FileOutputStream out=new FileOutputStream(new File(evidence,"results-"+phase+".json"))){out.write(report.getBytes(StandardCharsets.UTF_8));}catch(IOException error){failed++;}
         Bundle result=new Bundle();result.putString("stream",report+"\n");result.putInt("passed",passed);result.putInt("failed",failed);finish(failed==0?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
     }
     private void test(String name,Check check){long start=SystemClock.elapsedRealtime();try{check.run();passed++;results.add("{\"name\":\""+name+"\",\"status\":\"PASS\",\"ms\":"+(SystemClock.elapsedRealtime()-start)+"}");status(name,"PASS");}catch(Throwable error){recordFailure(name,error);}}
     private void recordFailure(String name,Throwable error){failed++;String message=String.valueOf(error).replace("\\","\\\\").replace("\"","\\\"").replace("\n"," ");results.add("{\"name\":\""+name+"\",\"status\":\"FAIL\",\"error\":\""+message+"\"}");status(name,"FAIL "+message);try{screenshot("FAIL-"+name);}catch(Exception ignored){}}
-    private void status(String name,String value){Bundle b=new Bundle();b.putString("stream",name+": "+value+"\n");sendStatus(0,b);try(OutputStream out=new FileOutputStream(new File(evidence,"progress.json"))){out.write(("{\"last_case\":\""+name+"\",\"passed\":"+passed+",\"failed\":"+failed+"}").getBytes(StandardCharsets.UTF_8));}catch(IOException ignored){}}
+    private void status(String name,String value){sampleMemory();Bundle b=new Bundle();b.putString("stream",name+": "+value+"\n");sendStatus(0,b);try(OutputStream out=new FileOutputStream(new File(evidence,"progress.json"))){out.write(("{\"last_case\":\""+name+"\",\"passed\":"+passed+",\"failed\":"+failed+"}").getBytes(StandardCharsets.UTF_8));}catch(IOException ignored){}}
+    private void sampleMemory(){
+        peakPssBytes=Math.max(peakPssBytes,Debug.getPss()*1024L);
+        try(BufferedReader file=new BufferedReader(new FileReader("/proc/self/status"))){String line;while((line=file.readLine())!=null)if(line.startsWith("VmHWM:")){String[]parts=line.trim().split("\\s+");peakRssBytes=Math.max(peakRssBytes,Long.parseLong(parts[1])*1024L);}}
+        catch(Exception ignored){/* optional kernel metric, no invented estimate */}
+    }
     private static void expect(boolean value,String message){if(!value)throw new AssertionError(message);}
     private void waitFor(Condition condition,String message)throws Exception{long until=SystemClock.elapsedRealtime()+25000;while(SystemClock.elapsedRealtime()<until){if(condition.get())return;SystemClock.sleep(150);}throw new AssertionError(message);}
     private void ui(Runnable action){runOnMainSync(action);waitForIdleSync();}
@@ -89,6 +96,7 @@ public final class ReaderInstrumentation extends Instrumentation {
     private BookDocument.Position live()throws Exception{
         AtomicReference<BookDocument.Position>out=new AtomicReference<>();ui(()->{
             ListView list=reader();int block=list.getFirstVisiblePosition(),offset=0;View first=list.getChildAt(0);
+            maxVisibleRows=Math.max(maxVisibleRows,list.getChildCount());for(View v:walk(list))if(v instanceof TextView)maxTextUTF16=Math.max(maxTextUTF16,((TextView)v).length());
             if(first instanceof TextView){TextView text=(TextView)first;Layout layout=text.getLayout();if(layout!=null)offset=layout.getLineStart(layout.getLineForVertical(Math.max(0,list.getPaddingTop()-first.getTop()-text.getTotalPaddingTop())));}
             out.set(new BookDocument.Position(block,offset));
         });return out.get();
@@ -101,13 +109,15 @@ public final class ReaderInstrumentation extends Instrumentation {
         ui(()->activity.findViewById(R.id.library_import).performClick());
         waitFor(()->{AccessibilityNodeInfo root=getUiAutomation().getRootInActiveWindow();return root!=null&&!"cn.zhangsfish.ebook".contentEquals(root.getPackageName()==null?"":root.getPackageName());},"System picker didn't open");
         SystemClock.sleep(500);
-        if(ax("eBOOK 原创测试材料")==null){
+        if(ax(filename)==null){
             if(!clickAx("Show roots")&&!clickAx("显示根目录")&&!clickAx("Open navigation drawer")){
                 AccessibilityNodeInfo root=getUiAutomation().getRootInActiveWindow();List<AccessibilityNodeInfo>buttons=root.findAccessibilityNodeInfosByViewId("com.android.documentsui:id/toolbar");
                 if(!buttons.isEmpty()&&buttons.get(0).getChildCount()>0)buttons.get(0).getChild(0).performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }
         }
-        waitFor(()->ax("eBOOK 原创测试材料")!=null,"Original fixture provider missing from system picker");clickAx("eBOOK 原创测试材料");
+        if(ax(filename)==null){
+            waitFor(()->ax("Downloads")!=null||ax("下载")!=null,"Downloads missing from system picker");if(!clickAx("Downloads"))clickAx("下载");
+        }
         for(int i=0;i<12&&ax(filename)==null;i++){AccessibilityNodeInfo current=getUiAutomation().getRootInActiveWindow();AccessibilityNodeInfo scroll=scrollable(current);if(scroll!=null)scroll.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);SystemClock.sleep(250);}
         waitFor(()->ax(filename)!=null,"Fixture missing in picker: "+filename);clickAx(filename);SystemClock.sleep(300);
         if(ax("Open")!=null)clickAx("Open");else if(ax("OPEN")!=null)clickAx("OPEN");
