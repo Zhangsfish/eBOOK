@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+import zipfile
 from cloud import connect, ROOT
 
 CLOUD = '/root/autodl-tmp/ebook_android_20261125'
@@ -17,9 +18,13 @@ def main():
     paths = ['android', 'Tests/Fixtures', 'scripts/generate_long_gb18030_fixture.py']
     # Git archive otherwise applies this Windows checkout's autocrlf to text.
     # Compile the exact committed LF blobs, matching Linux CI and manifest hashes.
-    subprocess.run(['git', '-c', 'core.autocrlf=false', 'archive', '--format=zip', '-o', str(archive), sha, *paths], cwd=ROOT, check=True)
+    subprocess.run(['git', '-c', 'core.autocrlf=false', '-c', 'core.eol=lf', 'archive', '--format=zip', '-o', str(archive), sha, *paths], cwd=ROOT, check=True)
     names = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', sha, '--', *paths], cwd=ROOT, text=True).splitlines()
     files = {name: hashlib.sha256(subprocess.check_output(['git', 'show', sha + ':' + name], cwd=ROOT)).hexdigest() for name in names}
+    with zipfile.ZipFile(archive) as z:
+        for name, expected in files.items():
+            if hashlib.sha256(z.read(name)).hexdigest() != expected:
+                raise ValueError('Local archive differs from committed blob: ' + name)
     manifest = output / (sha + '.json')
     manifest.write_text(json.dumps(dict(source_sha=sha, archive_sha256=hashlib.sha256(archive.read_bytes()).hexdigest(), files=files), indent=2), encoding='utf-8')
     with connect() as client:

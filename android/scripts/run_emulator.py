@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import time
+import traceback
 
 ROOT = Path(__file__).resolve().parents[2]
 BUILD = ROOT / 'android/build'
@@ -25,6 +26,7 @@ AVD = 'ebook-reader-' + str(API)
 
 def run(args, **kwargs):
     print('+', ' '.join(str(x) for x in args), flush=True)
+    kwargs.setdefault('timeout', 180)
     return subprocess.run([str(x) for x in args], check=True, **kwargs)
 
 
@@ -36,9 +38,12 @@ def main():
     os.environ['PATH'] = str(JAVA) + os.pathsep + os.environ['PATH']
     manager = SDK / 'cmdline-tools/latest/bin/sdkmanager'
     avdmanager = SDK / 'cmdline-tools/latest/bin/avdmanager'
-    run([manager, '--install', IMAGE], stdin=subprocess.DEVNULL)
+    stage('SDK system image')
+    run([manager, '--install', IMAGE], stdin=subprocess.DEVNULL, timeout=480)
+    stage('AVD profile')
     run([avdmanager, 'create', 'avd', '--force', '--name', AVD, '--package', IMAGE, '--device', 'pixel_2'], input='no\n', text=True)
     key = BUILD / 'ephemeral-ci-only.jks'
+    stage('ephemeral test signing')
     os.environ['EBOOK_CI_KEY_PASS'] = secrets.token_hex(20)
     run([JAVA / 'keytool', '-genkeypair', '-keystore', key, '-storepass:env', 'EBOOK_CI_KEY_PASS', '-keypass:env', 'EBOOK_CI_KEY_PASS',
          '-alias', 'ci', '-dname', 'CN=eBOOK temporary emulator test', '-keyalg', 'RSA', '-keysize', '2048', '-validity', '2', '-noprompt'])
@@ -54,12 +59,23 @@ def main():
     process = subprocess.Popen([str(SDK / 'emulator/emulator'), '-avd', AVD, '-no-window', '-no-audio', '-no-boot-anim',
                                 '-no-snapshot', '-gpu', 'swiftshader', '-memory', '3072', '-cores', '2'], stdout=emulator_log, stderr=subprocess.STDOUT)
     try:
-        adb('wait-for-device', timeout=180)
+        stage('emulator connection')
+        connection_deadline = time.monotonic() + 180
+        while time.monotonic() < connection_deadline:
+            if process.poll() is not None:
+                raise RuntimeError('Emulator exited before connecting; see emulator.log')
+            state = subprocess.run([str(ADB), 'get-state'], capture_output=True, text=True, timeout=8)
+            if state.returncode == 0 and state.stdout.strip() == 'device':
+                break
+            time.sleep(1)
+        else:
+            raise RuntimeError('Emulator connection timeout')
+        stage('Android boot')
         until = time.monotonic() + 240
         while time.monotonic() < until:
             if process.poll() is not None:
                 raise RuntimeError('Emulator exited before boot')
-            value = subprocess.check_output([str(ADB), 'shell', 'getprop', 'sys.boot_completed'], text=True).strip()
+            value = subprocess.check_output([str(ADB), 'shell', 'getprop', 'sys.boot_completed'], text=True, timeout=10).strip()
             if value == '1':
                 break
             time.sleep(2)
@@ -68,12 +84,14 @@ def main():
         for setting in ('window_animation_scale', 'transition_animation_scale', 'animator_duration_scale'):
             adb('shell', 'settings', 'put', 'global', setting, '0')
         adb('shell', 'input', 'keyevent', '82')
+        stage('APK installation')
         adb('install', '-t', str(BUILD / 'ebook-ci.apk'))
         adb('install', '-t', str(BUILD / 'tests-ci.apk'))
         if API >= 33:
             adb('shell', 'pm', 'grant', 'cn.zhangsfish.ebook', 'android.permission.POST_NOTIFICATIONS')
         failures = []
         for phase in ('main', 'resume'):
+            stage('instrumentation ' + phase)
             if phase == 'resume':
                 adb('shell', 'am', 'force-stop', 'cn.zhangsfish.ebook')
             try:
@@ -95,14 +113,30 @@ def main():
         if failures:
             raise RuntimeError('Native instrumentation failures: ' + ', '.join(failures))
     finally:
-        subprocess.run([str(ADB), 'pull', '/sdcard/Android/data/cn.zhangsfish.ebook/files/evidence/.', str(OUT)], check=False)
-        subprocess.run([str(ADB), 'logcat', '-d', '-v', 'threadtime'], stdout=(OUT / 'logcat.txt').open('w'), check=False)
-        subprocess.run([str(ADB), 'shell', 'dumpsys', 'meminfo', 'cn.zhangsfish.ebook'], stdout=(OUT / 'memory.txt').open('w'), check=False)
-        subprocess.run([str(ADB), 'emu', 'kill'], stdout=subprocess.DEVNULL, check=False)
+        # A disconnected emulator must never hang diagnostic collection forever.
+        for command, filename in [(['pull', '/sdcard/Android/data/cn.zhangsfish.ebook/files/evidence/.', str(OUT)], 'pull.txt'),
+                                  (['logcat', '-d', '-v', 'threadtime'], 'logcat.txt'),
+                                  (['shell', 'dumpsys', 'meminfo', 'cn.zhangsfish.ebook'], 'memory.txt'),
+                                  (['emu', 'kill'], 'stop-emulator.txt')]:
+            try:
+                with (OUT / filename).open('w') as target:
+                    subprocess.run([str(ADB), *command], stdout=target, stderr=subprocess.STDOUT, check=False, timeout=15)
+            except subprocess.TimeoutExpired:
+                with (OUT / filename).open('a') as target:
+                    target.write('\nDiagnostic collection timed out; device may be disconnected.\n')
         if process.poll() is None:
             process.terminate()
         emulator_log.close()
 
 
+def stage(value):
+    (OUT / 'stage.json').write_text(json.dumps(dict(stage=value, unix_time=time.time())), encoding='utf-8')
+    print('ANDROID STAGE:', value, flush=True)
+
+
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as failure:
+        (OUT / 'runner-failure.txt').write_text(traceback.format_exc(), encoding='utf-8')
+        raise

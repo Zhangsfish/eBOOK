@@ -51,6 +51,8 @@ def main():
          '--min-sdk-version', '26', '--v1-signing-enabled', 'true', '--v2-signing-enabled', 'true',
          '--v3-signing-enabled', 'true', '--v4-signing-enabled', 'false', '--out', apk, BUILD / 'ebook-unsigned.apk'])
     verified = subprocess.check_output([str(signer), 'verify', '--verbose', '--print-certs', str(apk)], text=True)
+    if 'Verified using v2 scheme (APK Signature Scheme v2): true' not in verified or 'Verified using v3 scheme (APK Signature Scheme v3): true' not in verified:
+        raise RuntimeError('Required v2/v3 signature verification did not pass')
     (RELEASE / 'signature-verification.txt').write_text(verified, encoding='utf-8')
     fingerprint = re.search(r'certificate SHA-256 digest: ([a-f0-9]+)', verified).group(1)
     if (private / 'certificate.expected').exists() and (private / 'certificate.expected').read_text().strip() != fingerprint:
@@ -58,7 +60,7 @@ def main():
     (private / 'certificate.expected').write_text(fingerprint, encoding='ascii')
     badging = subprocess.check_output([str(TOOLS / 'sdk/build-tools/35.0.0/aapt2'), 'dump', 'badging', str(apk)], text=True)
     (RELEASE / 'package-verification.txt').write_text(badging, encoding='utf-8')
-    if "package: name='cn.zhangsfish.ebook'" not in badging or "targetSdkVersion:'35'" not in badging or "sdkVersion:'26'" not in badging:
+    if "package: name='cn.zhangsfish.ebook'" not in badging or "targetSdkVersion:'35'" not in badging or not any(label in badging for label in ("minSdkVersion:'26'","sdkVersion:'26'")):
         raise RuntimeError('Unexpected package metadata')
     if 'android.permission.INTERNET' in badging or 'cn.zhangsfish.ebook.tests' in badging:
         raise RuntimeError('Unexpected network permission or test package')
@@ -67,7 +69,7 @@ def main():
             raise RuntimeError('APK CRC error or unexpected bundled test books')
         entries = {n: hashlib.sha256(archive.read(n)).hexdigest() for n in archive.namelist() if not n.startswith('META-INF/')}
     metadata = json.loads((BUILD / 'build-info.json').read_text('utf-8'))
-    metadata.update(signed=True, signing='internal-test RSA3072 / SHA256 / v1+v2+v3',
+    metadata.update(signed=True, signing='internal-test RSA3072 / SHA256; official verification v2+v3 PASS',
                     apk_file=apk.name, apk_bytes=apk.stat().st_size,
                     apk_sha256=hashlib.sha256(apk.read_bytes()).hexdigest(), certificate_sha256=fingerprint,
                     apk_payload_sha256=entries, physical_Huawei='NOT_RUN')
