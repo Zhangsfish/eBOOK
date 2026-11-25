@@ -1,5 +1,17 @@
 # Project Status
 
+- Current owner decision (2026-11-25): two independent conversations share this repository; Suxin ships first and model training targets a later version.
+- Current branch/task: `codex/s02b-suxin-ios-integration` / [S02B — Suxin integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
+- State: **READY** for implementation. Task split and handoffs prepared; App integration `NOT_IMPLEMENTED`, physical-device acceptance and new distribution `NOT_RUN`.
+- Coordination: [docs/TTS_WORKSTREAMS.md](docs/TTS_WORKSTREAMS.md). Later-version model work: [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11), `codex/s02a4-teacher-student-tts`; first release does not wait for it.
+- Reader baseline: main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; Suxin experiment frozen at PR #7 `eeee1443c1aac561035cf30590ff323c30ccab8a`.
+- Current executor: Linux without Xcode, signing session or attached iPhone. Native/device checks require a usable macOS CI / signing / device path; no new result is claimed.
+- First delivery uses the existing owner internal-TestFlight path after real integration, validation and independent review. No App Store public release is claimed or newly scheduled.
+
+## Historical S00 status (retained for evidence)
+
+The following snapshot predates the current TTS authorization. PR #5 was subsequently merged at `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; its historical do-not-merge wording is not current PR state. S00 details and earlier test boundaries remain as recorded.
+
 - Project: eBOOK — iOS ebook reader
 - Current phase: S00 device preparation follow-up; S01 PR #4 remains READY_FOR_AUDIT.
 - Current authorized task on this branch: `tasks/S00_DEVICE_VALIDATION.md`.
