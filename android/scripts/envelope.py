@@ -24,7 +24,7 @@ def pack():
     archive = BUILD / 'evidence-private.tar.gz'
     with tarfile.open(archive, 'w:gz') as out:
         for pattern in ('ebook-unsigned.apk', 'build-info.json', 'core-evidence/core-results.json',
-                        'emulator/**', 'tools/apksigner.jar'):
+                        'emulator/**/*', 'tools/apksigner.jar'):
             for path in BUILD.glob(pattern):
                 if path.is_file():
                     out.add(path, arcname=str(path.relative_to(BUILD)), recursive=False)

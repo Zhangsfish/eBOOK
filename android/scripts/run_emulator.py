@@ -63,6 +63,7 @@ def main():
         connection_deadline = time.monotonic() + 180
         while time.monotonic() < connection_deadline:
             if process.poll() is not None:
+                print((OUT / 'emulator.log').read_text(errors='replace')[-16000:], flush=True)
                 raise RuntimeError('Emulator exited before connecting; see emulator.log')
             state = subprocess.run([str(ADB), 'get-state'], capture_output=True, text=True, timeout=8)
             if state.returncode == 0 and state.stdout.strip() == 'device':
