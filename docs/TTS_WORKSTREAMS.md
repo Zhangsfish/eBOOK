@@ -5,7 +5,7 @@
 
 | 工作线 | 当前交付 | 分支 / PR | 主任务 |
 | --- | --- | --- | --- |
-| 当前对话：第一版苏心接入 | 将已经试听选中的苏心接入原生阅读器，实测延迟和连续播放，通过后交付现有内部 TestFlight | `codex/s02b-suxin-ios-integration` / 新建独立 PR | [S02B_SUXIN_IOS_INTEGRATION.md](../tasks/S02B_SUXIN_IOS_INTEGRATION.md) |
+| 当前对话：第一版苏心接入 | 将已经试听选中的苏心接入原生阅读器，实测延迟和连续播放，通过后交付现有内部 TestFlight | `codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12) | [S02B_SUXIN_IOS_INTEGRATION.md](../tasks/S02B_SUXIN_IOS_INTEGRATION.md) |
 | 另一个对话：后续自训模型 | 复现已选教师的小说声音，验证训练和导出，提供比苏心更好的第二版模型候选 | `codex/s02a4-teacher-student-tts` / [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11) | [S02A4_TEACHER_STUDENT_TTS.md](../tasks/S02A4_TEACHER_STUDENT_TTS.md) |
 
 两条线可以同时推进。**第一版不等待教师复现、语料生成、蒸馏或微调完成。**
