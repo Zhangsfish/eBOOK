@@ -1,5 +1,11 @@
 # Agent Instructions
 
+## Active TTS workstreams (owner direction, 2026-11-25)
+- Read `docs/TTS_WORKSTREAMS.md` before TTS work. The owner has explicitly split two conversations in this repository.
+- `codex/s02b-suxin-ios-integration`: READY to integrate Suxin into the reader, validate latency/continuity and prepare the first internal TestFlight release; use `tasks/S02B_SUXIN_IOS_INTEGRATION.md`.
+- `codex/s02a4-teacher-student-tts`: READY for independent later-version model research; use `tasks/S02A4_TEACHER_STUDENT_TTS.md`. It must not edit the first-release App, signing/version or deployment workflow.
+- Follow the task matching the active branch. First-release Suxin delivery does not depend on training. Historical S00-only / no-S02B restrictions do not cancel this new explicit owner authorization. Keep independent review, local-book privacy and honest device evidence.
+
 ## Source of truth and collaboration
 - GitHub is the durable source of truth. Read this file, `STATUS.md`, the product/technical specs, and the currently authorized task before editing.
 - Execute only the task explicitly marked READY. Do not infer permission to start later phases.

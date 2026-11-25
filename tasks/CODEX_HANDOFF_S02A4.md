@@ -1,117 +1,30 @@
-# Codex handoff — S02A.4
+# 另一个对话交接 — 第二版自训模型
 
-Read `AGENTS.md`, `STATUS.md`, `docs/PRODUCT_SPEC.md`,
-`docs/TECHNICAL_PLAN.md`, and `tasks/S02A4_TEACHER_STUDENT_TTS.md` first.
+仓库 `Zhangsfish/eBOOK`，分支 `codex/s02a4-teacher-student-tts`，PR #11。
+用独立 worktree；先拉取最新分支，读 `AGENTS.md`、`STATUS.md`、产品/技术规格、
+`docs/TTS_WORKSTREAMS.md` 与 `tasks/S02A4_TEACHER_STUDENT_TTS.md`。
 
-## Priority override: owner approved MOSS-TTS-Nano sample (2026-11-25)
+用户最新决定：第一版在另一个对话直接接入苏心，验证延迟后交付手机使用；
+本对话独立做后续模型。**第一版不等待本线；本线不修改第一版 App 或发布流程。**
+当前 App 线为 `codex/s02b-suxin-ios-integration`，任务
+`tasks/S02B_SUXIN_IOS_INTEGRATION.md`。共享接口需求按协作约定同步。
 
-The owner explicitly approved the **actual** "深夜温柔晚安" demo voice. **Do not continue an open-ended Qwen/CosyVoice voice search or treat the demo as unapproved.** Read the exact pinned model/demo commits, `zh_6.wav` Git blob and new "Owner-selected first target voice" section of `tasks/S02A4_TEACHER_STUDENT_TTS.md`.
+第一目标是上一轮用户说“这个可以”的 MOSS-TTS-Nano「深夜温柔晚安」。
+精确代码/演示 revision、`zh_6.wav` 参考身份及输出 blob 见任务。
+先用真正模型/参考生成现有六段原创小说和连贯 2–5 分钟 WAV，交付用户核听。
+不是重新泛找教师，不把官方 demo 当本次合成。偏好平静自然的小说陈述，
+单音色/混读是实现者决定，用户没有强制其中一种。
 
-Execute in order: (1) reproduce this voice on the existing six original fiction scenes using the genuine official model and reference audio; (2) deliver a private playable real WAV narration with pinned hashes for owner verification; (3) benchmark direct ONNX streaming/short chunks and its potential native iPhone integration, clearly separating desktop/simulator/iPhone facts; (4) only when needed, pilot SFT/distillation using the actual published `finetuning/` pipeline or another validated student implementation. If reproduction fails, show the error and bounded fix; no fabricated audio, forced teacher substitution or vendor research.
+随后在研究目录验证 direct ONNX、官方 SFT 或必要时的蒸馏；固定数据划分、
+版本、哈希和可恢复 recipe，小 train/resume/export/infer 试验通过才扩量。
+AutoDL 租卡已原则同意，当前没有连接实例或运行作业。架构/数据准备归执行者，
+不要再让用户替我们挑架构或找教师。用户只判断实际声音是否满意。
 
-Record the `zh_6.wav` reference voice's provenance and outstanding recording/speaker commercial-use rights separately from model Apache license. No batch generation/student training until reproduced-fiction voice is accepted and rights are sufficiently clear. Do not automatically merge or change production App.
+苏心实验 PR #7 已交付，冻结 HEAD `eeee1443c1aac561035cf30590ff323c30ccab8a`，
+报告已存在；它不是 load-only，亦未完成原生文字前端和真机验收。
+后续以新 App 线的真实测量作为最新部署基线，不覆盖其源码或状态。
 
-## Owner's instruction
-
-The owner delegates the architecture and training method. Deliver a voice that
-the owner likes more than Suxin-Light, suitable for long Mandarin fiction and
-fast offline playback in the iPhone reader. The teacher's exact voice must be
-approved by the owner before bulk corpus generation or student training.
-AutoDL can supply the research GPU; do not ask the owner to choose architecture.
-
-## Work independently from the current experiment
-
-Use a separate worktree and `codex/s02a4-teacher-student-tts`. Implement under
-`tools/tts-training/` and report under
-`reports/S02A4_TEACHER_STUDENT_TTS.md`. Preserve PR #7 and its ongoing S02A.3 work,
-PR #4, PR #5 and production source. Do not merge or publish a release.
-
-S02A.3 reference HEAD: `9713f7596c9f9a3b9565cfb61dd836b1b3602b5b`.
-It now has real Suxin iOS simulator graph inference using author-precomputed
-phoneme IDs, and a recorded short-audition preference for Suxin. It has no full
-native Mandarin frontend or physical-phone acceptance. Do not repeat the stale
-claim that Suxin has only loaded and never generated speech. Its final report was
-not yet present at the inspected HEAD; do not declare that task finished.
-
-## Execute this preparation milestone
-
-The architecture is delegated, not frozen: revise the initial route from actual
-evidence if needed, while preserving the owner sound gate and phone targets.
-GPU rental is accepted in principle; there is no connected instance or executed
-job yet. Resolve access and concrete cost when operationally necessary.
-
-1. Resolve/pin official Qwen3-TTS 1.7B VoiceDesign/CustomVoice and
-   Fun-CosyVoice3 0.5B sources. Prepare real accessible teacher auditions, clearly
-   distinguishing official demos from our generated audio. Prioritize a small
-   number of stable voices and the same original fiction passages. Fix voice
-   identity/reference/settings. The owner judges the resulting sound.
-2. Resolve the current `OHF-Voice/piper1-gpl` medium VITS training, resume and
-   ONNX-export instructions. Select a compatible clean-license initialization
-   from verified base checkpoints, including the documented rdh CC0 /
-   hifi_tts 92 CC-BY candidates. Record exact checkpoint/card/license/hash and
-   any phoneme-map adaptation; do not pretend incompatible state-dict loading is
-   a working recipe. Do not fine-tune an inference-only Suxin ONNX file.
-3. Prepare a new isolated environment and AutoDL pilot runbook for a single
-   RTX 4090 24 GB. Pin dependencies after checking the actual official recipe.
-   Include environment/VRAM/storage preflight, short throughput probe,
-   resumable checkpoints, export and inference comparison. No GPU has been
-   provisioned by this handoff. Do not create accounts, rent an instance or
-   report a training run without actual access and execution.
-4. Build original Mandarin fiction and pronunciation fixtures. Split at scene
-   level before generation; keep final listening passages out of student
-   training and model selection. Add a manifest schema for text/audio hashes,
-   fixed voice, teacher revision/settings, split, duration and provenance.
-   Keep private novels and external reader audio out of the training path.
-5. Prepare synthesis-quality filtering and private A/B packaging. Check
-   omissions/repetition, silence, clipping, duration and speaker consistency;
-   ASR does not assess naturalness. Retain original audio. Provide final
-   student/teacher/Suxin comparison on unseen identical text and a 10–15 minute
-   coherent owner listen when actual student audio exists.
-6. Prepare the deployment proof: standard ONNX Runtime plus native Mandarin
-   normalization/phonemes, incremental first audio, bounded prefetch/cache,
-   cancellation and stable reading-position mapping. Verify training/frontend
-   parity and ONNX operators early. Do not bundle the full Piper/Python runtime
-   into iOS by default. Record exact training/model/data/runtime licenses;
-   runtime separation alone does not establish distribution clearance.
-
-Do all independent preparation now. The owner approving a teacher voice is a
-real requirement; do not invent approval or generate hours of training audio
-before it. Once that approval and an authorized accessible GPU exist, proceed
-with a small real train/resume/export pilot before scaling the dataset. Use its
-measured cost/throughput and listening result to decide the next implementation
-step. Missing GPU/device access should produce a precise factual blocker after
-the useful preparation is finished, not another architecture questionnaire.
-
-## Preserve these acceptance criteria
-
-These are targets, not results:
-
-- Ready-model play: actual first audible output p95 ≤1 s.
-- Fresh app/process: actual first audible output ≤3 s including initialization;
-  model installation/download is measured separately.
-- Uncached jump: actual first audible output p95 ≤1.5 s, no stale queued speech.
-- 30 minutes of real playback at both 1.0× and 1.5×: no synthesis-buffer
-  underflow, dropped/repeated content or unintended gaps.
-- Aim for per-chunk generation RTF p95 ≤0.5 at normal rate, but judge continuity
-  by actual output cadence and buffer traces rather than average RTF alone.
-- Measure on an identified physical iPhone; capture memory/thermal/battery
-  behavior, UI responsiveness, lock-screen/background operation, interruption,
-  audio-route changes and position restoration. No model callback or simulator
-  timing may substitute for the phone's first audible output.
-- Owner prefers the student to Suxin on held-out same-text short and long audio.
-
-The final product is a selectable voice in the owner's internal TestFlight
-reader plus checkpoint, ONNX, native frontend/player, reproducible training and
-provenance/measurement evidence. App integration and TestFlight packaging belong
-in a subsequent reviewable change after the prototype earns its listening and
-device evidence; this preparation PR must not claim that outcome already exists.
-
-## Handoff back
-
-Give the owner a direct, working audition entry and only the sound decision they
-need to make. Report source pins, what actually executed, exact tested HEAD,
-tests that resolve real risks, and precise remaining access/approval facts.
-Keep generated audio, weights and datasets out of Git and CI artifacts. Open a
-reviewable PR, mark `READY_FOR_AUDIT`, and leave merge to the owner. Do not claim
-that a written runbook, official demo, prepared job or uploaded task started
-training automatically.
+只改 `tools/tts-training/`、本线任务/交接和报告。第一版合入后更新到最新 main，
+用完整资源清单、推理/训练/导出命令、前端/运行时要求、许可、声音和性能证据
+交接第二版模型；不直接改第一版 Xcode/播放/签名/版本号。实际发生的合成、
+训练和设备测试分列，写文档不算执行。遵循独立审查，不自动合并或发布。
