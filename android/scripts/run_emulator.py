@@ -76,13 +76,18 @@ def main():
         for phase in ('main', 'resume'):
             if phase == 'resume':
                 adb('shell', 'am', 'force-stop', 'cn.zhangsfish.ebook')
-            response = subprocess.run([str(ADB), 'shell', 'am', 'instrument', '-w', '-r', '-e', 'phase', phase,
-                                       'cn.zhangsfish.ebook.tests/.ReaderInstrumentation'], capture_output=True, text=True, timeout=700)
+            try:
+                response = subprocess.run([str(ADB), 'shell', 'am', 'instrument', '-w', '-r', '-e', 'phase', phase,
+                                           'cn.zhangsfish.ebook.tests/.ReaderInstrumentation'], capture_output=True, text=True, timeout=700)
+            except subprocess.TimeoutExpired as timeout:
+                partial = timeout.stdout or b''
+                (OUT / ('instrumentation-' + phase + '-timeout.txt')).write_bytes(partial.encode() if isinstance(partial, str) else partial)
+                raise RuntimeError('Instrumentation timed out in phase ' + phase)
             (OUT / ('instrumentation-' + phase + '.txt')).write_text(response.stdout + response.stderr, encoding='utf-8')
             print(response.stdout, flush=True)
             adb('pull', '/sdcard/Android/data/cn.zhangsfish.ebook/files/evidence/.', str(OUT))
             report = json.loads((OUT / ('results-' + phase + '.json')).read_text('utf-8'))
-            if report['failed'] or report['passed'] == 0:
+            if report['failed'] or report['passed'] != (21 if phase == 'main' else 4):
                 failures.append(phase)
         report = dict(api=API, image=IMAGE, physical_device=False, system_tts_voice_test='controlled test-only PCM engine, not Huawei installed voice',
                       package_install='PASS', phases_failed=failures)
@@ -90,6 +95,7 @@ def main():
         if failures:
             raise RuntimeError('Native instrumentation failures: ' + ', '.join(failures))
     finally:
+        subprocess.run([str(ADB), 'pull', '/sdcard/Android/data/cn.zhangsfish.ebook/files/evidence/.', str(OUT)], check=False)
         subprocess.run([str(ADB), 'logcat', '-d', '-v', 'threadtime'], stdout=(OUT / 'logcat.txt').open('w'), check=False)
         subprocess.run([str(ADB), 'shell', 'dumpsys', 'meminfo', 'cn.zhangsfish.ebook'], stdout=(OUT / 'memory.txt').open('w'), check=False)
         subprocess.run([str(ADB), 'emu', 'kill'], stdout=subprocess.DEVNULL, check=False)

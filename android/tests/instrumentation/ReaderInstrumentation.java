@@ -33,13 +33,13 @@ public final class ReaderInstrumentation extends Instrumentation {
         try{
             if(phase.equals("main"))mainPhase();else resumePhase();
         }catch(Throwable failure){recordFailure("suite_setup",failure);}
-        String report="{\"suite\":\"Android instrumentation\",\"phase\":\""+phase+"\",\"api\":"+Build.VERSION.SDK_INT+",\"passed\":"+passed+",\"failed\":"+failed+",\"tests\":["+String.join(",",results)+"]}";
+        String report="{\"suite\":\"Android instrumentation\",\"completed\":true,\"phase\":\""+phase+"\",\"api\":"+Build.VERSION.SDK_INT+",\"passed\":"+passed+",\"failed\":"+failed+",\"tests\":["+String.join(",",results)+"]}";
         try(FileOutputStream out=new FileOutputStream(new File(evidence,"results-"+phase+".json"))){out.write(report.getBytes(StandardCharsets.UTF_8));}catch(IOException error){failed++;}
         Bundle result=new Bundle();result.putString("stream",report+"\n");result.putInt("passed",passed);result.putInt("failed",failed);finish(failed==0?Activity.RESULT_OK:Activity.RESULT_CANCELED,result);
     }
     private void test(String name,Check check){long start=SystemClock.elapsedRealtime();try{check.run();passed++;results.add("{\"name\":\""+name+"\",\"status\":\"PASS\",\"ms\":"+(SystemClock.elapsedRealtime()-start)+"}");status(name,"PASS");}catch(Throwable error){recordFailure(name,error);}}
     private void recordFailure(String name,Throwable error){failed++;String message=String.valueOf(error).replace("\\","\\\\").replace("\"","\\\"").replace("\n"," ");results.add("{\"name\":\""+name+"\",\"status\":\"FAIL\",\"error\":\""+message+"\"}");status(name,"FAIL "+message);try{screenshot("FAIL-"+name);}catch(Exception ignored){}}
-    private void status(String name,String value){Bundle b=new Bundle();b.putString("stream",name+": "+value+"\n");sendStatus(0,b);}
+    private void status(String name,String value){Bundle b=new Bundle();b.putString("stream",name+": "+value+"\n");sendStatus(0,b);try(OutputStream out=new FileOutputStream(new File(evidence,"progress.json"))){out.write(("{\"last_case\":\""+name+"\",\"passed\":"+passed+",\"failed\":"+failed+"}").getBytes(StandardCharsets.UTF_8));}catch(IOException ignored){}}
     private static void expect(boolean value,String message){if(!value)throw new AssertionError(message);}
     private void waitFor(Condition condition,String message)throws Exception{long until=SystemClock.elapsedRealtime()+25000;while(SystemClock.elapsedRealtime()<until){if(condition.get())return;SystemClock.sleep(150);}throw new AssertionError(message);}
     private void ui(Runnable action){runOnMainSync(action);waitForIdleSync();}
@@ -108,11 +108,13 @@ public final class ReaderInstrumentation extends Instrumentation {
             }
         }
         waitFor(()->ax("eBOOK 原创测试材料")!=null,"Original fixture provider missing from system picker");clickAx("eBOOK 原创测试材料");
+        for(int i=0;i<12&&ax(filename)==null;i++){AccessibilityNodeInfo current=getUiAutomation().getRootInActiveWindow();AccessibilityNodeInfo scroll=scrollable(current);if(scroll!=null)scroll.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);SystemClock.sleep(250);}
         waitFor(()->ax(filename)!=null,"Fixture missing in picker: "+filename);clickAx(filename);SystemClock.sleep(300);
         if(ax("Open")!=null)clickAx("Open");else if(ax("OPEN")!=null)clickAx("OPEN");
         if(filename.endsWith(".txt")){waitFor(()->ax("使用自动识别")!=null,"Encoding choice missing");clickAx("使用自动识别");}
         waitFor(()->reader()!=null&&reader().getChildCount()>0,"Import didn't reach reader");SystemClock.sleep(300);
     }
+    private AccessibilityNodeInfo scrollable(AccessibilityNodeInfo node){if(node==null)return null;if(node.isScrollable())return node;for(int i=0;i<node.getChildCount();i++){AccessibilityNodeInfo found=scrollable(node.getChild(i));if(found!=null)return found;}return null;}
     private void mainPhase()throws Exception{
         store().preferences.edit().putBoolean("reader_visible",false).putString("tts_engine","cn.zhangsfish.ebook.tests").commit();
         engineMode(false,false);launch();

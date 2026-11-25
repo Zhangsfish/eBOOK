@@ -9,15 +9,15 @@ import java.util.*;
 /** Original-fixture source visible to the REAL system document picker, test APK only. */
 public final class FixtureProvider extends DocumentsProvider {
     private static final String[]ROOTS={DocumentsContract.Root.COLUMN_ROOT_ID,DocumentsContract.Root.COLUMN_DOCUMENT_ID,DocumentsContract.Root.COLUMN_TITLE,DocumentsContract.Root.COLUMN_FLAGS,DocumentsContract.Root.COLUMN_MIME_TYPES};
-    private static final String[]DOCS={DocumentsContract.Document.COLUMN_DOCUMENT_ID,DocumentsContract.Document.COLUMN_DISPLAY_NAME,DocumentsContract.Document.COLUMN_MIME_TYPE,DocumentsContract.Document.COLUMN_SIZE,DocumentsContract.Document.COLUMN_FLAGS};
+    private static final String[]DOCS={DocumentsContract.Document.COLUMN_DOCUMENT_ID,DocumentsContract.Document.COLUMN_DISPLAY_NAME,DocumentsContract.Document.COLUMN_MIME_TYPE,DocumentsContract.Document.COLUMN_SIZE,DocumentsContract.Document.COLUMN_FLAGS,DocumentsContract.Document.COLUMN_LAST_MODIFIED};
     @Override public boolean onCreate(){return true;}
     @Override public Cursor queryRoots(String[]projection){MatrixCursor c=new MatrixCursor(ROOTS);c.addRow(new Object[]{"originals","root","eBOOK 原创测试材料",DocumentsContract.Root.FLAG_LOCAL_ONLY|DocumentsContract.Root.FLAG_SUPPORTS_IS_CHILD,"*/*"});return c;}
     private Set<String>names()throws FileNotFoundException{try{return new HashSet<>(Arrays.asList(getContext().getAssets().list("")));}catch(IOException e){throw new FileNotFoundException();}}
     private void add(MatrixCursor c,String id)throws FileNotFoundException{
-        if(id.equals("root")){c.addRow(new Object[]{id,"eBOOK 原创测试材料",DocumentsContract.Document.MIME_TYPE_DIR,0,0});return;}
+        if(id.equals("root")){c.addRow(new Object[]{id,"eBOOK 原创测试材料",DocumentsContract.Document.MIME_TYPE_DIR,0,0,0});return;}
         if(!names().contains(id)||id.contains("/"))throw new FileNotFoundException();
         long bytes=0;try(InputStream in=getContext().getAssets().open(id)){bytes=in.available();}catch(IOException e){throw new FileNotFoundException();}
-        c.addRow(new Object[]{id,id,id.endsWith(".epub")?"application/epub+zip":"text/plain",bytes,0});
+        c.addRow(new Object[]{id,id,id.endsWith(".epub")?"application/epub+zip":"text/plain",bytes,0,0});
     }
     @Override public Cursor queryDocument(String id,String[]projection)throws FileNotFoundException{MatrixCursor c=new MatrixCursor(DOCS);add(c,id);return c;}
     @Override public Cursor queryChildDocuments(String parent,String[]projection,String sort)throws FileNotFoundException{

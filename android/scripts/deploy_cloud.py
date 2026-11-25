@@ -15,7 +15,9 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     archive = output / (sha + '.zip')
     paths = ['android', 'Tests/Fixtures', 'scripts/generate_long_gb18030_fixture.py']
-    subprocess.run(['git', 'archive', '--format=zip', '-o', str(archive), sha, *paths], cwd=ROOT, check=True)
+    # Git archive otherwise applies this Windows checkout's autocrlf to text.
+    # Compile the exact committed LF blobs, matching Linux CI and manifest hashes.
+    subprocess.run(['git', '-c', 'core.autocrlf=false', 'archive', '--format=zip', '-o', str(archive), sha, *paths], cwd=ROOT, check=True)
     names = subprocess.check_output(['git', 'ls-tree', '-r', '--name-only', sha, '--', *paths], cwd=ROOT, text=True).splitlines()
     files = {name: hashlib.sha256(subprocess.check_output(['git', 'show', sha + ':' + name], cwd=ROOT)).hexdigest() for name in names}
     manifest = output / (sha + '.json')
