@@ -206,6 +206,8 @@ struct ReaderView: View {
     private func playback(_ document: BookDocument, storage: BookStorage) -> some View {
         let active = speech.book?.id == bookID
         return VStack(spacing: 4) {
+            if active && speech.preparing { ProgressView("正在准备本地语音…").font(.caption) }
+            if active, let notice = speech.notice { Text(notice).font(.caption).foregroundStyle(.secondary) }
             HStack {
                 Label(active ? speech.status.rawValue : "本机语音 · 不发送正文", systemImage: "waveform")
                     .font(.caption).foregroundStyle(.secondary)
@@ -260,11 +262,18 @@ struct ReaderSettings: View {
                     }.pickerStyle(.segmented).accessibilityIdentifier("settings.theme")
                 }
                 Section("本机朗读") {
-                    Text("使用设备已有语音，不向云端发送书籍正文。语音质量取决于设备安装的语音。").font(.footnote).foregroundStyle(.secondary)
+                    Text("苏心在手机上合成中文；含英文或不支持字符的段落会提示并使用苹果系统语音。书籍正文不上传。").font(.footnote).foregroundStyle(.secondary)
+                    if library.state.preferences.voiceIdentifier == SuxinSpeechProvider.voiceID {
+                        LabeledContent("苏心语速", value: String(format: "%.2f×", library.state.preferences.suxinRate))
+                        Slider(value: Binding(get: { Double(library.state.preferences.suxinRate) }, set: {
+                            var value = library.state.preferences; value.suxinRate = Float($0); library.setPreferences(value); speech.preferencesChanged()
+                        }), in: 0.5...2, step: 0.05).accessibilityLabel("苏心朗读语速")
+                    } else {
                     LabeledContent("语速", value: String(format: "%.2f", library.state.preferences.speechRate))
                     Slider(value: Binding(get: { Double(library.state.preferences.speechRate) }, set: {
                         var value = library.state.preferences; value.speechRate = Float($0); library.setPreferences(value); speech.preferencesChanged()
                     }), in: 0.35...0.65, step: 0.025).accessibilityLabel("朗读语速")
+                    }
                     Picker("语音", selection: Binding(get: { library.state.preferences.voiceIdentifier ?? "" }, set: {
                         var value = library.state.preferences; value.voiceIdentifier = $0.isEmpty ? nil : $0; library.setPreferences(value); speech.preferencesChanged()
                     })) {

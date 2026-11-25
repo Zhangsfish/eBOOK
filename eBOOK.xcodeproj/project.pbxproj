@@ -5,6 +5,16 @@
   };
   "objectVersion" = "56";
   "objects" = {
+    "7F8E2D8A3444B8A56AAF0293" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.cpp.cpp";
+      "path" = "Sources/NativeTTS/SuxinBridge.cpp";
+      "sourceTree" = "<group>";
+    };
+    "5402231F9E8BA3D245DD0AFA" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 7F8E2D8A3444B8A56AAF0293;
+    };
     "69B68AF4103CA6AE166F33E4" = {
       "isa" = "PBXFileReference";
       "lastKnownFileType" = "sourcecode.swift";
@@ -64,6 +74,16 @@
     "76ABF775CC57BB02AE15E878" = {
       "isa" = "PBXBuildFile";
       "fileRef" = 1707A73120F3449997B5E807;
+    };
+    "358BE2BD357902DC7CE76C09" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/ReaderCore/SuxinSegmentation.swift";
+      "sourceTree" = "<group>";
+    };
+    "F0573C6CC249109095D280A6" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 358BE2BD357902DC7CE76C09;
     };
     "7641C3860F0F1E6922924BA8" = {
       "isa" = "PBXFileReference";
@@ -135,6 +155,16 @@
       "isa" = "PBXBuildFile";
       "fileRef" = 2F179534B19237FA690C7C31;
     };
+    "EE79BBBDF13BB4AE910DA6C6" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/LocalSpeechProvider.swift";
+      "sourceTree" = "<group>";
+    };
+    "D2F816F616A49DD2FB9BBB26" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = EE79BBBDF13BB4AE910DA6C6;
+    };
     "6DC1C2FE43F7B50919AD2B8B" = {
       "isa" = "PBXFileReference";
       "lastKnownFileType" = "sourcecode.swift";
@@ -165,10 +195,40 @@
       "isa" = "PBXBuildFile";
       "fileRef" = 0A4FE6F4F2542E67774BB7D6;
     };
+    "9168B10B25770F0DC717877A" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/SuxinAudioCache.swift";
+      "sourceTree" = "<group>";
+    };
+    "A1FABE4CA82AA82407E03B12" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 9168B10B25770F0DC717877A;
+    };
+    "873C4F2203FE4ABDF85B9651" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/SuxinResources.swift";
+      "sourceTree" = "<group>";
+    };
+    "79FFE5F45B68D2D5B567098F" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 873C4F2203FE4ABDF85B9651;
+    };
+    "1021B72B0D9D2CDF1D07D697" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Sources/eBOOK/SuxinSpeechProvider.swift";
+      "sourceTree" = "<group>";
+    };
+    "BE971C98E5DFB2BD84747EE8" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 1021B72B0D9D2CDF1D07D697;
+    };
     "D10ECEDA0FB53BA093BEC557" = {
       "isa" = "PBXSourcesBuildPhase";
       "buildActionMask" = "2147483647";
-      "files" = (6CFCB5BA22247B1DFA5C54CC, F403CB977EE229940F76B6EE, 7636025D859680B69AB1BFAC, 1BCC5164BE09A5572BFF2815, E26CB29F7EEFE6808E841371, 76ABF775CC57BB02AE15E878, 3FFE71E9EAD6CA8891F87F21, E26AF1C6B10738C05477877E, 46D1F0AA6745AFCA644EB805, 91419960069CF7F62B94D6C8, 630478B50E1C08C4DC0604A2, 8EED4D3A9CC5306D0FA373C9, 6028B447A3521A5762D714A4, E7FB1648257885D381D8B388, 54886AB1ECCB579B3BEC1A12, 51F650EDEB386512751ABA77);
+      "files" = (5402231F9E8BA3D245DD0AFA, 6CFCB5BA22247B1DFA5C54CC, F403CB977EE229940F76B6EE, 7636025D859680B69AB1BFAC, 1BCC5164BE09A5572BFF2815, E26CB29F7EEFE6808E841371, 76ABF775CC57BB02AE15E878, F0573C6CC249109095D280A6, 3FFE71E9EAD6CA8891F87F21, E26AF1C6B10738C05477877E, 46D1F0AA6745AFCA644EB805, 91419960069CF7F62B94D6C8, 630478B50E1C08C4DC0604A2, 8EED4D3A9CC5306D0FA373C9, 6028B447A3521A5762D714A4, D2F816F616A49DD2FB9BBB26, E7FB1648257885D381D8B388, 54886AB1ECCB579B3BEC1A12, 51F650EDEB386512751ABA77, A1FABE4CA82AA82407E03B12, 79FFE5F45B68D2D5B567098F, BE971C98E5DFB2BD84747EE8);
       "runOnlyForDeploymentPostprocessing" = "0";
     };
     "931BA2D924AC2930E41975C6" = {
@@ -201,10 +261,30 @@
       "isa" = "PBXBuildFile";
       "fileRef" = E9836A7C3FC9A3D5D8F0637B;
     };
+    "2734CA45847B95361DABB93B" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Tests/CoreTests/SuxinIntegrationTests.swift";
+      "sourceTree" = "<group>";
+    };
+    "AAEAD3C853118AE3E9C8D187" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 2734CA45847B95361DABB93B;
+    };
+    "9709F7E112C5A2C00F5735FF" = {
+      "isa" = "PBXFileReference";
+      "lastKnownFileType" = "sourcecode.swift";
+      "path" = "Tests/CoreTests/SuxinStateTests.swift";
+      "sourceTree" = "<group>";
+    };
+    "C9CB2008E4D841BFEB080372" = {
+      "isa" = "PBXBuildFile";
+      "fileRef" = 9709F7E112C5A2C00F5735FF;
+    };
     "54131DDE516BCAB9E0E4B61C" = {
       "isa" = "PBXSourcesBuildPhase";
       "buildActionMask" = "2147483647";
-      "files" = (8B4E4FB7AFB9E092130C7117, 833B17A930A959F4E49C6FBD, 4212156F24E2EB412120D46B);
+      "files" = (8B4E4FB7AFB9E092130C7117, 833B17A930A959F4E49C6FBD, 4212156F24E2EB412120D46B, AAEAD3C853118AE3E9C8D187, C9CB2008E4D841BFEB080372);
       "runOnlyForDeploymentPostprocessing" = "0";
     };
     "E42282D783818CA2B6C2D552" = {
@@ -314,7 +394,7 @@
     };
     "C693E23B729D8149C92E7CAB" = {
       "isa" = "PBXGroup";
-      "children" = (69B68AF4103CA6AE166F33E4, BD590413D1C4FCC62A1E2785, 4A98A7C1E08BB38810CC9EC6, 54ED306384930C648DDB300C, 6079CF0FA76DDD950F416A36, 1707A73120F3449997B5E807, 7641C3860F0F1E6922924BA8, CD5943C1AF0D474C1A72E5E9, D8A0A36AC05AFFC262DEEBB7, F31AFBB67015C5FFDD982FBB, 19DC45BABA871FBB2A6D5FC0, F20C9B2DEA43C47E3A2BF6D5, 2F179534B19237FA690C7C31, 6DC1C2FE43F7B50919AD2B8B, 1C09D67F254B39A4743AB8A6, 0A4FE6F4F2542E67774BB7D6, 931BA2D924AC2930E41975C6, F339268FDFE68E2F945FABD9, E9836A7C3FC9A3D5D8F0637B, E42282D783818CA2B6C2D552, 4B235FA667579F4C50873623, 91476BD4B51114700CB2B69F, B8E17FD57F90899CFF0F3969, 5E131388CAD4B0B5BACC6207, D26B9865322B2F1B4905DB7C);
+      "children" = (7F8E2D8A3444B8A56AAF0293, 69B68AF4103CA6AE166F33E4, BD590413D1C4FCC62A1E2785, 4A98A7C1E08BB38810CC9EC6, 54ED306384930C648DDB300C, 6079CF0FA76DDD950F416A36, 1707A73120F3449997B5E807, 358BE2BD357902DC7CE76C09, 7641C3860F0F1E6922924BA8, CD5943C1AF0D474C1A72E5E9, D8A0A36AC05AFFC262DEEBB7, F31AFBB67015C5FFDD982FBB, 19DC45BABA871FBB2A6D5FC0, F20C9B2DEA43C47E3A2BF6D5, 2F179534B19237FA690C7C31, EE79BBBDF13BB4AE910DA6C6, 6DC1C2FE43F7B50919AD2B8B, 1C09D67F254B39A4743AB8A6, 0A4FE6F4F2542E67774BB7D6, 9168B10B25770F0DC717877A, 873C4F2203FE4ABDF85B9651, 1021B72B0D9D2CDF1D07D697, 931BA2D924AC2930E41975C6, F339268FDFE68E2F945FABD9, E9836A7C3FC9A3D5D8F0637B, 2734CA45847B95361DABB93B, 9709F7E112C5A2C00F5735FF, E42282D783818CA2B6C2D552, 4B235FA667579F4C50873623, 91476BD4B51114700CB2B69F, B8E17FD57F90899CFF0F3969, 5E131388CAD4B0B5BACC6207, D26B9865322B2F1B4905DB7C);
       "name" = "Source and Tests";
       "sourceTree" = "<group>";
     };
@@ -383,7 +463,10 @@
         "MARKETING_VERSION" = "0.1.0";
         "CURRENT_PROJECT_VERSION" = "1";
         "ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
-        "OTHER_LDFLAGS" = ("$(inherited)", "-lz");
+        "SWIFT_OBJC_BRIDGING_HEADER" = "Sources/NativeTTS/SuxinBridge.h";
+        "CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
+        "CLANG_CXX_LIBRARY" = "libc++";
+        "OTHER_LDFLAGS" = ("$(inherited)", "-lz", "-lc++", "-framework", "CoreML");
         "LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks");
         "SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
         "SUPPORTS_MACCATALYST" = "NO";
@@ -407,7 +490,10 @@
         "MARKETING_VERSION" = "0.1.0";
         "CURRENT_PROJECT_VERSION" = "1";
         "ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
-        "OTHER_LDFLAGS" = ("$(inherited)", "-lz");
+        "SWIFT_OBJC_BRIDGING_HEADER" = "Sources/NativeTTS/SuxinBridge.h";
+        "CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
+        "CLANG_CXX_LIBRARY" = "libc++";
+        "OTHER_LDFLAGS" = ("$(inherited)", "-lz", "-lc++", "-framework", "CoreML");
         "LD_RUNPATH_SEARCH_PATHS" = ("$(inherited)", "@executable_path/Frameworks");
         "SUPPORTED_PLATFORMS" = "iphoneos iphonesimulator";
         "SUPPORTS_MACCATALYST" = "NO";
@@ -495,12 +581,36 @@
       "defaultConfigurationIsVisible" = "0";
       "defaultConfigurationName" = "Release";
     };
+    "433B1922AB5ADA513776EBD4" = {
+      "isa" = "XCRemoteSwiftPackageReference";
+      "repositoryURL" = "https://github.com/csukuangfj/onnxruntime-libs";
+      "requirement" = {
+        "kind" = "revision";
+        "revision" = "8ebc5ebf92190903c274a7621ba4c96a732335ec";
+      };
+    };
+    "AC894EA47BEB958003ABA86B" = {
+      "isa" = "XCSwiftPackageProductDependency";
+      "package" = 433B1922AB5ADA513776EBD4;
+      "productName" = "onnxruntime-ios";
+    };
+    "7E748A09A1DD341F13D65D7C" = {
+      "isa" = "PBXBuildFile";
+      "productRef" = AC894EA47BEB958003ABA86B;
+    };
+    "C19A4328C9961E8F8A7CF4CD" = {
+      "isa" = "PBXFrameworksBuildPhase";
+      "buildActionMask" = "2147483647";
+      "files" = (7E748A09A1DD341F13D65D7C);
+      "runOnlyForDeploymentPostprocessing" = "0";
+    };
     "29C7B681C8D62CBAC94D51C0" = {
       "isa" = "PBXNativeTarget";
       "buildConfigurationList" = 9EA62D25DFD1EFBA21F6DE7B;
-      "buildPhases" = (D10ECEDA0FB53BA093BEC557, C84B5C31679C986BFD935BC6);
+      "buildPhases" = (D10ECEDA0FB53BA093BEC557, C19A4328C9961E8F8A7CF4CD, C84B5C31679C986BFD935BC6);
       "buildRules" = ();
       "dependencies" = ();
+      "packageProductDependencies" = (AC894EA47BEB958003ABA86B);
       "name" = "eBOOK";
       "productName" = "eBOOK";
       "productReference" = 58A73451568A501AFD176D5B;
@@ -571,6 +681,7 @@
       "knownRegions" = ("zh_CN", "en", "Base");
       "mainGroup" = ADCF10F76EBF2A74473E9DC4;
       "productRefGroup" = 00C45FD35CB0F9C5F764F070;
+      "packageReferences" = (433B1922AB5ADA513776EBD4);
       "projectDirPath" = "";
       "projectRoot" = "";
       "targets" = (29C7B681C8D62CBAC94D51C0, D87D2E1433A2F67CAD848144, D885EAB5F107CE2125FBB402);

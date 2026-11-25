@@ -21,6 +21,8 @@ public struct SpeechRequest: Sendable {
 }
 
 public enum SpeechEvent: Sendable, Equatable {
+    case preparing(Bool)
+    case notice(String?)
     case started
     case range(startUTF16: Int, length: Int)
     case finished
@@ -38,6 +40,11 @@ public enum SpeechEvent: Sendable, Equatable {
     func pause()
     func resume() throws
     func cancel()
+    func prefetch(_ request: SpeechRequest)
+}
+
+public extension SpeechProvider {
+    func prefetch(_ request: SpeechRequest) {}
 }
 
 public struct FutureAudioAsset: Sendable {

@@ -134,12 +134,25 @@ public struct ReaderPreferences: Codable, Equatable, Sendable {
     public var lineSpacing: Double = 9
     public var theme: ReaderTheme = .warm
     public var speechRate: Float = 0.5
+    public var suxinRate: Float = 1
     public var voiceIdentifier: String?
     public init() {}
+    private enum CodingKeys: String, CodingKey { case fontSize, lineSpacing, theme, speechRate, suxinRate, voiceIdentifier }
+    public init(from decoder: Decoder) throws {
+        let fields = try decoder.container(keyedBy: CodingKeys.self)
+        fontSize = try fields.decodeIfPresent(Double.self, forKey: .fontSize) ?? 21
+        lineSpacing = try fields.decodeIfPresent(Double.self, forKey: .lineSpacing) ?? 9
+        theme = try fields.decodeIfPresent(ReaderTheme.self, forKey: .theme) ?? .warm
+        speechRate = try fields.decodeIfPresent(Float.self, forKey: .speechRate) ?? 0.5
+        suxinRate = try fields.decodeIfPresent(Float.self, forKey: .suxinRate) ?? 1
+        voiceIdentifier = try fields.decodeIfPresent(String.self, forKey: .voiceIdentifier)
+        validate()
+    }
     public mutating func validate() {
         fontSize = fontSize.isFinite ? min(36, max(14, fontSize)) : 21
         lineSpacing = lineSpacing.isFinite ? min(24, max(0, lineSpacing)) : 9
         speechRate = speechRate.isFinite ? min(0.65, max(0.35, speechRate)) : 0.5
+        suxinRate = suxinRate.isFinite ? min(2, max(0.5, suxinRate)) : 1
     }
 }
 
