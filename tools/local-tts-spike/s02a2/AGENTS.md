@@ -55,3 +55,11 @@ Base after safe fast-forward: d41b80d (full SHA is recorded in delivery).
   sign/install/run anything. Physical device, 15 min, heat and battery NOT_RUN.
 - Product NO_GO; recommend existing Apple system speech. Delivery READY_FOR_AUDIT
   with device/license/Suxin-approval blockers. No S02B, merge or further research.
+
+## S02A.3 owner decision supersedes the earlier stop (2026-11-25)
+
+The owner **reversed the assistant's Apple-only NO-GO recommendation** and is explicitly authorizing real Suxin-Light evaluation. Matcha is the preferred currently working AI candidate. The earlier sentence "New package installation requires the pending owner confirmation" described the *previous* S02A.2 state; it is no longer a blocker for the newly authorized S02A.3 test.
+
+For Issue #10 only, install the **minimum free, pinned Suxin frontend packages into a new project-isolated venv under ignored .local-test-data/s02a2/** with version/hash and transitive-license checks. Never change global/system Python or existing unrelated environments. This grants no rights to redistribute those packages in a public iOS app.
+
+Read tasks/S02A3_SUXIN_MATCHA_LISTENING.md and tasks/CODEX_HANDOFF_S02A3.md first. Suxin load-only is NOT_RUN_VOICE, not a negative quality result. Produce real same-text speech and a local owner-listening comparison; the owner, not the agent, judges voice quality. Report accurate technical/runtime and license conditions separately. Do not begin production integration or auto-merge.
