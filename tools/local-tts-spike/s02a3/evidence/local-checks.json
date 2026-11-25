@@ -1,0 +1,24 @@
+{
+  "status": "PASS_LOCAL_DELIVERY_CHECKS",
+  "date": "2026-11-25",
+  "timezone": "Asia/Shanghai",
+  "host": "Windows",
+  "python": "3.11.11",
+  "unit_tests": {
+    "command": "python -m unittest discover -s tools/local-tts-spike/Tests -q",
+    "total": 50,
+    "passed": 50,
+    "failures": 0,
+    "skipped": 0
+  },
+  "xcode_project_generation_check": "PASS",
+  "project_venv_pip_check": "PASS",
+  "all_new_python_and_json_syntax": "PASS",
+  "runtime_source_pairs_verified": 21,
+  "public_scope_and_gitignore_check": "PASS",
+  "production_sources_tests_project_status_changes": false,
+  "frozen_s01_and_reader_worktrees": "PASS",
+  "windows_local_xcode": "NOT_AVAILABLE_NATIVE_EVIDENCE_IS_FROM_ACTUAL_CI",
+  "native_graph_ci": "https://github.com/Zhangsfish/eBOOK/actions/runs/45584309079",
+  "physical_device": "NOT_RUN"
+}

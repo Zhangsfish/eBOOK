@@ -1,0 +1,212 @@
+{
+  "status": "COMPLETED_MEASUREMENTS_DEVICE_NOT_RUN",
+  "phase": "suxin-backend",
+  "source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+  "host": "Darwin",
+  "host_architecture": "arm64",
+  "measurements": [
+    {
+      "end_to_end_native_text": false,
+      "environment": "IOS_SIMULATOR",
+      "frontend_mode": "AUTHOR_PYTHON_FRONTEND_PRECOMPUTED_IDS",
+      "genuine_ios_graph_inference": true,
+      "ios_version": "Version 18.5 (Build 22F77)",
+      "kind": "suxin_backend",
+      "model_initialization_seconds": 3.358245625,
+      "records": [
+        {
+          "duration_seconds": 7.558095238095238,
+          "first_callback_seconds": null,
+          "first_output_probe": {
+            "first_output_render_seconds": 11.273217666666682,
+            "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+            "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+            "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+          },
+          "fixture_id": "narration",
+          "frames": 166656,
+          "generation_seconds": 5.883331542,
+          "process_peak_rss_cumulative_bytes": 240861184,
+          "rms": 0.07370779891612146,
+          "rtf": 0.7784145815398185,
+          "sample_rate": 22050,
+          "text_sha256": "5dee6c4b07f47c5301b3ef14e107b7636430474b6b209d77d2fe43d18557dda0",
+          "wav_sha256": "5969f426a85d33488155e2ccfa22100ead6b08437b8eb74a9866e591772ccfe3"
+        },
+        {
+          "duration_seconds": 6.072018140589569,
+          "first_callback_seconds": null,
+          "fixture_id": "dialogue",
+          "frames": 133888,
+          "generation_seconds": 7.35072575,
+          "process_peak_rss_cumulative_bytes": 245760000,
+          "rms": 0.07512156414091221,
+          "rtf": 1.2105902156093151,
+          "sample_rate": 22050,
+          "text_sha256": "97423ca7289a704fe46fadebf9f3bf52faa4d315c62ce1c43fd6c571ceec7440",
+          "wav_sha256": "8a18aba8a5dcfac1e5c4dcecf5c1cd29e9cf967e6e560bdaeba6e254ba012ae7"
+        },
+        {
+          "duration_seconds": 9.299591836734693,
+          "first_callback_seconds": null,
+          "fixture_id": "numbers",
+          "frames": 205056,
+          "generation_seconds": 4.711498375,
+          "process_peak_rss_cumulative_bytes": 254115840,
+          "rms": 0.0670342455721219,
+          "rtf": 0.5066349639549684,
+          "sample_rate": 22050,
+          "text_sha256": "3d070a0a15d8c3f1bf030e5a080b41b46bdd747a733ee742844c802c358ce800",
+          "wav_sha256": "24558c7e0063787146031a03dc1ff3fbb1d9ab5e78f85b3313af419112f92dc7"
+        },
+        {
+          "duration_seconds": 6.791836734693877,
+          "first_callback_seconds": null,
+          "fixture_id": "polyphones",
+          "frames": 149760,
+          "generation_seconds": 1.753007833,
+          "process_peak_rss_cumulative_bytes": 255180800,
+          "rms": 0.0745324731127929,
+          "rtf": 0.2581051196424279,
+          "sample_rate": 22050,
+          "text_sha256": "9420c398189c751a4ae732e16506a53a29f312489029c85f05fcd5243fb3e74e",
+          "wav_sha256": "50a8507fc466cb9e8cf5dfde14b263a502cfc8e2ebe513a6b1dcbca00454f42c"
+        },
+        {
+          "duration_seconds": 5.8165986394557825,
+          "first_callback_seconds": null,
+          "fixture_id": "mixed",
+          "frames": 128256,
+          "generation_seconds": 1.572301833,
+          "process_peak_rss_cumulative_bytes": 255180800,
+          "rms": 0.07067702621276277,
+          "rtf": 0.2703129320862182,
+          "sample_rate": 22050,
+          "text_sha256": "b4cb9661f27228f208ac613a2c925602d447213f3e84ea00602ec6ad8b214d46",
+          "wav_sha256": "ba7d139504ae3e7f7c09efd309cf137985a77b6df3e15186d7e935f939902e9b"
+        }
+      ],
+      "run_context": {
+        "corpus_sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+        "phase": "suxin-backend",
+        "precomputed_frontend_provenance": {
+          "author_revision": "5ee2da546f3635da263602842d238d8624cb7a81",
+          "end_to_end_native_text": false,
+          "frontend_mode": "AUTHOR_PYTHON_FRONTEND_PRECOMPUTED_IDS",
+          "prepared_ids_sha256": "f07ac7e64ad94dcef10e1504dcd89a72a70a5b646705eb148293b1dc406c474e",
+          "validated_cases": 5
+        },
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b"
+      },
+      "runtime": {
+        "available_providers": [
+          "CoreMLExecutionProvider",
+          "XnnpackExecutionProvider",
+          "CPUExecutionProvider"
+        ],
+        "ort_version": "1.28.2",
+        "status": "RUNTIME_ENUMERATED"
+      },
+      "status": "BACKEND_ONLY_NATIVE_FRONTEND_NOT_IMPLEMENTED",
+      "threads": 4,
+      "statistics": {
+        "mean_rtf": 0.6048115625665497,
+        "p95_rtf_nearest_rank": 1.2105902156093151,
+        "weighted_rtf": 0.5985362481019403,
+        "peak_process_rss_bytes": 255180800
+      },
+      "test_method": "testSuxinBackendOnly"
+    }
+  ],
+  "physical_device": "DEVICE_NOT_RUN",
+  "thermal": "DEVICE_NOT_RUN",
+  "battery": "DEVICE_NOT_RUN",
+  "locked_screen_playback": "DEVICE_NOT_RUN",
+  "human_quality": "OWNER_LISTENING_PENDING",
+  "genuine_ios_inference": false,
+  "genuine_ios_graph_inference": true,
+  "production_app_changed": false,
+  "cloud_tts_calls": 0,
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "simulator_name": "iPhone 16 Pro",
+  "xcode_version": "Xcode 16.4\nBuild version 16F6",
+  "host_cpu": "Apple M1 (Virtual)",
+  "precomputed_frontend_provenance": {
+    "prepared_ids_sha256": "f07ac7e64ad94dcef10e1504dcd89a72a70a5b646705eb148293b1dc406c474e",
+    "frontend_mode": "AUTHOR_PYTHON_FRONTEND_PRECOMPUTED_IDS",
+    "end_to_end_native_text": false,
+    "author_revision": "5ee2da546f3635da263602842d238d8624cb7a81",
+    "validated_cases": 5
+  },
+  "commands": [
+    {
+      "name": "resolve",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-suxin-backend-143856f8dcc34091955ef0dc968374a7/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-suxin-backend-143856f8dcc34091955ef0dc968374a7/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resolvePackageDependencies"
+      ],
+      "timeout_seconds": 300
+    },
+    {
+      "name": "build",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-suxin-backend-143856f8dcc34091955ef0dc968374a7/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-suxin-backend-143856f8dcc34091955ef0dc968374a7/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "build-for-testing"
+      ],
+      "timeout_seconds": 600
+    },
+    {
+      "name": "suxin",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-suxin-backend-143856f8dcc34091955ef0dc968374a7/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-suxin-backend-143856f8dcc34091955ef0dc968374a7/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-suxin-backend-143856f8dcc34091955ef0dc968374a7/suxin.xcresult",
+        "-only-testing:LocalTTSSpikeTests/MobileCandidateTests/testSuxinBackendOnly",
+        "test-without-building"
+      ],
+      "timeout_seconds": 600
+    }
+  ],
+  "actual_resolved_source_revisions": {
+    "sherpa-onnx": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+    "onnxruntime-libs": "8ebc5ebf92190903c274a7621ba4c96a732335ec"
+  },
+  "build_exit_code": 0,
+  "decision": "EXPERIMENTAL_CANDIDATE_DEVICE_FRONTEND_LICENSE_AND_OWNER_GATES_PENDING"
+}

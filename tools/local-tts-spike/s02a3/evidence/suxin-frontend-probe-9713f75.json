@@ -1,0 +1,48 @@
+{
+  "environment": "WINDOWS_DESKTOP_CPU",
+  "status": "PASS_ACTUAL_AUTHOR_FRONTEND_AND_WARM_SPEECH",
+  "source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+  "source_file_sha256": "24fdc1ad1ca3ff61987592445fae8611e809c889f104fd5d12bbfff35791ba62",
+  "text_sha256": "b4cb9661f27228f208ac613a2c925602d447213f3e84ea00602ec6ad8b214d46",
+  "fixture_id": "mixed",
+  "threads": 4,
+  "genuine_ios_inference": false,
+  "human_quality": "OWNER_PREFERS_SUXIN_SHORT_AUDITION",
+  "cloud_requests": 0,
+  "frontend_prepare_seconds": [
+    0.5984777999983635,
+    0.006161500001326203
+  ],
+  "warmed_speech": [
+    {
+      "sample_rate": 22050,
+      "frames": 120902,
+      "duration_seconds": 5.483083900226758,
+      "rms": 0.07471244838286337,
+      "float_peak": 0.48381710052490234,
+      "clipped_sample_fraction": 0.0,
+      "wav_local_name": "mixed-warm-0.wav",
+      "wav_sha256": "01156954c3228e845785111b5be05ba8aa87251e0ed77e8da4536052b9999238",
+      "wav_bytes": 241848,
+      "generation_seconds": 0.2386703999945894,
+      "rtf": 0.043528496798073614
+    },
+    {
+      "sample_rate": 22050,
+      "frames": 120902,
+      "duration_seconds": 5.483083900226758,
+      "rms": 0.07471244838286337,
+      "float_peak": 0.48381710052490234,
+      "clipped_sample_fraction": 0.0,
+      "wav_local_name": "mixed-warm-1.wav",
+      "wav_sha256": "01156954c3228e845785111b5be05ba8aa87251e0ed77e8da4536052b9999238",
+      "wav_bytes": 241848,
+      "generation_seconds": 0.24054710002383217,
+      "rtf": 0.04387076769222593
+    }
+  ],
+  "physical_first_audible": "NOT_RUN",
+  "model_initialization_seconds": 5.379893300007097,
+  "missing_phonemes": [],
+  "peak_process_rss_bytes": 255922176
+}

@@ -1,6 +1,28 @@
 # S02A isolated mobile TTS experiments
 
-## Current: Issue #9 / S02A.2
+## Current: Issue #10 / S02A.3
+
+真实Suxin作者前端已运行，五段原创中文/混读WAV和Matcha同文离线试听包已交付。
+用户听后明确“更喜欢Suxin-Light”：Suxin现在是优先音色候选，Matcha保留，Kokoro暂停。
+音频/模型/HTML/ZIP只在忽略目录；准确本地路径见
+[S02A.3报告](../../reports/S02A3_SUXIN_MATCHA_LISTENING.md)。不上传声音或模型。
+
+- Desktop a7b073d：Suxin实际文字到语音，初始加载8.418s，加权RTF0.2495，
+  峰值265641984bytes。首次mixed的RTF1.049保留；单独预热补测RTF0.0435/0.0439。
+- [Native9713f75 / run45584309079](https://github.com/Zhangsfish/eBOOK/actions/runs/45584309079)：
+  Xcode16.4、ARM64 iOS18.5，真实图推理/五个WAV，初始化3.358s、加权RTF0.5985、
+  p95=1.2106、峰值255180800bytes。使用作者生成的预计算ID，**不是完整原生文字前端**。
+  完整首段混音11.273s，不是手机5秒首声通过。没有导出CI音频，只有核验过的小JSON。
+- 新venv内13个官方PyPI wheel经版本/字节/SHA和许可证声明核对后离线安装，
+  pip check通过；固定版本/哈希见 `s02a3/manifests/`，未改全局Python。
+- 完整Swift前端、真机、连续播放、热/电量及分发许可仍有独立门槛；
+  不把这些未完成项写成试听失败。具体工程工作量、ASR差异及旧CI失败均见报告。
+
+状态 **READY_FOR_AUDIT / OWNER_PREFERS_SUXIN_SHORT_AUDITION_CONFIRMED**。
+不自行合并、不开始S02B或正式发布。原始metrics中的OWNER_LISTENING_PENDING保留
+生成时快照；当前选择以 `s02a3/evidence/owner-decision.json` 为准，不伪造历史评分。
+
+## Historical: Issue #9 / S02A.2 (superseded owner decision)
 
 The owner's Issue #9 supersedes the historical Kokoro-only choice below. The
 current handoff is [S02A.2 measured report](../../reports/S02A2_MOBILE_TTS_EVALUATION.md).

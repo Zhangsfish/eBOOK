@@ -1,0 +1,56 @@
+{
+  "status": "LOCAL_ASR_TRANSCRIPTS_REVIEW_ONLY_NOT_OWNER_RATING",
+  "faster_whisper": "1.2.1",
+  "ctranslate2": "4.8.2",
+  "model": "local faster-whisper-large-v3",
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "cloud_requests": 0,
+  "new_model_download": false,
+  "input_metrics_sha256": "edf3d35b08a6d778ae252ab55943f573f385fd9e18388793d9ba24e8ffc3722e",
+  "records": [
+    {
+      "fixture_id": "narration",
+      "text_sha256": "5dee6c4b07f47c5301b3ef14e107b7636430474b6b209d77d2fe43d18557dda0",
+      "wav_sha256": "1349d7c9f7a3fb084b24660efb0c5953bbcb7df2e598cf2e1378b03665ce1768",
+      "transcription": "清晨的河岸很安静,薄雾沿着石阶慢慢散开,小明和尚笔记,听见远处传来的一声鸟鸣。",
+      "asr_seconds": 5.9633395000128075,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "dialogue",
+      "text_sha256": "97423ca7289a704fe46fadebf9f3bf52faa4d315c62ce1c43fd6c571ceec7440",
+      "wav_sha256": "c9a65e67541224454142a3a12d46d843b992a3f9734ce34ed87a847180591389",
+      "transcription": "你今天还去图书馆吗?向您问去,不过我们慢一点走朋友笑着回答",
+      "asr_seconds": 1.4742810000025202,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "numbers",
+      "text_sha256": "3d070a0a15d8c3f1bf030e5a080b41b46bdd747a733ee742844c802c358ce800",
+      "wav_sha256": "21532ecb9437584462cdb57fa0483098890a060e011dc8a0fae2f94115751fe4",
+      "transcription": "今天是2026年11月24日气温18.5摄氏度书架上有1724本书车票价格是36元",
+      "asr_seconds": 1.994364400015911,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "polyphones",
+      "text_sha256": "9420c398189c751a4ae732e16506a53a29f312489029c85f05fcd5243fb3e74e",
+      "wav_sha256": "b1e162cfdcc665102a2fffa9d816c18049a9e341ac055f799d2edd771c05b180",
+      "transcription": "野航旁边的行人道正在施工,想您重新整理行李,认真比较两种重量不同的乐器。",
+      "asr_seconds": 1.754864999995334,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "mixed",
+      "text_sha256": "b4cb9661f27228f208ac613a2c925602d447213f3e84ea00602ec6ad8b214d46",
+      "wav_sha256": "01156954c3228e845785111b5be05ba8aa87251e0ed77e8da4536052b9999238",
+      "transcription": "请打开追逐选择微发压载。准备好后,按破一开始,再按破三停。",
+      "asr_seconds": 1.5769542999914847,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    }
+  ],
+  "audio_source_sha": "a7b073d572fe7e4862679678dc872f0887a5e19d",
+  "asr_script_generation_sha": "ec7f80ebfbb55f359e4c0e3c2c0991fa8d3a0458",
+  "original_private_result_sha256": "e621226f3fc645fae7db2a2c3e7a0fdafb546db6069ede2a6b152a6a0f1426d6"
+}

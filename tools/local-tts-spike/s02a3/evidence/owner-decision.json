@@ -1,0 +1,13 @@
+{
+  "state": "OWNER_PREFERS_SUXIN_SHORT_AUDITION_CONFIRMED",
+  "date": "2026-11-25",
+  "timezone": "Asia/Shanghai",
+  "source": "Owner reply to same-text listening preference question in this session",
+  "owner_quote": "更喜欢 Suxin-Light",
+  "preferred_voice_candidate": "Suxin-Light",
+  "matcha": "RETAIN_AS_BACKUP_CANDIDATE",
+  "ratings_invented": false,
+  "physical_device_approval": false,
+  "long_session_acceptance": "NOT_RUN",
+  "production_integration_authorized": false
+}

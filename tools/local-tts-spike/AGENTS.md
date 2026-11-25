@@ -3,7 +3,9 @@
 ## Current authorization: Issue #10 / S02A.3 (2026-11-25)
 The owner supersedes the historical Apple-only recommendation and authorizes
 actual Suxin-Light audition with pinned free dependencies in a NEW ignored venv.
-Matcha is the current preferred AI candidate; the owner decides voice suitability.
+Matcha was the starting preferred candidate; after actual same-text audition the
+owner replied "更喜欢 Suxin-Light". Suxin is now the preferred voice candidate,
+with Matcha retained; this does not approve phone performance or redistribution.
 Kokoro is paused, with no new candidates/cloud TTS. Continue PR #7 / this branch.
 Read tasks/S02A3_SUXIN_MATCHA_LISTENING.md, CODEX_HANDOFF_S02A3.md and
 s02a3/AGENTS.md. New report: reports/S02A3_SUXIN_MATCHA_LISTENING.md.

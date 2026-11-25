@@ -1,0 +1,31 @@
+{
+  "state": "READY_FOR_AUDIT",
+  "owner_voice_state": "OWNER_PREFERS_SUXIN_SHORT_AUDITION_CONFIRMED",
+  "pre_task_reader_pr5_merge_sha": "83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656",
+  "attempts": [
+    {
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45583501783",
+      "source_sha": "bcb6a383e4649e122cffffa28204dd1111ae50e8",
+      "result": "FAIL_PREFLIGHT_49_PASSED_1_HASH_ERROR_NATIVE_NOT_RUN",
+      "reason": "Git newline conversion changed exact bytes of author-exported ID JSON. Hash rejection retained; exact source bytes restored, no phoneme edits.",
+      "decoded_log_sha256": "db5eca274528a50e758663410ba149128430348d4ddef36025951b8f6229fc42"
+    },
+    {
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45584309079",
+      "source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "result": "PASS_IOS_ARM64_GRAPH_BACKEND_ONLY",
+      "python_preflight_tests": 50,
+      "xcode_named_method": "testSuxinBackendOnly",
+      "actual_original_case_waveforms": 5,
+      "end_to_end_native_text": false,
+      "decoded_log_lf_sha256": "296aa2968fe9c52700e40797e11507498743d43cf7e7ba453b81ce83f5a34ccb",
+      "artifact_sha256": "393097b866ff54552a02eeff4dde5225134d9969b9bca374856c8005606a1261",
+      "artifact_model_or_audio_count": 0
+    }
+  ],
+  "full_native_frontend": "NOT_IMPLEMENTED",
+  "physical_device": "NOT_RUN",
+  "long_session_heat_battery": "NOT_RUN",
+  "redistribution_clearance": "NOT_CLEARED",
+  "s02b": "NOT_STARTED"
+}

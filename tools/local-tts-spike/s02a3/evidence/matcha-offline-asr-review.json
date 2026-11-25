@@ -1,0 +1,56 @@
+{
+  "status": "LOCAL_ASR_TRANSCRIPTS_REVIEW_ONLY_NOT_OWNER_RATING",
+  "faster_whisper": "1.2.1",
+  "ctranslate2": "4.8.2",
+  "model": "local faster-whisper-large-v3",
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "cloud_requests": 0,
+  "new_model_download": false,
+  "input_metrics_sha256": "79055523f750e5891d03083b86fb5c0c166e90ed26198901f139898d0559d5eb",
+  "records": [
+    {
+      "fixture_id": "narration",
+      "text_sha256": "5dee6c4b07f47c5301b3ef14e107b7636430474b6b209d77d2fe43d18557dda0",
+      "wav_sha256": "f4361555fa77d60e14c2c163409b0fd79203b6ace3e2cec89ef1bf6d3d20f33b",
+      "transcription": "清晨的河岸很安靜薄雾沿着时间慢慢散开小宁和尚笔记听见远处传来第一声鸟鸣",
+      "asr_seconds": 8.567106400005287,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "dialogue",
+      "text_sha256": "97423ca7289a704fe46fadebf9f3bf52faa4d315c62ce1c43fd6c571ceec7440",
+      "wav_sha256": "1d795174555bf310bceaee58e9d7d3942219cfc585d6b34ef29e8b30f9c72614",
+      "transcription": "你今天还去图书馆吗?小宁问,去,不过我们慢一点走朋友笑着回答",
+      "asr_seconds": 4.165558700013207,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "numbers",
+      "text_sha256": "3d070a0a15d8c3f1bf030e5a080b41b46bdd747a733ee742844c802c358ce800",
+      "wav_sha256": "f78d980b9fbd13b780ca4ca13092f0597c6bd7206c9f211abb9c09edf415d93f",
+      "transcription": "今天是2026年11月24日气温18.5摄氏度书架上有1024本书车票价格是36元",
+      "asr_seconds": 5.11831630000961,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "polyphones",
+      "text_sha256": "9420c398189c751a4ae732e16506a53a29f312489029c85f05fcd5243fb3e74e",
+      "wav_sha256": "617533856e0f096f0f9b3a0b9c06665474e8f44cbb73bd0d3cb0ff83e721f43b",
+      "transcription": "银行旁边的行人道正在施工小宁重新整理行李认真比较两种重量不同的乐器",
+      "asr_seconds": 4.37688490000437,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    },
+    {
+      "fixture_id": "mixed",
+      "text_sha256": "b4cb9661f27228f208ac613a2c925602d447213f3e84ea00602ec6ad8b214d46",
+      "wav_sha256": "a4e2c6bae4f3d88baf9c53ab2f03cdc1dd5940727c15a96baad5552b9933481d",
+      "transcription": "请打开,选择下载,准备好后,按开始,再按暂停。",
+      "asr_seconds": 3.2193843999993987,
+      "interpretation": "Machine transcript only; pronunciation and sound require owner listening."
+    }
+  ],
+  "audio_source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0",
+  "asr_script_generation_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+  "original_private_result_sha256": "9892a49a4f01d93a8b1937fe1f1e95a1c2d8416c6b93baca3c4ed14d0fa6232b"
+}

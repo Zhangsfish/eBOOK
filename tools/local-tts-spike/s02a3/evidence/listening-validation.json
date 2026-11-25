@@ -1,0 +1,105 @@
+{
+  "state": "PASS_PRIVATE_PAGE_REAL_BROWSER_DECODE_MUTED_PLAYBACK",
+  "browser": "157.0.8103.79",
+  "audio": [
+    {
+      "file": "audio/B-narration.wav",
+      "duration": 7.306213,
+      "currentTime": 0.134615,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/A-narration.wav",
+      "duration": 8.034921,
+      "currentTime": 0.140331,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/B-dialogue.wav",
+      "duration": 5.50585,
+      "currentTime": 0.131747,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/A-dialogue.wav",
+      "duration": 6.28712,
+      "currentTime": 0.110132,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/B-numbers.wav",
+      "duration": 9.229025,
+      "currentTime": 0.131539,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/A-numbers.wav",
+      "duration": 9.80195,
+      "currentTime": 0.129278,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/B-polyphones.wav",
+      "duration": 6.526168,
+      "currentTime": 0.114215,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/A-polyphones.wav",
+      "duration": 7.210068,
+      "currentTime": 0.117025,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/B-mixed.wav",
+      "duration": 5.483084,
+      "currentTime": 0.131713,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    },
+    {
+      "file": "audio/A-mixed.wav",
+      "duration": 4.805125,
+      "currentTime": 0.131489,
+      "paused": false,
+      "readyState": 4,
+      "mediaError": null
+    }
+  ],
+  "initialScoresBlank": true,
+  "singlePlayer": true,
+  "mobileNoOverflow": true,
+  "externalRequests": [],
+  "errors": [],
+  "acousticPlayback": "NOT_MEASURED_MUTED_BROWSER",
+  "sourceHtmlSha256": "ede8b7d9135d3984d809099120b6f5f8c514c90d1a5f7f852833069e2f3ec82e",
+  "zip_sha256": "4b379a6e89ef17e35320cf8d83281af8f6dcaf87a45710189e617a788840906f",
+  "zip_bytes": 2648067,
+  "zip_crc_and_10_wave_hashes_verified": true,
+  "full_ffmpeg_decode": "10/10 PASS",
+  "local_page": "E:\\myself\\eBOOK-s02a\\.local-test-data\\s02a2\\s02a3\\listening\\matcha-suxin-a748670b89de4ea490939d42ffdf0c09\\index.html",
+  "local_zip": "E:\\myself\\eBOOK-s02a\\.local-test-data\\s02a2\\s02a3\\listening\\matcha-suxin-a748670b89de4ea490939d42ffdf0c09.zip",
+  "owner_choice": "Suxin-Light; Matcha retained",
+  "physical_device": "NOT_RUN",
+  "package_generator_sha256": "7de2ac17e7cb7f56110cc2e9329de9e73dae1d0a3e2e6fc7318b68e1538e3ba7",
+  "browser_checker_sha256": "94c0c779778e28f05d3948c4e3eabd0cc2af1feb22194610ba7a0b4d0532ff66",
+  "package_generator_execution": "Working-tree code pinned by SHA256; final delivery preserves this exact script",
+  "desktop_and_mobile_screenshots_visually_inspected": true
+}
