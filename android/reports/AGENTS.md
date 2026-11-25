@@ -48,7 +48,20 @@ Native CI is still being debugged, NOT PASS. Early runs:
  panel's status references; fixed by checking dialog identity. Background task
  return check must accept the app's dialog window focus. Test engine error path
  must call SynthesisCallback.done() after error(), per official Android contract.
- These three fixes require a fresh native run. API30 still running at last check.
+ Fixed in5d85816. Run45660422346 API35 passed21/21 main +4/4 resume; screenshots
+ visually checked unobscured, signed AutoDL APK payload exactly matches tested
+ unsigned payload. API30 AOSP grid failed to activate file through accessibility
+ click; old resume then timed out without a checkpoint. Fresh harness uses a real
+ injected touchscreen tap at the observed file bounds and skips invalid resume
+ when main never reaches a checkpoint. This is a test-only change; production
+ app source/payload remains5d85816. Run45660422346 cancelled remaining API30 job.
+
+Cloud final candidate5d85816:61,913bytes; official v2/v3 verification PASS, same
+upgrade certificate. APK + metadata/core evidence recovered under ignored
+.local-test-data/cloud-results/5d85816/. At2026-11-26 01:06 Asia/Shanghai, signing
+DPAPI backup reverified, private-signing folder removed. CPU151 shutdown clicked
+and console visibly confirmed 已关机 at approximately01:07. No further cloud
+operations without intentionally starting this same authorized task instance.
 
 Actual native suite expects21 main +4 resume cases PER API30/35. Process killed
 between phases. Test-only PCM engine tests Android callbacks; never a Huawei voice

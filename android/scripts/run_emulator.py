@@ -135,6 +135,8 @@ def main():
             report = json.loads((OUT / ('results-' + phase + '.json')).read_text('utf-8'))
             if report['failed'] or report['passed'] != (21 if phase == 'main' else 4):
                 failures.append(phase)
+            if phase == 'main' and not any(t['name'] == 'bounded_visible_text_and_durable_checkpoint' and t['status'] == 'PASS' for t in report['tests']):
+                raise RuntimeError('Main phase did not create a valid restart checkpoint; resume cannot be tested')
         report = dict(api=API, image=IMAGE, physical_device=False, system_tts_voice_test='controlled test-only PCM engine, not Huawei installed voice',
                       package_install='PASS', phases_failed=failures)
         (OUT / 'emulator-report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
