@@ -6,6 +6,9 @@ Issue #10, tasks/S02A3_SUXIN_MATCHA_LISTENING.md and the owner message on
 approval. Continue PR #7 / codex/s02a-kokoro-ios-spike. Matcha is the preferred
 existing AI candidate; the owner decides subjective sound quality after listening.
 Kokoro is paused. No new model search, cloud TTS, production integration or merge.
+After hearing the real same-text page, the owner replied "更喜欢 Suxin-Light"
+on2026-11-25. Suxin is now the preferred voice candidate; Matcha remains available.
+This is short-audition preference, not device/long-session/release approval.
 
 ## File map and provenance
 - scripts/: isolated hash-checked frontend environment, actual author-code speech,
@@ -24,4 +27,5 @@ Never invent phonemes. A native test with author-produced IDs is only
 PRECOMPUTED_FRONTEND_ONLY, not end-to-end native Mandarin TTS. Desktop, simulator
 and physical device data remain separate. Model-load-only is not speech failure.
 Private audition, product portability and redistribution rights are separate gates.
-Stop at READY_FOR_AUDIT / OWNER_LISTENING_PENDING; do not start S02B.
+Stop at READY_FOR_AUDIT; retain the actual owner preference and separate pending
+device/long-session/license gates. Do not start S02B.
