@@ -1,0 +1,17 @@
+{
+  "status": "PASS_LOCAL_PAGE_AND_MUTED_PLAYBACK",
+  "environment": "WINDOWS_CHROME_MUTED_BROWSER",
+  "chromium_version": "157.0.8103.79",
+  "audio_metadata_loaded": 10,
+  "real_wavs_full_ffmpeg_decode": 10,
+  "ffmpeg_all_exit_zero": true,
+  "ratings_initially_blank": true,
+  "page_errors": [],
+  "external_requests": [],
+  "mobile_horizontal_overflow_default_details_closed": false,
+  "physical_audibility": "NOT_MEASURED_MUTED_BROWSER",
+  "human_quality": "OWNER_PENDING",
+  "page_sha256": "466010f448614f7eb9d686dfcddef601aa7cd733f6de47af2aa09d19e2740606",
+  "listening_manifest_sha256": "f850f22161b0f7d462a3e1837547bc17eda6be8979f3b338cdd67acf5ffb9798",
+  "note": "Automated browser checks and WAV decoding do not establish perceived voice quality or iPhone playback."
+}

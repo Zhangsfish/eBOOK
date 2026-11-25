@@ -1,0 +1,27 @@
+{
+  "python": "3.11.11",
+  "architecture": "windows_amd64",
+  "dependencies": [
+    {
+      "name": "sherpa-onnx",
+      "version": "2.0.3",
+      "sha256": "df5b341c9ac86ae1a56750c6149b3865f09e6dc1d2f0241ddc334bcffea256c6",
+      "url": "https://files.pythonhosted.org/packages/21/ba/96e8080ec6c4e3e5169c1b69253b4d3adca64c322f60812e38819a86f021/sherpa_onnx-2.0.3-cp311-cp311-win_amd64.whl",
+      "bytes": 2470111
+    },
+    {
+      "name": "sherpa-onnx-core",
+      "version": "2.0.3",
+      "sha256": "798ba3803b6461bac9eca5a7f3927f04e7a54173155e3f0479e6abd89bb4bc59",
+      "url": "https://files.pythonhosted.org/packages/86/60/267823e104a5856b38601784ae6ca388cd00f219b49c8e78de380ceb63b0/sherpa_onnx_core-2.0.3-py3-none-win_amd64.whl",
+      "bytes": 17216593
+    },
+    {
+      "name": "numpy",
+      "version": "1.26.4",
+      "sha256": "cd25bcecc4974d09257ffcd1f098ee778f7834c3ad767fe5db785be9a4aa9cb2",
+      "url": "https://files.pythonhosted.org/packages/3f/6b/5610004206cf7f8e7ad91c5a85a8c71b2f2f8051a0c0c4d5916b76d6cbb2/numpy-1.26.4-cp311-cp311-win_amd64.whl",
+      "bytes": 15811913
+    }
+  ]
+}

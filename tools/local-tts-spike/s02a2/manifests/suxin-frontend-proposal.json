@@ -1,0 +1,37 @@
+{
+  "status": "PROPOSED_NOT_INSTALLED_APPROVAL_PENDING",
+  "existing_runtime_reuse": {
+    "python": "3.11.11",
+    "onnxruntime": "1.20.1",
+    "numpy": "1.26.4",
+    "upgrade_required": false
+  },
+  "packages": [
+    {
+      "name": "pypinyin",
+      "version": "0.55.0",
+      "filename": "pypinyin-0.55.0-py2.py3-none-any.whl",
+      "bytes": 840203,
+      "sha256": "d53b1e8ad2cdb815fb2cb604ed3123372f5a28c6f447571244aca36fc62a286f",
+      "license_declared": "MIT"
+    },
+    {
+      "name": "piper-tts",
+      "version": "1.8.0",
+      "filename": "piper_tts-1.8.0-cp39-abi3-win_amd64.whl",
+      "bytes": 34119688,
+      "sha256": "5da9bfdb05dfe15da3536859d422e605483ffa6d2b3ec2c5b9593bae6b5aa6a4",
+      "license_declared": "GPL-3.0-or-later"
+    },
+    {
+      "name": "pathvalidate",
+      "version": "3.3.1",
+      "filename": "pathvalidate-3.3.1-py3-none-any.whl",
+      "bytes": 24305,
+      "sha256": "5263baab691f8e1af96092fa5137ee17df5bdfbd6cff1fcac4d6ef4bc2e1735f",
+      "license_declared": "MIT"
+    }
+  ],
+  "hash_provenance": "Official versioned PyPI JSON checked 2026-11-25 Asia/Shanghai; no wheel downloaded or installed.",
+  "scope": "If later approved: project isolated environment only, never general research environment."
+}

@@ -1,0 +1,62 @@
+{
+  "status": "MODEL_LOAD_ONLY_NO_SPEECH_INFERENCE",
+  "environment": "WINDOWS_DESKTOP_CPU",
+  "source_sha": "39522a04ca4f4426633516f396323aa5421eb76e",
+  "execution_worktree_dirty": false,
+  "source_file_sha256": "ef795ac01b6e4285abbf96d1b27b760f332b680cf3e889345cb1e2d01979d1b7",
+  "model_integrity": {
+    "status": "PASS_RESOURCE_INTEGRITY",
+    "files": 11,
+    "unpacked_bytes": 67430162
+  },
+  "onnxruntime": "1.20.1",
+  "threads": 4,
+  "genuine_audio_generation": false,
+  "genuine_ios_inference": false,
+  "frontend": "NOT_RUN_DEPENDENCY_APPROVAL_PENDING",
+  "model_initialization_seconds": 6.590015800000401,
+  "peak_process_rss_bytes": 179015680,
+  "inputs": [
+    {
+      "name": "input",
+      "shape": [
+        "batch_size",
+        "phonemes"
+      ],
+      "type": "tensor(int64)"
+    },
+    {
+      "name": "input_lengths",
+      "shape": [
+        "batch_size"
+      ],
+      "type": "tensor(int64)"
+    },
+    {
+      "name": "scales",
+      "shape": [
+        3
+      ],
+      "type": "tensor(float)"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "shape": [
+        "batch_size",
+        1,
+        1,
+        "Unsqueezeoutput_dim_3"
+      ],
+      "type": "tensor(float)"
+    }
+  ],
+  "actual_providers": [
+    "CPUExecutionProvider"
+  ],
+  "custom_op_libraries_registered": 0,
+  "rtf": "NOT_RUN_NO_SPEECH",
+  "first_audible_output": "NOT_RUN_NO_SPEECH",
+  "cloud_api_calls": 0
+}

@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "decoded_wavs": 7,
+  "records": [
+    {
+      "fixture_id": "narration",
+      "voice": "zf_001",
+      "sha256": "81f263afc8c73546c0e68973a1abb3353f377d921457eaa9d6af75474b1f6839",
+      "status": "PASS_COMPLETE_DECODE"
+    },
+    {
+      "fixture_id": "narration",
+      "voice": "zf_002",
+      "sha256": "540af07601b4b105381871ca34cfbe30cba263b5a8848cbf3fc312e17c00cc03",
+      "status": "PASS_COMPLETE_DECODE"
+    },
+    {
+      "fixture_id": "narration",
+      "voice": "zm_009",
+      "sha256": "161ef69a940dc88ea98c2bd7ad4e0e757b730093ee0ab922f04a602bbde0844c",
+      "status": "PASS_COMPLETE_DECODE"
+    },
+    {
+      "fixture_id": "dialogue",
+      "voice": "zf_001",
+      "sha256": "bd7c1e8cd9d8496d8f966dd6b1a9e9b1e8417323aef82fb2ab3ad45824dbccd6",
+      "status": "PASS_COMPLETE_DECODE"
+    },
+    {
+      "fixture_id": "numbers",
+      "voice": "zf_001",
+      "sha256": "7d967ae7ce4b8396f04e52f77a1260eac6b42c4dcd4f95c6c08f3520087b0663",
+      "status": "PASS_COMPLETE_DECODE"
+    },
+    {
+      "fixture_id": "polyphones",
+      "voice": "zf_001",
+      "sha256": "fac523f2173b742e341d358d68f0619d636a38bdaddc743e85008c695673c906",
+      "status": "PASS_COMPLETE_DECODE"
+    },
+    {
+      "fixture_id": "mixed",
+      "voice": "zf_001",
+      "sha256": "d0966841708343cf0c742686974f3331659475a4a3941d9151ee0d6fa28eff86",
+      "status": "PASS_COMPLETE_DECODE"
+    }
+  ]
+}

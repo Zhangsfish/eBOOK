@@ -1,0 +1,719 @@
+{
+  "status": "PASS_NATIVE_INFERENCE_AND_EQUIVALENCE",
+  "host": "Darwin",
+  "host_architecture": "x86_64",
+  "source_sha": "ba17f9c6f15014e4693258ee7170dcb6c0f7e75e",
+  "genuine_ios_inference": true,
+  "benchmarks": [
+    {
+      "cache_state": "Fresh process, hash verified before init, OS cache not cold-controlled",
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.6 (Build 22G86)",
+      "kind": "thread_benchmark",
+      "model_initialization_seconds": 5.574212258999978,
+      "physical_device": "NOT_RUN",
+      "playback_probe": {
+        "first_output_render_seconds": 76.1012980349999,
+        "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+        "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+        "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+      },
+      "process_id": 10064,
+      "records": [
+        {
+          "duration_seconds": 8.918625,
+          "first_callback_seconds": 7.5538635440000235,
+          "fixture_id": "narration",
+          "frames": 214047,
+          "generation_seconds": 74.64079462899997,
+          "process_peak_rss_cumulative_bytes": 463728640,
+          "rms": 0.06888486311102016,
+          "rtf": 8.36909216712217,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "9f405c6b483be896fda2d6f67b63ce34be8521478507ca9b0abf0a291148cdce"
+        },
+        {
+          "duration_seconds": 9.696916666666667,
+          "first_callback_seconds": 23.813651399000037,
+          "fixture_id": "narration",
+          "frames": 232726,
+          "generation_seconds": 78.80449450499998,
+          "process_peak_rss_cumulative_bytes": 495509504,
+          "rms": 0.07931617999876056,
+          "rtf": 8.126757939035603,
+          "sample_rate": 24000,
+          "speaker_id": 4,
+          "voice": "zf_002",
+          "wav_sha256": "4e1cea69059694ed6e18a107f8fa65a1078cee95a1f37010c45750fff0cb1714"
+        },
+        {
+          "duration_seconds": 8.92475,
+          "first_callback_seconds": 11.337546341999996,
+          "fixture_id": "narration",
+          "frames": 214194,
+          "generation_seconds": 48.829179807999935,
+          "process_peak_rss_cumulative_bytes": 495509504,
+          "rms": 0.052302447455869774,
+          "rtf": 5.471209816297368,
+          "sample_rate": 24000,
+          "speaker_id": 58,
+          "voice": "zm_009",
+          "wav_sha256": "6a2d3a10965e2a4b9092c0460f56ae4c139f552c3064e2346303d5bd120a3f88"
+        },
+        {
+          "duration_seconds": 6.726375,
+          "first_callback_seconds": 14.281979060999902,
+          "fixture_id": "dialogue",
+          "frames": 161433,
+          "generation_seconds": 47.10749604800003,
+          "process_peak_rss_cumulative_bytes": 495509504,
+          "rms": 0.0695886300034573,
+          "rtf": 7.003400204121839,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "bb877aed83c239d2ba250af3416290b612fe754a0abee06084301032300c044b"
+        },
+        {
+          "duration_seconds": 10.469916666666666,
+          "first_callback_seconds": 15.095740674999888,
+          "fixture_id": "numbers",
+          "frames": 251278,
+          "generation_seconds": 45.28895339499991,
+          "process_peak_rss_cumulative_bytes": 495947776,
+          "rms": 0.06608559200571375,
+          "rtf": 4.325626921099332,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "e4f7981371173aa0640ed4b3a1ce536fe7302d7d353a0a91e2761d140edfae26"
+        },
+        {
+          "duration_seconds": 7.836125,
+          "first_callback_seconds": 11.197102360000144,
+          "fixture_id": "polyphones",
+          "frames": 188067,
+          "generation_seconds": 35.055909362999955,
+          "process_peak_rss_cumulative_bytes": 495947776,
+          "rms": 0.0648530778126188,
+          "rtf": 4.4736281469476245,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "9721ca0bd6eff3e5cd0cd63535aeec31be92a7c4543f4cf576bb19fcd2bc342e"
+        },
+        {
+          "duration_seconds": 6.5837916666666665,
+          "first_callback_seconds": 14.684759805000112,
+          "fixture_id": "mixed",
+          "frames": 158011,
+          "generation_seconds": 46.72101623000003,
+          "process_peak_rss_cumulative_bytes": 495947776,
+          "rms": 0.06706077242626231,
+          "rtf": 7.096369173791703,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "1ce2cd886e77800d123485fadb0a486d31a37913bb3a1db94a48fa402a469741"
+        }
+      ],
+      "run_context": {
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "ba17f9c6f15014e4693258ee7170dcb6c0f7e75e"
+      },
+      "threads": 1,
+      "warmup_generation_seconds": 9.111572742000021,
+      "statistics": {
+        "mean_rtf": 6.409440624059377,
+        "p95_rtf_nearest_rank": 8.36909216712217,
+        "weighted_rtf": 6.3635922337866475,
+        "peak_process_rss_bytes": 495947776
+      }
+    },
+    {
+      "cache_state": "Fresh process, hash verified before init, OS cache not cold-controlled",
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.6 (Build 22G86)",
+      "kind": "thread_benchmark",
+      "model_initialization_seconds": 9.25274458900003,
+      "physical_device": "NOT_RUN",
+      "playback_probe": {
+        "first_output_render_seconds": 52.78174998199984,
+        "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+        "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+        "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+      },
+      "process_id": 23475,
+      "records": [
+        {
+          "duration_seconds": 8.918708333333333,
+          "first_callback_seconds": 12.874246758999789,
+          "fixture_id": "narration",
+          "frames": 214049,
+          "generation_seconds": 51.74930747999997,
+          "process_peak_rss_cumulative_bytes": 463675392,
+          "rms": 0.06877385355488669,
+          "rtf": 5.802332080598364,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "7656e605e76d2894b1ae17eae15637e1dceb032f5285701d7f504149a809e45c"
+        },
+        {
+          "duration_seconds": 9.680708333333333,
+          "first_callback_seconds": 10.756812885000045,
+          "fixture_id": "narration",
+          "frames": 232337,
+          "generation_seconds": 51.38899563099994,
+          "process_peak_rss_cumulative_bytes": 495607808,
+          "rms": 0.07935533345814802,
+          "rtf": 5.308392099166292,
+          "sample_rate": 24000,
+          "speaker_id": 4,
+          "voice": "zf_002",
+          "wav_sha256": "d3a3d74746f3ebb30b721e7934605d1acd848c430827fab8d67633459670d770"
+        },
+        {
+          "duration_seconds": 8.934625,
+          "first_callback_seconds": 8.280251114000066,
+          "fixture_id": "narration",
+          "frames": 214431,
+          "generation_seconds": 34.55760674099997,
+          "process_peak_rss_cumulative_bytes": 495644672,
+          "rms": 0.05227916072947313,
+          "rtf": 3.8678295665458786,
+          "sample_rate": 24000,
+          "speaker_id": 58,
+          "voice": "zm_009",
+          "wav_sha256": "4a0302d90b9a6e457c4ca592486e80c026cd85f45736abe0b371f1085e1deb66"
+        },
+        {
+          "duration_seconds": 6.727833333333334,
+          "first_callback_seconds": 14.401434655000003,
+          "fixture_id": "dialogue",
+          "frames": 161468,
+          "generation_seconds": 30.973414722000143,
+          "process_peak_rss_cumulative_bytes": 495644672,
+          "rms": 0.06960506252084313,
+          "rtf": 4.603772594743252,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "d86b1fe28fac2be2290ceaa96d0e86552526dd09213dc152401dcbb722f7eb30"
+        },
+        {
+          "duration_seconds": 10.472583333333333,
+          "first_callback_seconds": 7.668241653999985,
+          "fixture_id": "numbers",
+          "frames": 251342,
+          "generation_seconds": 24.578593864999903,
+          "process_peak_rss_cumulative_bytes": 497553408,
+          "rms": 0.06592497850643615,
+          "rtf": 2.346946601682161,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "b3d96bdddb3718302b17cce01af668a38b39145fa9eb9b756c3d2f86354c7d29"
+        },
+        {
+          "duration_seconds": 7.833875,
+          "first_callback_seconds": 7.1191225329998815,
+          "fixture_id": "polyphones",
+          "frames": 188013,
+          "generation_seconds": 18.27056925199986,
+          "process_peak_rss_cumulative_bytes": 497553408,
+          "rms": 0.06482624057795397,
+          "rtf": 2.332251823267522,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "c2b864f913e0fcd92035b4aee4a2a186d491fb0b79e392b1a7e0fa0fdc550fa9"
+        },
+        {
+          "duration_seconds": 6.583666666666667,
+          "first_callback_seconds": 6.835346190000109,
+          "fixture_id": "mixed",
+          "frames": 158008,
+          "generation_seconds": 22.77475685000013,
+          "process_peak_rss_cumulative_bytes": 497553408,
+          "rms": 0.06708993484223358,
+          "rtf": 3.4592815832109967,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "00943ff64015219595959ae0e56d95c1b77043039a8664b9bd8288c762cada3b"
+        }
+      ],
+      "run_context": {
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "ba17f9c6f15014e4693258ee7170dcb6c0f7e75e"
+      },
+      "threads": 2,
+      "warmup_generation_seconds": 9.980323767000073,
+      "statistics": {
+        "mean_rtf": 3.9601151927449236,
+        "p95_rtf_nearest_rank": 5.802332080598364,
+        "weighted_rtf": 3.9608676721159033,
+        "peak_process_rss_bytes": 497553408
+      }
+    },
+    {
+      "cache_state": "Fresh process, hash verified before init, OS cache not cold-controlled",
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.6 (Build 22G86)",
+      "kind": "thread_benchmark",
+      "model_initialization_seconds": 7.759533749999946,
+      "physical_device": "NOT_RUN",
+      "playback_probe": {
+        "first_output_render_seconds": 46.96775228699994,
+        "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+        "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+        "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+      },
+      "process_id": 34318,
+      "records": [
+        {
+          "duration_seconds": 8.913833333333333,
+          "first_callback_seconds": 9.271608573999856,
+          "fixture_id": "narration",
+          "frames": 213932,
+          "generation_seconds": 46.30280300300001,
+          "process_peak_rss_cumulative_bytes": 463613952,
+          "rms": 0.0690050615456479,
+          "rtf": 5.1944883050315065,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "74f8fa7ba8afe6bb415d7fb1226fcd9e76262778f3cca70aaf283a90a40e4c69"
+        },
+        {
+          "duration_seconds": 9.6805,
+          "first_callback_seconds": 7.441915925000103,
+          "fixture_id": "narration",
+          "frames": 232332,
+          "generation_seconds": 35.95654548400012,
+          "process_peak_rss_cumulative_bytes": 495452160,
+          "rms": 0.07935412765733353,
+          "rtf": 3.7143273058209925,
+          "sample_rate": 24000,
+          "speaker_id": 4,
+          "voice": "zf_002",
+          "wav_sha256": "217a82c7abc7692d61191737f314e7f37bd9de70bb057a42a6577a985a34015c"
+        },
+        {
+          "duration_seconds": 8.947833333333334,
+          "first_callback_seconds": 9.750514992000035,
+          "fixture_id": "narration",
+          "frames": 214748,
+          "generation_seconds": 28.278353858000173,
+          "process_peak_rss_cumulative_bytes": 495497216,
+          "rms": 0.05231320527410473,
+          "rtf": 3.1603576871123558,
+          "sample_rate": 24000,
+          "speaker_id": 58,
+          "voice": "zm_009",
+          "wav_sha256": "90e9b1ee90085424a24a846550718742f0388477747be6f5e5c1d5269ec2978e"
+        },
+        {
+          "duration_seconds": 6.731541666666667,
+          "first_callback_seconds": 4.034096912999985,
+          "fixture_id": "dialogue",
+          "frames": 161557,
+          "generation_seconds": 17.80608964299995,
+          "process_peak_rss_cumulative_bytes": 495497216,
+          "rms": 0.06979778112408606,
+          "rtf": 2.645172610484218,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "ce9f517df00ac164930d2d2f71a29e1841a2fb4fe07f1c6d4b5f0ed901f7ae04"
+        },
+        {
+          "duration_seconds": 10.474458333333333,
+          "first_callback_seconds": 11.78664346000005,
+          "fixture_id": "numbers",
+          "frames": 251387,
+          "generation_seconds": 45.736383151000155,
+          "process_peak_rss_cumulative_bytes": 497364992,
+          "rms": 0.0658269600018554,
+          "rtf": 4.366467620139481,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "d9c48e0890f074c302f61d04ddab9a89d6fea6a0df014d743d979efa2585d8a5"
+        },
+        {
+          "duration_seconds": 7.833708333333333,
+          "first_callback_seconds": 7.820397680000042,
+          "fixture_id": "polyphones",
+          "frames": 188009,
+          "generation_seconds": 21.185402189999877,
+          "process_peak_rss_cumulative_bytes": 497364992,
+          "rms": 0.06484081226249085,
+          "rtf": 2.7043899630336687,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "ef28d5b7833878d54a6ae0eff34a9df084bc49300a09c115a0fa4074ac25fa1d"
+        },
+        {
+          "duration_seconds": 6.583916666666667,
+          "first_callback_seconds": 5.674292866000087,
+          "fixture_id": "mixed",
+          "frames": 158014,
+          "generation_seconds": 18.343875361000073,
+          "process_peak_rss_cumulative_bytes": 497364992,
+          "rms": 0.0670141545681727,
+          "rtf": 2.7861645718987034,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "0d3aacf8472f658b831f5893f1751c573b40e90d8cdb0b0a15c518f7ea656d03"
+        }
+      ],
+      "run_context": {
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "ba17f9c6f15014e4693258ee7170dcb6c0f7e75e"
+      },
+      "threads": 3,
+      "warmup_generation_seconds": 7.156546796999919,
+      "statistics": {
+        "mean_rtf": 3.5101954376458466,
+        "p95_rtf_nearest_rank": 5.1944883050315065,
+        "weighted_rtf": 3.6103540014042523,
+        "peak_process_rss_bytes": 497364992
+      }
+    },
+    {
+      "cache_state": "Fresh process, hash verified before init, OS cache not cold-controlled",
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.6 (Build 22G86)",
+      "kind": "thread_benchmark",
+      "model_initialization_seconds": 6.2302804599999035,
+      "physical_device": "NOT_RUN",
+      "playback_probe": {
+        "first_output_render_seconds": 44.00502221600004,
+        "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+        "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+        "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+      },
+      "process_id": 44350,
+      "records": [
+        {
+          "duration_seconds": 8.916416666666667,
+          "first_callback_seconds": 13.384922899000003,
+          "fixture_id": "narration",
+          "frames": 213994,
+          "generation_seconds": 43.37683997799991,
+          "process_peak_rss_cumulative_bytes": 464265216,
+          "rms": 0.06899184423680185,
+          "rtf": 4.864828731048524,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "70333eaaf6270648dde588a33b0989de280d5fb82550a74acd32759ea81dfe21"
+        },
+        {
+          "duration_seconds": 9.696875,
+          "first_callback_seconds": 10.644450115999916,
+          "fixture_id": "narration",
+          "frames": 232725,
+          "generation_seconds": 49.923435919999974,
+          "process_peak_rss_cumulative_bytes": 496214016,
+          "rms": 0.07927981229459886,
+          "rtf": 5.148404606638734,
+          "sample_rate": 24000,
+          "speaker_id": 4,
+          "voice": "zf_002",
+          "wav_sha256": "af2a69011e27399d5bfe653609b2a02b5b522b9ee114cf9ac0ae875fffe7cc6c"
+        },
+        {
+          "duration_seconds": 8.9275,
+          "first_callback_seconds": 14.87679740700014,
+          "fixture_id": "narration",
+          "frames": 214260,
+          "generation_seconds": 41.264982186,
+          "process_peak_rss_cumulative_bytes": 496246784,
+          "rms": 0.052342420289350246,
+          "rtf": 4.62223267275273,
+          "sample_rate": 24000,
+          "speaker_id": 58,
+          "voice": "zm_009",
+          "wav_sha256": "5ef8efb3eb3c21bf565c8202865d2f5c758fab7ef531aa6c9da56660290ec745"
+        },
+        {
+          "duration_seconds": 6.72925,
+          "first_callback_seconds": 12.555918835999819,
+          "fixture_id": "dialogue",
+          "frames": 161502,
+          "generation_seconds": 37.431711607000125,
+          "process_peak_rss_cumulative_bytes": 496246784,
+          "rms": 0.069601588271775,
+          "rtf": 5.56253841171009,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "6eb9cf112fb8dddc331bf9f419b338c5fd956272f26fd1adf56ee79319b71ec9"
+        },
+        {
+          "duration_seconds": 10.472375,
+          "first_callback_seconds": 9.211027411000032,
+          "fixture_id": "numbers",
+          "frames": 251337,
+          "generation_seconds": 28.003166890000102,
+          "process_peak_rss_cumulative_bytes": 498192384,
+          "rms": 0.06576947081699906,
+          "rtf": 2.674003450984147,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "724e8aaab735f728ea2f578fd6c755ed04f7729769652e1c05e5167baf86ffcc"
+        },
+        {
+          "duration_seconds": 7.83475,
+          "first_callback_seconds": 10.2190045870002,
+          "fixture_id": "polyphones",
+          "frames": 188034,
+          "generation_seconds": 39.82091213900003,
+          "process_peak_rss_cumulative_bytes": 498192384,
+          "rms": 0.06483788406819722,
+          "rtf": 5.0826015047065995,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "3854354397c093827e9c217302d62dac5545810187b92fe112dc6028335d4d84"
+        },
+        {
+          "duration_seconds": 6.586291666666667,
+          "first_callback_seconds": 18.504245152000294,
+          "fixture_id": "mixed",
+          "frames": 158071,
+          "generation_seconds": 44.89665547699997,
+          "process_peak_rss_cumulative_bytes": 498192384,
+          "rms": 0.06707817739045938,
+          "rtf": 6.816681943228038,
+          "sample_rate": 24000,
+          "speaker_id": 3,
+          "voice": "zf_001",
+          "wav_sha256": "3c5f0c86029b8d3586a0dadcca993e926aed45a7b002bdff6a04356609385b00"
+        }
+      ],
+      "run_context": {
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "ba17f9c6f15014e4693258ee7170dcb6c0f7e75e"
+      },
+      "threads": 4,
+      "warmup_generation_seconds": 7.686655020999979,
+      "statistics": {
+        "mean_rtf": 4.9673273315812665,
+        "p95_rtf_nearest_rank": 6.816681943228038,
+        "weighted_rtf": 4.812391165385731,
+        "peak_process_rss_bytes": 498192384
+      }
+    }
+  ],
+  "physical_device": "NOT_RUN",
+  "acoustic_audibility": "NOT_MEASURED_NO_PHYSICAL_LOOPBACK",
+  "session": {
+    "status": "NOT_RUN_PERFORMANCE_NOT_READY",
+    "reason": "Measured generation is slower than playback; bounded prebuffer cannot sustain it."
+  },
+  "license_clearance": "UNRESOLVED_BINARY_AND_DATA_NOTICES",
+  "xcode_version": "Xcode 16.4\nBuild version 16F6",
+  "host_cpu": "Intel(R) Core(TM) i7-8700B CPU @ 3.20GHz",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-6",
+  "simulator_name": "iPhone 16 Pro",
+  "minimal_manifest": {
+    "canonical_manifest_sha256": "5267535f3f171cb6cb00cf17747ade8685bd63e100435e5fb9856c3965530267",
+    "unpacked_bytes": 176296499,
+    "removed_bytes": 38930673
+  },
+  "commands": [
+    {
+      "name": "build",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/DerivedData",
+        "-parallel-testing-enabled",
+        "NO",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/SourcePackages",
+        "CODE_SIGNING_ALLOWED=NO",
+        "build-for-testing"
+      ]
+    },
+    {
+      "name": "threads1",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/DerivedData",
+        "-parallel-testing-enabled",
+        "NO",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/SourcePackages",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/Threads1.xcresult",
+        "-only-testing:LocalTTSSpikeTests/KokoroBenchmarkTests/testThreads1",
+        "test-without-building"
+      ]
+    },
+    {
+      "name": "threads2",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/DerivedData",
+        "-parallel-testing-enabled",
+        "NO",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/SourcePackages",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/Threads2.xcresult",
+        "-only-testing:LocalTTSSpikeTests/KokoroBenchmarkTests/testThreads2",
+        "test-without-building"
+      ]
+    },
+    {
+      "name": "threads3",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/DerivedData",
+        "-parallel-testing-enabled",
+        "NO",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/SourcePackages",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/Threads3.xcresult",
+        "-only-testing:LocalTTSSpikeTests/KokoroBenchmarkTests/testThreads3",
+        "test-without-building"
+      ]
+    },
+    {
+      "name": "threads4",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/DerivedData",
+        "-parallel-testing-enabled",
+        "NO",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/SourcePackages",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/Threads4.xcresult",
+        "-only-testing:LocalTTSSpikeTests/KokoroBenchmarkTests/testThreads4",
+        "test-without-building"
+      ]
+    },
+    {
+      "name": "equivalence",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/DerivedData",
+        "-parallel-testing-enabled",
+        "NO",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/SourcePackages",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a/ios-matrix-a87cdfc0842d48bca98b21f8dc9c8357/Equivalence.xcresult",
+        "-only-testing:LocalTTSSpikeTests/KokoroBenchmarkTests/testMinimalEquivalence",
+        "test-without-building"
+      ]
+    }
+  ],
+  "build_exit_code": 0,
+  "minimal_equivalence": {
+    "bit_identical_pcm16_wav": true,
+    "distribution_clearance": "UNRESOLVED_DATA_NOTICES",
+    "environment": "IOS_SIMULATOR",
+    "full_frames": [
+      214007,
+      232643,
+      214368,
+      161478,
+      251346,
+      187860,
+      158064
+    ],
+    "full_wav_sha256": [
+      "0fcada0a89cf88cb7d1c9994959703439f2cae3c7a371cd24d59ec9d390e846b",
+      "a09d80f25b51b6a432d1eac9716da73b3b994ba29ff23c99f0aae3f72cb5946f",
+      "c12c0b7d9ef7673e779e08002979380a235d5b1d51076cce623d3855286183e4",
+      "d64df5242f98887c02bb159d96ff2e81e9db257c468a224b6a6ced207d64df36",
+      "5217c6368f42500bff8ef8ca15f32325b027874074ecda9287c7d6047832bc6f",
+      "d76cc92b2840f5ddf17b33565736320821da63019c8449b1197577ffe06682c3",
+      "f7b44f76a5749b767a241e9a95847658c4ac4c780f2fe9236ea004f5a8ae7c33"
+    ],
+    "genuine_ios_inference": true,
+    "kind": "minimal_equivalence",
+    "minimal_frames": [
+      214007,
+      232643,
+      214368,
+      161478,
+      251346,
+      187860,
+      158064
+    ],
+    "minimal_wav_sha256": [
+      "0fcada0a89cf88cb7d1c9994959703439f2cae3c7a371cd24d59ec9d390e846b",
+      "a09d80f25b51b6a432d1eac9716da73b3b994ba29ff23c99f0aae3f72cb5946f",
+      "c12c0b7d9ef7673e779e08002979380a235d5b1d51076cce623d3855286183e4",
+      "d64df5242f98887c02bb159d96ff2e81e9db257c468a224b6a6ced207d64df36",
+      "5217c6368f42500bff8ef8ca15f32325b027874074ecda9287c7d6047832bc6f",
+      "d76cc92b2840f5ddf17b33565736320821da63019c8449b1197577ffe06682c3",
+      "f7b44f76a5749b767a241e9a95847658c4ac4c780f2fe9236ea004f5a8ae7c33"
+    ],
+    "original_cases": 7,
+    "provider": "cpu",
+    "run_context": {
+      "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+      "source_sha": "ba17f9c6f15014e4693258ee7170dcb6c0f7e75e"
+    },
+    "speed": 1,
+    "status": "PASS_BIT_IDENTICAL_ORIGINAL_AUDIO",
+    "threads": 1
+  },
+  "performance_gate": "PERFORMANCE_NOT_READY",
+  "ci_run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45389424006",
+  "artifact_zip_sha256": "650269404dd31a17c3bf83e12e394bd1f7ed2125ea20a42c1b0ffb954949fc51",
+  "artifact_id": 14919724642
+}

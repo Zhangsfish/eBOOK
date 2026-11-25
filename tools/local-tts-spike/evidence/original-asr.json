@@ -1,0 +1,38 @@
+{
+  "runtime": "faster-whisper 1.2.1",
+  "ctranslate2": "4.8.2",
+  "model": "faster-whisper-large-v3",
+  "device": "cuda",
+  "compute_type": "int8_float16",
+  "cloud_requests": 0,
+  "status": "REVIEW_ASR_DIFFERENCES",
+  "records": [
+    {
+      "voice": "zf_001",
+      "fixture_id": "narration",
+      "wav_sha256": "81f263afc8c73546c0e68973a1abb3353f377d921457eaa9d6af75474b1f6839",
+      "transcription": "\u6e05\u6668\u7684\u6cb3\u5cb8\u5f88\u5b89\u975c,\u8584\u9727\u6cbf\u8457\u77f3\u968e\u6162\u6162\u6563\u958b,\u5c0f\u5be7\u6cb3\u4e0a\u7b46\u8a18,\u807d\u898b\u9060\u8655\u50b3\u4f86\u7b2c\u4e00\u8072\u9ce5\u9cf4\u3002",
+      "normalized_sequence_similarity": 0.4857142857142857,
+      "status": "LOCAL_ASR_COMPLETED_NOT_HUMAN_RATING"
+    },
+    {
+      "voice": "zf_002",
+      "fixture_id": "narration",
+      "wav_sha256": "540af07601b4b105381871ca34cfbe30cba263b5a8848cbf3fc312e17c00cc03",
+      "transcription": "\u6e05\u6668\u7684\u6cb3\u5cb8\u5f88\u5b89\u9759\u8584\u96fe\u6cbf\u7740\u77f3\u9636\u6162\u6162\u6563\u5f00\u5c0f\u5b81\u6cb3\u4e0a\u7b14\u8bb0\u542c\u89c1\u8fdc\u5904\u4f20\u6765\u7b2c\u4e00\u58f0\u9e1f\u9e23",
+      "normalized_sequence_similarity": 0.9714285714285714,
+      "status": "LOCAL_ASR_COMPLETED_NOT_HUMAN_RATING"
+    },
+    {
+      "voice": "zm_009",
+      "fixture_id": "narration",
+      "wav_sha256": "161ef69a940dc88ea98c2bd7ad4e0e757b730093ee0ab922f04a602bbde0844c",
+      "transcription": "\u6e05\u6668\u7684\u6cb3\u5cb8\u5f88\u5b89\u9759\u8584\u96fe\u6cbf\u7740\u77f3\u9636\u6162\u6162\u6563\u5f00\u5c0f\u5b81\u6cb3\u4e0a\u7b14\u8bb0\u542c\u89c1\u8fdc\u5904\u4f20\u6765\u7b2c\u4e00\u58f0\u9e1f\u9e23",
+      "normalized_sequence_similarity": 0.9714285714285714,
+      "status": "LOCAL_ASR_COMPLETED_NOT_HUMAN_RATING"
+    }
+  ],
+  "source_script_sha256": "321134c3bad9a5dbf6262f1cbff74cd5d6aad6e12baff064d405a1e62b9740ff",
+  "local_model_revision": "edaa852ec7e145841d8ffdb056a99866b5f0a478",
+  "captured_stdout_encoding": "gbk"
+}

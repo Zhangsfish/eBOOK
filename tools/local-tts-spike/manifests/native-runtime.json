@@ -1,0 +1,41 @@
+{
+  "sherpa": {
+    "version": "2.0.3",
+    "repository": "https://github.com/k2-fsa/sherpa-onnx",
+    "revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+    "package_sha256": "22b8baa688932d5565221f6277c3b12f232c9e1c9b867500c81218bdb29af6fd",
+    "swift_wrapper_sha256": "fe8d3dfc007c6bdaed5b221c3e66a10a2bed3f9e41cd952169186879373011ea",
+    "ios_binary": {
+      "url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/xcframework/sherpa-onnx-v2.0.3-ios-static.xcframework.zip",
+      "sha256": "36603efc0908a18a3b4b5ec1a81a15accddbe9948720bf4d931ee14506f42481",
+      "verification": "SHA256_AND_ACTUAL_LIPO_VERIFIED",
+      "architecture_evidence": "../evidence/s02a1-native-audit-be36e9b.json"
+    }
+  },
+  "onnxruntime": {
+    "version": "1.28.2",
+    "spm_repository": "https://github.com/csukuangfj/onnxruntime-libs",
+    "ref_object": {
+      "sha": "8ebc5ebf92190903c274a7621ba4c96a732335ec",
+      "type": "commit",
+      "url": "https://api.github.com/repos/csukuangfj/onnxruntime-libs/git/commits/8ebc5ebf92190903c274a7621ba4c96a732335ec"
+    },
+    "package_sha256": "0327b05a5b4578a19ac4ba017a3a595129c70920d5c34398da6874dfb8d94629",
+    "ios_binary": {
+      "url": "https://github.com/csukuangfj/onnxruntime-libs/releases/download/v1.28.2/onnxruntime-ios-static-xcframework-1.28.2.xcframework.zip",
+      "sha256": "2c2299acbb461d26d4bac4bc85985d40e7c7177ed6072703ae0846d88b0b4599",
+      "verification": "SHA256_AND_ACTUAL_LIPO_VERIFIED",
+      "architecture_evidence": "../evidence/s02a1-native-audit-be36e9b.json"
+    }
+  },
+  "native_build": "PASS_XCODE_16_4_IOS_SIMULATOR_AT_ba17f9c6f15014e4693258ee7170dcb6c0f7e75e",
+  "binary_architecture_inspection": "PASS_ACTUAL_DEVICE_ARM64_SIMULATOR_ARM64_X86_64",
+  "native_build_evidence": [
+    "https://github.com/Zhangsfish/eBOOK/actions/runs/45389424006",
+    "https://github.com/Zhangsfish/eBOOK/actions/runs/45392188338"
+  ],
+  "license_clearance": "UNRESOLVED_FULL_BINARY_AND_DATA_NOTICES",
+  "native_inference": "PASS_GENUINE_IOS_SIMULATOR_ARM64_AND_X86_64",
+  "performance_gate": "PERFORMANCE_NOT_READY",
+  "physical_device": "NOT_RUN"
+}

@@ -1,0 +1,15 @@
+{
+  "kokoro_final_coreml_attempts": [
+    {
+      "run_id": 45442045004,
+      "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0",
+      "phase": "kokoro-final",
+      "note": "Only runtime/model attempt authorized in this task; no ORT rebuild if EP is registered."
+    }
+  ],
+  "redundant_legacy_cpu_run_cancelled": {
+    "run_id": 45432833676,
+    "source_sha": "d41b80d88780d5b483a1a2af873b1293ee22ba70",
+    "reason": "Owner task-doc push automatically triggered unchanged old CPU matrix; stopped redundant work. GitHub retains logs."
+  }
+}

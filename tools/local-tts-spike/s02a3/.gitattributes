@@ -1,0 +1,4 @@
+# The hash-pinned author export must retain its exact original Windows bytes.
+fixtures/suxin-author-ids.json -text whitespace=cr-at-eol
+# Retain measured metadata bytes for direct artifact/desktop provenance checks.
+evidence/*.json -text whitespace=cr-at-eol

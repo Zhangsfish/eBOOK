@@ -1,0 +1,15 @@
+{
+  "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45387252960",
+  "source_sha": "be36e9b8e34430b58869033118bbbaf652d32c5b",
+  "actual_xcode_version": "16.4 / 16F6",
+  "xcode_exit_code": 65,
+  "interpretation": "Swift built and XCTest ran; fixture lookup duplicated Resources; no model inference occurred.",
+  "genuine_ios_inference": false,
+  "diagnostics": [
+    "<WORKSPACE>/.local-test-data/s02a/ios-2d30c553dec74662a1fcf61fe2a49ac3/package/Sources/LocalTTSSpike/KokoroSpike.swift:32: error: -[LocalTTSSpikeTests.KokoroInferenceTests testActualOriginalMandarinInference] : failed: caught error: \"Error Domain=NSCocoaErrorDomain Code=260 \"The file \u201cmodel.json\u201d couldn\u2019t be opened because there is no such file.\" UserInfo={NSFilePath=<WORKSPACE>/.local-test-data/s02a/ios-2d30c553dec74662a1fcf61fe2a49ac3/DerivedData/Build/Products/Debug-iphonesimulator/LocalTTSSpikeTests.xctest/LocalTTSSpike_LocalTTSSpikeTests.bundle/Resources/Resources/model.json, NSURL=Resources/Resources/model.json -- file://<WORKSPACE>/.local-test-data/s02a/ios-2d30c553dec74662a1fcf61fe2a49ac3/DerivedData/Build/Products/Debug-iphonesimulator/LocalTTSSpikeTests.xctest/LocalTTSSpike_LocalTTSSpikeTests.bundle/, NSUnderlyingError=0x600000c05500 {Error Domain=NSPOSIXErrorDomain Code=2 \"No such file or directory\"}}\""
+  ],
+  "artifact_zip_sha256": "1b864e0df079775bd258a5d4fd8c5cfff9c489ff491249e1c3500e77a3082bea",
+  "artifact_members": 4,
+  "uploaded_audio_files": 0,
+  "uploaded_model_files": 0
+}

@@ -1,0 +1,30 @@
+{
+  "status": "SOURCE_RECIPE_AND_ARTIFACT_PINNED_BINARY_BOM_UNRESOLVED",
+  "packaging_repository_revision": "8ebc5ebf92190903c274a7621ba4c96a732335ec",
+  "files": [
+    {
+      "path": ".github/workflows/ios.yaml",
+      "url": "https://raw.githubusercontent.com/csukuangfj/onnxruntime-libs/8ebc5ebf92190903c274a7621ba4c96a732335ec/.github/workflows/ios.yaml",
+      "sha256": "d7e63e87095e8c2ff30a7ba57109869e02d54c3f664119c5ab0d826d33f12a91",
+      "bytes": 18350
+    },
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/csukuangfj/onnxruntime-libs/8ebc5ebf92190903c274a7621ba4c96a732335ec/README.md",
+      "sha256": "4d8ebc3d1bd04fad61b32bfa191e4248fc132438cf5666400cbfdd6a24fd51ee",
+      "bytes": 469
+    },
+    {
+      "path": "Package.swift",
+      "url": "https://raw.githubusercontent.com/csukuangfj/onnxruntime-libs/8ebc5ebf92190903c274a7621ba4c96a732335ec/Package.swift",
+      "sha256": "0327b05a5b4578a19ac4ba017a3a595129c70920d5c34398da6874dfb8d94629",
+      "bytes": 4600
+    }
+  ],
+  "recipe_checkout": "microsoft/onnxruntime at v${ONNXRUNTIME_VERSION}",
+  "queried_source_ref": "https://api.github.com/repos/microsoft/onnxruntime/git/ref/tags/v1.28.2",
+  "queried_source_ref_http_status": 404,
+  "release_artifact": "https://github.com/csukuangfj/onnxruntime-libs/releases/tag/v1.28.2",
+  "release_asset_sha256": "2c2299acbb461d26d4bac4bc85985d40e7c7177ed6072703ae0846d88b0b4599",
+  "interpretation": "Recipe and artifact are available; exact microsoft source ref was not retrievable in this audit. Header MIT reference is not a complete static binary notices/BOM."
+}

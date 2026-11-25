@@ -1,0 +1,154 @@
+{
+  "state": "PASS_MEASURED_RUNTIME_SOURCE_BYTES_UNCHANGED",
+  "compared_worktree_head": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+  "records": [
+    {
+      "measurement_source_sha": "a7b073d572fe7e4862679678dc872f0887a5e19d",
+      "path": "tools/local-tts-spike/fixtures/corpus.json",
+      "git_object": "b9618f1d0e19738c5271b8ce3066ca002378da12",
+      "sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "a7b073d572fe7e4862679678dc872f0887a5e19d",
+      "path": "tools/local-tts-spike/s02a2/scripts/benchmark_desktop.py",
+      "git_object": "e5c894cf3974910b298c0f444e35a750d2b0e546",
+      "sha256": "b587a09b03da1088dbb7d6f36bdbc4c6d1e8d4ae0ac1ca5938d8d35412c41bc3",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "a7b073d572fe7e4862679678dc872f0887a5e19d",
+      "path": "tools/local-tts-spike/s02a2/scripts/model_assets.py",
+      "git_object": "440708cc227eceb13cdf7c4abd268c828e0c7c68",
+      "sha256": "292f529610e45216e3d3244656e8bb28723f15bdbf9ab0bb8311bc2472f815d2",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "a7b073d572fe7e4862679678dc872f0887a5e19d",
+      "path": "tools/local-tts-spike/s02a3/scripts/benchmark_suxin.py",
+      "git_object": "55100e1f2ffe34977e0e76e2d4656ef7ee464344",
+      "sha256": "99be419625afafe4926a0e79e675bd8dcc3798e0eabba16630d822dd0a553bde",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": ".github/workflows/s02a-ios.yml",
+      "git_object": "2170a34f91cf4312b49a5108c15c60c5b77b8fb0",
+      "sha256": "72f5184a119a6efaca43625e0a0bc009ad1fafdfc85d72113ef9ba76f662d6af",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Package.swift",
+      "git_object": "574e4946debc4badce7b0dcd096cb072e1f74f03",
+      "sha256": "c4d9980d60814c586e9c9f5c4382639651b2cad07ec25bc46fa0223589d46a94",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Sources/LocalTTSSpike/AudioProbe.swift",
+      "git_object": "8168f116789955720d87f9e89966f5e9c58c7576",
+      "sha256": "1ea4286ea0ead715db619dc1f29d73bbe338b97934755bf83e73e6f6c94e6b35",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Sources/LocalTTSSpike/KokoroSpike.swift",
+      "git_object": "342fc7c39520dc65ce9498cfbacc4d6d5692f4db",
+      "sha256": "c228f19a6483aa11d3b5ae554cbd69c6ecbd047c63c9fc9a5571ccdef4f021f1",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Sources/LocalTTSSpike/MatchaSpike.swift",
+      "git_object": "2f59cc48fb37011f1dab1b6684eabd3efd46763b",
+      "sha256": "21438082abce97148cfbbb49f5416ca30ba6a2a55ffe15540a51906ed6ef01cb",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Sources/MobileOrtProbe/MobileOrtProbe.cpp",
+      "git_object": "620230332b6bfdad79d64e378a4984b2fadf11c7",
+      "sha256": "b156fb5c1e0148e188835a3483265cdc861b3314fc9d9838cba2f1b142d7ac70",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Sources/MobileOrtProbe/include/MobileOrtProbe.h",
+      "git_object": "55cd91f8c954a50d3d2a1748d4da4138d2ef8cf9",
+      "sha256": "8eb7723d113eceab4f356a3cba0176310f5e7ad83c33f7bfd8820853a440ef75",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Tests/LocalTTSSpikeTests/KokoroBenchmarkTests.swift",
+      "git_object": "f552653bca4096ceb31a24e73f73771257f8062a",
+      "sha256": "6c442b556e8723228776939623afe969f5a673d5446852f53708355b23f0dfbc",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Tests/LocalTTSSpikeTests/KokoroInferenceTests.swift",
+      "git_object": "2cf13cd4933c276709dfc7a21c3660fb76d498bb",
+      "sha256": "33c7e274260016fdda3976bfb3730009766a4f0d08fe6f9f224b744dbae1d9e2",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/Tests/LocalTTSSpikeTests/MobileCandidateTests.swift",
+      "git_object": "890df2dd8d3e753091b7ffd12e2e369fb05c618a",
+      "sha256": "a058bd0e956f7f8ae53dfb586de46a9fca61c46c8fe7b6af6a26faa7d31db27e",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/s02a2/scripts/model_assets.py",
+      "git_object": "440708cc227eceb13cdf7c4abd268c828e0c7c68",
+      "sha256": "292f529610e45216e3d3244656e8bb28723f15bdbf9ab0bb8311bc2472f815d2",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/s02a2/scripts/publish_native.py",
+      "git_object": "5ce4d81a3e73426972bc9e3c4dbc1a11ac3b4db3",
+      "sha256": "73f0e349ac813b6ddc4bcd71225b0d2dbab916c120ab3b6d47a50ea832a727ca",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/s02a2/scripts/run_native.py",
+      "git_object": "fc97038b47e0839134f2b080ae4c1c6707f4367b",
+      "sha256": "eb0226c483bb7936e0e196d5137c2569515bdc3e75252b858fe997c0a1149278",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/s02a3/fixtures/suxin-author-ids.json",
+      "git_object": "697ea91bd46b1a24784b511a5d5f342c768f48fb",
+      "sha256": "f07ac7e64ad94dcef10e1504dcd89a72a70a5b646705eb148293b1dc406c474e",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/s02a3/manifests/precomputed-ids.json",
+      "git_object": "0bf14bdb4a46e1e3abefb428637e7a892e931194",
+      "sha256": "f96ef95b6b11ae0651029031b062410077cf9494d843fa729692d12b575e0251",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/s02a3/scripts/probe_frontend.py",
+      "git_object": "a25b9bd49f2ad8b64436d8a8a95be18299f6ce9c",
+      "sha256": "24fdc1ad1ca3ff61987592445fae8611e809c889f104fd5d12bbfff35791ba62",
+      "unchanged": true
+    },
+    {
+      "measurement_source_sha": "9713f7596c9f9a3b9565cfb61dd836b1b3602b5b",
+      "path": "tools/local-tts-spike/s02a3/scripts/validate_precomputed.py",
+      "git_object": "45ea967eeb9481927b25dd30d79a5e2cdb2496c5",
+      "sha256": "a23db465a877cc47b9c52d9cbad7584f2744118cc9dcb2f03968d4f12be216c6",
+      "unchanged": true
+    }
+  ],
+  "note": "UI packaging/report changes are separate; no benchmark/native runtime changes after these measured sources. Public pin-manifest LF representation matches Git; original author IDs retain exact CRLF bytes."
+}

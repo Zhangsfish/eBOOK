@@ -1,0 +1,50 @@
+{
+  "status": "REFERENCE_ONLY_NO_MODEL_RUN",
+  "repository": "https://github.com/ASLP-lab/M5-TTS",
+  "official_demo": "https://aslp-lab.github.io/M5-TTS-Demo-Page/",
+  "onnx_source_revision": "6a009494173b36257c1dc8611625956de08b27f3",
+  "declared_model_license": "apache-2.0",
+  "lm_parameters_author_reported": 50000000,
+  "codec_excluded_from_lm_parameter_count": true,
+  "selected_streaming_clone_files_metadata": [
+    {
+      "path": "audio_embeddings.npy",
+      "bytes": 67207296,
+      "sha256": "5c0e175c1feae525d66931dd81d727cb4f244f70121504c5d014f250afc51551"
+    },
+    {
+      "path": "backbone.onnx",
+      "bytes": 121797179,
+      "sha256": "103fc4f5ff86cd19d11d1e45126cf001996824e6db40ca3577c9e8c9a330b7df"
+    },
+    {
+      "path": "codec_decoder_cached.onnx",
+      "bytes": 456464460,
+      "sha256": "8de33020e2add01361c05bf6ab6b9a0a2a11ba5a924deaa933e27b844e0a845d"
+    },
+    {
+      "path": "codec_encoder.onnx",
+      "bytes": 190632314,
+      "sha256": "ae0364957dd52df283e88baea8ea09d1f1f34b579cd53d2806b38290ebc03b57"
+    },
+    {
+      "path": "depth_frame.onnx",
+      "bytes": 279994967,
+      "sha256": "44e8be816445e4574007628cfbf5af6c088f5f5c0b37218d112c6b333d739b82"
+    },
+    {
+      "path": "text_embeddings.npy",
+      "bytes": 266223744,
+      "sha256": "39c3849c8bbad6c94bb8e33784453d0af069335ac85da353419d7b41144afdb5"
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 17524745,
+      "sha256": "c8e344fb99b05f0a3f8a126a137d6a21a4af73470548c1a4031c89935e67713d"
+    }
+  ],
+  "selected_streaming_clone_bytes": 1399844705,
+  "model_bytes_downloaded": 0,
+  "same_original_corpus_synthesis": "NOT_RUN_REFERENCE_ONLY",
+  "iphone_performance": "NOT_RUN"
+}

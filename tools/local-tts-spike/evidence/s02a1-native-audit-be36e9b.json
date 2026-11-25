@@ -1,0 +1,90 @@
+{
+  "status": "PASS_PINNED_ARCHIVES_INSPECTED",
+  "host_system": "Darwin",
+  "host_architecture": "x86_64",
+  "source_sha": "be36e9b8e34430b58869033118bbbaf652d32c5b",
+  "components": {
+    "sherpa": {
+      "archive_sha256": "36603efc0908a18a3b4b5ec1a81a15accddbe9948720bf4d931ee14506f42481",
+      "archive_bytes": 21010826,
+      "archive_members": 22,
+      "info_plist_sha256": "20ea0fb986bf86e750384324c3ff8006bef296b4fe04896e6714ba9bab218b84",
+      "libraries": [
+        {
+          "BinaryPath": "SherpaOnnxC.framework/SherpaOnnxC",
+          "LibraryIdentifier": "ios-arm64",
+          "LibraryPath": "SherpaOnnxC.framework",
+          "SupportedArchitectures": [
+            "arm64"
+          ],
+          "SupportedPlatform": "ios",
+          "binary_member": "sherpa-onnx.xcframework/ios-arm64/SherpaOnnxC.framework/SherpaOnnxC",
+          "binary_bytes": 25891424,
+          "binary_sha256": "47b67711ddf1150e0f947bc997470c70f955ff03776f179cbe7ecf3fb6da05f9",
+          "actual_lipo_exit": 0,
+          "actual_lipo_output": "Non-fat file: <VERIFIED_LIBRARY> is architecture: arm64"
+        },
+        {
+          "BinaryPath": "SherpaOnnxC.framework/SherpaOnnxC",
+          "LibraryIdentifier": "ios-arm64_x86_64-simulator",
+          "LibraryPath": "SherpaOnnxC.framework",
+          "SupportedArchitectures": [
+            "arm64",
+            "x86_64"
+          ],
+          "SupportedPlatform": "ios",
+          "SupportedPlatformVariant": "simulator",
+          "binary_member": "sherpa-onnx.xcframework/ios-arm64_x86_64-simulator/SherpaOnnxC.framework/SherpaOnnxC",
+          "binary_bytes": 51579904,
+          "binary_sha256": "c6507f35388ee2888eab8d72a4ceb92d17b7668a99cb1f8d5af3bca3a56d4450",
+          "actual_lipo_exit": 0,
+          "actual_lipo_output": "Architectures in the fat file: <VERIFIED_LIBRARY> are: x86_64 arm64"
+        }
+      ],
+      "notices": [],
+      "notice_status": "NO_NOTICE_FILES_IN_ARCHIVE",
+      "source_url": "https://github.com/k2-fsa/sherpa-onnx/releases/download/xcframework/sherpa-onnx-v2.0.3-ios-static.xcframework.zip"
+    },
+    "onnxruntime": {
+      "archive_sha256": "2c2299acbb461d26d4bac4bc85985d40e7c7177ed6072703ae0846d88b0b4599",
+      "archive_bytes": 33821118,
+      "archive_members": 46,
+      "info_plist_sha256": "6e349933650bedc907bacf5a5cced6a0a586b19c059b0a69af5b79341003a3f6",
+      "libraries": [
+        {
+          "BinaryPath": "onnxruntime.framework/onnxruntime",
+          "LibraryIdentifier": "ios-arm64_x86_64-simulator",
+          "LibraryPath": "onnxruntime.framework",
+          "SupportedArchitectures": [
+            "arm64",
+            "x86_64"
+          ],
+          "SupportedPlatform": "ios",
+          "SupportedPlatformVariant": "simulator",
+          "binary_member": "onnxruntime.xcframework/ios-arm64_x86_64-simulator/onnxruntime.framework/onnxruntime",
+          "binary_bytes": 92316512,
+          "binary_sha256": "948c78175cf7b3449adc960cc4caa421bc40f33b98b4598f49194aa18fc3592a",
+          "actual_lipo_exit": 0,
+          "actual_lipo_output": "Architectures in the fat file: <VERIFIED_LIBRARY> are: x86_64 arm64"
+        },
+        {
+          "BinaryPath": "onnxruntime.framework/onnxruntime",
+          "LibraryIdentifier": "ios-arm64",
+          "LibraryPath": "onnxruntime.framework",
+          "SupportedArchitectures": [
+            "arm64"
+          ],
+          "SupportedPlatform": "ios",
+          "binary_member": "onnxruntime.xcframework/ios-arm64/onnxruntime.framework/onnxruntime",
+          "binary_bytes": 44739584,
+          "binary_sha256": "45f514c9eeb397c1047af5e00050c8e84ecd37c75c7db12854bdef48e86b2be4",
+          "actual_lipo_exit": 0,
+          "actual_lipo_output": "Architectures in the fat file: <VERIFIED_LIBRARY> are: arm64"
+        }
+      ],
+      "notices": [],
+      "notice_status": "NO_NOTICE_FILES_IN_ARCHIVE",
+      "source_url": "https://github.com/csukuangfj/onnxruntime-libs/releases/download/v1.28.2/onnxruntime-ios-static-xcframework-1.28.2.xcframework.zip"
+    }
+  }
+}

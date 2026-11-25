@@ -1,0 +1,12 @@
+{
+  "host_os": "Windows",
+  "usb_developer_ios_device_detected": false,
+  "bluetooth_only_surfaces_detected": true,
+  "xcodebuild_available": false,
+  "xcrun_available": false,
+  "device_runtime": "DEVICE_NOT_RUN",
+  "device_signing_path": "Existing eBOOK workflow creates unsigned preparation only; no connected Xcode deployment path",
+  "thermal": "DEVICE_NOT_RUN",
+  "battery": "DEVICE_NOT_RUN",
+  "device_identifiers_recorded": false
+}

@@ -1,0 +1,35 @@
+{
+  "status": "MATCHED_ARTIFACT_SOURCE",
+  "source_repository": "https://huggingface.co/csukuangfj/icefall-tts-aishell3-vits-low-2024-04-06",
+  "source_revision": "57345c004e13ed640e408c4c29ab56187b18f065",
+  "declared_license": "apache-2.0",
+  "original_kokoro_export_script": "https://github.com/k2-fsa/sherpa-onnx/blob/38016c6e0622e90bf417c35e8b47e0eb805af417/.github/workflows/export-kokoro.yaml",
+  "files": [
+    {
+      "kokoro_file": "date-zh.fst",
+      "upstream_file": "data/date.fst",
+      "source_url": "https://huggingface.co/csukuangfj/icefall-tts-aishell3-vits-low-2024-04-06/resolve/57345c004e13ed640e408c4c29ab56187b18f065/data/date.fst",
+      "sha256": "eb8aa079ae3cb81d8f4404992f39d61a0cb990947512b5b8d1e54d1f6980e718",
+      "bytes": 59154,
+      "matches_pinned_kokoro_bytes": true
+    },
+    {
+      "kokoro_file": "number-zh.fst",
+      "upstream_file": "data/number.fst",
+      "source_url": "https://huggingface.co/csukuangfj/icefall-tts-aishell3-vits-low-2024-04-06/resolve/57345c004e13ed640e408c4c29ab56187b18f065/data/number.fst",
+      "sha256": "743f402181fcfebf76cc2f0546b71fa26476e626fbe4e460fb7b4c3a7a8bd5bd",
+      "bytes": 64482,
+      "matches_pinned_kokoro_bytes": true
+    },
+    {
+      "kokoro_file": "phone-zh.fst",
+      "upstream_file": "data/phone.fst",
+      "source_url": "https://huggingface.co/csukuangfj/icefall-tts-aishell3-vits-low-2024-04-06/resolve/57345c004e13ed640e408c4c29ab56187b18f065/data/phone.fst",
+      "sha256": "1ac2b6fa56b1442320c4de7db08353bab8963a2b57f365eebcdd3a2d3562f8d7",
+      "bytes": 88630,
+      "matches_pinned_kokoro_bytes": true
+    }
+  ],
+  "other_model_weights_downloaded": 0,
+  "license_clearance": "UNRESOLVED_UNDERLYING_GRAMMAR_SOURCE_AND_NOTICES"
+}

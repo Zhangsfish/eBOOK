@@ -1,0 +1,157 @@
+{
+  "model": "Suxin-Light int8-excldec",
+  "source_revision": "5ee2da546f3635da263602842d238d8624cb7a81",
+  "sample_rate": 22050,
+  "speakers": 1,
+  "downloads": [
+    {
+      "path": "zh_en-suxin-light.int8-excldec.onnx",
+      "filename": "suxin/zh_en-suxin-light.int8-excldec.onnx",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/zh_en-suxin-light.int8-excldec.onnx",
+      "bytes": 67260202,
+      "sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+      "sha256_provenance": "HF_LFS_SHA256"
+    },
+    {
+      "path": "zh_en-suxin-light.int8-excldec.onnx.json",
+      "filename": "suxin/zh_en-suxin-light.int8-excldec.onnx.json",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/zh_en-suxin-light.int8-excldec.onnx.json",
+      "bytes": 5981,
+      "sha256": "7228b4619a4eb38c8f297fab80b63051e0c059c196696e186b38b9d8a0fb29dd",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "suxin_tts/__init__.py",
+      "filename": "suxin/suxin_tts/__init__.py",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/suxin_tts/__init__.py",
+      "bytes": 252,
+      "sha256": "ab7c116a29632284a799c938766e64c4ce06a7fa959628765db3a81086930b35",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "suxin_tts/synthesizer.py",
+      "filename": "suxin/suxin_tts/synthesizer.py",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/suxin_tts/synthesizer.py",
+      "bytes": 17136,
+      "sha256": "3231440ceaf809465373235d9526b7437906c0b18d8892e74822d6684603b769",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "suxin_tts/mixed_frontend.py",
+      "filename": "suxin/suxin_tts/mixed_frontend.py",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/suxin_tts/mixed_frontend.py",
+      "bytes": 16329,
+      "sha256": "6bbf508c0e7fb6a887da787631d23a09d8e712d5d231e08b8d3a33325cbd333e",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "suxin_tts/cli.py",
+      "filename": "suxin/suxin_tts/cli.py",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/suxin_tts/cli.py",
+      "bytes": 3855,
+      "sha256": "c1d2d15ac06a92b77efe3aa73ec295cc7937c0eef58be24f3d69c1449f865701",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "LICENSE",
+      "filename": "suxin/LICENSE",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/LICENSE",
+      "bytes": 1353,
+      "sha256": "c00757a3751a61e3cf5229887e183d6aa11f6ce9a1aecb6a10e20505f5a4cb6d",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "README.md",
+      "filename": "suxin/README.md",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/README.md",
+      "bytes": 7963,
+      "sha256": "80713e4677a575de278166b98a91b620ba4fefabe919b7f4bcafe804482d28d4",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "requirements.txt",
+      "filename": "suxin/requirements.txt",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/requirements.txt",
+      "bytes": 206,
+      "sha256": "e26e813afe42670fa36cf3ef59c9bb5c52c21abaf97dcc28f729b41cf98d402f",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "pyproject.toml",
+      "filename": "suxin/pyproject.toml",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/pyproject.toml",
+      "bytes": 895,
+      "sha256": "ed3507cd7b5620cef21d2c54ed93a44617334f092c36547d34349d51eb7635a1",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    },
+    {
+      "path": "uv.lock",
+      "filename": "suxin/uv.lock",
+      "url": "https://huggingface.co/TEQUILA123/suxin-light/resolve/5ee2da546f3635da263602842d238d8624cb7a81/uv.lock",
+      "bytes": 115990,
+      "sha256": "9a92cf3dc08f3225beb52740c791623d981581fcce86c6570078ee453d9f14e9",
+      "sha256_provenance": "PINNED_HF_GIT_BLOB_AND_OBSERVED_SHA256"
+    }
+  ],
+  "files": [
+    {
+      "path": "zh_en-suxin-light.int8-excldec.onnx",
+      "bytes": 67260202,
+      "sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa"
+    },
+    {
+      "path": "zh_en-suxin-light.int8-excldec.onnx.json",
+      "bytes": 5981,
+      "sha256": "7228b4619a4eb38c8f297fab80b63051e0c059c196696e186b38b9d8a0fb29dd"
+    },
+    {
+      "path": "suxin_tts/__init__.py",
+      "bytes": 252,
+      "sha256": "ab7c116a29632284a799c938766e64c4ce06a7fa959628765db3a81086930b35"
+    },
+    {
+      "path": "suxin_tts/synthesizer.py",
+      "bytes": 17136,
+      "sha256": "3231440ceaf809465373235d9526b7437906c0b18d8892e74822d6684603b769"
+    },
+    {
+      "path": "suxin_tts/mixed_frontend.py",
+      "bytes": 16329,
+      "sha256": "6bbf508c0e7fb6a887da787631d23a09d8e712d5d231e08b8d3a33325cbd333e"
+    },
+    {
+      "path": "suxin_tts/cli.py",
+      "bytes": 3855,
+      "sha256": "c1d2d15ac06a92b77efe3aa73ec295cc7937c0eef58be24f3d69c1449f865701"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1353,
+      "sha256": "c00757a3751a61e3cf5229887e183d6aa11f6ce9a1aecb6a10e20505f5a4cb6d"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7963,
+      "sha256": "80713e4677a575de278166b98a91b620ba4fefabe919b7f4bcafe804482d28d4"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 206,
+      "sha256": "e26e813afe42670fa36cf3ef59c9bb5c52c21abaf97dcc28f729b41cf98d402f"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 895,
+      "sha256": "ed3507cd7b5620cef21d2c54ed93a44617334f092c36547d34349d51eb7635a1"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 115990,
+      "sha256": "9a92cf3dc08f3225beb52740c791623d981581fcce86c6570078ee453d9f14e9"
+    }
+  ],
+  "total_download_bytes": 67430162,
+  "unpacked_bytes": 67430162,
+  "license_status": "MODEL_CODE_MIT_ENGLISH_FRONTEND_PIPER_ESPEAK_GPL_NOT_CLEARED_FOR_APP",
+  "frontend_dependency_payload": "Not included in these model-pack bytes; measured separately if installed"
+}

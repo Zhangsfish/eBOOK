@@ -1,0 +1,18 @@
+{
+  "status": "PASS_DOWNLOADED_ZIP_CRC_DIGEST_JSON_ALLOWLIST",
+  "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0",
+  "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45445046800",
+  "zip_sha256": "5a22333e0d2d7342b5d4ad1783459bcdf2fc2ca9dc1da73c31c8a2385fd50cfb",
+  "zip_bytes": 3564,
+  "files": [
+    {
+      "file": "native-result-0.json",
+      "bytes": 11901,
+      "sha256": "d59c09208e8726995b1a99d5d9d9401e5847dd660710bb7f7d75e58c85543691"
+    }
+  ],
+  "audio_files": 0,
+  "model_files": 0,
+  "raw_profile_files": 0,
+  "build_artifact_files": 0
+}

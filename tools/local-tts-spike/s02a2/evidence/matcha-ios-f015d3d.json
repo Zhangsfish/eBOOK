@@ -1,0 +1,303 @@
+{
+  "status": "COMPLETED_MEASUREMENTS_DEVICE_NOT_RUN",
+  "phase": "matcha",
+  "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0",
+  "host": "Darwin",
+  "host_architecture": "arm64",
+  "measurements": [
+    {
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.5 (Build 22F77)",
+      "kind": "matcha",
+      "language_limit": "Chinese-only; original mixed-English fixture remains unchanged, OOV may be skipped.",
+      "model_initialization_seconds": 2.3429671250000013,
+      "records": [
+        {
+          "duration_seconds": 8.021451247165533,
+          "first_callback_seconds": 0.27718583333333413,
+          "first_output_probe": {
+            "first_output_render_seconds": 8.91557366666666,
+            "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+            "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+            "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+          },
+          "fixture_id": "narration",
+          "frames": 176873,
+          "generation_seconds": 1.6453363749999994,
+          "process_peak_rss_cumulative_bytes": 283721728,
+          "rms": 0.07563664497483766,
+          "rtf": 0.20511704482170814,
+          "sample_rate": 22050,
+          "wav_sha256": "7cf9cfb0f76cfd52204fcb20cdaf1307c2688df3127f1ac2d087c4ac79a5e50a"
+        },
+        {
+          "duration_seconds": 6.282267573696145,
+          "first_callback_seconds": 8.647071499999981,
+          "fixture_id": "dialogue",
+          "frames": 138524,
+          "generation_seconds": 23.681580499999995,
+          "process_peak_rss_cumulative_bytes": 283721728,
+          "rms": 0.08691231181706453,
+          "rtf": 3.7695911901547743,
+          "sample_rate": 22050,
+          "wav_sha256": "ed35bb54a7909cee3cfe5153163e1dae84d81d67b87fa8302d0ae6041bb861c5"
+        },
+        {
+          "duration_seconds": 9.797369614512471,
+          "first_callback_seconds": 3.1785025833333407,
+          "fixture_id": "numbers",
+          "frames": 216032,
+          "generation_seconds": 4.742500833333338,
+          "process_peak_rss_cumulative_bytes": 287817728,
+          "rms": 0.08767428352352055,
+          "rtf": 0.4840585810204049,
+          "sample_rate": 22050,
+          "wav_sha256": "83b06ba1d82e148e1a344b0efd0788972b8273ed31b8179fd86659b32fb076ea"
+        },
+        {
+          "duration_seconds": 7.207437641723356,
+          "first_callback_seconds": 0.98064262500003,
+          "fixture_id": "polyphones",
+          "frames": 158924,
+          "generation_seconds": 1.994381583333336,
+          "process_peak_rss_cumulative_bytes": 288145408,
+          "rms": 0.0814506865584458,
+          "rtf": 0.27671159744594936,
+          "sample_rate": 22050,
+          "wav_sha256": "15e2903009d5f4c65cfb76cab1928580a4e8a47d7beac05225774c3cdf215744"
+        },
+        {
+          "duration_seconds": 4.805079365079365,
+          "first_callback_seconds": 0.19524704166661877,
+          "fixture_id": "mixed",
+          "frames": 105952,
+          "generation_seconds": 1.17804554166662,
+          "process_peak_rss_cumulative_bytes": 288145408,
+          "rms": 0.07759508300429635,
+          "rtf": 0.24516671883257485,
+          "sample_rate": 22050,
+          "wav_sha256": "daf9979f98de7c6a804cb9a31fafdc4d8bbe4749ed6d872406e308396e3a4925"
+        }
+      ],
+      "run_context": {
+        "corpus_sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+        "phase": "matcha",
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0"
+      },
+      "speaker_count": 1,
+      "speaker_id": 0,
+      "speed": 1,
+      "threads": 2,
+      "warmup_generation_seconds": 0.36490316666666445,
+      "statistics": {
+        "mean_rtf": 0.9961290264550823,
+        "p95_rtf_nearest_rank": 3.7695911901547743,
+        "weighted_rtf": 0.9204798143613302,
+        "peak_process_rss_bytes": 288145408
+      },
+      "test_method": "testMatchaThreads2"
+    },
+    {
+      "environment": "IOS_SIMULATOR",
+      "genuine_ios_inference": true,
+      "ios_version": "Version 18.5 (Build 22F77)",
+      "kind": "matcha",
+      "language_limit": "Chinese-only; original mixed-English fixture remains unchanged, OOV may be skipped.",
+      "model_initialization_seconds": 5.980907291666654,
+      "records": [
+        {
+          "duration_seconds": 8.017278911564626,
+          "first_callback_seconds": 2.7549970833333077,
+          "first_output_probe": {
+            "first_output_render_seconds": 9.81520087499996,
+            "measurement": "request start to nonzero main-mixer samples after real synthesis/playback",
+            "physical_acoustic_audibility": "NOT_MEASURED_NO_HARDWARE_LOOPBACK",
+            "status": "OBSERVED_SIMULATOR_REALTIME_MIXER"
+          },
+          "fixture_id": "narration",
+          "frames": 176781,
+          "generation_seconds": 8.687971333333337,
+          "process_peak_rss_cumulative_bytes": 275628032,
+          "rms": 0.07684094493342813,
+          "rtf": 1.0836558674291925,
+          "sample_rate": 22050,
+          "wav_sha256": "036ec02db33ad031963c9b226706ee2a2db005d77e4a763b090f63e1e596f52c"
+        },
+        {
+          "duration_seconds": 6.287936507936508,
+          "first_callback_seconds": 1.454277291666699,
+          "fixture_id": "dialogue",
+          "frames": 138649,
+          "generation_seconds": 2.9692273750000027,
+          "process_peak_rss_cumulative_bytes": 288735232,
+          "rms": 0.0857744997073833,
+          "rtf": 0.47221013940778556,
+          "sample_rate": 22050,
+          "wav_sha256": "6639ce11aac87e05c6045afe786f3b96e47b14bb37cbb74f6996667b3ad472bd"
+        },
+        {
+          "duration_seconds": 9.801451247165533,
+          "first_callback_seconds": 1.3115465833333246,
+          "fixture_id": "numbers",
+          "frames": 216122,
+          "generation_seconds": 4.296264249999979,
+          "process_peak_rss_cumulative_bytes": 292864000,
+          "rms": 0.09038674996056778,
+          "rtf": 0.4383294005816138,
+          "sample_rate": 22050,
+          "wav_sha256": "b0b310d92c708948cbf02a843075927ff127c18a07b7a119ffe41a7e239c97d2"
+        },
+        {
+          "duration_seconds": 7.205759637188208,
+          "first_callback_seconds": 1.0912997916666427,
+          "fixture_id": "polyphones",
+          "frames": 158887,
+          "generation_seconds": 3.1186502499999733,
+          "process_peak_rss_cumulative_bytes": 293224448,
+          "rms": 0.0817217009889734,
+          "rtf": 0.4327996501444386,
+          "sample_rate": 22050,
+          "wav_sha256": "7a77fd6f4b3e85664c6ca9f89ce45e6088d3268ade862bf72b1227026420b4b9"
+        },
+        {
+          "duration_seconds": 4.812199546485261,
+          "first_callback_seconds": 0.8459277083333063,
+          "fixture_id": "mixed",
+          "frames": 106109,
+          "generation_seconds": 1.7320894583333484,
+          "process_peak_rss_cumulative_bytes": 293224448,
+          "rms": 0.07924618987686916,
+          "rtf": 0.35993716420143745,
+          "sample_rate": 22050,
+          "wav_sha256": "d5930681cb3790c150616dfeca1ae2f915355d52eff5bff381039e699bdaa821"
+        }
+      ],
+      "run_context": {
+        "corpus_sha256": "b03fec6c0ced39735b81fb4793187581603e5f37b2e0d8dae2692eb98c6eaf5c",
+        "phase": "matcha",
+        "runtime_revision": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+        "source_sha": "f015d3dcef870381bc7f7f19fc32bcf8dee5f4e0"
+      },
+      "speaker_count": 1,
+      "speaker_id": 0,
+      "speed": 1,
+      "threads": 4,
+      "warmup_generation_seconds": 1.3509701666666842,
+      "statistics": {
+        "mean_rtf": 0.5573864443528935,
+        "p95_rtf_nearest_rank": 1.0836558674291925,
+        "weighted_rtf": 0.5759008481598088,
+        "peak_process_rss_bytes": 293224448
+      },
+      "test_method": "testMatchaThreads4"
+    }
+  ],
+  "physical_device": "DEVICE_NOT_RUN",
+  "thermal": "DEVICE_NOT_RUN",
+  "battery": "DEVICE_NOT_RUN",
+  "locked_screen_playback": "DEVICE_NOT_RUN",
+  "human_quality": "OWNER_LISTENING_PENDING",
+  "genuine_ios_inference": true,
+  "genuine_ios_graph_inference": false,
+  "production_app_changed": false,
+  "cloud_tts_calls": 0,
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "simulator_name": "iPhone 16 Pro",
+  "xcode_version": "Xcode 16.4\nBuild version 16F6",
+  "host_cpu": "Apple M1 (Virtual)",
+  "commands": [
+    {
+      "name": "resolve",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-resolvePackageDependencies"
+      ],
+      "timeout_seconds": 300
+    },
+    {
+      "name": "build",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "build-for-testing"
+      ],
+      "timeout_seconds": 600
+    },
+    {
+      "name": "matcha2",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/matcha2.xcresult",
+        "-only-testing:LocalTTSSpikeTests/MobileCandidateTests/testMatchaThreads2",
+        "test-without-building"
+      ],
+      "timeout_seconds": 600
+    },
+    {
+      "name": "matcha4",
+      "argv": [
+        "xcodebuild",
+        "-scheme",
+        "LocalTTSSpike",
+        "-destination",
+        "platform=iOS Simulator,id=<EPHEMERAL_ID>",
+        "-derivedDataPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/DerivedData",
+        "-clonedSourcePackagesDirPath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/SourcePackages",
+        "-parallel-testing-enabled",
+        "NO",
+        "CODE_SIGNING_ALLOWED=NO",
+        "-disableAutomaticPackageResolution",
+        "-resultBundlePath",
+        "<WORKSPACE>/.local-test-data/s02a2/native-matcha-26b8ad9a21fa4c779cdeef904514344f/matcha4.xcresult",
+        "-only-testing:LocalTTSSpikeTests/MobileCandidateTests/testMatchaThreads4",
+        "test-without-building"
+      ],
+      "timeout_seconds": 600
+    }
+  ],
+  "actual_resolved_source_revisions": {
+    "sherpa-onnx": "38016c6e0622e90bf417c35e8b47e0eb805af417",
+    "onnxruntime-libs": "8ebc5ebf92190903c274a7621ba4c96a732335ec"
+  },
+  "build_exit_code": 0,
+  "decision": "NO_GO_FOR_INTEGRATION_DEVICE_AND_OWNER_QUALITY_PENDING"
+}
