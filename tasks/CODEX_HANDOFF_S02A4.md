@@ -4,6 +4,23 @@
 用独立 worktree；先拉取最新分支，读 `AGENTS.md`、`STATUS.md`、产品/技术规格、
 `docs/TTS_WORKSTREAMS.md` 与 `tasks/S02A4_TEACHER_STUDENT_TTS.md`。
 
+## 2026-11-26 首轮交接
+
+已在 AutoDL 4090 完成固定 MOSS/zh_6 的七段原创真实合成，总536.32秒，新增连贯故事247.60秒。
+执行/测试 SHA：`60a66d7ec1af723a7fe1ec1c7d0fa43f433b663b`。54份依赖、17份模型身份及音频解码核验通过。
+资料在 `E:/myself/eBOOK-s02a4/.local-test-data/s02a4/outputs/`，完整归档119文件已逐哈希验收；
+`listening/night_station_continuous.mp3` 是优先核听入口，原始FLOAT32 WAV保留于恢复目录。
+完整来源、参数、字节/哈希和事实边界见 `reports/S02A4_TEACHER_STUDENT_TTS.md`。
+
+本轮上限¥50；估算约¥1.7，精确账单未提取。用户明确 AutoDL 可以自主安装所需软件，
+仅本机安装须先告知；已同步全局记忆。2026-11-26 00:40平台已显示本次 GPU实例“已关机”，
+SSH关闭，不占卡等待用户。其他任务实例未动。
+
+下一步先取得用户对新故事的音色/朗读方式反馈，再用剩余授权预算做小训练闭环。
+不要把官方demo认可当作本次音频已认可。官方固定版 SFT 缺 optimizer/scheduler/RNG/进度恢复；
+须补齐真 resume 再扩量。ASR对齐、训练、恢复、导出、苏心同文对照与真机均仍NOT_RUN。
+下文是原始目标与协作边界；其中“当前没有连接/作业”是接手前状态，不覆盖此条已执行事实。
+
 用户最新决定：第一版在另一个对话直接接入苏心，验证延迟后交付手机使用；
 本对话独立做后续模型。**第一版不等待本线；本线不修改第一版 App 或发布流程。**
 当前 App 线为 `codex/s02b-suxin-ios-integration`，任务
@@ -17,7 +34,7 @@
 
 随后在研究目录验证 direct ONNX、官方 SFT 或必要时的蒸馏；固定数据划分、
 版本、哈希和可恢复 recipe，小 train/resume/export/infer 试验通过才扩量。
-AutoDL 租卡已原则同意，当前没有连接实例或运行作业。架构/数据准备归执行者，
+AutoDL 租卡已原则同意，接手前没有连接实例或运行作业；首轮结果及已关机状态见上。架构/数据准备归执行者，
 不要再让用户替我们挑架构或找教师。用户只判断实际声音是否满意。
 
 苏心实验 PR #7 已交付，冻结 HEAD `eeee1443c1aac561035cf30590ff323c30ccab8a`，
