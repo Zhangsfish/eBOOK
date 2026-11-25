@@ -75,6 +75,17 @@ public struct BookDocument: Codable, Sendable {
         return TextPosition(block: block, utf16Offset: min(max(0, position.utf16Offset), blocks[block].utf16Count))
     }
 
+    /// The nearest preceding TOC destination, including the body of a chapter.
+    /// EPUB navigation order need not match spine order; prefer the deepest
+    /// entry when a section and its parent share the same destination.
+    public func tocEntry(atBlock block: Int) -> TOCEntry? {
+        guard !blocks.isEmpty else { return nil }
+        let position = min(max(0, block), blocks.count - 1)
+        return toc.lazy.filter { $0.block >= 0 && $0.block <= position }.max {
+            $0.block == $1.block ? $0.depth < $1.depth : $0.block < $1.block
+        }
+    }
+
     public func progress(block: Int, fraction: Double = 0) -> Double {
         guard totalUTF16 > 0, !blocks.isEmpty else { return 0 }
         let item = blocks[min(max(0, block), blocks.count - 1)]

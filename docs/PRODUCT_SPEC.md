@@ -26,6 +26,9 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 
 ### Reading
 - EPUB chapter/section navigation and table of contents.
+- Each TOC opening reveals and marks the chapter at the live reading position;
+  stale chapter searches are cleared. Browsing or closing the TOC preserves the
+  reading anchor; only choosing a chapter navigates the book.
 - TXT reading with sensible paragraph and chapter heuristics; do not pretend TXT has a reliable semantic TOC if it does not.
 - Font size controls, line spacing, page/background themes, including a warm low-glare / eye-comfort theme.
 - Progress indicator and restore last reading position.

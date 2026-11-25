@@ -3,6 +3,12 @@ on:
   push:
     branches: [codex/s00-reader-foundation]
   workflow_dispatch:
+    inputs:
+      test_scope:
+        description: Full regression or focused current-chapter TOC follow-up
+        type: choice
+        options: [all, reader-toc]
+        default: all
 permissions:
   contents: read
 concurrency:
@@ -23,6 +29,8 @@ jobs:
           python3 scripts/generate_long_gb18030_fixture.py
           python3 scripts/generate_xcode_project.py --check
       - name: Real Xcode build and simulator tests
+        env:
+          EBOOK_XCODE_TEST_SCOPE: ${{ inputs.test_scope || 'all' }}
         run: bash scripts/ci_xcode.sh
       - name: Upload metadata, logs and test results (no imported books or app bundle)
         if: always()

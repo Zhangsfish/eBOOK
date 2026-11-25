@@ -5,9 +5,11 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 ## Build and run S00
 
 Requires a Mac with Xcode 16.4 or later and an iOS 17+ simulator/device. There
-are no runtime third-party packages and no XcodeGen dependency. The bundle ID
-`org.example.eBOOK` is a placeholder; select your own team/unique identifier for
-device signing. S00 does not configure a developer account or distribution.
+are no runtime third-party packages and no XcodeGen dependency.
+The device-preparation branch uses `com.zhangsfish.ebook`; select your own team
+for local device signing. Existing unsigned CI packages require signing and cannot
+be installed directly. Apple account setup/internal distribution is a separate
+follow-up; see `tasks/S00_DEVICE_VALIDATION.md` and `reports/S00/device-01/`.
 
 ```bash
 python3 scripts/generate_long_gb18030_fixture.py
@@ -31,6 +33,14 @@ stdlib; use `--check` to verify it matches the sources. Recreate small original
 fixtures with `python3 scripts/generate_small_fixtures.py`.
 
 ## Use
+
+The reader opens with only the text and a subtle **⋯** in the lower-right corner.
+The entry has no white background/border and adapts to light, warm and dark themes.
+Tap it to open back, TOC, typography, speech and progress controls; close the panel
+to keep reading. Body taps and scrolling do not open it. Controls overlay the text
+without resizing the reading viewport. The 44-point entry remains accessible.
+Open 朗读 from that panel for playback; 收起 keeps ongoing speech running.
+Voice and rate remain in 阅读设置. Returning from these sheets hides the controls.
 
 Tap **导入书籍** and choose a local TXT or EPUB through Files. TXT defaults to
 BOM/strict UTF-8/legacy-encoding detection. Use the **TXT 编码** menu before import

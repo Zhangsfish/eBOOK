@@ -1,0 +1,29 @@
+[
+  {
+    "file": "toc-after-manual-reading-ios26.png",
+    "bytes": 298302,
+    "sha256": "0d161f2748b6aa4d597bbd2b9cefa4dc4bf7020c26fdf673c152c6b639395257",
+    "source_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+    "run_id": 45548099346,
+    "synthetic_text_only": true,
+    "unmodified_native_screenshot": true
+  },
+  {
+    "file": "toc-chapter-624-ios26.png",
+    "bytes": 290334,
+    "sha256": "6511cb46b05cff52bb69533004936f459587de6233f7c6f09c5c73a12e1cc565",
+    "source_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+    "run_id": 45548099346,
+    "synthetic_text_only": true,
+    "unmodified_native_screenshot": true
+  },
+  {
+    "file": "toc-after-relaunch-ios26.png",
+    "bytes": 290334,
+    "sha256": "6511cb46b05cff52bb69533004936f459587de6233f7c6f09c5c73a12e1cc565",
+    "source_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+    "run_id": 45548099346,
+    "synthetic_text_only": true,
+    "unmodified_native_screenshot": true
+  }
+]
