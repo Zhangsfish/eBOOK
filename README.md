@@ -4,13 +4,18 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 
 ## Current work: S02B local Suxin speech
 
-The selected Suxin-Light voice is being integrated on
+The selected Suxin-Light voice is implemented and **READY_FOR_AUDIT** on
 `codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12).
 See [the task](tasks/S02B_SUXIN_IOS_INTEGRATION.md) and
 [delivery evidence](reports/S02B_SUXIN_IOS_INTEGRATION.md). Desktop, simulator,
 device and TestFlight states are reported separately. A successful CI build is
 not a new installable phone release. The later model-training work in PR #11
 does not block this implementation.
+
+Native frontend/model/PCM checks pass on iOS18.5 and26.5; final full suites each
+report41/42, with system Files selection still failing. Both unsigned arm64
+Release archives pass. Physical-phone latency/long listening, complete distribution
+materials and a new TestFlight update remain pending; this is not release acceptance.
 
 ## Build and run
 
@@ -44,7 +49,8 @@ available), boots an installed simulator, builds without signing, seeds original
 test files into App Documents, runs unit/UI tests and archives an unsigned arm64
 Release App. The `integration` scope runs twelve native frontend, real-graph,
 PCM-playback and state/cache test methods; `frontend` checks the author oracle
-alone. Only allowlisted JSON/log evidence is uploaded by S02B CI. Model-containing
+alone; `picker` performs actual TXT/EPUB selection and cancellation (two methods).
+Only allowlisted JSON/log evidence is uploaded by S02B CI. Model-containing
 App/IPA/WAV files are not public artifacts. No tool installation or paid API.
 
 `scripts/generate_xcode_project.py` recreates the checked-in project with Python

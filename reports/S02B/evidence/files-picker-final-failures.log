@@ -1,0 +1,18 @@
+SOURCE 2dbaf25f26449a10693e05bd4a206c80805c48db
+CI https://github.com/Zhangsfish/eBOOK/actions/runs/45666635333
+Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' started.
+    t =    63.20s Tap "sample_utf8" StaticText
+S02B_PICKER_SECOND_ACTIVATION sample_utf8.txt
+    t =    72.89s Double tap "sample_utf8" StaticText
+/Users/runner/work/eBOOK/eBOOK/Tests/UITests/ReaderUITests.swift:321: error: -[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB] : XCTAssertTrue failed
+Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' failed (110.131 seconds).
+
+SOURCE f7ae01b1c9a78cd0fc3ade5a144af5bd270aa828
+CI https://github.com/Zhangsfish/eBOOK/actions/runs/45665077113
+Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' started.
+    t =    76.02s Tap "sample_utf8" StaticText
+S02B_PICKER_SECOND_ACTIVATION sample_utf8.txt
+    t =    86.01s Double tap "sample_utf8" StaticText
+/Users/runner/work/eBOOK/eBOOK/Tests/UITests/ReaderUITests.swift:319: error: -[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB] : XCTAssertTrue failed
+Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' failed (134.210 seconds).
+

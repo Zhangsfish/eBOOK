@@ -1,7 +1,10 @@
 # S02B — 第一版接入苏心并交付手机使用
 
-状态：**READY — 用户已明确授权接入、实测和通过后的内部 TestFlight 交付。**
-本轮交接只完成任务分流；App 接入与真机验收仍为 `NOT_IMPLEMENTED / NOT_RUN`。
+状态：**READY_FOR_AUDIT — 实现及模拟器证据已提交，存在 BLOCKED_QA / BLOCKED_ENV / 分发材料INCOMPLETE。**
+App已接入原生苏心，真实模拟器前端/图/PCM等12项均通过；最终两系统完整套件均41/42，
+Files真实选书仍失败。unsigned arm64 Release归档均通过；真机与新TestFlight仍NOT_RUN。
+详见 [交付报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md)。下列验收目标保持原样，
+不因实现交付而视为已通过；等待独立审查，不自行合并或提前上传新beta。
 用户决定：2026-11-25（Asia/Shanghai）。
 
 ## 目标与范围

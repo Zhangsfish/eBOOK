@@ -1,5 +1,21 @@
 # 当前对话交接 — 第一版苏心接入
 
+## 当前交付状态
+
+本线已 **READY_FOR_AUDIT**，不再是仅配置任务或仅预计算音素后端。
+正式App已有原生Swift中文前端、真实ORT、短段PCM播放、有界缓存/预取、苏心音色和独立语速。
+完整18.5执行SHA `2dbaf25f26449a10693e05bd4a206c80805c48db`、26.5执行SHA
+`f7ae01b1c9a78cd0fc3ade5a144af5bd270aa828`，App Sources树同为
+`36672759f4c470aff8ac41abee2631829017d2e6`。最终交付提交仅更新文档/小型证据。
+两系统苏心原生12项通过，完整各41PASS/1FAIL/0SKIP；设备unsigned arm64归档通过。
+真实Files选择仍失败，未认定根因；26.5单独2/2成功不能代替完整套件失败。
+真机首声/p95/各30分钟/发热耗电与新TestFlight未执行；运行库/模型分发材料不完整。
+见 [报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md) 和
+[待执行真机清单](../reports/S02B/DEVICE_CHECKLIST.md)。等待独立审查，不能自批、自并或
+把实现完成说成手机已更新。不得改训练PR #11或冻结实验PR #7。
+
+## 原始实施交接（保留背景）
+
 在 `Zhangsfish/eBOOK` 的 `codex/s02b-suxin-ios-integration` 独立 worktree 工作。
 先读 `AGENTS.md`、`STATUS.md`、产品/技术规格、`docs/TTS_WORKSTREAMS.md` 和
 `tasks/S02B_SUXIN_IOS_INTEGRATION.md`，以该任务为本线的 READY 授权。

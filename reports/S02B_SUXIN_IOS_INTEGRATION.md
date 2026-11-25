@@ -1,6 +1,7 @@
 # S02B — 苏心原生接入
 
-日期：2026-11-26（Asia/Shanghai）。状态：IN_PROGRESS，尚未请求最终审查。
+状态：**READY_FOR_AUDIT**；实现及证据已交付，存在 **BLOCKED_QA / BLOCKED_ENV / 分发材料INCOMPLETE**。
+这不是阶段验收通过，也不是手机已更新；等待独立审查，不自行合并或上传新TestFlight。
 
 本线在 `codex/s02b-suxin-ios-integration` 更新 PR #12。阅读基线 main
 `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`；交接起点
@@ -12,7 +13,7 @@
 | --- | --- |
 | 原生 Swift 中文前端 | IMPLEMENTED；全量固定字/词数据、最长匹配、数字/年/时间、一不变调、血、PAD |
 | 真实作者前端对照 | SIMULATOR_VERIFIED：92条原创文本逐音素/ID一致，三个测试方法3/3，无跳过 |
-| App 真实 ONNX、分段播放、缓存、语速、取消 | IMPLEMENTED / SIMULATOR_VERIFIED：两系统原生12方法通过；全套各41/42，Files点击补测中 |
+| App 真实 ONNX、分段播放、缓存、语速、取消 | IMPLEMENTED / SIMULATOR_VERIFIED：两系统原生12方法通过；完整回归仍有Files选书失败，不能整体标PASS |
 | 真机首声/跳转/30分钟连续播放/发热耗电 | DEVICE_VERIFIED=NOT_RUN；本机 Windows，没有已连接的 iPhone/Xcode |
 | 新安装包 | TESTFLIGHT_AVAILABLE=NO；旧39.1仍是原有苹果朗读版本 |
 | 全包分发许可 | INCOMPLETE；具体材料缺口见下，不影响独立本地测试 |
@@ -29,7 +30,53 @@ Xcode16.4(16F6)、iOS18.5、ARM64虚拟Mac、iPhone16Pro模拟器；没有模型
 修正先关闭写入器使头部落盘，并延长原创队列文本。旧失败JSON保留于evidence目录，
 其WAV SHA不算已完成WAV文件验收。旧软件探针RTF/首样本仅是失败运行中的诊断数据。
 
-## 实际完整回归与性能
+## 最终实现的完整回归
+
+App Sources树：`36672759f4c470aff8ac41abee2631829017d2e6`。
+最终实现HEAD `2dbaf25f26449a10693e05bd4a206c80805c48db`；与
+`f7ae01b1c9a78cd0fc3ade5a144af5bd270aa828` 的差异仅为UI测试在旧系统也选择
+Files列表模式，正式App/原生模型/构建脚本完全相同。之后交付只修改文档及小型证据。
+
+| 环境 | 执行HEAD / CI | 实际结果 |
+| --- | --- | --- |
+| macos-26 / Xcode26.6(17F113) / iOS26.5 / iPhone17Pro Simulator | f7ae01b / [45665077113](https://github.com/Zhangsfish/eBOOK/actions/runs/45665077113) | 42项41PASS/1FAIL/0SKIP；12项原生检查均PASS；unsigned Release arm64 archive PASS |
+| macos-15 / Xcode16.4(16F6) / iOS18.5 / iPhone16Pro Simulator | 2dbaf25 / [45666635333](https://github.com/Zhangsfish/eBOOK/actions/runs/45666635333) | 42项41PASS/1FAIL/0SKIP；12项原生检查均PASS；unsigned Release arm64 archive PASS |
+
+两系统唯一失败仍是 `ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB`：
+系统Files中的 `sample_utf8.txt` 被实际点击及一次双击重试后，仍留在选择器，
+书架未出现选中的书。不是跳过、Mock或仅注入内部库。根因尚未确定，
+保留为 **BLOCKED_QA**；不能把之前单独2/2通过扩大为完整套件入口已修复。
+
+两系统的230万字符GB18030长篇回归和原有阅读/目录/主题/重启恢复通过：
+256个样本、4次进程会话、1,875个索引块，最远到第1,869块；可见单元最多2、
+渲染正文最多1,599 UTF16、窗口最多12块，观察到早期滚动换窗。
+阅读探针进程峰值：18.5为373,506,048bytes、26.5为440,958,976bytes；
+它与模型测试宿主RSS是不同采样范围。
+设备归档App分别92,641,456 / 92,638,068bytes，6项资源哈希验证通过；
+项目版本0.1.0、CURRENT_PROJECT_VERSION=1，实际执行以完整SHA识别，
+不是旧TestFlight39.1的安装版本；没有签名或上传安装包。
+原始小型结果见 `S02B/evidence/full-ios18-2dbaf25.json`、`full-ios26-f7ae01b.json`，
+以及对应的 `reader-*.json` 和 `archive-*.json`。
+
+| 最后完整运行的短文本软件探针 | iOS18.5 | iOS26.5 |
+| --- | ---: | ---: |
+| 新Session模型创建，秒 | 2.515288 | 1.952212 |
+| 新Session/空音频缓存完整WAV墙钟，秒 | 3.248807 | 2.587569 |
+| 1.0×推理，秒 / RTF（n=1） | 0.403012 / 0.116877 | 0.306482 / 0.088883 |
+| 1.5×推理，秒 / RTF（n=1） | 0.162519 / 0.068284 | 0.164262 / 0.069016 |
+| 另3块队列RTF范围 | 0.083485–0.132356 | 0.033593–0.046399 |
+| 首次排队，秒 | 3.584061 | 1.900988 |
+| 首个非零混音器样本，秒 | 3.903774 | 2.218927 |
+| 最大队列 / 单请求回调欠载 | 3 / 0 | 3 / 0 |
+| 模型测试宿主生命周期峰值RSS，bytes | 438452224 | 538345472 |
+
+模型测试宿主RSS约418.1/513.4MiB，不是模型增量内存。音频长度1.0×为3.448163s，
+1.5×为2.380045s；两系统实际WAV哈希均为下述4f02…2c88。
+混音器探针包含主动暂停且不含计时前的音频会话激活；宿主不是全新App进程。
+这些与下方独立12项探针3.35–3.60s首样本均完整保留，不挑选较快数字当作真机验收。
+两轮workflow最终均FAIL，与模型分项/归档PASS分别记录。
+
+## 先前完整回归与性能（保留证据）
 
 完整回归执行HEAD：`31951f256c9610ca02b4d41077c64b03d3ecfbdc`。
 两次都为真实ARM64 iOS模拟器，不是桌面Python/ONNX输出，也不是预计算音素后端。
@@ -123,16 +170,25 @@ App Sources树在完整回归与补测之间均为
 不能用旧较快样本宣称冷启动目标已通过。RSS约407.6/490.1MiB；完整套件历史峰值仍保留
 530825216bytes，不能把scope不同造成的数值变化归为内存优化。WAV SHA仍为上述4f02…2c88。
 真实iPhone首声/p95/30分钟/热/电量目标均未执行。
+`cold_wave_wall_seconds` 的“冷”仅指本用例新Model/session及空音频缓存；测试宿主进程
+已加载系统/ORT库，未重启成一个全新App进程。它不是新进程首声≤3秒的验收结果。
 
 Files进一步验证HEAD `3633d421dcf6484b993c3962ab17a84baf473f72`：
 用`UIDocumentPicker`的保留delegate显式桥接同一个系统Files界面，单文件/asCopy导入；
-库解析、编码、协调读取与持久化不变。真实选择与取消两个用例正在补测，不提前宣布修复。
+库解析、编码、协调读取与持久化不变。
+[26.5独立运行45661806359](https://github.com/Zhangsfish/eBOOK/actions/runs/45661806359)
+真实TXT+EPUB导入与取消2/2PASS；
+[18.5独立运行45661812268](https://github.com/Zhangsfish/eBOOK/actions/runs/45661812268)
+为1PASS/1FAIL，真实选书仍失败。两者设备arm64 Release archive均PASS。
+18.5当时仍为图标模式，随后2dbaf25只将测试统一为列表模式。
+26.5之后完整运行又失败，故UIKit桥并未证明解决根因；文件入口仍属阻塞项。
 
 ## 实现及边界
 
 - Swift前端消费全量41,923单字、47,111词组和1,559通用音节转换条目。
-  测试oracle由原装作者代码和pypinyin0.55.0实际计算，未人工填音素；另有训练外
-  新文本验证。字典与模型通过版本/大小/SHA256校验；Python/Piper/eSpeak不进App。
+  测试oracle由原装作者代码和pypinyin0.55.0实际计算，未人工填音素；另有未列入
+  92条oracle的新文本验证，不声称已知其是否出现在模型训练语料。
+  字典与模型通过版本/大小/SHA256校验；Python/Piper/eSpeak不进App。
 - 仅原生中文。含英文、未知字符或分块后不支持的内容，在播放前验证整个有界窗口，
   提示后整窗口使用Apple语音，不静默丢字。苏心失败不自动假装另一音色成功。
   混读回退不是原生英文G2P；不同窗口可能有明确提示的音色变化。
