@@ -38,8 +38,12 @@ photo was inspected only for model/OS; never copy the screenshot or unique IDs.
 Use original synthetic fixtures. Distinguish JVM/unit, emulator and Huawei phone
 evidence. Real build/signature checks are mandatory; no mock substitutes.
 Inventory existing JDK/SDK/Gradle/IDE/WSL/free-CI tools before installing anything.
-Follow global confirmation rules for missing new tools/dependencies; no silent
-global installations. Keep new approved tools project-local and hash/versioned.
+2026-11-25 owner authorized necessary AutoDL software autonomously, with a total
+rental budget of CNY10. Local new tools still require confirmation. Temporary
+CPU build on Chongqing151:32 cores/120GB, CNY0.88/hour; platform timed shutdown
+2026-11-26 07:30 Asia/Shanghai, quoted worst-case CNY6.96. No disk expansion.
+Keep cloud tools in /root/autodl-tmp/ebook_android_20261125; leave other instances
+and research environments alone. Confirm the server is off after delivery.
 Do not change Codex model settings or use subagents without owner authorization.
 
 ## Delivery
@@ -48,3 +52,18 @@ version/source SHA and truthful test report. Mark internal test signing clearly;
 preserve the signing key only in ignored local storage for later upgrades.
 Never put the key, private books or device IDs in the ZIP. No Play/AppGallery
 submission. Stop READY_FOR_AUDIT after delivery; do not merge PRs automatically.
+
+## Implementation map (in progress)
+- app/src/main/: native Java/Android SDK, no third-party runtime dependencies.
+  Core implements strict streaming codecs, <=1600 UTF16 disk blocks, EPUB2/3,
+  chapter lookup and sentence segmentation. UI uses recycled ListView rows.
+- tests/CoreTests.java:31 JVM cases passed locally on JDK25 and CI JDK17.
+- tests/instrumentation/: separate original-fixture DocumentsProvider and controlled
+  PCM TTS engine; native Android UI/service tests, never in friend APK.
+- scripts/build.py: existing SDK35/build-tools35 + JDK; no Gradle or installs.
+- scripts/bootstrap_cloud.py: official hashed isolated cloud JDK/SDK bootstrap.
+- scripts/run_emulator.py: native Android30/35 checks on free standard CI.
+- scripts/envelope.py and ci/: encrypted-only CI artifacts. Transport key is not
+  an upgrade-signing key. Local credentials and private material are DPAPI-protected
+  in ignored .local-test-data/private/, never source/CI/delivery.
+- reports/: real attempts/limitations and final delivery. Physical Huawei NOT_RUN.

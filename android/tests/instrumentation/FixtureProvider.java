@@ -23,7 +23,7 @@ public final class FixtureProvider extends DocumentsProvider {
     @Override public Cursor queryChildDocuments(String parent,String[]projection,String sort)throws FileNotFoundException{
         MatrixCursor c=new MatrixCursor(DOCS);if(parent.equals("root")){List<String>sorted=new ArrayList<>(names());Collections.sort(sorted);for(String name:sorted)if(name.endsWith(".txt")||name.endsWith(".epub"))add(c,name);}return c;
     }
-    @Override public boolean isChildDocument(String parent,String child)throws FileNotFoundException{return parent.equals("root")&&names().contains(child);}
+    @Override public boolean isChildDocument(String parent,String child){try{return parent.equals("root")&&names().contains(child);}catch(FileNotFoundException bad){return false;}}
     @Override public ParcelFileDescriptor openDocument(String id,String mode,CancellationSignal signal)throws FileNotFoundException{
         if(!mode.equals("r")||!names().contains(id)||id.contains("/"))throw new FileNotFoundException();
         File file=new File(getContext().getCacheDir(),id);

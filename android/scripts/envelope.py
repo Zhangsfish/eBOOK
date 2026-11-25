@@ -54,7 +54,7 @@ def pack():
     print('Encrypted evidence bundle ready:', metadata['bytes'], 'bytes; no public APK')
 
 
-def unpack(source, destination):
+def unpack(source, destination, include_tools=False):
     import win32crypt
     from cryptography.hazmat.primitives import hashes, serialization
     from cryptography.hazmat.primitives.asymmetric import padding
@@ -78,7 +78,10 @@ def unpack(source, destination):
     with tarfile.open(fileobj=io.BytesIO(plaintext), mode='r:gz') as archive:
         if any(m.issym() or m.islnk() or m.name.startswith('/') or '..' in Path(m.name).parts for m in archive.getmembers()):
             raise ValueError('Unsafe archive')
-        archive.extractall(destination)
+        for member in archive.getmembers():
+            if not include_tools and Path(member.name).parts[0] == 'tools':
+                continue  # Local tool confirmation is separate from reading test evidence.
+            archive.extract(member, destination)
     print('Authenticated evidence unpacked:', metadata.get('source_sha'), metadata.get('api'))
 
 
@@ -87,5 +90,6 @@ if __name__ == '__main__':
     parser.add_argument('operation', choices=['pack', 'unpack'])
     parser.add_argument('source', nargs='?', type=Path)
     parser.add_argument('destination', nargs='?', type=Path)
+    parser.add_argument('--include-tools', action='store_true')
     args = parser.parse_args()
-    pack() if args.operation == 'pack' else unpack(args.source, args.destination)
+    pack() if args.operation == 'pack' else unpack(args.source, args.destination, args.include_tools)
