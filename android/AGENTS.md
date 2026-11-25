@@ -57,8 +57,8 @@ submission. Stop READY_FOR_AUDIT after delivery; do not merge PRs automatically.
 - app/src/main/: native Java/Android SDK, no third-party runtime dependencies.
   Core implements strict streaming codecs, <=1600 UTF16 disk blocks, EPUB2/3,
   chapter lookup and sentence segmentation. UI uses recycled ListView rows.
-- tests/CoreTests.java:31 JVM cases passed locally on JDK25 and CI JDK17.
-- tests/instrumentation/: separate original-fixture DocumentsProvider and controlled
+- tests/CoreTests.java:32 JVM cases passed locally on JDK25 and cloud JDK17.
+- tests/instrumentation/: real system Downloads picker and controlled
   PCM TTS engine; native Android UI/service tests, never in friend APK.
 - scripts/build.py: existing SDK35/build-tools35 + JDK; no Gradle or installs.
 - scripts/bootstrap_cloud.py: official hashed isolated cloud JDK/SDK bootstrap.
