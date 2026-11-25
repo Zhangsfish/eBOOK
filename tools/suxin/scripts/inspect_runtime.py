@@ -11,6 +11,7 @@ import plistlib
 import shutil
 import subprocess
 import urllib.request
+import urllib.error
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -68,6 +69,20 @@ def main():
                 'archive_url': URL, 'archive_sha256': SHA, 'archive_bytes': archive.stat().st_size,
                 'available_libraries': info['AvailableLibraries'], 'binaries': binaries, 'included_notices': included,
                 'distribution_clearance': 'INCOMPLETE_REQUIRES_FULL_TRANSITIVE_REVIEW'}
+    queries = []
+    for url in ['https://api.github.com/repos/microsoft/onnxruntime/git/ref/tags/v1.28.2',
+                'https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.2/LICENSE',
+                'https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.2/ThirdPartyNotices.txt']:
+        try:
+            with urllib.request.urlopen(url, timeout=20) as response:
+                data = response.read(2 * 1024 * 1024)
+                queries.append({'url': url, 'http_status': response.status, 'bytes': len(data),
+                                'sha256': hashlib.sha256(data).hexdigest(), 'binary_binding_verified': False})
+        except urllib.error.HTTPError as problem:
+            queries.append({'url': url, 'http_status': problem.code})
+        except (OSError, TimeoutError):
+            queries.append({'url': url, 'http_status': None, 'state': 'NETWORK_UNAVAILABLE_NOT_LICENSE_VERDICT'})
+    evidence['source_notice_queries'] = queries
     if args.verify_spm_dir:
         resolved = []
         for item in binaries:

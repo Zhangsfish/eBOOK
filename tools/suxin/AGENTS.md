@@ -6,10 +6,12 @@ Start baseline1eb0eef18e7011feb8034a393f084a91483b9a8e (reader main83fa0d9).
 Frozen S02A.3 reference checkout E:/myself/eBOOK-s02a remains read-only at eeee144.
 No model training, model search or cloud synthesis. Preserve reader controls/TOC.
 
-## Planned file map
+## File map
 - manifests/: exact source hashes and generic linguistic conversion data, not weights.
 - scripts/: verified model/data preparation and author-frontended original-text oracle.
-- tests/: resource/cache/source security checks; native tests belong to App Tests.
+- scripts/inspect_runtime.py: actual ZIP/hash/slice/notice inspection and Xcode-resolved binary matching.
+- NOTICE.md: actual distribution-material gaps; never label incomplete notices PASS.
+- Native tests belong to App Tests, including a real controller/model/player path.
 - ../../.local-test-data/s02b/: ignored model/frontend resources, real audio/logs.
 - ../../reports/S02B/: task memory and public-safe evidence only.
 
@@ -33,3 +35,9 @@ bridge exists, but new code must retain independent audit and real device gates.
 No new dependency installation is currently needed: reuse the already approved
 Suxin Python environment for local oracle generation, standard-library build tools,
 and pinned native framework/source/data downloads. No global environment edits.
+
+First actual graph/playback CI at ab0eb54 compiled and synthesized/played real PCM;
+11 methods ran with9PASS/2FAIL, due to too-short queue fixture and reopening WAV
+before closing its writer. The failed result remains evidence, not a PASS.
+Fixes close the WAV writer before reopening and lengthen original queue text.
+Final implementation/evidence identities belong in the delivery report, not here.

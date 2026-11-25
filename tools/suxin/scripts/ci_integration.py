@@ -6,6 +6,7 @@ import os
 import hashlib
 import plistlib
 import shutil
+import re
 import subprocess
 import sys
 
@@ -23,11 +24,15 @@ def main():
     def output(argv):
         return subprocess.check_output(argv, cwd=ROOT, env=env, text=True).strip()
     devices = json.loads(output(['xcrun', 'simctl', 'list', 'devices', 'available', '--json']))
-    choices = [(runtime, device) for runtime, rows in devices['devices'].items() if '.iOS-' in runtime
-               for device in rows if device.get('isAvailable')]
+    sdk = tuple(int(value) for value in output(['xcrun', '--sdk', 'iphonesimulator', '--show-sdk-version']).split('.'))
+    def version(runtime):
+        return tuple(int(value) for value in re.findall(r'\d+', runtime))
+    runtimes = sorted(devices['devices'].items(), key=lambda row: version(row[0]), reverse=True)
+    choices = [(runtime, device) for runtime, rows in runtimes if '.iOS-' in runtime and version(runtime) <= sdk
+               for device in rows if device.get('isAvailable') and device['name'].startswith('iPhone')]
     if not choices:
         raise RuntimeError('No installed iOS simulator; no installation attempted')
-    runtime, device = next(((r, d) for r, d in choices if d['state'] == 'Booted'), choices[0])
+    runtime, device = choices[0]
     if device['state'] != 'Booted':
         subprocess.run(['xcrun', 'simctl', 'boot', device['udid']], env=env, check=True)
     with (build / 's02b-boot.log').open('w') as log:
@@ -74,6 +79,7 @@ def main():
     result = {'source_sha': output(['git', 'rev-parse', 'HEAD']), 'scope': args.scope,
               'xcode': output(['xcodebuild', '-version']), 'simulator_runtime': runtime,
               'simulator_name': device['name'], 'host_architecture': output(['uname', '-m']),
+              'host_cpu': output(['sysctl', '-n', 'machdep.cpu.brand_string']), 'host_logical_cpus': os.cpu_count(),
               'actual_counts': {key: summary[key] for key in ['totalTestCount', 'passedTests', 'failedTests', 'skippedTests']},
               'neural_audio_generation': neural, 'metrics': metrics, 'physical_device': 'NOT_RUN',
               'status': ('PASS_NATIVE_FRONTEND_ONLY' if args.scope == 'frontend' else 'PASS_NATIVE_INTEGRATION') if not code else 'FAIL_ACTUAL_XCTEST'}
@@ -81,8 +87,8 @@ def main():
     print(json.dumps(result), flush=True)
     if args.scope == 'frontend' and (summary['totalTestCount'] != 3 or summary['skippedTests'] != 0):
         raise RuntimeError('All three native frontend methods must actually execute')
-    if args.scope == 'integration' and (summary['totalTestCount'] != 11 or summary['skippedTests'] != 0):
-        raise RuntimeError('All eleven integration methods must actually execute')
+    if args.scope == 'integration' and (summary['totalTestCount'] != 12 or summary['skippedTests'] != 0):
+        raise RuntimeError('All twelve integration methods must actually execute')
     if args.scope != 'frontend' and (not neural or len(metrics) != 2):
         raise RuntimeError('Missing actual native waveform or PCM mixer evidence')
     if code or summary['failedTests']:

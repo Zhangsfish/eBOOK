@@ -10,6 +10,11 @@ on:
         options: [frontend, integration, all]
         default: all
         description: Actual native frontend or complete App regression
+      runner:
+        type: choice
+        options: [macos-26, macos-15]
+        default: macos-26
+        description: Standard free GitHub-hosted macOS runner only
 permissions:
   contents: read
 concurrency:
@@ -18,7 +23,7 @@ concurrency:
 jobs:
   native:
     if: github.event.repository.private == false
-    runs-on: macos-15
+    runs-on: ${{ inputs.runner || 'macos-26' }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683

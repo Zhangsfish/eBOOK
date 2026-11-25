@@ -42,7 +42,7 @@ python3 tools/suxin/scripts/ci_integration.py --scope all
 The script uses installed Xcode (prefers `/Applications/Xcode_16.4.app` when
 available), boots an installed simulator, builds without signing, seeds original
 test files into App Documents, runs unit/UI tests and archives an unsigned arm64
-Release App. The `integration` scope runs eleven native frontend, real-graph,
+Release App. The `integration` scope runs twelve native frontend, real-graph,
 PCM-playback and state/cache test methods; `frontend` checks the author oracle
 alone. Only allowlisted JSON/log evidence is uploaded by S02B CI. Model-containing
 App/IPA/WAV files are not public artifacts. No tool installation or paid API.

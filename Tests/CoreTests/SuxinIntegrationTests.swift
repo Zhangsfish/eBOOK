@@ -133,6 +133,42 @@ private final class OutputProbe: @unchecked Sendable {
         do { _ = try await model.wave(text: "今天有微风。", speed: 1); XCTFail("Missing resources must fail") }
         catch { /* real absence, not a mock waveform */ }
     }
+    func testRealReaderControllerPlaysSeeksAndPersistsOnlyNewChapter() async throws {
+        let storage = try BookStorage(root: temporary.appendingPathComponent("reader"))
+        let input = temporary.appendingPathComponent("original-two-chapters.txt")
+        let body = "第一章 清晨\n" + String(repeating: "小船经过石桥，岸边的柳树轻轻摆动。", count: 22)
+            + "\n第二章 归来\n她推开窗，听见雨落在屋檐上的声音。明天的故事还没有开始。"
+        try Data(body.utf8).write(to: input)
+        let book = try BookImporter.importFile(input, storage: storage)
+        var state = LibraryState(); state.books = [book]
+        state.preferences.voiceIdentifier = SuxinSpeechProvider.voiceID; state.preferences.suxinRate = 1.5
+        try storage.saveLibrary(state)
+        let library = LibraryModel(root: storage.root), document = try storage.document(for: book.id)
+        XCTAssertEqual(document.chapters.count, 2)
+        let suxin = SuxinSpeechProvider(cacheRoot: temporary.appendingPathComponent("reader-audio"))
+        let probe = OutputProbe(); suxin.installTestOutputProbe { audio, _ in probe.receive(audio) }
+        let controller = SpeechController(provider: LocalSpeechProvider(suxin: suxin))
+        controller.attach(library); controller.load(book, document: document, storage: storage)
+        defer { controller.stop(); suxin.removeTestOutputProbe() }
+        controller.play()
+        for _ in 0..<150 {
+            if probe.firstTime != nil || controller.error != nil { break }
+            try await Task.sleep(for: .milliseconds(100))
+        }
+        XCTAssertNotNil(probe.firstTime); XCTAssertNil(controller.error)
+        controller.pause(); XCTAssertEqual(controller.status, .paused)
+        let target = document.chapters[1].firstBlock
+        controller.seek(TextPosition(block: target)); controller.play()
+        for _ in 0..<150 {
+            if controller.position.utf16Offset > 0 || controller.error != nil { break }
+            try await Task.sleep(for: .milliseconds(100))
+        }
+        controller.pause()
+        XCTAssertNil(controller.error); XCTAssertEqual(controller.position.block, target)
+        XCTAssertGreaterThan(controller.position.utf16Offset, 0)
+        XCTAssertEqual(library.record(book.id)?.reading, ReadingAnchor())
+        XCTAssertEqual(try storage.loadLibrary().books[0].listening, controller.position)
+    }
 }
 
 @MainActor private final class RecordingSystemSpeech: SpeechProvider {

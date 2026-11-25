@@ -1,0 +1,17 @@
+{
+  "source_sha": "e3573b7b7ed56f844fbb0dcfa8647d97466c12f1",
+  "scope": "frontend",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "simulator_name": "iPhone 16 Pro",
+  "host_architecture": "arm64",
+  "actual_counts": {
+    "totalTestCount": 3,
+    "passedTests": 3,
+    "failedTests": 0,
+    "skippedTests": 0
+  },
+  "neural_audio_generation": false,
+  "physical_device": "NOT_RUN",
+  "status": "PASS_NATIVE_FRONTEND_ONLY"
+}
