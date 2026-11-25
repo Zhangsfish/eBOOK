@@ -103,7 +103,7 @@ def main():
         shutil.copyfile(source, build / 'reader-metrics.json')
         subprocess.run([sys.executable, 'scripts/check_reader_metrics.py'], cwd=ROOT, env=env, check=True)
         shutil.copyfile(build / 'reader-metrics-summary.json', build / 's02b-reader-metrics-summary.json')
-    if args.scope in ['all', 'picker']:
+    if args.scope in ['all', 'picker', 'integration']:
         archive = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK', '-configuration', 'Release',
                    '-destination', 'generic/platform=iOS', '-archivePath', 'build/S02B-device.xcarchive',
                    '-derivedDataPath', 'build/S02B-DerivedData', 'CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'archive']

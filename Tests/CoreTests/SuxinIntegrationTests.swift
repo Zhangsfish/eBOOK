@@ -72,7 +72,7 @@ private final class OutputProbe: @unchecked Sendable {
         let probe = OutputProbe()
         provider.installTestOutputProbe { buffer, _ in probe.receive(buffer) }
         defer { provider.cancel(); provider.removeTestOutputProbe(); try? AVAudioSession.sharedInstance().setActive(false) }
-        let text = "清晨的风很轻，小船经过石桥。她收起书，向岸边挥了挥手。远处的钟声响了，今天的故事才刚刚开始。她回头看了一眼熟悉的街道，又想起昨晚没有读完的那一页。"
+        let text = "\n\n清晨的风很轻，小船经过石桥。她收起书，向岸边挥了挥手。远处的钟声响了，今天的故事才刚刚开始。她回头看了一眼熟悉的街道，又想起昨晚没有读完的那一页。"
         var playedOffsets: [Int] = []
         provider.onEvent = { event in
             if case .range(let start, _) = event { playedOffsets.append(start) }
@@ -100,7 +100,7 @@ private final class OutputProbe: @unchecked Sendable {
             "process_lifetime_peak_rss_bytes": SuxinModel.processLifetimePeakRSS, "physical_device": false]
         print("S02B_METRIC " + String(data: try JSONSerialization.data(withJSONObject: data, options: [.sortedKeys]), encoding: .utf8)!)
     }
-    func testCancelDuringInferenceDropsAllStaleCallbacksAndCanRestart() async throws {
+    func testCancelDuringPreparationDropsAllStaleCallbacksAndCanRestart() async throws {
         let provider = SuxinSpeechProvider(cacheRoot: temporary.appendingPathComponent("cancel-cache"))
         var stale: [SpeechEvent] = []
         provider.onEvent = { stale.append($0) }

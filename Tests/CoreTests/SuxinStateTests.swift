@@ -19,6 +19,15 @@ final class SuxinStateTests: XCTestCase {
         var offset = 0
         for part in parts { XCTAssertEqual(part.startUTF16, offset); offset = part.endUTF16 }
         XCTAssertEqual(offset, text.utf16.count)
+        for variant in ["\n\n" + text, "……\n" + text, text + "\n——\n" + text] {
+            let chunks = SuxinSegmentation.chunks(variant)
+            XCTAssertEqual(chunks.map(\.text).joined(), variant)
+            XCTAssertTrue(chunks.allSatisfy { $0.text.unicodeScalars.contains { CharacterSet.alphanumerics.contains($0) } },
+                          "No standalone whitespace/separator buffer may reach neural inference")
+            var end = 0
+            for chunk in chunks { XCTAssertEqual(chunk.startUTF16, end); end = chunk.endUTF16 }
+            XCTAssertEqual(end, variant.utf16.count)
+        }
     }
     func testCacheVersionSpeedCorruptionAndBoundedEviction() throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)

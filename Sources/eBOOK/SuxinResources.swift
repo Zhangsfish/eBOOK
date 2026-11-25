@@ -88,6 +88,9 @@ actor SuxinModel {
         return resources!.fingerprint
     }
     func preflight(_ text: String) throws -> [SpeechChunk] {
+        guard text.unicodeScalars.contains(where: { CharacterSet.alphanumerics.contains($0) }) else {
+            throw SuxinFrontend.Failure.unsupportedText
+        }
         _ = try prepare(text)
         let parts = SuxinSegmentation.chunks(text)
         for part in parts {

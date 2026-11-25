@@ -6,6 +6,7 @@ enum SuxinSegmentation {
     static func chunks(_ text: String) -> [SpeechChunk] {
         let scalars = Array(text.unicodeScalars)
         var result: [SpeechChunk] = [], start = 0, offset = 0
+        var leading = ""
         while start < scalars.count {
             let limit = result.isEmpty ? 18 : 36
             var end = min(scalars.count, start + limit)
@@ -16,8 +17,13 @@ enum SuxinSegmentation {
                 while end < scalars.count, end > start, numeric(scalars[end - 1]), numeric(scalars[end]) { end += 1 }
                 if end < scalars.count, numeric(scalars[end - 1]), "年月日点分秒岁元度".unicodeScalars.contains(scalars[end]) { end += 1 }
             }
-            let value = String(String.UnicodeScalarView(scalars[start..<end]))
-            if !result.isEmpty, value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            var value = String(String.UnicodeScalarView(scalars[start..<end]))
+            let spoken = value.unicodeScalars.contains { CharacterSet.alphanumerics.contains($0) }
+            if !spoken && result.isEmpty {
+                leading += value; start = end; continue
+            }
+            value = leading + value; leading = ""
+            if !spoken, !result.isEmpty {
                 result[result.count - 1].text += value
                 result[result.count - 1].endUTF16 += value.utf16.count
             } else {
@@ -25,6 +31,7 @@ enum SuxinSegmentation {
             }
             offset += value.utf16.count; start = end
         }
+        if !leading.isEmpty { result.append(SpeechChunk(text: leading, startUTF16: offset, endUTF16: offset + leading.utf16.count)) }
         return result
     }
 }
