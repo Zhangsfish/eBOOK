@@ -80,7 +80,13 @@ public final class ReaderInstrumentation extends Instrumentation {
     }
     private boolean clickAx(String text){AccessibilityNodeInfo n=ax(text);for(int i=0;n!=null&&i<6;i++,n=n.getParent())if(n.isClickable())return n.performAction(AccessibilityNodeInfo.ACTION_CLICK);return false;}
     private void shell(String command)throws Exception{try(ParcelFileDescriptor fd=getUiAutomation().executeShellCommand(command);InputStream in=new ParcelFileDescriptor.AutoCloseInputStream(fd)){byte[]bytes=new byte[1024];while(in.read(bytes)!=-1){}}}
-    private void launch(){
+    private void launch()throws Exception{
+        if(activity!=null&&!activity.isDestroyed()&&!activity.isFinishing()){
+            // startActivitySync waits for onCreate; bringing an existing task
+            // back from the background does not create another Activity.
+            shell("am start -n cn.zhangsfish.ebook/.MainActivity -f 0x10020000");
+            waitFor(()->activity.hasWindowFocus(),"Reader task didn't return to foreground");waitForIdleSync();return;
+        }
         Intent intent=new Intent().setClassName("cn.zhangsfish.ebook","cn.zhangsfish.ebook.MainActivity").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity=(MainActivity)startActivitySync(intent);waitForIdleSync();
     }
