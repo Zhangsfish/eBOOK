@@ -1,0 +1,260 @@
+{
+  "state": "READY_FOR_AUDIT",
+  "base_sha": "4f9175ed6326b95902aceaccf47258771281eac1",
+  "corrected_test_and_ci_sha": "34d528939f10f4ba48617f15656aa8b69ed4fbe6",
+  "initial_full_runs": [
+    {
+      "scope": "all",
+      "source_sha": "ebd9232a72628f3d3fe6cc009f5de56ba5bd86c3",
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45542499967",
+      "environment": {
+        "host": "macOS-26.7.2-arm64-arm-64bit-Mach-O",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "sdk": "26.5"
+      },
+      "builds": {
+        "xcode-build.log": true,
+        "xcode-release.log": true,
+        "device-archive.log": true
+      },
+      "actual_counts": {
+        "totalTestCount": 27,
+        "passedTests": 25,
+        "failedTests": 2,
+        "skippedTests": 0
+      },
+      "actual_failures": [
+        {
+          "test": "ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB()",
+          "message": "XCTAssertTrue failed"
+        },
+        {
+          "test": "ReaderUITests/testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch()",
+          "message": "failed - Missing live reading anchor: 1,870/1,875"
+        }
+      ],
+      "downloaded_zip_sha256": "90fb8bb9308f62c91d78f57d98c68e76282e9163a664cb3df8b4d38576330b6e",
+      "zip_digest_and_crc_verified": true
+    },
+    {
+      "scope": "all",
+      "source_sha": "ebd9232a72628f3d3fe6cc009f5de56ba5bd86c3",
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45542537329",
+      "environment": {
+        "host": "macOS-15.7.9-x86_64-i386-64bit-Mach-O",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "sdk": "18.5"
+      },
+      "builds": {
+        "xcode-build.log": true,
+        "xcode-release.log": true
+      },
+      "actual_counts": {
+        "totalTestCount": 27,
+        "passedTests": 26,
+        "failedTests": 1,
+        "skippedTests": 0
+      },
+      "actual_failures": [
+        {
+          "test": "ReaderUITests/testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch()",
+          "message": "failed - Missing live reading anchor: 1,870/1,875"
+        }
+      ],
+      "downloaded_zip_sha256": "b4de29778ec576946714fb2edd64b18c0c1c6e1e758a207ed99832a41791aa76",
+      "zip_digest_and_crc_verified": true
+    }
+  ],
+  "focused_runs_pending": [],
+  "phone_installation": "NOT_RUN_OWNER_UPDATE_PENDING",
+  "cloud_tts_calls": 0,
+  "private_book_body_inputs": 0,
+  "new_runtime_dependencies": 0,
+  "final_candidate_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+  "initial_focused_runs": [
+    {
+      "source_sha": "34d528939f10f4ba48617f15656aa8b69ed4fbe6",
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45545433809",
+      "scope": "reader-toc-original-long-method",
+      "actual_counts": {
+        "totalTestCount": 2,
+        "passedTests": 2,
+        "failedTests": 0,
+        "skippedTests": 0
+      },
+      "failures": [],
+      "environment": {
+        "host": "macOS-26.7.2-arm64-arm-64bit-Mach-O",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "sdk": "26.5"
+      },
+      "zip_digest_and_crc_verified": true,
+      "zip_sha256": "5298d139e8b9e2e208bbde6c112f68d0af1800f35873fa72b6c07f1646914c4e"
+    },
+    {
+      "source_sha": "34d528939f10f4ba48617f15656aa8b69ed4fbe6",
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45545438020",
+      "scope": "reader-toc-original-long-method",
+      "actual_counts": {
+        "totalTestCount": 2,
+        "passedTests": 1,
+        "failedTests": 1,
+        "skippedTests": 0
+      },
+      "failures": [
+        {
+          "test": "ReaderUITests/testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch()",
+          "message": "XCTAssertTrue failed"
+        }
+      ],
+      "environment": {
+        "host": "macOS-15.7.9-x86_64-i386-64bit-Mach-O",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "sdk": "18.5"
+      },
+      "zip_digest_and_crc_verified": true,
+      "zip_sha256": "7dec38328caae470d5096a2ef499da61a626b4c43f1722be69efdc77b9999516"
+    }
+  ],
+  "first_app_implementation_sha": "ebd9232a72628f3d3fe6cc009f5de56ba5bd86c3",
+  "tested_final_implementation_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+  "final_focused_runs": [
+    {
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45548099346",
+      "attempt": 1,
+      "source_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+      "scope": "reader-toc-dedicated-case",
+      "actual_counts": {
+        "totalTestCount": 2,
+        "passedTests": 2,
+        "failedTests": 0,
+        "skippedTests": 0
+      },
+      "environment": {
+        "host": "macOS-26.7.2-arm64-arm-64bit-Mach-O",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "sdk": "26.5"
+      },
+      "failures": [],
+      "zip_sha256": "7174c8e0aa2a4fda22dfd8344f15b4f6ef075987ca32c24b118c6fdd357cce48",
+      "zip_digest_and_crc_verified": true,
+      "actual_renderer_metrics": {
+        "samples": 98,
+        "process_sessions": 2,
+        "indexed_blocks": 1875,
+        "distinct_top_blocks": 6,
+        "furthest_top_block": 1869,
+        "maximum_visible_cells": 2,
+        "maximum_rendered_text_utf16": 1599,
+        "maximum_window_blocks": 12,
+        "early_scroll_window_shift_observed": true,
+        "maximum_process_peak_rss_bytes": 414154752,
+        "per_session_peak_growth_bytes": [
+          34652160,
+          9715712
+        ]
+      }
+    },
+    {
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45548105689",
+      "attempt": 1,
+      "source_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+      "scope": "reader-toc-dedicated-case",
+      "actual_counts": {
+        "totalTestCount": 2,
+        "passedTests": 1,
+        "failedTests": 1,
+        "skippedTests": 0
+      },
+      "environment": {
+        "host": "macOS-15.7.9-x86_64-i386-64bit-Mach-O",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "sdk": "18.5"
+      },
+      "failures": [
+        {
+          "test": "ReaderUITests/testTOCReopensAtLiveChapterAfterScrollingSearchAndRelaunch()",
+          "message": "Failed to get matching snapshots: Timed out while evaluating UI query."
+        }
+      ],
+      "zip_sha256": "646fdeeb8ac74496d28b54bf26a78d4fb6ca262d7183f9f08553f789db3fa2cf",
+      "zip_digest_and_crc_verified": true,
+      "stage": "AX_SNAPSHOT_QUERY_TIMEOUT_BEFORE_BOOK_OPEN_NO_TOC_ASSERTIONS_REACHED",
+      "cause": "UNDETERMINED",
+      "same_source_retry_attempt": 2
+    },
+    {
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45548105689/attempts/2",
+      "job_id": 138989009572,
+      "attempt": 2,
+      "workflow_conclusion": "success",
+      "source_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+      "scope": "reader-toc-dedicated-case",
+      "actual_counts": {
+        "totalTestCount": 2,
+        "passedTests": 2,
+        "failedTests": 0,
+        "skippedTests": 0
+      },
+      "environment": {
+        "host": "macOS-15.7.9-x86_64-i386-64bit-Mach-O",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "sdk": "18.5"
+      },
+      "builds": {
+        "debug_build_for_testing": "PASS",
+        "release_simulator_build": "PASS"
+      },
+      "failures": [],
+      "artifact_id": 14994186487,
+      "zip_sha256": "6a5c1ea2846aaff7087f050f0b37d4ca1b9d078d448741b7236e88e031f84000",
+      "zip_digest_and_crc_verified": true,
+      "actual_renderer_metrics": {
+        "samples": 104,
+        "process_sessions": 2,
+        "indexed_blocks": 1875,
+        "distinct_top_blocks": 6,
+        "furthest_top_block": 1869,
+        "maximum_visible_cells": 2,
+        "maximum_rendered_text_utf16": 1599,
+        "maximum_window_blocks": 12,
+        "early_scroll_window_shift_observed": true,
+        "maximum_process_peak_rss_bytes": 280694784,
+        "per_session_peak_growth_bytes": [
+          77692928,
+          6094848
+        ]
+      },
+      "retry_note": "Same source and assertions; attempt1 AX timeout remains recorded, cause undetermined."
+    }
+  ],
+  "internal_testflight": {
+    "version": "0.1.0",
+    "build_number": "39.1",
+    "status": "APPLE_VALID_INTERNAL_ONLY_EXISTING_OWNER_GROUP_VERIFIED",
+    "reader_source_sha": "7509547a0b62598097ff5f24ca6eb9611455109c",
+    "helper_sha": "0be62cf0a51a5dfc0f8a271b95c2ae9e31c22ded",
+    "run_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45550231458",
+    "audience_required": "INTERNAL_ONLY",
+    "new_tester_or_group_created": false,
+    "upload_accepted_utc": "2026-11-25T05:00:45.603667Z",
+    "processing_valid_utc": "2026-11-25T05:02:25.589696Z",
+    "owner_group_verified_utc": "2026-11-25T05:02:25.590371Z",
+    "signed_ipa_retained": false,
+    "independent_signed_ipa_hash": "UNAVAILABLE_DIRECT_UPLOAD_DID_NOT_RETAIN_SIGNED_IPA",
+    "marker_log_sha256": "bb0a11a4048d0534aeaf29dcf2c1a16ed204a2dde3e21de78b7609451304de90"
+  },
+  "audit_gates": [
+    "Known iOS26.5 native Files UI failure from full regressions remains unresolved; PR5 stays draft.",
+    "Final 28-method full suite was not rerun; final source has focused 2-method passes on both runtimes.",
+    "Owner physical-device result for39.1 is pending."
+  ],
+  "local_checks": {
+    "xcode_project_consistency": "PASS",
+    "ci_xcode_bash_syntax": "PASS",
+    "git_diff_check": "PASS",
+    "screenshot_hashes": "PASS",
+    "safe_testflight_marker_hash": "PASS",
+    "frozen_s01_s02a_worktrees": "PASS"
+  }
+}

@@ -5,13 +5,17 @@
 - Current authorized task on this branch: `tasks/S00_DEVICE_VALIDATION.md`.
 - GitHub issue: [#1 — S00 reader foundation](https://github.com/Zhangsfish/eBOOK/issues/1)
 - Copy-ready handoff: [tasks/CODEX_HANDOFF_S00.md](tasks/CODEX_HANDOFF_S00.md)
-- State: `IN_PROGRESS` — owner feedback 2026-11-25: reopen the TOC at the current
+- State: `READY_FOR_AUDIT` — owner feedback 2026-11-25: reopen the TOC at the current
   reading chapter with a selected marker, clear stale search and preserve the
   reading anchor. Follow-up: `reports/S00/toc-current-chapter/`.
+  Internal `0.1.0 (39.1)`, implementation `7509547a0b62598097ff5f24ca6eb9611455109c`,
+  is Apple VALID/INTERNAL_ONLY and available to the existing owner group. Final
+  iOS26.5 and iOS18.5 directory scope each2/2 PASS,0skips; the18.5 first-attempt
+  AX timeout remains recorded. These focused runs are not the full28-method suite.
   Previous immersive entry available in internal `0.1.0 (38.1)`,
   tested implementation `326c5438794c76a8978c3cdb049b905ace703f66`. iOS18.5:26/26 PASS;
   iOS26.5:25/26, native Files import UI still FAIL. PR #5 remains draft pending
-  independent audit/compatibility triage; do not merge. Owner38.1 feedback pending.
+  independent audit/compatibility triage; do not merge. Owner39.1 feedback pending.
 - Implementation branch: `codex/s00-device-validation` (isolated from S01).
 - Target: native iOS MVP; EPUB/TXT import, UTF-8/UTF-16/GBK/GB18030 decoding, comfortable reading, persistent positions, and local speech baseline.
 - Not authorized: App Store submission, paid services, production backend deployment, account/subscription features, or cloud TTS in S00.
@@ -20,7 +24,8 @@ The owner requested parallel iPhone installation on 2026-11-24. This branch
 prepares a tested device archive and the separately authorized owner-only
 internal-TestFlight installation. Original S00's exclusion applied to that earlier
 development task; this follow-up does not authorize public release. S01's review HEAD remains
-`3bfb4429fe7a42e50df62f4857bcb9909bf00ab3`; no S02 starts.
+`3bfb4429fe7a42e50df62f4857bcb9909bf00ab3`; S02A remains in its separate
+frozen worktree, and this task does not start S02B.
 
 ## Measured compatibility profile
 
@@ -41,8 +46,8 @@ These measurements are recorded as a non-text compatibility profile only. The fu
 Codex implements only S00, opens a PR to `main`, reports exact tested HEAD SHA and actual build/test results, and stops at `READY_FOR_AUDIT`. ChatGPT independently audits the diff and evidence before any merge or next-stage authorization.
 
 ## Owner checks still required
-- Update the existing internal TestFlight app to38.1; verify the quiet entry in
-  all three themes. Other physical checks
+- Update the existing internal TestFlight app to39.1; verify the TOC reveals and
+  marks the chapter after reading, closing/reopening and relaunch. Other physical checks
   remain separate in `reports/S00/device-01/DEVICE_CHECKLIST.md`.
 - Evaluate premium Mandarin TTS samples and approve any paid API/service in a later phase.
 
