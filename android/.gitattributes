@@ -1,0 +1,3 @@
+# Raw validation bytes must match SHA256SUMS on Windows and Linux checkouts.
+reports/validation-20261126/* -text
+reports/*.json text eol=lf

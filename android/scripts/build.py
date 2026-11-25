@@ -1,5 +1,5 @@
 """Compile with an existing official SDK/JDK only; no Gradle/dependency installs.
-Produces unsigned aligned APKs. Upgrade signing is a separate LOCAL-only step.
+Produces unsigned aligned APKs. Upgrade signing runs separately on authorized AutoDL.
 """
 import argparse
 import hashlib

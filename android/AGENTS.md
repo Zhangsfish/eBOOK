@@ -53,7 +53,7 @@ preserve the signing key only in ignored local storage for later upgrades.
 Never put the key, private books or device IDs in the ZIP. No Play/AppGallery
 submission. Stop READY_FOR_AUDIT after delivery; do not merge PRs automatically.
 
-## Implementation map (in progress)
+## Implementation map (READY_FOR_AUDIT)
 - app/src/main/: native Java/Android SDK, no third-party runtime dependencies.
   Core implements strict streaming codecs, <=1600 UTF16 disk blocks, EPUB2/3,
   chapter lookup and sentence segmentation. UI uses recycled ListView rows.
@@ -67,3 +67,12 @@ submission. Stop READY_FOR_AUDIT after delivery; do not merge PRs automatically.
   an upgrade-signing key. Local credentials and private material are DPAPI-protected
   in ignored .local-test-data/private/, never source/CI/delivery.
 - reports/: real attempts/limitations and final delivery. Physical Huawei NOT_RUN.
+
+Final production APK compiled/signed from5d85816e829a05414c1d13b3e4daf5e54586f4a6.
+Native tested HEADdd7333c80ab5379a306e71fee0bb2684838ff2ea, run45663796803:
+JVM32/32 and Android30/35 each21main+4resume PASS. Production app tree is unchanged
+between those SHAs; each installed CI payload exactly matches signed APK content.
+CPU151 console visibly confirmed OFF at2026-11-26 approximately01:07. Cloud private
+key/password removed after verified local DPAPI backup. No local tools installed.
+Delivery/report map and failed attempts are in reports/; local ZIP in delivery/.
+Stop after draft PR/audit handoff; do not merge or start another phase.

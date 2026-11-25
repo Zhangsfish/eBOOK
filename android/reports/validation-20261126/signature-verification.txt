@@ -1,0 +1,17 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=eBOOK Internal Test, O=Private Development, C=CN
+Signer #1 certificate SHA-256 digest: a15787f486fdcf5e5f68effe47b9f5aad6460f4a2c7a122bcdde0975a0262ff7
+Signer #1 certificate SHA-1 digest: 62e79606715ee0900967f6706b9221494d40e70e
+Signer #1 certificate MD5 digest: fb6b84eec0f3226478b19182cb4c9e0c
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 3072
+Signer #1 public key SHA-256 digest: 3b28d50504b186cb0e680dda4fdd6e0f88e79cc42be2fe3ac5f0d478ae20c6b9
+Signer #1 public key SHA-1 digest: 2716e0fd64732b3733ab2b30098c88303d3a2576
+Signer #1 public key MD5 digest: 2a791d43db934ee30a55e371bccf0e38

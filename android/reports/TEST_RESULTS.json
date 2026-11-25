@@ -1,0 +1,593 @@
+{
+  "status": "READY_FOR_AUDIT",
+  "date": "2026-11-26",
+  "version_name": "0.1.0-android.1",
+  "version_code": 1,
+  "production_source_sha": "5d85816e829a05414c1d13b3e4daf5e54586f4a6",
+  "tested_head_sha": "dd7333c80ab5379a306e71fee0bb2684838ff2ea",
+  "app_tree_sha": "bc25683464dd51aa7308dc7d25a0dd255d742496",
+  "source_relationship": "Production app tree identical in build source and tested HEAD; later changes only tests, transfer scripts and documentation",
+  "apk_file": "eBOOK-0.1.0-android.1.apk",
+  "apk_bytes": 61913,
+  "apk_sha256": "b20d523511cda64d95cd02bde74a33c79e897dd24ded9b6e4ef43dd850f7eb18",
+  "certificate_sha256": "a15787f486fdcf5e5f68effe47b9f5aad6460f4a2c7a122bcdde0975a0262ff7",
+  "signature_verification": {
+    "status": "PASS",
+    "tool": "official AutoDL SDK35 apksigner",
+    "verified_schemes": [
+      "v2",
+      "v3"
+    ],
+    "certificate": "internal test RSA3072",
+    "v1_reported": false,
+    "v4_reported": false
+  },
+  "jvm": {
+    "status": "PASS",
+    "environment": "AutoDL OpenJDK17.0.21.1+2; 256MiB heap cap",
+    "source_sha": "5d85816e829a05414c1d13b3e4daf5e54586f4a6",
+    "results": {
+      "suite": "JVM core",
+      "passed": 32,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "strict_UTF-8",
+          "status": "PASS",
+          "ms": 52
+        },
+        {
+          "name": "strict_UTF-16LE",
+          "status": "PASS",
+          "ms": 2
+        },
+        {
+          "name": "strict_UTF-16BE",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "strict_GBK",
+          "status": "PASS",
+          "ms": 7
+        },
+        {
+          "name": "strict_GB18030",
+          "status": "PASS",
+          "ms": 4
+        },
+        {
+          "name": "BOM_UTF-8",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "BOM_UTF-16LE",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "BOM_UTF-16BE",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "auto_UTF16_without_BOM",
+          "status": "PASS",
+          "ms": 0
+        },
+        {
+          "name": "GB18030_four_byte_and_auto",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "reject_invalid_UTF8_BOM",
+          "status": "PASS",
+          "ms": 0
+        },
+        {
+          "name": "reject_invalid_UTF16_surrogate",
+          "status": "PASS",
+          "ms": 0
+        },
+        {
+          "name": "reject_invalid_GB18030",
+          "status": "PASS",
+          "ms": 0
+        },
+        {
+          "name": "reject_binary_and_replacement",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "reject_empty_and_UTF32",
+          "status": "PASS",
+          "ms": 0
+        },
+        {
+          "name": "reject_size_limit",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "bare_headings_require_run",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "ordinary_numbers_not_chapters",
+          "status": "PASS",
+          "ms": 1
+        },
+        {
+          "name": "giant_line_bounded_and_surrogate_safe",
+          "status": "PASS",
+          "ms": 138
+        },
+        {
+          "name": "long_2301482_character_fixture",
+          "status": "PASS",
+          "ms": 676
+        },
+        {
+          "name": "EPUB3_spine_nav_nested_out_of_order",
+          "status": "PASS",
+          "ms": 60
+        },
+        {
+          "name": "iOS_original_fixture_synthetic.epub",
+          "status": "PASS",
+          "ms": 13
+        },
+        {
+          "name": "iOS_original_fixture_synthetic_ncx.epub",
+          "status": "PASS",
+          "ms": 7
+        },
+        {
+          "name": "reject_unsafe_entity.epub",
+          "status": "PASS",
+          "ms": 7
+        },
+        {
+          "name": "reject_unsafe_path.epub",
+          "status": "PASS",
+          "ms": 0
+        },
+        {
+          "name": "reject_bad_spine.epub",
+          "status": "PASS",
+          "ms": 4
+        },
+        {
+          "name": "reject_EPUB_traversal_and_encoded_path",
+          "status": "PASS",
+          "ms": 9
+        },
+        {
+          "name": "reject_EPUB_external_entity",
+          "status": "PASS",
+          "ms": 5
+        },
+        {
+          "name": "EPUB_missing_nav_destination_fallback",
+          "status": "PASS",
+          "ms": 6
+        },
+        {
+          "name": "speech_punctuation_and_surrogates",
+          "status": "PASS",
+          "ms": 0
+        },
+        {
+          "name": "paragraph_navigation_within_and_across_disk_blocks",
+          "status": "PASS",
+          "ms": 7
+        },
+        {
+          "name": "independent_reading_listening_values",
+          "status": "PASS",
+          "ms": 0
+        }
+      ]
+    }
+  },
+  "emulators": [
+    {
+      "api": 30,
+      "image": "system-images;android-30;default;x86_64",
+      "runner": "standard ubuntu-24.04 KVM",
+      "physical_device": false,
+      "run_id": 45663796803,
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45663796803",
+      "tested_head_sha": "dd7333c80ab5379a306e71fee0bb2684838ff2ea",
+      "artifact_sha256": "sha256:25d401934da46123733d61fc438c1d398d72fdf45156320523cb7bd1b3371e12",
+      "package_install": "PASS",
+      "payload_exact_match": true,
+      "tts_engine": "test-only controlled PCM tone; no Huawei voice/quality validation",
+      "phases": {
+        "main": {
+          "suite": "Android instrumentation",
+          "completed": true,
+          "phase": "main",
+          "api": 30,
+          "passed": 21,
+          "failed": 0,
+          "metrics": {
+            "peakSampledPssBytes": 79462400,
+            "processVmHwmBytes": 221462528,
+            "maxVisibleRows": 2,
+            "maxTextUTF16": 1222
+          },
+          "tests": [
+            {
+              "name": "real_system_picker_long_TXT_import",
+              "status": "PASS",
+              "ms": 4786
+            },
+            {
+              "name": "quiet_ellipsis_and_48dp_hit_target",
+              "status": "PASS",
+              "ms": 1
+            },
+            {
+              "name": "TOC_search_jump_to_chapter500",
+              "status": "PASS",
+              "ms": 1484
+            },
+            {
+              "name": "TOC_reopen_clears_search_and_marks_current",
+              "status": "PASS",
+              "ms": 863
+            },
+            {
+              "name": "browsing_search_dismiss_preserves_exact_viewport",
+              "status": "PASS",
+              "ms": 633
+            },
+            {
+              "name": "live_scroll_chapter_beats_last_TOC_selection",
+              "status": "PASS",
+              "ms": 2310
+            },
+            {
+              "name": "font_and_line_spacing_keep_text_anchor",
+              "status": "PASS",
+              "ms": 2033
+            },
+            {
+              "name": "theme_浅色",
+              "status": "PASS",
+              "ms": 1466
+            },
+            {
+              "name": "theme_深色",
+              "status": "PASS",
+              "ms": 1628
+            },
+            {
+              "name": "theme_护眼",
+              "status": "PASS",
+              "ms": 1393
+            },
+            {
+              "name": "fold_width_reflow_keeps_anchor",
+              "status": "PASS",
+              "ms": 2263
+            },
+            {
+              "name": "Android_codecs_strict_roundtrip",
+              "status": "PASS",
+              "ms": 5
+            },
+            {
+              "name": "voice_catalog_excludes_network_missing_and_nonChinese",
+              "status": "PASS",
+              "ms": 0
+            },
+            {
+              "name": "real_TTS_callbacks_pause_resume_separate_position",
+              "status": "PASS",
+              "ms": 2566
+            },
+            {
+              "name": "background_lockscreen_and_media_controls",
+              "status": "PASS",
+              "ms": 4202
+            },
+            {
+              "name": "audio_focus_and_user_pause_interruption",
+              "status": "PASS",
+              "ms": 1063
+            },
+            {
+              "name": "headphone_noisy_event_pauses",
+              "status": "PASS",
+              "ms": 21
+            },
+            {
+              "name": "speech_rate_chapter_and_paragraph_navigation",
+              "status": "PASS",
+              "ms": 8
+            },
+            {
+              "name": "missing_offline_voice_never_blocks_reading",
+              "status": "PASS",
+              "ms": 1405
+            },
+            {
+              "name": "engine_error_visible_and_retryable",
+              "status": "PASS",
+              "ms": 1748
+            },
+            {
+              "name": "bounded_visible_text_and_durable_checkpoint",
+              "status": "PASS",
+              "ms": 1785
+            }
+          ]
+        },
+        "resume": {
+          "suite": "Android instrumentation",
+          "completed": true,
+          "phase": "resume",
+          "api": 30,
+          "passed": 4,
+          "failed": 0,
+          "metrics": {
+            "peakSampledPssBytes": 47700992,
+            "processVmHwmBytes": 180785152,
+            "maxVisibleRows": 1,
+            "maxTextUTF16": 1213
+          },
+          "tests": [
+            {
+              "name": "process_restart_restores_reading_and_listening_separately",
+              "status": "PASS",
+              "ms": 196
+            },
+            {
+              "name": "relaunch_TOC_follows_current_and_dismiss_preserves",
+              "status": "PASS",
+              "ms": 1198
+            },
+            {
+              "name": "real_system_picker_EPUB_import_and_render",
+              "status": "PASS",
+              "ms": 2366
+            },
+            {
+              "name": "remove_book_and_local_duplicate_import",
+              "status": "PASS",
+              "ms": 3827
+            }
+          ]
+        }
+      }
+    },
+    {
+      "api": 35,
+      "image": "system-images;android-35;google_apis;x86_64",
+      "runner": "standard ubuntu-24.04 KVM",
+      "physical_device": false,
+      "run_id": 45663796803,
+      "run_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45663796803",
+      "tested_head_sha": "dd7333c80ab5379a306e71fee0bb2684838ff2ea",
+      "artifact_sha256": "sha256:38397c1eb8b1c2e4f7a786ae1ee3416594f3768c8e4da4fcbcf228b88de46ce4",
+      "package_install": "PASS",
+      "payload_exact_match": true,
+      "tts_engine": "test-only controlled PCM tone; no Huawei voice/quality validation",
+      "phases": {
+        "main": {
+          "suite": "Android instrumentation",
+          "completed": true,
+          "phase": "main",
+          "api": 35,
+          "passed": 21,
+          "failed": 0,
+          "metrics": {
+            "peakSampledPssBytes": 61924352,
+            "processVmHwmBytes": 283234304,
+            "maxVisibleRows": 2,
+            "maxTextUTF16": 1222
+          },
+          "tests": [
+            {
+              "name": "real_system_picker_long_TXT_import",
+              "status": "PASS",
+              "ms": 11097
+            },
+            {
+              "name": "quiet_ellipsis_and_48dp_hit_target",
+              "status": "PASS",
+              "ms": 4
+            },
+            {
+              "name": "TOC_search_jump_to_chapter500",
+              "status": "PASS",
+              "ms": 1925
+            },
+            {
+              "name": "TOC_reopen_clears_search_and_marks_current",
+              "status": "PASS",
+              "ms": 699
+            },
+            {
+              "name": "browsing_search_dismiss_preserves_exact_viewport",
+              "status": "PASS",
+              "ms": 754
+            },
+            {
+              "name": "live_scroll_chapter_beats_last_TOC_selection",
+              "status": "PASS",
+              "ms": 2451
+            },
+            {
+              "name": "font_and_line_spacing_keep_text_anchor",
+              "status": "PASS",
+              "ms": 2323
+            },
+            {
+              "name": "theme_浅色",
+              "status": "PASS",
+              "ms": 1459
+            },
+            {
+              "name": "theme_深色",
+              "status": "PASS",
+              "ms": 1380
+            },
+            {
+              "name": "theme_护眼",
+              "status": "PASS",
+              "ms": 1514
+            },
+            {
+              "name": "fold_width_reflow_keeps_anchor",
+              "status": "PASS",
+              "ms": 2271
+            },
+            {
+              "name": "Android_codecs_strict_roundtrip",
+              "status": "PASS",
+              "ms": 14
+            },
+            {
+              "name": "voice_catalog_excludes_network_missing_and_nonChinese",
+              "status": "PASS",
+              "ms": 0
+            },
+            {
+              "name": "real_TTS_callbacks_pause_resume_separate_position",
+              "status": "PASS",
+              "ms": 2453
+            },
+            {
+              "name": "background_lockscreen_and_media_controls",
+              "status": "PASS",
+              "ms": 2926
+            },
+            {
+              "name": "audio_focus_and_user_pause_interruption",
+              "status": "PASS",
+              "ms": 1081
+            },
+            {
+              "name": "headphone_noisy_event_pauses",
+              "status": "PASS",
+              "ms": 32
+            },
+            {
+              "name": "speech_rate_chapter_and_paragraph_navigation",
+              "status": "PASS",
+              "ms": 15
+            },
+            {
+              "name": "missing_offline_voice_never_blocks_reading",
+              "status": "PASS",
+              "ms": 1206
+            },
+            {
+              "name": "engine_error_visible_and_retryable",
+              "status": "PASS",
+              "ms": 1402
+            },
+            {
+              "name": "bounded_visible_text_and_durable_checkpoint",
+              "status": "PASS",
+              "ms": 1763
+            }
+          ]
+        },
+        "resume": {
+          "suite": "Android instrumentation",
+          "completed": true,
+          "phase": "resume",
+          "api": 35,
+          "passed": 4,
+          "failed": 0,
+          "metrics": {
+            "peakSampledPssBytes": 36573184,
+            "processVmHwmBytes": 175026176,
+            "maxVisibleRows": 1,
+            "maxTextUTF16": 1213
+          },
+          "tests": [
+            {
+              "name": "process_restart_restores_reading_and_listening_separately",
+              "status": "PASS",
+              "ms": 218
+            },
+            {
+              "name": "relaunch_TOC_follows_current_and_dismiss_preserves",
+              "status": "PASS",
+              "ms": 1225
+            },
+            {
+              "name": "real_system_picker_EPUB_import_and_render",
+              "status": "PASS",
+              "ms": 3528
+            },
+            {
+              "name": "remove_book_and_local_duplicate_import",
+              "status": "PASS",
+              "ms": 5295
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "visual_review": "validation-20261126/visual-review.json",
+  "fixture": {
+    "kind": "original synthetic GB18030 TXT",
+    "bytes": 4236594,
+    "unicode_characters_including_CRLF": 2301482,
+    "lines": 73176,
+    "chapters": 625,
+    "disk_blocks": 1888,
+    "normalized_UTF16": 2228308,
+    "max_block_UTF16": 1242
+  },
+  "privacy": {
+    "internet_permission": false,
+    "GMS_dependency": false,
+    "bundled_books": false,
+    "bundled_voice_models": false,
+    "upgrade_private_key_in_CI_or_delivery": false,
+    "new_local_tools_installed": false
+  },
+  "cloud": {
+    "state": "OFF",
+    "shutdown_console_observed": "2026-11-26 approximately01:07 Asia/Shanghai",
+    "instance": "task-only Chongqing151 CPU32/120GB",
+    "rate_CNY_per_hour": 0.88,
+    "authorized_budget_CNY": 10,
+    "timed_shutdown_quote_CNY": 6.96,
+    "quote_is_actual_bill": false,
+    "upgrade_key_DPAPI_roundtrip": "PASS",
+    "cloud_plaintext_key_removed": true
+  },
+  "physical_Huawei": {
+    "model": "HUAWEI Mate X3 ALT-AL00",
+    "os": "HarmonyOS4.2.0",
+    "status": "NOT_RUN",
+    "checks": {
+      "install_or_upgrade": "NOT_RUN",
+      "installed_Chinese_offline_voice_inventory": "NOT_RUN",
+      "human_voice_quality": "NOT_RUN",
+      "physical_fold_unfold": "NOT_RUN",
+      "vendor_background_lockscreen_longrun": "NOT_RUN",
+      "real_bluetooth_headset_and_phone_call": "NOT_RUN",
+      "battery_and_thermal": "NOT_RUN"
+    }
+  },
+  "known_limits": [
+    "No DRM, complex CSS/interactive EPUB or custom XML entities",
+    "TXT32MiB; EPUB64MiB compressed; expanded128MiB limit",
+    "Engines without range callbacks resume at current sentence",
+    "VM screen-off/media/focus checks are short controlled tests, not Huawei longrun/audio-quality evidence"
+  ]
+}

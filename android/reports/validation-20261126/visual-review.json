@@ -1,0 +1,59 @@
+{
+  "method": "Agent manually viewed original emulator PNGs; original synthetic text only; not Huawei screenshots",
+  "screenshots": [
+    {
+      "file": "api30-warm-reader.png",
+      "sha256": "a9905d43464aaba16569e988acaebf0481db7c57bf0e823e56054bba2cdc829a",
+      "source_run": 45663180637,
+      "source_sha": "2a942ac647b0392895ebe87b112552abb31b5a0a",
+      "api": 30,
+      "review": "PASS",
+      "observed": "正文只有右下角省略号，中文完整，未被系统首次提示覆盖"
+    },
+    {
+      "file": "api30-toc-chapter500.png",
+      "sha256": "5164ee436003ff348b55d5368e8e2ab6e5e3e5bf0d1bb6335e7acec461e7a31a",
+      "source_run": 45663180637,
+      "source_sha": "2a942ac647b0392895ebe87b112552abb31b5a0a",
+      "api": 30,
+      "review": "PASS",
+      "observed": "目录显示第500章勾选和相邻章节，旧搜索为空"
+    },
+    {
+      "file": "api30-unfolded-reader.png",
+      "sha256": "94a5708c2ea056a4a51fb3242fd2fed83905e60a2d13bc8cdb43451d94aeef99",
+      "source_run": 45663180637,
+      "source_sha": "2a942ac647b0392895ebe87b112552abb31b5a0a",
+      "api": 30,
+      "review": "PASS",
+      "observed": "1800x2200重排后仍处于相同正文附近，宽度和省略号正常"
+    },
+    {
+      "file": "api35-warm-reader.png",
+      "sha256": "5f7625b9ae3af75d6d84f75550b8578d80041ffea96ba674bc83873b993af6f8",
+      "source_run": 45663180637,
+      "source_sha": "2a942ac647b0392895ebe87b112552abb31b5a0a",
+      "api": 35,
+      "review": "PASS",
+      "observed": "正文只有右下角省略号，中文完整，未被系统首次提示覆盖"
+    },
+    {
+      "file": "api35-toc-chapter500.png",
+      "sha256": "13872d58b86bfc24d5d8f14dd0a52533d430cafd501a87d83cd6ff92c622f169",
+      "source_run": 45663180637,
+      "source_sha": "2a942ac647b0392895ebe87b112552abb31b5a0a",
+      "api": 35,
+      "review": "PASS",
+      "observed": "目录显示第500章勾选和相邻章节，旧搜索为空"
+    },
+    {
+      "file": "api35-unfolded-reader.png",
+      "sha256": "8dfad1a6991a58b036572cb3322d1b574174216998e4eb3e989abc19d07afb5f",
+      "source_run": 45663180637,
+      "source_sha": "2a942ac647b0392895ebe87b112552abb31b5a0a",
+      "api": 35,
+      "review": "PASS",
+      "observed": "1800x2200重排后仍处于相同正文附近，宽度和省略号正常"
+    }
+  ]
+}
