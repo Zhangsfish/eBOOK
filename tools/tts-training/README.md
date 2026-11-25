@@ -16,6 +16,9 @@
   它下载校验固定资源，再串行调用官方 `infer.py`，保留每段日志、文本与音频哈希、
   时长和进程总耗时。它不安装软件、不训练、不自动关机。
   `run` 在云端用官方依赖 `soundfile` 读取 WAV 元数据。
+- `scripts/bootstrap_autodl.py` 与 `config/torch_wheels_cp310_cu118.json`：云端独立安装入口；
+  Torch 发行物链接/哈希来自官方 cu118 索引，其他发行物先核对官方 PyPI 元数据再安装。
+- `scripts/audit_audio.py`：逐块完整解码 WAV，核对哈希、帧数、有限值与幅度；不代替听校或 ASR。
 - `config/cost_assumptions.json` 和 `scripts/estimate_cost.py`：可复算的敏感性预算，
   所有吞吐参数都是假设；不能冒充实际账单或训练速度。
 - 本轮结论及证据：[研究报告](../../reports/S02A4_TEACHER_STUDENT_TTS.md)。
@@ -27,8 +30,9 @@
 验证完整恢复和导出，再扩至 10–20 小时。若无需训练已满足需求，可保留直接模型作对照；
 更小学生的蒸馏按真实手机瓶颈决定，不预设 Piper。
 
-当前只有 `PREPARED`：本次没有 GPU 开机、真实合成、微调、恢复或导出。
-这些操作仍为 `NOT_RUN`。官方演示获认可不等于本次新故事获认可。
+2026-11-25–26 首轮：用户已批准 ¥50 上限，已开机复用单卡 4090，固定模型的 17 份资源
+已在云端核验。环境部署进行中，真实合成、微调、恢复和导出尚未发生。
+官方演示获认可不等于本次新故事获认可。最新事实以研究报告的收尾记录为准。
 
 ## 本机轻量命令
 
@@ -50,17 +54,23 @@
 
 先清点已装环境。固定上游要求 PyTorch/torchaudio 2.7.0 与 Transformers 4.57.1；
 指南涉及的 `accelerate`、`tqdm` 和导出需要的 `onnx` 并未全部列在该 revision 的依赖文件中。
-独立环境和完整依赖锁仍待云端确认；已有环境不足时，按用户安装规则说明后处理，
-不直接覆盖其他任务环境。这里没有一条被宣称已验证的安装命令。
+用户已明确给出 AutoDL 自主安装授权，仍保持本轮 ¥50 上限，不直接覆盖其他任务环境。
+独立环境与完整依赖锁正在云端建立，未完成前不宣称安装或推理已验证。
 
 将本研究目录传至云端后，在确认好的环境内执行：
 
 ```bash
-python tools/tts-training/scripts/autodl_audition.py fetch
-python tools/tts-training/scripts/autodl_audition.py run --run-id audition-001 --max-seconds 7200
+/root/miniconda3/bin/python tools/tts-training/scripts/bootstrap_autodl.py \
+  --torch-urls tools/tts-training/config/torch_wheels_cp310_cu118.json
+/root/miniconda3/bin/python tools/tts-training/scripts/autodl_audition.py fetch --model-mirror modelscope
+/root/autodl-tmp/ebook_s02a4/.venv/bin/python tools/tts-training/scripts/autodl_audition.py run \
+  --run-id audition-001 --max-seconds 7200
+/root/autodl-tmp/ebook_s02a4/.venv/bin/python tools/tts-training/scripts/audit_audio.py \
+  /root/autodl-tmp/ebook_s02a4/runs/audition-001
 ```
 
 `fetch` 不执行模型代码、不安装包；`run` 才加载固定资源并通过官方 CLI 合成。
+若可直连 HF，省略 `--model-mirror modelscope`；镜像传输始终以冻结 HF 版本的字节数和 SHA256 验收。
 默认写入七段试听，保持原生 48 kHz / 双声道，不添加未经证实的风格指令。
 采样值显式取固定 `infer.py` 的真实默认值；官方演示当时的随机种子和完整采样设置
 未公开确认，因此不声称逐样本复现演示波形。

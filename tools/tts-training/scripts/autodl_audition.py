@@ -53,7 +53,7 @@ def verify_source(source: Path, lock: dict) -> None:
     checked_file(source / lock["reference"]["path"], lock["reference"])
 
 
-def fetch_assets(workspace: Path, lock: dict) -> None:
+def fetch_assets(workspace: Path, lock: dict, mirror: str = "huggingface") -> None:
     cloud_only(workspace)
     workspace.mkdir(parents=True, exist_ok=True)
     source = workspace / "upstream"
@@ -74,6 +74,9 @@ def fetch_assets(workspace: Path, lock: dict) -> None:
                 continue
             dest.parent.mkdir(parents=True, exist_ok=True)
             url = f"https://huggingface.co/{model['repo']}/resolve/{model['revision']}/{item['path']}"
+            if mirror == "modelscope":
+                # Official README mirror; frozen HF SHA256 still decides acceptance.
+                url = f"https://modelscope.cn/models/openmoss/{model['local_name']}/resolve/master/{item['path']}"
             partial = dest.with_name(dest.name + ".part")
             request = urllib.request.Request(url, headers={"User-Agent": "eBOOK-S02A4"})
             with urllib.request.urlopen(request, timeout=60) as response, partial.open("wb") as out:
@@ -81,6 +84,11 @@ def fetch_assets(workspace: Path, lock: dict) -> None:
                     out.write(chunk)
             checked_file(partial, item)
             partial.replace(dest)
+            notes = workspace / "notes"
+            notes.mkdir(exist_ok=True)
+            with (notes / "asset-downloads.jsonl").open("a", encoding="utf-8") as record:
+                record.write(json.dumps({"url": url, "bytes": item["bytes"], "sha256": item["sha256"],
+                                         "frozen_hf_revision": model["revision"]}) + "\n")
             print(f"VERIFIED {model['local_name']}/{item['path']}", flush=True)
 
 
@@ -138,7 +146,11 @@ def synthesize(workspace: Path, run_dir: Path, lock: dict, cases: list[dict], ma
         temporary.replace(manifest_path)
 
     started = time.monotonic()
-    environment = dict(os.environ, HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1", PYTHONUNBUFFERED="1")
+    environment = dict(os.environ, HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1", PYTHONUNBUFFERED="1",
+                       HF_HOME=str(workspace / "cache/huggingface"),
+                       XDG_CACHE_HOME=str(workspace / "cache"),
+                       CUDA_CACHE_PATH=str(workspace / "cache/cuda"),
+                       TRITON_CACHE_DIR=str(workspace / "cache/triton"))
     try:
         save()
         for case in cases:
@@ -185,6 +197,7 @@ def main() -> None:
     parser.add_argument("--workspace", default="/root/autodl-tmp/ebook_s02a4")
     parser.add_argument("--run-id", default="audition-001")
     parser.add_argument("--max-seconds", type=int, default=7200)
+    parser.add_argument("--model-mirror", choices=["huggingface", "modelscope"], default="huggingface")
     args = parser.parse_args()
     if not args.run_id.replace("-", "").replace("_", "").isalnum() or args.max_seconds <= 0:
         parser.error("Use a safe run ID and a positive max-seconds value.")
@@ -204,7 +217,7 @@ def main() -> None:
         workspace = Path(args.workspace).expanduser().resolve()
         run_dir = workspace / "runs" / args.run_id
         if args.action == "fetch":
-            fetch_assets(workspace, lock)
+            fetch_assets(workspace, lock, args.model_mirror)
         else:
             synthesize(workspace, run_dir, lock, cases, args.max_seconds)
 

@@ -36,6 +36,10 @@ def main():
             result = subprocess.run([sys.executable, str(LAB / "scripts/autodl_audition.py"), action],
                                     capture_output=True, text=True, encoding="utf-8")
             assert result.returncode != 0 and "require AutoDL Linux" in result.stderr
+        result = subprocess.run([sys.executable, str(LAB / "scripts/bootstrap_autodl.py"),
+                                 "--torch-urls", str(LAB / "config/torch_wheels_cp310_cu118.json")],
+                                capture_output=True, text=True, encoding="utf-8")
+        assert result.returncode != 0 and "require AutoDL Linux" in result.stderr
         local_refusal = "PASS"
     with tempfile.TemporaryDirectory() as temporary:
         path = Path(temporary) / "asset.bin"
@@ -57,7 +61,7 @@ def main():
     assert abs(budget["cny_with_contingency"][1] - 97.153875) < 1e-8
     assert abs(budget["pcm16_stereo_48khz_gb"] - 6.912) < 1e-8
     assert "torch" not in sys.modules and "soundfile" not in sys.modules
-    print(json.dumps({"status": "PASS", "cloud_plan_cases": 7, "local_fetch_run_refusal": local_refusal,
+    print(json.dumps({"status": "PASS", "cloud_plan_cases": 7, "local_fetch_run_bootstrap_refusal": local_refusal,
                       "corrupt_asset_refusal": "PASS", "budget_units": "PASS",
                       "model_imports": "NONE", "synthesis_training_export": "NOT_RUN"}, indent=2))
 

@@ -7,6 +7,8 @@
 - 本轮基线：`c218f0c1cc38a14d6afdd51f2167f1a38d200019`；先读根 `AGENTS.md`、
   `docs/TTS_WORKSTREAMS.md` 与 `tasks/S02A4_TEACHER_STUDENT_TTS.md`。
 - 2026-11-25 用户再次明确：本对话负责自训研究；训练全部在 AutoDL，先评估费用。
+- 本轮用户明确批准首轮费用上限 **¥50**。随后明确 AutoDL 所需软件可自主安装，
+  仅本机安装须先告知；已同步全局 `C:/Users/Zhang S/.codex/AGENTS.md`。
 
 ## 文件角色
 
@@ -14,6 +16,7 @@
 - `scripts/autodl_audition.py`：固定资源下载/七段试听编排；plan 可在本机，fetch/run 仅云端。
 - `scripts/estimate_cost.py`：有单位与吞吐假设的费用计算；结果不是实测。
 - `scripts/check_preparation.py`：CPU 检查本机拒绝执行、文件损坏拒绝和预算单位，不导入模型。
+- `scripts/bootstrap_autodl.py`：云端独立环境；先解析发行物并核对官方哈希，再按精确 URL 安装。
 - `config/`：锁定的来源与明确标为估计的预算假设。
 - `README.md`：本线操作入口与待执行项。
 - `../../reports/S02A4_TEACHER_STUDENT_TTS.md`：本轮技术路线、成本、真实执行状态。
@@ -32,6 +35,9 @@
 
 ## 当前状态与交接
 
+- 本轮已在唯一选定的原关机 4090 实例开机，实际确认 ¥2.08/小时，独立目录
+  `/root/autodl-tmp/ebook_s02a4`；磁盘初查可用约 41 GB。另一个运行 CPU 实例未动。
+- 已设平台定时关机到服务器时间 2026-11-26 01:20；它是兜底，收尾仍要确认实际关机。
 - `PREPARED` 进行中；新小说合成、实际微调、恢复、导出、真机均 `NOT_RUN`。
 - 先核读固定源码及权重来源，确定小试成本；实际复现获得用户核听后再扩大训练。
 - 不将本分支历史 `STATUS.md` 覆盖到主线；不合并任何 PR 或自动发布。
