@@ -1,0 +1,28 @@
+name: Android reader
+on:
+  push:
+    branches: [codex/android-system-tts-reader]
+    paths: ['android/**', '.github/workflows/android-reader.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: android
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Inventory existing tools (no installation)
+        run: |
+          java -version
+          printf '%s\n' "$ANDROID_HOME"
+          ls "$ANDROID_HOME/build-tools" "$ANDROID_HOME/platforms"
+          find "$ANDROID_HOME" -maxdepth 4 -name '*system-images*' -o -name apksigner.jar
+          command -v emulator || true
+          ls -l /dev/kvm || true
+      - name: Build and test when implementation is present
+        run: |
+          if test -f scripts/build.py; then python3 scripts/build.py --test; fi
