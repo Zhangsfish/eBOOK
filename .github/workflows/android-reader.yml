@@ -39,8 +39,6 @@ jobs:
       - name: Encrypt binary evidence (no public APK)
         if: always()
         run: |
-          mkdir -p build/tools
-          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" build/tools/
           python3 scripts/envelope.py pack
       - name: Upload encrypted evidence only
         if: always()

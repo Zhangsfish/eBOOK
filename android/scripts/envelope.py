@@ -24,7 +24,7 @@ def pack():
     archive = BUILD / 'evidence-private.tar.gz'
     with tarfile.open(archive, 'w:gz') as out:
         for pattern in ('ebook-unsigned.apk', 'build-info.json', 'core-evidence/core-results.json',
-                        'emulator/**/*', 'tools/apksigner.jar'):
+                        'emulator/**/*'):
             for path in BUILD.glob(pattern):
                 if path.is_file():
                     out.add(path, arcname=str(path.relative_to(BUILD)), recursive=False)
@@ -54,7 +54,7 @@ def pack():
     print('Encrypted evidence bundle ready:', metadata['bytes'], 'bytes; no public APK')
 
 
-def unpack(source, destination, include_tools=False):
+def unpack(source, destination):
     import win32crypt
     from cryptography.hazmat.primitives import hashes, serialization
     from cryptography.hazmat.primitives.asymmetric import padding
@@ -79,7 +79,9 @@ def unpack(source, destination, include_tools=False):
         if any(m.issym() or m.islnk() or m.name.startswith('/') or '..' in Path(m.name).parts for m in archive.getmembers()):
             raise ValueError('Unsafe archive')
         for member in archive.getmembers():
-            if not include_tools and Path(member.name).parts[0] == 'tools':
+            # Older encrypted attempts contained a signer planned before the
+            # owner chose cloud-only signing. Never extract it on this computer.
+            if Path(member.name).parts[0] == 'tools':
                 continue  # Local tool confirmation is separate from reading test evidence.
             archive.extract(member, destination)
     print('Authenticated evidence unpacked:', metadata.get('source_sha'), metadata.get('api'))
@@ -90,6 +92,5 @@ if __name__ == '__main__':
     parser.add_argument('operation', choices=['pack', 'unpack'])
     parser.add_argument('source', nargs='?', type=Path)
     parser.add_argument('destination', nargs='?', type=Path)
-    parser.add_argument('--include-tools', action='store_true')
     args = parser.parse_args()
-    pack() if args.operation == 'pack' else unpack(args.source, args.destination, args.include_tools)
+    pack() if args.operation == 'pack' else unpack(args.source, args.destination)

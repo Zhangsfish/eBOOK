@@ -38,7 +38,7 @@ def main():
             if z.testzip() is not None or any(p.startswith('/') or '\\' in p or '..' in Path(p).parts for p in z.namelist()):
                 raise ValueError('Unsafe or corrupt CI ZIP')
             z.extractall(sealed)
-        unpack(sealed, base / name, include_tools='--include-tools' in sys.argv)
+        unpack(sealed, base / name)
         print('Verified GitHub artifact', name, digest)
 
 
