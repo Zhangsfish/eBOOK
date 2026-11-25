@@ -72,6 +72,26 @@ https://github.com/OHF-Voice/piper1-gpl and the exact model cards selected durin
 preparation. Resolve current immutable revisions and concrete commands; do not
 leave an untested generic installation recipe as a completed deliverable.
 
+## Owner-selected first target voice: MOSS-TTS-Nano zh_6 (2026-11-25)
+
+**Owner listening feedback:** The owner listened to the actual ~2m30s demo audio titled **「🇨🇳 深夜温柔晚安」** and said **「这个可以」**. This is a positive, explicit acceptance of that particular demo voice/tone as the **first target sound**. The preceding Qwen fixed voices and dramatic-stage demos are not the selection. Do not ask the owner to shortlist teachers again, or replace this voice with an arbitrary generic "gentle female" preset.
+
+**Exact upstream provenance (source-resolved, not freshly synthesized in eBOOK):**
+- Official model repository: `OpenMOSS/MOSS-TTS-Nano`, inspected revision `8b7bcc9341b3b4ef3a3a58ba1338a7d85ff133eb`.
+- Official demo repository: `OpenMOSS/MOSS-TTS-Nano-Demo`, inspected revision `72c080d4dcf8847fa68b86c67c61ae42ec754fb3`.
+- Official demo metadata: `assets/metadata.jsonl`, selected entry `🇨🇳 深夜温柔晚安`, whose `prompt_speech` is `audio/zh_6.wav`. Preserve the metadata's exact text and prompt mapping.
+- Reference audio: `assets/audio/zh_6.wav`, Git blob SHA `1cb86e2050c71b0d07b14963d59e5676f55b5e36`, 837,198 bytes. The official model and demo repositories expose the **same blob**.
+- Owner-approved demo output: `assets/🇨🇳 深夜温柔晚安.wav` in demo repo, Git blob SHA `f3279b7bc387ed7a09cc64ec0d457c976b9cc53c`, 28,830,798 bytes. This is an **upstream showcase**, not a result generated or tested by our code.
+- Official model/ONNX weight cards and repository indicate Apache-2.0 for code/model weights, voice cloning with one reference audio, streaming ONNX CPU inference, and an actual `finetuning/README_zh.md` pipeline with `prepare_data.py` + `sft.py` + `verify.py`. This establishes a mature route for an experiment, **not** proof of iOS performance or reference-voice speaker-rights clearance.
+
+**Immediate priority: faithfully reproduce the selected voice on fiction.** Use the pinned model, pinned `zh_6.wav` reference, and the six pre-existing original fiction scenes in `tools/tts-training/fixtures/teacher_audition.json`. Keep at least one coherent ~2–5-minute single-voice narration sample including normal narration, dialogue and restrained suspense. Generate actual WAV with the upstream reference-conditioned `voice_clone` path, first in original PyTorch implementation then, if feasible, compare to the official ONNX CPU export. Pin source revisions, model and tokenizer SHA, reference SHA, generation settings, duration, content fidelity, WER/CER as a *filter not a quality grade*, pauses, clipping and voice drift. Do not substitute the older official soothing prose for newly generated fiction or call a generic TTS voice a match.
+
+**Choose minimal working route before distilling:** This selected teacher is already around 100M TTS parameters plus ~20M codec. Test direct-use/ONNX streaming and actual iPhone feasibility *before* spending AutoDL time distilling a new student. If it meets owner sound and iPhone performance requirements with the same voice, direct deployment or modest SFT is preferable. If direct inference is too slow/heavy, then choose and train a compatible smaller student with a real reproducible code/export path; architecture remains the implementer's responsibility, not the owner's.
+
+**Approval gates:** The owner has accepted this *demo's sound*. Do not silently upgrade that to acceptance of arbitrary re-synthesis or a commercial distribution license. Reproduced fiction must retain its tone and timbre; owner feedback on the real generated fiction is the next subjective gate, before batch teacher-data generation. The reference recording's speaker/recording and permissible commercial voice-reproduction/redistribution rights must be explicitly established before shipping a model trained on, conditioned on, or packaged with it. Root Apache-2.0 model/code notices do not automatically decide voice/personality and recording rights.
+
+**No repeated teacher hunt.** Investigate an alternative teacher only if this exact same-voice reproduction objectively fails or the owner rejects the actual fiction audio. Preserve prior Suxin comparison/PR #7; do not conflate preference for the demo with proof a novel-length student is already delivered.
+
 ## First delivery: the owner can actually choose a teacher voice
 
 ## New owner audition feedback: narration restraint versus dramatic demo
