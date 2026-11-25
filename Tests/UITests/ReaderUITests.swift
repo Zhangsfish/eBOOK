@@ -59,7 +59,8 @@ final class ReaderUITests: XCTestCase {
         // The original 625-chapter fixture has three bounded blocks per chapter.
         // Read the live anchor, rather than assuming a previous navigation target.
         let anchor = app.staticTexts["reader.anchor"].label
-        guard let block = Int(anchor.components(separatedBy: "/")[0]), block > 0 else {
+        let digits = anchor.components(separatedBy: "/")[0].filter(\.isNumber)
+        guard let block = Int(digits), block > 0 else {
             XCTFail("Missing live reading anchor: \(anchor)"); return
         }
         app.buttons["reader.toc"].tap()

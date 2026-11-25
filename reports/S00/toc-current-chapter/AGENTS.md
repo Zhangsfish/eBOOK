@@ -13,6 +13,10 @@
 - Sources/eBOOK/ReaderView.swift: clear stale search, scroll to and mark that row.
 - Tests/: actual chapter-boundary and long-book UI regression checks.
 - DELIVERY.md: actual tested SHA, CI, internal beta availability and limitations.
+- scripts/ci_xcode.sh + existing workflows: optional reader-toc scope runs the
+  exact boundary + full long-reader UI methods with expected count2/no skips;
+  original all/native-picker modes remain. This avoids rerunning unrelated tests
+  after the first run exposed a localized-number parsing error in the new helper.
 - .local-test-data/toc-current-chapter/: ignored raw evidence; synthetic books only.
 
 ## Handoff

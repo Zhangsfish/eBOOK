@@ -3,6 +3,12 @@ on:
   push:
     branches: [codex/s00-device-validation]
   workflow_dispatch:
+    inputs:
+      test_scope:
+        description: Full regression or focused current-chapter TOC follow-up
+        type: choice
+        options: [all, reader-toc]
+        default: all
 permissions:
   contents: read
 concurrency:
@@ -24,9 +30,10 @@ jobs:
           python3 scripts/generate_xcode_project.py --check
       - name: Unsigned iPhone Release archive and metadata checks
         run: bash scripts/ci_device.sh
-      - name: Xcode 26 full reader regression
+      - name: Xcode 26 reader regression
         env:
           SIMULATOR_BOOT_TIMEOUT_SECONDS: '900'
+          EBOOK_XCODE_TEST_SCOPE: ${{ inputs.test_scope || 'all' }}
         run: |
           export DEVELOPER_DIR="$(xcode-select -p)"
           bash scripts/ci_xcode.sh
