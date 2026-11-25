@@ -267,7 +267,11 @@ public final class ReaderInstrumentation extends Instrumentation {
             controls();click("书架");ListView library=activity.findViewById(R.id.library_list);expect(library!=null&&library.getCount()>=2,"bookshelf lost books");
             View first=library.getChildAt(0);int[]xy=new int[2];ui(()->first.getLocationOnScreen(xy));long now=SystemClock.uptimeMillis();float x=xy[0]+first.getWidth()/2f,y=xy[1]+first.getHeight()/2f;
             sendPointerSync(MotionEvent.obtain(now,now,MotionEvent.ACTION_DOWN,x,y,0));SystemClock.sleep(900);sendPointerSync(MotionEvent.obtain(now,SystemClock.uptimeMillis(),MotionEvent.ACTION_UP,x,y,0));
-            waitFor(()->ax("移除")!=null,"remove confirmation missing");clickAx("移除");waitFor(()->store().list().size()==count-1,"remove failed");screenshot("bookshelf");
+            waitFor(()->ax("移除")!=null,"remove confirmation missing");expect(clickAx("移除"),"remove action failed");
+            // Observe the real completion UI; polling the disk while the I/O
+            // worker is deleting a directory races a half-removed index.
+            waitFor(()->{ListView after=activity.findViewById(R.id.library_list);return after!=null&&after.getCount()==count-1&&ax("移除")==null;},"remove UI didn't finish");
+            expect(store().list().size()==count-1,"removed book remains on disk");screenshot("bookshelf");
         });
     }
 }
