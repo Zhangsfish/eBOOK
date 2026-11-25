@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import tarfile
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -23,13 +24,15 @@ def fetch(url):
 
 def download(url, filename, expected, algorithm):
     target = TOOLS / filename
-    if not target.exists():
-        print('Downloading', filename, flush=True)
-        with fetch(url) as source, target.open('wb') as out:
-            shutil.copyfileobj(source, out, 1024 * 1024)
-    digest = hashlib.new(algorithm, target.read_bytes()).hexdigest()
-    if digest.lower() != expected.lower():
-        raise ValueError('Official hash mismatch: ' + filename)
+    for attempt in range(8):
+        if target.exists() and hashlib.new(algorithm, target.read_bytes()).hexdigest().lower() == expected.lower():
+            break
+        print('Downloading/resuming', filename, 'attempt', attempt + 1, flush=True)
+        subprocess.run(['curl', '--fail', '--location', '--retry', '3', '--retry-all-errors',
+                        '--continue-at', '-', '--connect-timeout', '30', '--max-time', '300',
+                        '--silent', '--show-error', '--output', str(target), url], check=False)
+    else:
+        raise ValueError('Official hash still mismatches after resumable attempts: ' + filename)
     manifest.append(dict(file=filename, url=url, bytes=target.stat().st_size,
                          official_hash_algorithm=algorithm, official_hash=expected,
                          sha256=hashlib.sha256(target.read_bytes()).hexdigest()))

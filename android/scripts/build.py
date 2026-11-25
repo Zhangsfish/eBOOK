@@ -57,6 +57,9 @@ def main():
         raise SystemExit('Preinstalled SDK platform35 / build-tools35.0.0 required.')
     aapt = tool / ('aapt2' + suffix)
     dex = tool / ('d8.bat' if os.name == 'nt' else 'd8')
+    # The platform hides LambdaMetafactory. Official SDK compiler stubs allow
+    # javac to emit Java8 call sites, then official D8 desugars them for Android.
+    boot = os.pathsep.join([str(platform), str(tool / 'core-lambda-stubs.jar')])
     compiled = BUILD / 'compiled-res.zip'
     generated = BUILD / 'generated'
     generated.mkdir(exist_ok=True)
@@ -67,7 +70,7 @@ def main():
     classes = BUILD / 'classes'
     classes.mkdir(exist_ok=True)
     sources = sorted((ANDROID / 'app/src/main/java').rglob('*.java')) + sorted(generated.rglob('*.java'))
-    run([javac, '-encoding', 'UTF-8', '-source', '8', '-target', '8', '-Xlint:-options', '-bootclasspath', platform, '-d', classes, *sources])
+    run([javac, '-encoding', 'UTF-8', '-source', '8', '-target', '8', '-Xlint:-options', '-bootclasspath', boot, '-d', classes, *sources])
     app_jar = BUILD / 'app-classes.jar'
     run([jar, 'cf', app_jar, '-C', classes, '.'])
 
@@ -99,7 +102,7 @@ def main():
         run([aapt, 'link', '-I', platform, '--manifest', ANDROID / 'tests/instrumentation/AndroidManifest.xml', '-A', assets, '-o', test_base])
         test_classes = BUILD / 'test-classes'
         test_classes.mkdir(exist_ok=True)
-        run([javac, '-encoding', 'UTF-8', '-source', '8', '-target', '8', '-Xlint:-options', '-bootclasspath', platform,
+        run([javac, '-encoding', 'UTF-8', '-source', '8', '-target', '8', '-Xlint:-options', '-bootclasspath', boot,
              '-cp', app_jar, '-d', test_classes, *sorted((ANDROID / 'tests/instrumentation').glob('*.java'))])
         test_jar = BUILD / 'test-classes.jar'
         run([jar, 'cf', test_jar, '-C', test_classes, '.'])

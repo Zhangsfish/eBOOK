@@ -8,11 +8,17 @@ permissions:
   contents: read
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        api: [30, 35]
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     defaults:
       run:
         working-directory: android
+    env:
+      EMULATOR_API: ${{ matrix.api }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - name: Inventory existing tools (no installation)
@@ -23,6 +29,22 @@ jobs:
           find "$ANDROID_HOME" -maxdepth 4 -name '*system-images*' -o -name apksigner.jar
           command -v emulator || true
           ls -l /dev/kvm || true
-      - name: Build and test when implementation is present
+      - name: Compile app and native test APK
+        run: python3 scripts/build.py --test --instrumentation
+      - name: Native emulator tests
         run: |
-          if test -f scripts/build.py; then python3 scripts/build.py --test; fi
+          sudo chmod 666 /dev/kvm
+          python3 scripts/run_emulator.py
+      - name: Encrypt binary evidence (no public APK)
+        if: always()
+        run: |
+          mkdir -p build/tools
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" build/tools/
+          python3 scripts/envelope.py pack
+      - name: Upload encrypted evidence only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: android-api${{ matrix.api }}-encrypted
+          path: android/build/sealed/
+          retention-days: 7
