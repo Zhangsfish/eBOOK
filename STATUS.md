@@ -2,26 +2,21 @@
 
 - Current owner decision (2026-11-25): two independent conversations share this repository; Suxin ships first and model training targets a later version.
 - Current branch/task: `codex/s02b-suxin-ios-integration` / [S02B — Suxin integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
-- State: **IN_PROGRESS — owner2026-11-26 requested Files selection repair**.
-  The formal App includes native Mandarin G2P, actual ORT synthesis, short PCM queue,
-  bounded prefetch/cache, separate Suxin rate and Apple fallback.
-  Current App Sources: `6d9339b31da7acd614971037c2e9151e493bdc48`, frozen since16fe15d.
-  Complete26.5 run45757095612 at16fe15d is42PASS/0FAIL/0SKIP, including real Files,
-  native Suxin and long-reader checks, with actual unsigned arm64 Release archive.
-  The older18.5 full run45761286868 at3bfc352 was41/42 (Files only); its TOC/native
-  checks and archive passed. The16fe18 timeout is partial40PASS/1FAIL/1unfinished,
-  not a completed suite. Preserve these older failures.
-  Latest18.5 external-provider probe45767237191 atfba530b is2PASS/0FAIL/0SKIP:
-  actual TXT/EPUB selection, both imports saved, cancellation and device archive pass.
-  It fixes observed UI-test navigation assumptions and uses original source files
-  in the actual system LocalStorage group outside the reader sandbox.
-  Both systems' actual archives verified6 model files and2 recovered exact-source
-  runtime notice files. Material presence is separate from independent distribution review.
-  Final full42 checks at7ff918a:18.5 run45769244490 and26.5 run45769249483 are pending.
+- State: **IN_PROGRESS — Files now passes in both complete runtime runs; one Apple range callback is under bounded recheck**.
+  App Sources `6d9339b31da7acd614971037c2e9151e493bdc48`, frozen since16fe15d.
+  Complete7ff918a results:18.5/45769244490 is42PASS/0FAIL/0SKIP;
+  26.5/45769249483 is41PASS/1FAIL/0SKIP. Real TXT/EPUB import/cancel, all UI,
+  native Suxin12 and long-reader tests pass on both systems. Actual unsigned arm64
+  Release archives verify6 model files and2 recovered exact-source runtime notices.
+  The26.5 failure is the existing Apple synthesizer sawRange assertion at line184;
+  finished was observed. VoiceDB warnings also occur in the prior successful run,
+  so the exact cause remains unproven. Preserve this failure and all older failures.
+  One clean full recheck runs at565bae0 /45771793206, with App/tests unchanged.
+  Earlier18.5 timeout remains partial40PASS/1FAIL/1unfinished, never a full-suite result.
   Physical first sound/p95/long listening/thermal/battery and new TestFlight remain NOT_RUN.
-  Prior8331b9b audit snapshot and all failures remain in the report; no self-merge/new beta.
-  [Current Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) and
-  [canonical S02B report](reports/S02B_SUXIN_IOS_INTEGRATION.md).
+  Independent distribution review is pending; do not self-merge or upload before review.
+  [Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) and
+  [canonical report](reports/S02B_SUXIN_IOS_INTEGRATION.md).
 - Coordination: [docs/TTS_WORKSTREAMS.md](docs/TTS_WORKSTREAMS.md). Later-version model work: [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11), `codex/s02a4-teacher-student-tts`; first release does not wait for it.
 - Reader baseline: main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; Suxin experiment frozen at PR #7 `eeee1443c1aac561035cf30590ff323c30ccab8a`.
 - Current executor: Windows without Xcode or attached iPhone. Existing approved Python tools,

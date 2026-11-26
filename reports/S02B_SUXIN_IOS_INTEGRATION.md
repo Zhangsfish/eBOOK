@@ -1,37 +1,48 @@
 # S02B — 苏心原生接入
 
-状态：**IN_PROGRESS — 2026-11-26用户要求继续修复Files选书**。
-26.5最终候选完整42项已通过；18.5正在补测。尚无新手机更新，不自行合并或提前分发。
+状态：**IN_PROGRESS — 选书已在两系统完整回归中通过，正在有限复核一项Apple回调失败**。
+尚无新手机更新；不自行合并或提前分发。
 
 本线在 `codex/s02b-suxin-ios-integration` 更新 PR #12。阅读基线 main
 `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`；交接起点
 `1eb0eef18e7011feb8034a393f084a91483b9a8e`。冻结 PR #7 与训练 PR #11 不改。
 
-## 选书跟进：当前状态
+## 选书跟进：实际结果（2026-11-26）
 
-见 [Files选书修复跟进](S02B/FILES_IMPORT_FOLLOWUP.md)。App Sources树已更新为
-`6d9339b31da7acd614971037c2e9151e493bdc48`，与16fe15d及后续测试修正3bfc352相同。
-[26.5完整运行45757095612](https://github.com/Zhangsfish/eBOOK/actions/runs/45757095612)
-在16fe15d实际42PASS/0FAIL/0SKIP，单击TXT和EPUB导入、真实苏心及长篇阅读回归通过；
-unsigned设备arm64归档成功，6项模型资源与新增2项同源码运行库声明均按实际包SHA核验。
+正式App Sources树：`6d9339b31da7acd614971037c2e9151e493bdc48`，冻结自
+`16fe15da6bcd7431a8a162fd65ca77ce8da6ff4d`。Files用asCopy=false取得授权URL，
+由既有security scope→NSFileCoordinator→有界App私有副本完成导入。
+DEBUG书架使用Application Support；阶段日志只有固定事件/数量/代码。
 
-18.5同版本运行45757099825发生超时，部分日志为40PASS、1FilesFAIL、1TOC未完成，
-不等于42项已执行通过；无最终xcresult摘要或设备归档。旧系统文件名AX标签比实际文字宽，
-3bfc352测试改为单击可见文字左侧，删除双击重试。
-[18.5完整运行45761286868](https://github.com/Zhangsfish/eBOOK/actions/runs/45761286868)
-完整41PASS/1FilesFAIL/0SKIP，TOC和原生模型通过，设备arm64归档及6项资源/2份
-运行库声明实际SHA验证通过。点击可见文字仍失败，未认定根因。
-外部系统Files源的最小检查fba530b运行45767237191已2PASS/0FAIL/0SKIP：
-真实TXT/EPUB导入、取消及设备arm64归档通过，6项资源/2份声明核验通过；
-focused范围没有执行模型推理。当前7ff918a完整42项运行18.5/45769244490和
-26.5/45769249483均在进行，详情见跟进报告，不提前记完整PASS。
-源码、模型和朗读实现没有因测试点位/源目录/导航修正而改变。
+测试源改为实际观测到的系统LocalStorage组中的原创文件，位于reader沙盒之外，
+通过原生Files导航、实际单击TXT/EPUB并核对书架2本。18.5的标题/返回定位按真实AX树修正，
+没有通过注入书架或放宽导入断言来报成功。以前同App Documents源失败的唯一根因未确定。
 
-实际运行库两slice内嵌git-commit-id33ca962；已从发布者同一完整源码提交
-`33ca9628233dc8f002435e868d4c2e9f82766ca1`恢复Microsoft LICENSE和完整
-ThirdPartyNotices，按固定字节/SHA准备并在26.5设备归档核实随包。
-声明材料存在与独立许可/分发审查分开；没有把另一版本声明替代成通过。
-真实手机验收与独立审查仍待进行。以下保留8331b9b时的交付及失败历史。
+| 实际执行 | 选书和取消 | 完整套件 | 设备归档 |
+| --- | --- | --- | --- |
+| 18.5 /7ff918a / [45769244490](https://github.com/Zhangsfish/eBOOK/actions/runs/45769244490) | PASS | 42PASS/0FAIL/0SKIP | unsigned Release arm64 PASS，92,986,336bytes |
+| 26.5 /7ff918a / [45769249483](https://github.com/Zhangsfish/eBOOK/actions/runs/45769249483) | PASS | 41PASS/1FAIL/0SKIP；Apple范围回调失败 | unsigned Release arm64 PASS，92,966,548bytes |
+| 18.5 focused /fba530b / [45767237191](https://github.com/Zhangsfish/eBOOK/actions/runs/45767237191) | 2PASS/0FAIL/0SKIP | focused只测Files，不测模型 | unsigned Release arm64 PASS |
+
+26.5唯一失败为`testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets`的
+`sawRange`断言（SpeechControllerTests.swift:184）：finished等待完成，但未观察到range。
+该轮12项真实苏心、15项核心、其他speech/controller及全部6项UI均通过。
+系统VoiceDB解码警告在这次失败和以前16fe15d完整42PASS日志中都存在，不能据此唯一认定根因。
+原始失败JSON、精确断言及小型日志保留在`S02B/evidence/apple-range-failure-ios26-7ff918a.*`。
+
+只做一次干净环境完整复核：565bae04468e9ae1c16eefb4fe08ad84120fac69 /
+[45771793206](https://github.com/Zhangsfish/eBOOK/actions/runs/45771793206)，正在运行。
+它与7ff918a的差异仅文档/小型证据；App、测试、生成器、模型/运行库资源准备均未改变。
+不降低断言、不跳过、不给失败用例改成Mock；如仍失败，交审时保留相应QA阻碍。
+
+两系统本轮实际归档均核对6项模型资源、2份同源码运行库声明的真实字节/SHA。
+运行库两slice内嵌33ca962，声明来自发布者同一完整源码提交
+33ca9628233dc8f002435e868d4c2e9f82766ca1。原ZIP无notices及旧404记录保留。
+材料恢复/随包核验不是重现二进制或完整分发许可批准，独立审查仍待进行。
+
+更早8331b9b、16fe18超时及3bfc352旧源失败见
+[Files跟进](S02B/FILES_IMPORT_FOLLOWUP.md)与以下历史章节，未删除或改写成通过。
+真机首声/p95、1.0×/1.5×各30分钟、锁屏/中断/蓝牙、发热耗电仍NOT_RUN。
 
 ## 8331b9b审查快照与历史事实
 
@@ -207,7 +218,8 @@ Files进一步验证HEAD `3633d421dcf6484b993c3962ab17a84baf473f72`：
 [18.5独立运行45661812268](https://github.com/Zhangsfish/eBOOK/actions/runs/45661812268)
 为1PASS/1FAIL，真实选书仍失败。两者设备arm64 Release archive均PASS。
 18.5当时仍为图标模式，随后2dbaf25只将测试统一为列表模式。
-26.5之后完整运行又失败，故UIKit桥并未证明解决根因；文件入口仍属阻塞项。
+26.5之后的旧完整运行又失败，故该8331b9b快照不能认定UIKit桥解决根因。
+本轮真实外部源验证及最新状态见文首Files跟进，旧失败未删除。
 
 ## 实现及边界
 
@@ -240,7 +252,11 @@ SHA256 `5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa`。
 ORT SPM `8ebc5ebf92190903c274a7621ba4c96a732335ec`，iOS ZIP33,821,118bytes，
 SHA256 `2c2299acbb461d26d4bac4bc85985d40e7c7177ed6072703ae0846d88b0b4599`。
 实际Info.plist含设备arm64、模拟器arm64/x86_64；原包没有license/notices。
-对应Microsoft v1.28.2 tag及LICENSE/ThirdPartyNotices读取404，尚未核验精确源码与静态依赖BOM。
+历史Microsoft v1.28.2 tag及声明读取404记录保留。本轮从两个实际slice内嵌33ca962
+追溯到发布者完整源码提交33ca9628233dc8f002435e868d4c2e9f82766ca1，恢复同提交
+Microsoft LICENSE和完整ThirdPartyNotices，按固定字节/SHA准备；两系统实际arm64归档
+均验证2份声明随包。精确来源/字节匹配不是重现二进制构建或穷尽静态依赖BOM。
+独立分发审查仍PENDING，不能把材料存在写成法务批准。
 
 作者根MIT和pypinyin MIT完整随模型准备；作者也明确列出Piper VITS GPL、eSpeak/Piper
 GPL、教师模型与语料链。原生App没有Piper/eSpeak运行库，不等于权重/数据分发链已清。
@@ -277,5 +293,6 @@ python3 tools/suxin/scripts/ci_integration.py --scope integration
 
 真机首声p95/未缓存跳转、1.0×与1.5×各30分钟、峰值内存/发热/电量、锁屏/电话/蓝牙
 都为NOT_RUN。没有可用的本机Xcode/连接iPhone；另见 [真机清单](S02B/DEVICE_CHECKLIST.md)。
-完整运行库/权重分发材料仍INCOMPLETE，独立审查和现有签名路径之后才可提供新内部测试。
+运行库同源码声明已补入并在实际归档核验；完整运行库/权重/教师及数据链的独立分发
+审查仍PENDING。审查及现有签名路径之后才可提供新内部测试。
 没有上传新TestFlight，没有公共App Store发布，不自行合并、训练或寻找其他模型。

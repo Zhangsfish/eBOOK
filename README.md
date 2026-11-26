@@ -13,16 +13,16 @@ device and TestFlight states are reported separately. A successful CI build is
 not a new installable phone release. The later model-training work in PR #11
 does not block this implementation.
 
-Native frontend/model/PCM checks pass on iOS18.5 and26.5. The current App Sources
-tree `6d9339b31da7acd614971037c2e9151e493bdc48` passes the complete42-method
-iOS26.5 suite, including real TXT/EPUB selection. On iOS18.5 the latest completed
-full suite was41/42 (Files only); the newer actual external-provider import/cancel
-probe passes2/2. Final complete checks are running on both systems.
-Both actual unsigned arm64 Release archives include the hash-verified model and
-two recovered exact-source runtime notices. See the
-[Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) for exact execution SHAs
-and retained failures. Independent distribution review, physical-phone latency/
-long listening and a new TestFlight update remain pending; this is not release acceptance.
+Native frontend/model/PCM checks pass on iOS18.5 and26.5. Current App Sources:
+`6d9339b31da7acd614971037c2e9151e493bdc48`. At7ff918a both complete suites
+pass actual external TXT/EPUB selection/cancellation and all six UI methods.
+iOS18.5 is42PASS/0FAIL/0SKIP; iOS26.5 is41PASS/1FAIL/0SKIP, with only the
+existing Apple speech range-callback assertion failing. Both unsigned arm64
+Release archives verify6 model files and2 recovered exact-source runtime notices.
+One clean complete iOS26 recheck is running at565bae0, with App/tests unchanged.
+See the [Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) for exact SHAs,
+retained failures and the result. Independent distribution review, physical-phone
+latency/long listening and a new TestFlight update remain pending.
 
 ## Build and run
 

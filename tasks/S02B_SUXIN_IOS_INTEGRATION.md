@@ -1,12 +1,11 @@
 # S02B — 第一版接入苏心并交付手机使用
 
 状态：**IN_PROGRESS — 用户2026-11-26要求继续修复Files选书，再交独立审查。**
-当前App Sources为6d9339b31da7acd614971037c2e9151e493bdc48。16fe15d的26.5完整42项通过；
-fba530b的18.5真实外部Files导入/取消2/2及设备归档通过。最终7ff918a完整42项正在两系统执行，
-不提前判定修复已完整验收。历史8331b9b的两系统41/42和后续失败全部保留。
-两系统实际unsigned arm64归档均已验证6项模型及2份同源码运行库声明，独立分发审查仍待进行。
-真机首声/p95/长听和新TestFlight仍NOT_RUN。详见
-[交付报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md)。以下是验收目标，等待独立审查，
+当前App Sources为6d9339b31da7acd614971037c2e9151e493bdc48。7ff918a完整回归：18.5
+为42/42，26.5为41/42（Apple范围回调失败）。两系统实际选书、全部UI与真实苏心通过；
+unsigned arm64归档均核验6项模型及2份同源码运行库声明。当前565bae0干净环境完整复核26.5，
+App/测试未变，只做这一次复核，保留失败。真机与新TestFlight仍NOT_RUN，独立分发审查待进行。
+详见 [交付报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md)。以下是验收目标，等待独立审查，
 不自行合并或提前上传新beta。
 用户决定：2026-11-25（Asia/Shanghai）。
 
@@ -110,7 +109,7 @@ fba530b的18.5真实外部Files导入/取消2/2及设备归档通过。最终7ff
 剩余问题。`IMPLEMENTED`、`SIMULATOR_VERIFIED`、`DEVICE_VERIFIED`、
 `TESTFLIGHT_AVAILABLE` 分开记录；准备好文档不等于完成接入或上线。
 
-当前环境是 Linux，没有 Xcode、签名会话或连接的 iPhone。可以准备/实现源码及
+本轮执行端为Windows，没有本机Xcode或已连接的iPhone。可以准备/实现源码及
 通过标准免费 GitHub macOS CI 验证构建；设备操作与既有签名流程需要可用执行端。
 缺少执行端时只对相关检查记录 `BLOCKED_ENV / NOT_RUN`，先完成独立工作，
 不要虚构测试，也不要要求用户重新选择架构。遵循独立审查流程，不自行合并。

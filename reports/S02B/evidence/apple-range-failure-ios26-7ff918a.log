@@ -1,0 +1,14 @@
+Test Case '-[EBookTests.SpeechControllerTests testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets]' started.
+2026-11-26 06:41:33.446401+0000 eBOOK[9766:33208] [AXCommon] Potential Structural Swift Concurrency Issue: unsafeForcedSync called from Swift Concurrent context.
+2026-11-26 06:41:33.488014+0000 eBOOK[9766:33619] [VoiceDBClient] Error fetching voices: DecodingError.dataCorrupted: Data was corrupted. Debug description: Invalid container metadata for _UnkeyedDecodingContainer, found keyedGraphEncodingNodeID. Using fallback voices.
+2026-11-26 06:41:33.578506+0000 eBOOK[9766:33624] [VoiceDBClient] Error fetching voices: DecodingError.dataCorrupted: Data was corrupted. Debug description: Invalid container metadata for _UnkeyedDecodingContainer, found keyedGraphEncodingNodeID. Using fallback voices.
+2026-11-26 06:41:33.582312+0000 eBOOK[9766:33621] [VoiceDBClient] Error fetching locales: DecodingError.keyNotFound: Key 'codingKey: CodingKeys(stringValue: "primary", intValue: nil)' not found in keyed decoding container. Debug description: Missing key. Using fallback locales.
+2026-11-26 06:41:33.615842+0000 eBOOK[9766:33208] [AXCommon] Potential Structural Swift Concurrency Issue: unsafeForcedSync called from Swift Concurrent context.
+2026-11-26 06:41:33.670910+0000 eBOOK[9766:33624] [VoiceDBClient] Error fetching voices: DecodingError.dataCorrupted: Data was corrupted. Debug description: Invalid container metadata for _UnkeyedDecodingContainer, found keyedGraphEncodingNodeID. Using fallback voices.
+2026-11-26 06:41:33.753899+0000 eBOOK[9766:33621] [VoiceDBClient] Error fetching voices: DecodingError.dataCorrupted: Data was corrupted. Debug description: Invalid container metadata for _UnkeyedDecodingContainer, found keyedGraphEncodingNodeID. Using fallback voices.
+2026-11-26 06:41:35.083690+0000 eBOOK[9766:33624] [AQ]        LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+2026-11-26 06:41:35.083918+0000 eBOOK[9766:33624] [AQ]        LoudnessManager.mm:1215  IsHardwareSupported: no plist loaded, returning false
+2026-11-26 06:41:35.129654+0000 eBOOK[9766:33896] [AVAB]          AVAudioBuffer.mm:281   mBuffers[0].mDataByteSize (0) should be non-zero
+2026-11-26 06:41:37.414010+0000 eBOOK[9766:33602] [AVAB]          AVAudioBuffer.mm:281   mBuffers[0].mDataByteSize (0) should be non-zero
+/Users/runner/work/eBOOK/eBOOK/Tests/CoreTests/SpeechControllerTests.swift:184: error: -[EBookTests.SpeechControllerTests testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets] : XCTAssertTrue failed
+Test Case '-[EBookTests.SpeechControllerTests testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets]' failed (4.490 seconds).

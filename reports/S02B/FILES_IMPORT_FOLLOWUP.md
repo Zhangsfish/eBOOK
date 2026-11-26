@@ -1,7 +1,7 @@
 # Files 选书修复跟进
 
 用户2026-11-26要求先处理选书失败，再准备手机更新。继续现有PR #12，不合并。
-状态：IN_PROGRESS；26.5完整42项已通过，18.5仍在排查，不提前宣布修好。
+状态：IN_PROGRESS；7ff918a选书在两系统完整回归中都通过；18.5完整42/42，26.5完整41/42（Apple范围回调），正在一次干净环境复核。
 
 ## 已观察的故障及修复点
 
@@ -50,10 +50,15 @@ selected count=1，分别saved books=1/2；取消通过，真实unsigned arm64�
 Stock Files独立启动仍记录30秒超时，但未阻止此轮真实picker选择和导入成功。
 App Sources仍为上述6d9339b，不因测试环境调整而改变。
 
-最终完整检查统一执行7ff918a：
-[18.5 /45769244490](https://github.com/Zhangsfish/eBOOK/actions/runs/45769244490)和
+完整检查统一执行7ff918a：
+[18.5 /45769244490](https://github.com/Zhangsfish/eBOOK/actions/runs/45769244490)
+实际42PASS/0FAIL/0SKIP；
 [26.5 /45769249483](https://github.com/Zhangsfish/eBOOK/actions/runs/45769249483)
-均正在运行，等待完整42项及实际归档结果，不提前报PASS。
+实际41PASS/1FAIL/0SKIP。两系统Files和全部UI通过、原生苏心12项通过，真实arm64归档
+及6项模型资源/2份运行库声明通过。26.5失败是Apple语音完成后缺少range进度事件；
+VoiceDB警告在此前通过日志也有，未唯一认定根因。原始失败证据保留。
+只追加一次干净环境复核：565bae0 /[45771793206](https://github.com/Zhangsfish/eBOOK/actions/runs/45771793206)，
+App和测试均未改变。若仍失败如实保留QA阻碍，不反复重跑到绿。
 
 ## 同版本运行库声明
 

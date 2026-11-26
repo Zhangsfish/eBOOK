@@ -3,7 +3,7 @@
 Purpose: first-release local Suxin integration and owner-requested Files follow-up
 on codex/s02b-suxin-ios-integration / PR12. Worktree E:/myself/eBOOK-s02b.
 Authority: tasks/S02B_SUXIN_IOS_INTEGRATION.md and docs/TTS_WORKSTREAMS.md.
-Current state: IN_PROGRESS until the final complete two-runtime checks finish.
+Current state: IN_PROGRESS during one bounded clean iOS26 Apple-callback recheck.
 Do not merge, sign/upload a new beta before independent review, or edit PR7/11.
 
 ## Current source and actual results
@@ -20,8 +20,13 @@ Do not merge, sign/upload a new beta before independent review, or edit PR7/11.
   actual external Files import/cancel2PASS/0FAIL/0SKIP. Logs show two selected
   callbacks and saved books1/2. Actual arm64 archive92,986,336bytes,6 model
   resources and2 exact-source runtime notices verified. This scope did not run TTS.
-- Final full42 runs at7ff918a1c02f730bf37d351821b37dc79709c2e3 are pending:
-  iOS18.5/45769244490 and iOS26.5/45769249483. Do not infer their results yet.
+- Full42 at7ff918a1c02f730bf37d351821b37dc79709c2e3:18.5/45769244490 is42/42;
+  26.5/45769249483 is41/42, only Apple speech sawRange at line184 fails.
+  Actual Files/cancel, all UI, native Suxin12 and both arm64 archives pass.
+- One clean full26.5 recheck565bae04468e9ae1c16eefb4fe08ad84120fac69 /
+  45771793206 is pending. App/tests unchanged; preserve the initial failed attempt.
+  VoiceDB warnings also exist in prior16fe15d42PASS log, so the exact cause is
+  NOT_UNIQUELY_IDENTIFIED. Do not weaken assertions, skip or retry indefinitely.
 
 ## Files investigation and retained failures
 
