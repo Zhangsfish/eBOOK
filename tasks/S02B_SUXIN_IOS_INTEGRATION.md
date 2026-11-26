@@ -1,6 +1,7 @@
 # S02B — 第一版接入苏心并交付手机使用
 
-状态：**READY_FOR_AUDIT — 实现及模拟器证据已提交，存在 BLOCKED_QA / BLOCKED_ENV / 分发材料INCOMPLETE。**
+状态：**IN_PROGRESS — 用户2026-11-26要求继续修复Files选书，再交独立审查。**
+下列为8331b9b审查交付的既有结果，修复后的状态以新增CI证据为准：
 App已接入原生苏心，真实模拟器前端/图/PCM等12项均通过；最终两系统完整套件均41/42，
 Files真实选书仍失败。unsigned arm64 Release归档均通过；真机与新TestFlight仍NOT_RUN。
 详见 [交付报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md)。下列验收目标保持原样，

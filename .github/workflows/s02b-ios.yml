@@ -18,7 +18,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: s02b-${{ github.ref }}-${{ inputs.runner || 'macos-26' }}-${{ inputs.scope || 'picker' }}
+  group: s02b-${{ github.ref }}-${{ inputs.runner || 'macos-26' }}-${{ inputs.scope || 'all' }}
   cancel-in-progress: false
 jobs:
   native:
@@ -37,15 +37,16 @@ jobs:
           python3 scripts/generate_xcode_project.py --check
       - name: Real native App build and XCTest
         env:
-          S02B_SCOPE: ${{ inputs.scope || 'picker' }}
+          S02B_SCOPE: ${{ inputs.scope || 'all' }}
         run: python3 tools/suxin/scripts/ci_integration.py --scope "$S02B_SCOPE"
-      - name: Upload only small original-test logs and metadata
+      - name: Upload original-test logs, metadata and failure screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: s02b-${{ inputs.scope || 'picker' }}-${{ github.sha }}
+          name: s02b-${{ inputs.scope || 'all' }}-${{ github.sha }}
           path: |
             build/s02b-*.log
             build/s02b-*.json
+            build/s02b-picker-screenshots/*.png
           if-no-files-found: warn
           retention-days: 7

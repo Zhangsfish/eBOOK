@@ -50,7 +50,8 @@ test files into App Documents, runs unit/UI tests and archives an unsigned arm64
 Release App. The `integration` scope runs twelve native frontend, real-graph,
 PCM-playback and state/cache test methods; `frontend` checks the author oracle
 alone; `picker` performs actual TXT/EPUB selection and cancellation (two methods).
-Only allowlisted JSON/log evidence is uploaded by S02B CI. Model-containing
+Only allowlisted JSON/log evidence and bounded original-fixture UI failure
+screenshots are uploaded by S02B CI. Model-containing
 App/IPA/WAV files are not public artifacts. No tool installation or paid API.
 
 `scripts/generate_xcode_project.py` recreates the checked-in project with Python

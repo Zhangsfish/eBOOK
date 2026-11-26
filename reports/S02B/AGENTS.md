@@ -4,12 +4,23 @@ Purpose: first-release local Suxin integration on branch codex/s02b-suxin-ios-in
 Authority: tasks/S02B_SUXIN_IOS_INTEGRATION.md and docs/TTS_WORKSTREAMS.md.
 Report: ../S02B_SUXIN_IOS_INTEGRATION.md. evidence/ contains only sanitized small
 JSON/log metadata. Raw audio, models and private inputs never enter this folder.
+Free isolated CI may export bounded original-fixture UI failure screenshots to
+its artifact only; they are downloaded locally, never mixed with user books.
 Record exact tested implementation SHA, CI URL and Windows/simulator/iPhone states
 separately. First-audible targets are NOT_RUN until actually measured, and a mixer
 callback is not a physical acoustic measurement. Independent review precedes the
 new internal TestFlight upload; never self-merge or start the training workstream.
 
 ## Final audit handoff
+
+Owner follow-up2026-11-26 reopens Files selection repair before the next audit.
+Current investigation: DEBUG test-library storage is being aligned with shipping
+Application Support instead of the shared Documents tree. This is a hypothesis,
+not a proven fix. Constant EBOOK_IMPORT phase/count logs and bounded original UI
+failure screenshots distinguish missing picker callbacks from read failures.
+Use full42 runs on both existing free standard macOS runners; preserve prior failures.
+No new beta before independent review/material clearance. Existing results below
+describe8331b9b and its tested ancestors, not the follow-up changes.
 - The chosen Suxin graph is now used by the formal App, with native Swift G2P,
   a single background ORT session, short PCM queue, cache and separate rate.
 - Native scope at7c1dba2 is12/12 on both18.5 and26.5, and both unsigned arm64

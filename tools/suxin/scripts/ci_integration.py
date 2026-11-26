@@ -68,7 +68,19 @@ def main():
     elif args.scope == 'picker':
         command += ['-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB',
                     '-only-testing:EBookUITests/ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel']
-    code = execute(command + ['test-without-building'], 'test', 1500)
+    try:
+        code = execute(command + ['test-without-building'], 'test', 1500)
+    finally:
+        if args.scope in ['all', 'picker']:
+            # Fixed event names/counts only: no document names, paths or text.
+            with (build / 's02b-import-diagnostics.log').open('w') as log:
+                try:
+                    subprocess.run(['xcrun', 'simctl', 'spawn', device['udid'], 'log', 'show',
+                                    '--last', '30m', '--style', 'compact', '--info',
+                                    '--predicate', 'eventMessage CONTAINS "EBOOK_IMPORT"'],
+                                   env=env, stdout=log, stderr=subprocess.STDOUT, timeout=60)
+                except subprocess.TimeoutExpired:
+                    log.write('\nImport-log collection timed out; no result inferred.\n')
     raw = output(['xcrun', 'xcresulttool', 'get', 'test-results', 'summary', '--path', 'build/S02B-tests.xcresult', '--format', 'json'])
     summary = json.loads(raw)
     (build / 's02b-test-summary.json').write_text(raw + '\n')
@@ -96,6 +108,29 @@ def main():
         raise RuntimeError('Missing actual native waveform or PCM mixer evidence')
     if args.scope == 'picker' and (summary['totalTestCount'] != 2 or summary['skippedTests'] != 0):
         raise RuntimeError('Both real Files selection and cancellation tests must execute')
+    if args.scope == 'all' and (summary['totalTestCount'] != 42 or summary['skippedTests'] != 0):
+        raise RuntimeError('All42 original/native App methods must actually execute')
+    if code and args.scope in ['all', 'picker']:
+        # Only this isolated simulator's original synthetic-fixture UI is
+        # captured. Never export App bundles, audio or imported user books.
+        with (build / 's02b-screenshots-export.log').open('w') as log:
+            try:
+                subprocess.run(['xcrun', 'xcresulttool', 'export', 'attachments', '--path',
+                                'build/S02B-tests.xcresult', '--output-path', 'build/s02b-attachments'],
+                               env=env, stdout=log, stderr=subprocess.STDOUT, timeout=60)
+            except subprocess.TimeoutExpired:
+                log.write('\nScreenshot export timed out.\n')
+        screenshots = build / 's02b-picker-screenshots'
+        budget = 12 * 1024 * 1024
+        for path in sorted((build / 's02b-attachments').rglob('*.png')):
+            size = path.stat().st_size
+            if size > 2 * 1024 * 1024 or size > budget:
+                continue
+            if not path.read_bytes().startswith(b'\x89PNG\r\n\x1a\n'):
+                continue
+            screenshots.mkdir(exist_ok=True)
+            shutil.copyfile(path, screenshots / path.name)
+            budget -= size
     if args.scope == 'all':
         container = Path(output(['xcrun', 'simctl', 'get_app_container', device['udid'], 'com.zhangsfish.ebook', 'data']))
         source = container / 'Documents/.s00-render-metrics-long.json'
