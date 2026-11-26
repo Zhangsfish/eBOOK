@@ -3,6 +3,29 @@ import Foundation
 /// Bounded clauses retain every scalar and its original UTF-16 address. Prefer
 /// punctuation; never cut a contiguous ASCII number/date/time in the middle.
 enum SuxinSegmentation {
+    static func windows(_ text: String, startUTF16: Int = 0) -> [SpeechChunk] {
+        let parts = TextChunker.chunks(text, maximumUTF16: 240, startUTF16: startUTF16, protectNumbers: true)
+        var result: [SpeechChunk] = [], leading: SpeechChunk?
+        for var part in parts {
+            let spoken = part.text.unicodeScalars.contains { CharacterSet.alphanumerics.contains($0) }
+            if !spoken, !result.isEmpty {
+                result[result.count - 1].text += part.text
+                result[result.count - 1].endUTF16 = part.endUTF16
+                continue
+            }
+            if !spoken {
+                if leading == nil { leading = part }
+                else { leading!.text += part.text; leading!.endUTF16 = part.endUTF16 }
+                continue
+            }
+            if let prefix = leading { part.text = prefix.text + part.text; part.startUTF16 = prefix.startUTF16; leading = nil }
+            if let last = result.last, last.text.utf16.count + part.text.utf16.count <= 240 {
+                result[result.count - 1].text += part.text
+                result[result.count - 1].endUTF16 = part.endUTF16
+            } else { result.append(part) }
+        }
+        return result
+    }
     static func numberRanges(_ text: String) -> [Range<Int>] {
         let expression = try! NSRegularExpression(pattern: #"[0-9]+(?:[:.\-/][0-9]+)*(?:[年月日点分秒岁元度])?"#)
         return expression.matches(in: text, range: NSRange(location: 0, length: text.utf16.count))

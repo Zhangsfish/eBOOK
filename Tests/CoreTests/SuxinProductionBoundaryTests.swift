@@ -8,7 +8,7 @@ import XCTest
     }
     private func model() throws -> SuxinModel { SuxinModel(root: try SuxinResources.bundledURL()) }
     private func production(_ text: String, model: SuxinModel) async throws -> [SuxinPreparedPart] {
-        let windows = TextChunker.chunks(text, maximumUTF16: 240, protectNumbers: true)
+        let windows = SuxinSegmentation.windows(text)
         XCTAssertEqual(windows.map(\.text).joined(), text)
         var all: [SuxinPreparedPart] = []
         for window in windows {
@@ -53,7 +53,7 @@ import XCTest
     func testContextOutsideCurrentWindowDoesNotForceUnrelatedEnglishFallback() async throws {
         let engine = try model()
         let text = String(repeating: "甲", count: 239) + "不是这样。Hello"
-        let windows = TextChunker.chunks(text, maximumUTF16: 240, protectNumbers: true)
+        let windows = SuxinSegmentation.windows(text)
         let first = try await engine.plan(windows[0].text, context: text, startUTF16: 0)
         XCTAssertFalse(first.isEmpty)
         do {

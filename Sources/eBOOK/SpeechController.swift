@@ -218,18 +218,8 @@ import MediaPlayer
     }
     private func speechChunks(_ text: String, preferences: ReaderPreferences, start: Int) -> [SpeechChunk] {
         let model = preferences.voiceIdentifier == SuxinSpeechProvider.voiceID
-        let parts = TextChunker.chunks(text, maximumUTF16: model ? 240 : 280, startUTF16: start, protectNumbers: model)
-        guard preferences.voiceIdentifier == SuxinSpeechProvider.voiceID else { return parts }
-        // The model itself emits short clauses. An outer window gives it enough
-        // lookahead without a controller transition at every short sentence.
-        var windows: [SpeechChunk] = []
-        for part in parts {
-            if let last = windows.last, last.text.utf16.count + part.text.utf16.count <= 240 {
-                windows[windows.count - 1].text += part.text
-                windows[windows.count - 1].endUTF16 = part.endUTF16
-            } else { windows.append(part) }
-        }
-        return windows.filter { !$0.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        return model ? SuxinSegmentation.windows(text, startUTF16: start)
+            : TextChunker.chunks(text, maximumUTF16: 280, startUTF16: start)
     }
 
     private func fail(_ error: Error) {
