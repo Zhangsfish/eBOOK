@@ -1,0 +1,146 @@
+{
+  "status": "COST_REVIEW_NOT_TRAINING_BENCHMARK",
+  "checked_on": "2026-11-26 Asia/Shanghai",
+  "source_runtime_sha": "60a66d7ec1af723a7fe1ec1c7d0fa43f433b663b",
+  "rate_cny_per_gpu_hour": 2.19,
+  "rate_basis": "Use conservative 2.19 CNY/h from 2026-11-25 owner instance quote; actual start quoted 2.08. Not a future guaranteed rate.",
+  "measured_pilot": {
+    "total_audio_seconds": 536.32,
+    "total_wall_seconds": 203.02887522429228,
+    "rtf": 0.378559209472502,
+    "short_five_audio_seconds": 143.2,
+    "short_five_wall_seconds": 145.54097573459148,
+    "short_five_rtf": 1.016347595911952,
+    "notes": "Wall includes per-case model reload and first frontend setup; output is not yet owner/ASR approved. Different clip lengths/batch loading can change RTF."
+  },
+  "generation_10_hours": [
+    {
+      "assumed_retained_duration_fraction": 1,
+      "required_raw_audio_hours": 10,
+      "gpu_hours_at_whole_pilot_rtf": 3.78559209472502,
+      "cny_at_whole_pilot_rtf": 8.290446687447794,
+      "gpu_hours_at_short_five_rtf": 10.16347595911952,
+      "cny_at_short_five_rtf": 22.25801235047175,
+      "excludes": "Separate QC/ASR/codec/setup/storage; retained fraction and bulk throughput not measured"
+    },
+    {
+      "assumed_retained_duration_fraction": 0.7,
+      "required_raw_audio_hours": 14.285714285714286,
+      "gpu_hours_at_whole_pilot_rtf": 5.407988706750029,
+      "cny_at_whole_pilot_rtf": 11.843495267782563,
+      "gpu_hours_at_short_five_rtf": 14.519251370170743,
+      "cny_at_short_five_rtf": 31.797160500673925,
+      "excludes": "Separate QC/ASR/codec/setup/storage; retained fraction and bulk throughput not measured"
+    },
+    {
+      "assumed_retained_duration_fraction": 0.5,
+      "required_raw_audio_hours": 20,
+      "gpu_hours_at_whole_pilot_rtf": 7.57118418945004,
+      "cny_at_whole_pilot_rtf": 16.580893374895588,
+      "gpu_hours_at_short_five_rtf": 20.32695191823904,
+      "cny_at_short_five_rtf": 44.5160247009435,
+      "excludes": "Separate QC/ASR/codec/setup/storage; retained fraction and bulk throughput not measured"
+    },
+    {
+      "assumed_retained_duration_fraction": 0.25,
+      "required_raw_audio_hours": 40,
+      "gpu_hours_at_whole_pilot_rtf": 15.14236837890008,
+      "cny_at_whole_pilot_rtf": 33.161786749791176,
+      "gpu_hours_at_short_five_rtf": 40.65390383647808,
+      "cny_at_short_five_rtf": 89.032049401887,
+      "excludes": "Separate QC/ASR/codec/setup/storage; retained fraction and bulk throughput not measured"
+    }
+  ],
+  "training_sensitivity": [
+    {
+      "assumed_optimizer_updates": 40000,
+      "assumed_seconds_per_optimizer_update_including_accumulation": 1,
+      "gpu_hours": 11.11111111111111,
+      "cny": 24.333333333333332,
+      "status": "ILLUSTRATION_NOT_PREDICTED_MOSS_THROUGHPUT"
+    },
+    {
+      "assumed_optimizer_updates": 40000,
+      "assumed_seconds_per_optimizer_update_including_accumulation": 3,
+      "gpu_hours": 33.333333333333336,
+      "cny": 73,
+      "status": "ILLUSTRATION_NOT_PREDICTED_MOSS_THROUGHPUT"
+    },
+    {
+      "assumed_optimizer_updates": 40000,
+      "assumed_seconds_per_optimizer_update_including_accumulation": 10,
+      "gpu_hours": 111.11111111111111,
+      "cny": 243.33333333333334,
+      "status": "ILLUSTRATION_NOT_PREDICTED_MOSS_THROUGHPUT"
+    },
+    {
+      "assumed_optimizer_updates": 100000,
+      "assumed_seconds_per_optimizer_update_including_accumulation": 1,
+      "gpu_hours": 27.77777777777778,
+      "cny": 60.833333333333336,
+      "status": "ILLUSTRATION_NOT_PREDICTED_MOSS_THROUGHPUT"
+    },
+    {
+      "assumed_optimizer_updates": 100000,
+      "assumed_seconds_per_optimizer_update_including_accumulation": 3,
+      "gpu_hours": 83.33333333333333,
+      "cny": 182.49999999999997,
+      "status": "ILLUSTRATION_NOT_PREDICTED_MOSS_THROUGHPUT"
+    },
+    {
+      "assumed_optimizer_updates": 100000,
+      "assumed_seconds_per_optimizer_update_including_accumulation": 10,
+      "gpu_hours": 277.77777777777777,
+      "cny": 608.3333333333333,
+      "status": "ILLUSTRATION_NOT_PREDICTED_MOSS_THROUGHPUT"
+    }
+  ],
+  "old_three_epoch_scope": {
+    "audio_hours": 10,
+    "mean_segment_seconds": 12,
+    "effective_batch": 8,
+    "examples": 3000,
+    "optimizer_updates_3_epochs": 1125,
+    "optimizer_updates_100_epochs": 37500,
+    "note": "Three epochs was a short SFT test setting, not evidence of convergence or a complete student training budget; 100 epochs borrowed only as a sensitivity example, not a recommendation."
+  },
+  "thousand_cny_example": {
+    "status": "SCENARIO_NOT_AUTHORIZED_OR_PREDICTED",
+    "qualified_audio_hours": 100,
+    "retained_duration_fraction": 0.5,
+    "generation_hours_at_pilot_rtf": 75.7118418945004,
+    "training_runs": 4,
+    "assumed_hours_per_training_run": 60,
+    "debug_export_evaluation_gpu_hours": 30,
+    "contingency_fraction": 0.3,
+    "total_cny": 984.2416138736426,
+    "not_included": "Human labor, paid storage, taxes/additional services; unlike GPU models are not converted at this rate."
+  },
+  "one_thousand_cny_gpu_hours": 456.62100456621005,
+  "sources": [
+    {
+      "label": "Piper synthetic-voice warm start (author self-report, English only)",
+      "url": "https://github.com/kasima/piper-distillation",
+      "data": "12000 clips; total retained audio duration not disclosed",
+      "training": "40000 steps about 3 hours on A6000; full pipeline about 18 hours; teacher about 1.7B"
+    },
+    {
+      "label": "Pure synthetic Matcha-TTS paper",
+      "url": "https://arxiv.org/html/2512.17356",
+      "data": "Nominal about 100 hours synthetic corresponding to LibriSpeech train-100; durations can differ by teacher",
+      "training": "20.9M student,100 epochs,batch32,2 A10; wall time not reported"
+    },
+    {
+      "label": "Pocket TTS official depth distillation",
+      "url": "https://github.com/kyutai-labs/pocket-tts/blob/main/training/README.md",
+      "data": "Timing example with 2000h HiFiTTS-2; not MOSS and not all synthetic audio",
+      "training": "24-layer teacher ->6-layer student;200k updates about5.3h on1 H100; separate teacher training/precompute"
+    },
+    {
+      "label": "Antalia-2 Mini technical report",
+      "url": "https://arxiv.org/html/2611.13811",
+      "data": "about1790h kept synthetic audio;7.62M single-voice Turkish",
+      "training": "Shipped acoustic+vocoder lineage114.5 GPU-hours across H200/A100/L40S; all training159.0 GPU-hours;8H200 rental block23h04m is not just generation; training code/data not public"
+    }
+  ]
+}

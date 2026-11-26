@@ -20,6 +20,8 @@
 - `scripts/audit_audio.py`：完整解码/音频身份与幅度检查；不代表听校通过。
 - `scripts/archive_pilot.py`：打包固定模型、所需源码与运行证据；不含环境或下载缓存。
 - `config/`：锁定的来源与明确标为估计的预算假设。
+- `config/cost_review_20261126.json`：将昨晚实测推理速度、语料留用率、训练更新耗时和
+  公开蒸馏规模分列；旧 3 epochs 费用不是完整学生模型报价。公开项目的卡型不可直接套 4090 价格。
 - `README.md`：本线操作入口与待执行项。
 - `../../reports/S02A4_TEACHER_STUDENT_TTS.md`：本轮技术路线、成本、真实执行状态。
 - `../../.local-test-data/s02a4/`：Git 忽略的源码核读缓存、模型、音频、数据与运行证据。
