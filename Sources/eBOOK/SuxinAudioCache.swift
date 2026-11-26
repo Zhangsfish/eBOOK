@@ -9,9 +9,11 @@ struct SuxinAudioCache {
     init(root: URL, maximumBytes: Int = 64 * 1024 * 1024) {
         self.root = root; self.maximumBytes = maximumBytes
     }
-    static func key(text: String, speed: Float, resources: String) -> String {
+    static func key(text: String, speed: Float, resources: String, phonemeIDs: [Int64] = []) -> String {
         let textHash = SHA256.hash(data: Data(text.utf8)).map { String(format: "%02x", $0) }.joined()
-        let identity = "pcm-f32le-v1:suxin.local.zh:\(resources):\(textHash):\(speed.bitPattern)"
+        let inputHash = SHA256.hash(data: Data(phonemeIDs.map(String.init).joined(separator: ",").utf8))
+            .map { String(format: "%02x", $0) }.joined()
+        let identity = "pcm-f32le-v2-context:suxin.local.zh:\(resources):\(textHash):\(inputHash):\(speed.bitPattern)"
         return SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
     }
     private func url(_ key: String) -> URL { root.appendingPathComponent(key + ".pcm") }

@@ -21,6 +21,7 @@ def digest(path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--author-dir', type=Path, required=True)
+    parser.add_argument('--production-boundaries', action='store_true')
     args = parser.parse_args()
     author = args.author_dir.resolve()
     expected = {'mixed_frontend.py': '6bbf508c0e7fb6a887da787631d23a09d8e712d5d231e08b8d3a33325cbd333e',
@@ -34,6 +35,26 @@ def main():
     from pypinyin.style import convert
     import pypinyin
     frontend = MixedFrontend(author, 'zh_en-suxin-light.int8-excldec')
+    if args.production_boundaries:
+        texts = []
+        for prefix in [17, 53, 239]:
+            for suffix in ['不是这样，一个人慢慢走过石桥。', '重庆银行的行长重新整理行李。', '一个人看着一杯温水，不是没有办法。']:
+                texts.append('甲' * prefix + suffix + '窗边的风吹动书页。' * 4)
+        for prefix in [15, 51, 237]:
+            texts.append('甲' * prefix + '12:05。今天是2026年，桌上有1234张纸，温度12.05摄氏度。')
+        cases = []
+        for i, text in enumerate(texts):
+            ids, symbols = frontend.prepare(text)
+            assert not frontend.missing_phonemes
+            cases.append({'id': f'production-{i:02d}', 'text': text, 'ids': ids, 'phonemes': symbols})
+        value = {'mode': 'ACTUAL_PINNED_AUTHOR_FRONTEND_ORACLE_NOT_NEURAL_AUDIO',
+                 'author_revision': '5ee2da546f3635da263602842d238d8624cb7a81',
+                 'author_frontend_sha256': expected['mixed_frontend.py'],
+                 'pypinyin': '0.55.0', 'original_text_only': True, 'cases': cases}
+        target = ROOT / 'Tests/Fixtures/suxin-production-oracle.json'
+        target.write_text(json.dumps(value, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8', newline='\n')
+        print('PRODUCTION_AUTHOR_CASES', len(cases), 'BYTES', target.stat().st_size, 'SHA256', digest(target))
+        return
     site = Path(pypinyin.__file__).parent
     chars = json.loads((site / 'pinyin_dict.json').read_text(encoding='utf-8'))
     phrases = json.loads((site / 'phrases_dict.json').read_text(encoding='utf-8'))

@@ -187,16 +187,16 @@ import MediaPlayer
                     }
                 }
                 hasUtterance = true
-                try provider.speak(request(chunk, block: blockIndex, book: book, preferences: preferences))
+                try provider.speak(request(chunk, block: blockIndex, book: book, preferences: preferences, context: text))
                 // Read at most the next non-empty bounded block/chunk. Only a
                 // single lookahead hint is retained by the local provider.
                 if let next = candidates.dropFirst().first {
-                    provider.prefetch(request(next, block: blockIndex, book: book, preferences: preferences))
+                    provider.prefetch(request(next, block: blockIndex, book: book, preferences: preferences, context: text))
                 } else if blockIndex + 1 < document.blocks.count {
                     let index = blockIndex + 1
                     let nextText = try storage.text(for: document.blocks[index], book: book.id)
                     if let next = speechChunks(nextText, preferences: preferences, start: 0).first {
-                        provider.prefetch(request(next, block: index, book: book, preferences: preferences))
+                        provider.prefetch(request(next, block: index, book: book, preferences: preferences, context: nextText))
                     }
                 }
                 updateNowPlaying(); return
@@ -211,14 +211,14 @@ import MediaPlayer
         }
     }
 
-    private func request(_ chunk: SpeechChunk, block: Int, book: BookRecord, preferences: ReaderPreferences) -> SpeechRequest {
+    private func request(_ chunk: SpeechChunk, block: Int, book: BookRecord, preferences: ReaderPreferences, context: String) -> SpeechRequest {
         let rate = preferences.voiceIdentifier == SuxinSpeechProvider.voiceID ? preferences.suxinRate : preferences.speechRate
         let stableID = "\(book.fingerprint):\(block):\(chunk.startUTF16):\(preferences.voiceIdentifier ?? "zh-CN"):\(rate)"
-        return SpeechRequest(stableID: stableID, chunk: chunk, voiceID: preferences.voiceIdentifier, rate: rate)
+        return SpeechRequest(stableID: stableID, chunk: chunk, voiceID: preferences.voiceIdentifier, rate: rate, contextText: context)
     }
     private func speechChunks(_ text: String, preferences: ReaderPreferences, start: Int) -> [SpeechChunk] {
         let model = preferences.voiceIdentifier == SuxinSpeechProvider.voiceID
-        let parts = TextChunker.chunks(text, maximumUTF16: model ? 240 : 280, startUTF16: start)
+        let parts = TextChunker.chunks(text, maximumUTF16: model ? 240 : 280, startUTF16: start, protectNumbers: model)
         guard preferences.voiceIdentifier == SuxinSpeechProvider.voiceID else { return parts }
         // The model itself emits short clauses. An outer window gives it enough
         // lookahead without a controller transition at every short sentence.

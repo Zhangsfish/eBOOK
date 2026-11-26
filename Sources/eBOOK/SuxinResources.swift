@@ -63,6 +63,11 @@ struct SuxinWave: Sendable {
     var duration: Double { Double(samples.count) / 22050 }
 }
 
+struct SuxinPreparedPart: Sendable {
+    let chunk: SpeechChunk
+    let ids: [Int64]
+}
+
 actor SuxinModel {
     static var runtimeVersion: String { String(cString: EBookSuxinRuntimeVersion()) }
     static var processLifetimePeakRSS: UInt64 { EBookSuxinPeakResidentBytes() }
@@ -71,6 +76,7 @@ actor SuxinModel {
     private var pointer: UnsafeMutableRawPointer?
     private nonisolated let handle = SuxinHandle()
     private let cache: SuxinAudioCache
+    private var preparedContext: (String, [SuxinFrontend.Unit])?
     private(set) var initializationSeconds: Double = 0
     init(root: URL, cacheRoot: URL? = nil) {
         self.root = root
@@ -88,23 +94,44 @@ actor SuxinModel {
         return resources!.fingerprint
     }
     func preflight(_ text: String) throws -> [SpeechChunk] {
+        try plan(text).map(\.chunk)
+    }
+    func plan(_ text: String, context: String? = nil, startUTF16: Int = 0) throws -> [SuxinPreparedPart] {
         guard text.unicodeScalars.contains(where: { CharacterSet.alphanumerics.contains($0) }) else {
             throw SuxinFrontend.Failure.unsupportedText
         }
-        _ = try prepare(text)
-        let parts = SuxinSegmentation.chunks(text)
-        for part in parts {
-            let ids = try prepare(part.text)
-            guard ids.count <= 512 else { throw SuxinFrontend.Failure.unsupportedText }
+        if resources == nil { resources = try SuxinResources(root: root) }
+        let whole = context ?? text, start = context == nil ? 0 : startUTF16
+        guard whole.utf16.count <= 4800,
+              let selected = Range(NSRange(location: start, length: text.utf16.count), in: whole),
+              String(whole[selected]) == text else { throw SuxinFrontend.Failure.unsupportedText }
+        let all: [SuxinFrontend.Unit]
+        if let cached = preparedContext, cached.0 == whole { all = cached.1 }
+        else { all = try resources!.frontend.units(whole); preparedContext = (whole, all) }
+        let end = start + text.utf16.count
+        guard !all.contains(where: { ($0.source.lowerBound < start && start < $0.source.upperBound) || ($0.source.lowerBound < end && end < $0.source.upperBound) }) else {
+            throw SuxinFrontend.Failure.unsupportedText
         }
-        return parts
+        let units = all.filter { $0.source.lowerBound >= start && $0.source.upperBound <= end }
+        guard units.allSatisfy({ $0.symbols != nil }) else { throw SuxinFrontend.Failure.unsupportedText }
+        let ranges = units.map { ($0.source.lowerBound - start)..<($0.source.upperBound - start) }
+        return try SuxinSegmentation.chunks(text, protectedRanges: ranges).map { chunk in
+            let symbols = units.filter { $0.source.lowerBound >= start + chunk.startUTF16 && $0.source.upperBound <= start + chunk.endUTF16 }.flatMap { $0.symbols! }
+            let ids = try resources!.frontend.ids(for: symbols)
+            guard ids.count <= 512 else { throw SuxinFrontend.Failure.unsupportedText }
+            return SuxinPreparedPart(chunk: chunk, ids: ids)
+        }
     }
     func wave(text: String, speed: Float) throws -> SuxinWave {
         try Task.checkCancellation()
         let ids = try prepare(text)
-        let key = SuxinAudioCache.key(text: text, speed: speed, resources: try identity())
+        return try wave(part: SuxinPreparedPart(chunk: SpeechChunk(text: text, startUTF16: 0, endUTF16: text.utf16.count), ids: ids), speed: speed)
+    }
+    func wave(part: SuxinPreparedPart, speed: Float) throws -> SuxinWave {
+        try Task.checkCancellation()
+        let key = SuxinAudioCache.key(text: part.chunk.text, speed: speed, resources: try identity(), phonemeIDs: part.ids)
         if let samples = cache.load(key) { return SuxinWave(samples: samples, generationSeconds: 0, cacheHit: true) }
-        let value = try synthesize(ids, speed: speed)
+        let value = try synthesize(part.ids, speed: speed)
         try Task.checkCancellation()
         // A full cache/disk is not a reason to interrupt otherwise valid speech.
         try? cache.store(value.samples, key: key)

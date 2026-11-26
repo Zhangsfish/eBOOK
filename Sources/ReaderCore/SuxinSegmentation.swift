@@ -3,20 +3,27 @@ import Foundation
 /// Bounded clauses retain every scalar and its original UTF-16 address. Prefer
 /// punctuation; never cut a contiguous ASCII number/date/time in the middle.
 enum SuxinSegmentation {
-    static func chunks(_ text: String) -> [SpeechChunk] {
+    static func numberRanges(_ text: String) -> [Range<Int>] {
+        let expression = try! NSRegularExpression(pattern: #"[0-9]+(?:[:.\-/][0-9]+)*(?:[年月日点分秒岁元度])?"#)
+        return expression.matches(in: text, range: NSRange(location: 0, length: text.utf16.count))
+            .map { $0.range.location..<($0.range.location + $0.range.length) }
+    }
+    static func chunks(_ text: String, protectedRanges: [Range<Int>] = []) -> [SpeechChunk] {
         let scalars = Array(text.unicodeScalars)
+        var positions = [0]
+        for scalar in scalars { positions.append(positions.last! + (scalar.value > 0xFFFF ? 2 : 1)) }
+        let protected = numberRanges(text) + protectedRanges
+        func inside(_ index: Int) -> Bool { protected.contains { $0.lowerBound < positions[index] && positions[index] < $0.upperBound } }
         var result: [SpeechChunk] = [], start = 0, offset = 0
         var leading = ""
         while start < scalars.count {
             let limit = result.isEmpty ? 18 : 36
             var end = min(scalars.count, start + limit)
-            if let punctuation = (start..<end).last(where: { "，,。！？!?；;：:\n".unicodeScalars.contains(scalars[$0]) }) {
+            if let punctuation = (start..<end).last(where: { "，,。！？!?；;：:\n".unicodeScalars.contains(scalars[$0]) && !inside($0 + 1) }) {
                 end = punctuation + 1
-            } else {
-                func numeric(_ scalar: Unicode.Scalar) -> Bool { "0123456789:.-/".unicodeScalars.contains(scalar) }
-                while end < scalars.count, end > start, numeric(scalars[end - 1]), numeric(scalars[end]) { end += 1 }
-                if end < scalars.count, numeric(scalars[end - 1]), "年月日点分秒岁元度".unicodeScalars.contains(scalars[end]) { end += 1 }
             }
+            // Apply the same protection after punctuation and hard-limit choices.
+            while end < scalars.count, inside(end) { end += 1 }
             var value = String(String.UnicodeScalarView(scalars[start..<end]))
             let spoken = value.unicodeScalars.contains { CharacterSet.alphanumerics.contains($0) }
             if !spoken && result.isEmpty {

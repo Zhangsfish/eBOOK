@@ -4,6 +4,13 @@ import Foundation
 /// English/unknown symbols are explicit fallback cases, never silently removed.
 public struct SuxinFrontend: Sendable {
     public enum Failure: Error { case unsupportedText, missingResource }
+    /// Original source addresses survive normalization. Nil is an unsupported
+    /// span; [] is retained punctuation which the author's frontend ignores.
+    public struct Unit: Sendable {
+        public var symbols: [String]?
+        public let source: Range<Int>
+    }
+    private struct Atom { let scalar: Unicode.Scalar; let source: Range<Int> }
     private struct Lexicon: Decodable { let characters: [String: String]; let phrases: [String: [String]] }
     private struct Syllables: Decodable { let version: String; let syllables: [String: [String]] }
     private struct Model: Decodable { let phoneme_id_map: [String: [Int64]] }
@@ -26,7 +33,9 @@ public struct SuxinFrontend: Sendable {
     }
 
     public func prepare(_ text: String) throws -> [Int64] {
-        let symbols = try phonemes(text)
+        try ids(for: phonemes(text))
+    }
+    public func ids(for symbols: [String]) throws -> [Int64] {
         var ids = idMap["^"]!
         for symbol in symbols {
             guard let mapped = idMap[symbol] else { throw Failure.unsupportedText }
@@ -39,17 +48,32 @@ public struct SuxinFrontend: Sendable {
     }
 
     public func phonemes(_ input: String) throws -> [String] {
+        try units(input).flatMap { unit -> [String] in
+            guard let symbols = unit.symbols else { throw Failure.unsupportedText }
+            return symbols
+        }
+    }
+
+    /// Resolve the bounded source paragraph once, including phrase matching and
+    /// tone sandhi. Production chunks slice these units, never rerun local G2P.
+    public func units(_ input: String) throws -> [Unit] {
         // Markup is not an input language override in the reader; do not speak
         // or silently remove unknown tag bodies as if native English worked.
         guard !input.contains("<en>"), !input.contains("<zh>") else { throw Failure.unsupportedText }
-        let text = input.replacingOccurrences(of: "％", with: "%").replacingOccurrences(of: "℃", with: "摄氏度")
-        var segments: [(english: Bool, text: String)] = []
-        var english = false, current = ""
-        for scalar in text.unicodeScalars {
-            let value = String(scalar)
+        var atoms: [Atom] = [], offset = 0
+        for scalar in input.unicodeScalars {
+            let end = offset + (scalar.value > 0xFFFF ? 2 : 1)
+            let replacement = scalar == "％" ? "%" : (scalar == "℃" ? "摄氏度" : String(scalar))
+            atoms += replacement.unicodeScalars.map { Atom(scalar: $0, source: offset..<end) }
+            offset = end
+        }
+        var segments: [(english: Bool, atoms: [Atom])] = []
+        var english = false, current: [Atom] = []
+        for atom in atoms {
+            let scalar = atom.scalar
             let next = Self.isHan(scalar) ? false : (Self.isASCIIAlphanumeric(scalar) ? true : english)
-            if next != english, !current.isEmpty { segments.append((english, current)); current = "" }
-            english = next; current += value
+            if next != english, !current.isEmpty { segments.append((english, current)); current = [] }
+            english = next; current.append(atom)
         }
         if !current.isEmpty { segments.append((english, current)) }
         // The author localizes numeric spans adjacent to Mandarin, before G2P.
@@ -57,32 +81,56 @@ public struct SuxinFrontend: Sendable {
             let before = index > 0 && !segments[index - 1].english
             let after = index + 1 < segments.count && !segments[index + 1].english
             guard before || after else { continue }
-            let value = segments[index].text
-            if after, value.count == 4, Self.asciiDigits(value), segments[index + 1].text.hasPrefix("年") {
-                segments[index] = (false, value.map { Self.hanDigits[Int(String($0))!] }.joined())
-            } else if let localized = Self.numberToHan(value) { segments[index] = (false, localized) }
+            let original = segments[index].atoms
+            let value = String(String.UnicodeScalarView(original.map(\.scalar)))
+            let localized: String?
+            if after, value.count == 4, Self.asciiDigits(value), segments[index + 1].atoms.first?.scalar == "年" {
+                localized = value.map { Self.hanDigits[Int(String($0))!] }.joined()
+            } else { localized = Self.numberToHan(value) }
+            if var localized {
+                var core = original, suffix: Atom?
+                if let last = original.last, "。？！，；：、".unicodeScalars.contains(last.scalar) {
+                    suffix = last; core.removeLast(); localized.removeLast()
+                }
+                guard let first = core.first, let last = core.last else { continue }
+                var converted = localized.unicodeScalars.map { Atom(scalar: $0, source: first.source.lowerBound..<last.source.upperBound) }
+                if let suffix { converted.append(suffix) }
+                segments[index] = (false, converted)
+            }
         }
-        var merged: [(english: Bool, text: String)] = []
+        var merged: [(english: Bool, atoms: [Atom])] = []
         for part in segments {
-            if let last = merged.last, last.english == part.english { merged[merged.count - 1].text += part.text }
+            if let last = merged.last, last.english == part.english { merged[merged.count - 1].atoms += part.atoms }
             else { merged.append(part) }
         }
-        var output: [String] = []
+        var output: [Unit] = []
+        func append(_ symbols: [String]?, _ source: Range<Int>) {
+            if output.last?.source == source {
+                if let old = output.last?.symbols, let symbols { output[output.count - 1].symbols = old + symbols }
+                else { output[output.count - 1].symbols = nil }
+            } else { output.append(Unit(symbols: symbols, source: source)) }
+        }
         for part in merged {
-            guard !part.english else { throw Failure.unsupportedText }
-            var han: [String] = []
+            if part.english {
+                for atom in part.atoms { append(nil, atom.source) }
+                continue
+            }
+            var han: [Atom] = []
             func flush() throws {
                 guard !han.isEmpty else { return }
-                output += try hanPhonemes(han); han = []
+                let readings = hanReadings(han.map { String($0.scalar) })
+                for (atom, symbols) in zip(han, readings) { append(symbols, atom.source) }
+                han = []
             }
-            for scalar in part.text.unicodeScalars {
-                if Self.isHan(scalar) { han.append(String(scalar)) }
+            for atom in part.atoms {
+                let scalar = atom.scalar
+                if Self.isHan(scalar) { han.append(atom) }
                 else {
                     try flush()
                     let char = String(scalar)
-                    if let punctuation = Self.punctuation[char] { output.append(punctuation) }
-                    else if CharacterSet.whitespacesAndNewlines.contains(scalar) { output.append(" ") }
-                    else if !Self.ignored.contains(char) { throw Failure.unsupportedText }
+                    if let punctuation = Self.punctuation[char] { append([punctuation], atom.source) }
+                    else if CharacterSet.whitespacesAndNewlines.contains(scalar) { append([" "], atom.source) }
+                    else { append(Self.ignored.contains(char) ? [] : nil, atom.source) }
                 }
             }
             try flush()
@@ -90,8 +138,8 @@ public struct SuxinFrontend: Sendable {
         return output
     }
 
-    private func hanPhonemes(_ han: [String]) throws -> [String] {
-        var resolved: [[String]] = []
+    private func hanReadings(_ han: [String]) -> [[String]?] {
+        var resolved: [[String]?] = []
         var index = 0
         while index < han.count {
             var found: [String]?, count = 1
@@ -99,22 +147,22 @@ public struct SuxinFrontend: Sendable {
                 if let reading = phrases[han[index..<(index + length)].joined()] { found = reading; count = length; break }
             }
             if found == nil, let reading = characters[han[index]] { found = [reading] }
-            guard let reading = found, reading.count == count else { throw Failure.unsupportedText }
+            guard let reading = found, reading.count == count else { resolved.append(nil); index += 1; continue }
             for offset in 0..<count {
                 if han[index + offset] == "血" { resolved.append(["x", "ie", "3"]); continue }
-                guard let symbols = syllables[reading[offset]], symbols.count == 3 else { throw Failure.unsupportedText }
-                resolved.append(symbols)
+                let symbols = syllables[reading[offset]]
+                resolved.append(symbols?.count == 3 ? symbols : nil)
             }
             index += count
         }
         for i in resolved.indices where i + 1 < resolved.count {
-            let next = resolved[i + 1][2]
+            guard let next = resolved[i + 1]?[2], resolved[i] != nil else { continue }
             if han[i] == "一" {
-                if next == "4" { resolved[i][2] = "2" }
-                else if ["1", "2", "3"].contains(next) { resolved[i][2] = "4" }
-            } else if han[i] == "不", next == "4" { resolved[i][2] = "2" }
+                if next == "4" { resolved[i]?[2] = "2" }
+                else if ["1", "2", "3"].contains(next) { resolved[i]?[2] = "4" }
+            } else if han[i] == "不", next == "4" { resolved[i]?[2] = "2" }
         }
-        return resolved.flatMap { $0 }
+        return resolved
     }
 
     private static let hanDigits = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"]

@@ -7,8 +7,10 @@ public struct SpeechChunk: Equatable, Sendable {
 }
 
 public enum TextChunker {
-    public static func chunks(_ text: String, maximumUTF16: Int = 280, startUTF16: Int = 0) -> [SpeechChunk] {
+    public static func chunks(_ text: String, maximumUTF16: Int = 280, startUTF16: Int = 0, protectNumbers: Bool = false) -> [SpeechChunk] {
         let limit = max(8, maximumUTF16)
+        let numbers = protectNumbers ? SuxinSegmentation.numberRanges(text) : []
+        func insideNumber(_ offset: Int) -> Bool { numbers.contains { $0.lowerBound < offset && offset < $0.upperBound } }
         var result: [SpeechChunk] = []
         var pending = "", size = 0, offset = 0, start = 0
         func flush() {
@@ -30,7 +32,7 @@ public enum TextChunker {
         }
         for scalar in text.unicodeScalars {
             let width = scalar.value > 0xFFFF ? 2 : 1
-            if size + width > limit { flush() }
+            if size + width > limit && !insideNumber(offset) { flush() }
             pending.unicodeScalars.append(scalar); size += width; offset += width
             if "。！？!?；;\n".unicodeScalars.contains(scalar) { flush() }
         }

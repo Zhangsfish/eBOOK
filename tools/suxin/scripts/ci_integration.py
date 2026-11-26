@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import time
+from ci_diagnostics import collect_crashes, method_coverage
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -117,7 +118,7 @@ def main():
         command += ['-only-testing:EBookTests/SuxinFrontendTests']
     elif args.scope == 'integration':
         command += ['-only-testing:EBookTests/SuxinFrontendTests', '-only-testing:EBookTests/SuxinIntegrationTests',
-                    '-only-testing:EBookTests/SuxinStateTests']
+                    '-only-testing:EBookTests/SuxinStateTests', '-only-testing:EBookTests/SuxinProductionBoundaryTests']
     elif args.scope == 'picker':
         command += ['-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB',
                     '-only-testing:EBookUITests/ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel']
@@ -135,6 +136,7 @@ def main():
                    'observation_source': 'partial xcodebuild log, not xcresult summary',
                    'partial_log_case_states': states}
         (build / 's02b-timeout.json').write_text(json.dumps(timeout, indent=2) + '\n')
+        collect_crashes(ROOT, build, device, env)
         raise
     finally:
         if args.scope in ['all', 'picker']:
@@ -152,6 +154,9 @@ def main():
     (build / 's02b-test-summary.json').write_text(raw + '\n')
     details = output(['xcrun', 'xcresulttool', 'get', 'test-results', 'tests', '--path', 'build/S02B-tests.xcresult', '--format', 'json'])
     (build / 's02b-test-details.json').write_text(details + '\n')
+    if code:
+        collect_crashes(ROOT, build, device, env)
+    errors = method_coverage(ROOT, build, args.scope, summary)
     metrics = []
     for line in (build / 's02b-test.log').read_text().splitlines():
         if 'S02B_METRIC ' in line:
@@ -166,16 +171,11 @@ def main():
               'status': ({'frontend': 'PASS_NATIVE_FRONTEND_ONLY', 'picker': 'PASS_NATIVE_PICKER_ONLY'}.get(args.scope, 'PASS_NATIVE_INTEGRATION')) if not code else 'FAIL_ACTUAL_XCTEST'}
     (build / 's02b-result.json').write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result), flush=True)
-    if args.scope == 'frontend' and (summary['totalTestCount'] != 3 or summary['skippedTests'] != 0):
-        raise RuntimeError('All three native frontend methods must actually execute')
-    if args.scope == 'integration' and (summary['totalTestCount'] != 12 or summary['skippedTests'] != 0):
-        raise RuntimeError('All twelve integration methods must actually execute')
     if args.scope in ['integration', 'all'] and (not neural or len(metrics) != 2):
-        raise RuntimeError('Missing actual native waveform or PCM mixer evidence')
-    if args.scope == 'picker' and (summary['totalTestCount'] != 2 or summary['skippedTests'] != 0):
-        raise RuntimeError('Both real Files selection and cancellation tests must execute')
-    if args.scope == 'all' and (summary['totalTestCount'] != 42 or summary['skippedTests'] != 0):
-        raise RuntimeError('All42 original/native App methods must actually execute')
+        errors.append('Missing actual native waveform or PCM mixer evidence')
+    result['validation_errors'] = errors
+    if errors: result['status'] = 'FAIL_INCOMPLETE_METHOD_OR_NEURAL_EVIDENCE'
+    (build / 's02b-result.json').write_text(json.dumps(result, indent=2) + '\n')
     if code and args.scope in ['all', 'picker']:
         # Only this isolated simulator's original synthetic-fixture UI is
         # captured. Never export App bundles, audio or imported user books.
@@ -212,26 +212,19 @@ def main():
         archive = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK', '-configuration', 'Release',
                    '-destination', 'generic/platform=iOS', '-archivePath', 'build/S02B-device.xcarchive',
                    '-derivedDataPath', 'build/S02B-DerivedData', 'CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'archive']
-        if execute(archive, 'device-archive', 900):
-            raise RuntimeError('Actual unsigned arm64 Release archive failed')
-        app = build / 'S02B-device.xcarchive/Products/Applications/eBOOK.app'
-        manifest = json.loads((app / 'Suxin/manifest.json').read_text())
-        for item in manifest['files']:
-            data = (app / 'Suxin' / item['path']).read_bytes()
-            if len(data) != item['bytes'] or hashlib.sha256(data).hexdigest() != item['sha256']:
-                raise ValueError('Archived model resource mismatch')
-        provenance = json.loads((app / 'NativeNotices/runtime-provenance.json').read_text())
-        source_notices = provenance['supplemental_source_notices']
-        if len(source_notices) != 2:
-            raise ValueError('Both exact-source runtime notice files must be bundled')
-        for item in source_notices:
-            data = (app / 'NativeNotices' / item['bundle_file']).read_bytes()
-            if len(data) != item['bytes'] or hashlib.sha256(data).hexdigest() != item['sha256']:
-                raise ValueError('Archived runtime notice mismatch')
-        allowed = {app / 'Suxin/author-LICENSE.txt', app / 'Suxin/pypinyin-LICENSE.txt'}
-        allowed.update(app / 'NativeNotices' / item['bundle_file'] for item in source_notices)
-        if set(app.rglob('*.txt')) != allowed or list(app.rglob('*.epub')) or list(app.rglob('*.wav')):
-            raise ValueError('Unexpected book/audio/text in release bundle')
+        legacy_entry = sdk[0] >= 26
+        if legacy_entry:
+            if execute(['bash', 'scripts/ci_device.sh'], 'device-entry', 900):
+                raise RuntimeError('Actual original device-package entry failed')
+            app = build / 'eBOOK-device.xcarchive/Products/Applications/eBOOK.app'
+            shutil.copyfile(build / 'device-preflight.json', build / 's02b-legacy-device-preflight.json')
+        else:
+            if execute(archive, 'device-archive', 900):
+                raise RuntimeError('Actual unsigned arm64 Release archive failed')
+            app = build / 'S02B-device.xcarchive/Products/Applications/eBOOK.app'
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        from verify_release_bundle import validate_resources
+        resources = validate_resources(app)
         info = plistlib.loads((app / 'Info.plist').read_bytes())
         archs = output(['lipo', '-archs', str(app / 'eBOOK')])
         if archs != 'arm64' or info['UIBackgroundModes'] != ['audio']:
@@ -239,13 +232,12 @@ def main():
         metadata = {'source_sha': result['source_sha'], 'archive': 'PASS_UNSIGNED_RELEASE_ARM64',
                     'architecture': archs, 'bundle_id': info['CFBundleIdentifier'], 'version': info['CFBundleShortVersionString'],
                     'app_bytes': sum(path.stat().st_size for path in app.rglob('*') if path.is_file()),
-                    'model_sha256': manifest['files'][0]['sha256'], 'resource_files_verified': len(manifest['files']),
-                    'runtime_source_notice_files_verified': len(source_notices),
+                    **resources, 'original_device_entry_executed': legacy_entry,
                     'signing': 'NOT_RUN', 'testflight': 'NOT_RUN', 'physical_device': 'NOT_RUN',
                     'distribution_clearance': 'PENDING_INDEPENDENT_REVIEW', 'public_binary_artifact': False}
         (build / 's02b-device-archive.json').write_text(json.dumps(metadata, indent=2) + '\n')
         print(json.dumps(metadata), flush=True)
-    if code or summary['failedTests']:
+    if code or summary['failedTests'] or errors:
         raise RuntimeError('Actual native test failure (archive status is separate)')
 
 

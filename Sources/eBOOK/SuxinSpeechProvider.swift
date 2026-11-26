@@ -42,7 +42,7 @@ import AVFoundation
             do {
                 // Validate the entire outer request before speaking any of it.
                 // Mixed English/unknown symbols explicitly route the whole span.
-                let parts = try await model.preflight(request.chunk.text)
+                let parts = try await model.plan(request.chunk.text, context: request.contextText, startUTF16: request.chunk.startUTF16)
                 try Task.checkCancellation()
                 guard self.token == current else { return }
                 self.planned = parts.count
@@ -51,10 +51,10 @@ import AVFoundation
                         await withCheckedContinuation { self.spaceWaiter = $0 }
                         try Task.checkCancellation()
                     }
-                    let wave = try await model.wave(text: part.text, speed: request.rate)
+                    let wave = try await model.wave(part: part, speed: request.rate)
                     try Task.checkCancellation()
                     guard self.token == current else { return }
-                    try self.enqueue(wave, part: part, token: current)
+                    try self.enqueue(wave, part: part.chunk, token: current)
                     self.startLookaheadIfUseful()
                 }
                 if parts.isEmpty, self.token == current { self.onEvent?(.preparing(false)); self.onEvent?(.finished) }
@@ -125,11 +125,11 @@ import AVFoundation
         lookahead = nil
         prefetchTask = Task(priority: .utility) {
             do {
-                let parts = try await model.preflight(request.chunk.text)
+                let parts = try await model.plan(request.chunk.text, context: request.contextText, startUTF16: request.chunk.startUTF16)
                 // Only one next request and its first two short clauses, not a book.
                 for part in parts.prefix(2) {
                     try Task.checkCancellation()
-                    _ = try await model.wave(text: part.text, speed: request.rate)
+                    _ = try await model.wave(part: part, speed: request.rate)
                 }
             } catch { /* opportunistic prefetch; foreground reports actual errors */ }
         }

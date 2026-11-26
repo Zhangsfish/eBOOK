@@ -19,6 +19,9 @@ import hashlib
 import json
 import plistlib
 import subprocess
+import sys
+sys.path.insert(0, str(Path('scripts').resolve()))
+from verify_release_bundle import validate_resources
 
 app = Path('build/eBOOK-device.xcarchive/Products/Applications/eBOOK.app')
 info = plistlib.loads((app / 'Info.plist').read_bytes())
@@ -34,8 +37,7 @@ assert info['CFBundleIcons']['CFBundlePrimaryIcon']['CFBundleIconName'] == 'AppI
 assert (app / 'Assets.car').is_file()
 assert (app / 'PrivacyInfo.xcprivacy').is_file()
 assert not list(app.rglob('*.p8')) and not list(app.rglob('*.p12'))
-allowed_notices = {app / 'Suxin/author-LICENSE.txt', app / 'Suxin/pypinyin-LICENSE.txt'}
-assert set(app.rglob('*.txt')) == allowed_notices and not list(app.rglob('*.epub'))
+resources = validate_resources(app)
 assert not (app / 'embedded.mobileprovision').exists()
 arch = subprocess.check_output(['lipo', '-archs', str(app / 'eBOOK')], text=True).strip()
 assert arch == 'arm64', arch
@@ -51,6 +53,7 @@ data = {
     'testflight_upload': 'NOT_RUN', 'physical_device': 'NOT_RUN',
     'bundled_test_books': False,
 }
+data.update(resources)
 Path('build/device-preflight.json').write_text(json.dumps(data, indent=2) + '\n')
 print(json.dumps(data, indent=2))
 PY

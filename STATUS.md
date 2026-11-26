@@ -2,11 +2,11 @@
 
 ## Current task — audit repair and phone beta (owner2026-11-26)
 
-- State: **READY**. Execute [S02B_R1_REPAIR_AND_PHONE_BETA.md](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md) in `codex/s02b-suxin-ios-integration` / PR #12.
+- State: **IN_PROGRESS**. Execute [S02B_R1_REPAIR_AND_PHONE_BETA.md](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md) in `codex/s02b-suxin-ios-integration` / PR #12.
 - Independent audit: [REQUEST_CHANGES](reports/S02B/INDEPENDENT_REVIEW_20261126.md), implementation ae3592fa3305a4d02a5774386c4e0098b95dba8e; audit handoff e1bb0df75d944d28b2f7e8860b5213bc319a89c0.
 - Repair R1 package allowlist, R2 time splitting, R3 cross-chunk pronunciation context; diagnose retained iOS26 callback/host failures and collect meaningful targeted/full regression evidence.
 - After corrected-code independent review and internal-use resource checks, use the existing authorized owner internal-TestFlight path to obtain phone feedback. Device acceptance is gathered using that test build; it is not a prerequisite for obtaining the test build.
-- This commit dispatches the written task only. New fixes/tests/signing have not executed; no new available phone build is claimed. The last recorded39.1 is Apple-only.
+- R1–R3 implementation and6 new native boundary methods are prepared; local packaging fault-injection5/5 and12 actual author-frontended original references passed. Real Xcode/graph/device entry results pending; no signing/new phone build. Owner also authorizes bookshelf-only mode selection and independent shelf appearance; existing reader theme stays in-book. See tasks/S02B_READING_MODES.md.
 - Training PR #11, frozen PR #7 and Android work remain separate. No self-merge or public release.
 
 ## Previous delivery snapshot (retained; current READY task above supersedes its stop/freeze wording)

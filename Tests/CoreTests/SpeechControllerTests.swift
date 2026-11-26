@@ -169,8 +169,24 @@ import AVFoundation
         }
         let provider = AppleSpeechProvider()
         let finished = expectation(description: "real Apple speech finished")
-        var sawRange = false
+        var sawRange = false, eventKinds: [String] = []
+        let voice = AVSpeechSynthesisVoice(language: "zh-CN")
+        defer {
+            let probe: [String: Any] = ["range_observed": sawRange, "events": eventKinds,
+                "voice_id": voice?.identifier ?? "missing", "language": voice?.language ?? "missing",
+                "voice_catalog_count": AVSpeechSynthesisVoice.speechVoices().count]
+            if let data = try? JSONSerialization.data(withJSONObject: probe, options: [.sortedKeys]),
+               let json = String(data: data, encoding: .utf8) { print("S02B_APPLE_PROBE " + json) }
+        }
         provider.onEvent = { event in
+            switch event {
+            case .started: eventKinds.append("started")
+            case .range: eventKinds.append("range")
+            case .finished: eventKinds.append("finished")
+            case .cancelled: eventKinds.append("cancelled")
+            case .failed: eventKinds.append("failed")
+            default: break
+            }
             if case .range = event { sawRange = true }
             if event == .finished { finished.fulfill() }
         }

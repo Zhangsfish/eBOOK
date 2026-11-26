@@ -15,8 +15,11 @@ public struct SpeechRequest: Sendable {
     public let chunk: SpeechChunk
     public let voiceID: String?
     public let rate: Float
-    public init(stableID: String, chunk: SpeechChunk, voiceID: String?, rate: Float) {
+    /// At most one bounded source block, not a chapter or entire book.
+    public let contextText: String?
+    public init(stableID: String, chunk: SpeechChunk, voiceID: String?, rate: Float, contextText: String? = nil) {
         self.stableID = stableID; self.chunk = chunk; self.voiceID = voiceID; self.rate = rate
+        self.contextText = contextText
     }
 }
 
