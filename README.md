@@ -4,7 +4,8 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 
 ## Current work: S02B local Suxin speech
 
-The selected Suxin-Light voice is implemented and **READY_FOR_AUDIT** on
+The selected Suxin-Light voice is implemented. The owner has reopened Files
+selection follow-up (**IN_PROGRESS**) on
 `codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12).
 See [the task](tasks/S02B_SUXIN_IOS_INTEGRATION.md) and
 [delivery evidence](reports/S02B_SUXIN_IOS_INTEGRATION.md). Desktop, simulator,
@@ -12,10 +13,16 @@ device and TestFlight states are reported separately. A successful CI build is
 not a new installable phone release. The later model-training work in PR #11
 does not block this implementation.
 
-Native frontend/model/PCM checks pass on iOS18.5 and26.5; final full suites each
-report41/42, with system Files selection still failing. Both unsigned arm64
-Release archives pass. Physical-phone latency/long listening, complete distribution
-materials and a new TestFlight update remain pending; this is not release acceptance.
+Native frontend/model/PCM checks pass on iOS18.5 and26.5. The current App Sources
+tree `6d9339b31da7acd614971037c2e9151e493bdc48` passes the complete42-method
+iOS26.5 suite, including real TXT/EPUB selection. On iOS18.5 the latest completed
+full suite was41/42 (Files only); the newer actual external-provider import/cancel
+probe passes2/2. Final complete checks are running on both systems.
+Both actual unsigned arm64 Release archives include the hash-verified model and
+two recovered exact-source runtime notices. See the
+[Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) for exact execution SHAs
+and retained failures. Independent distribution review, physical-phone latency/
+long listening and a new TestFlight update remain pending; this is not release acceptance.
 
 ## Build and run
 
@@ -45,8 +52,10 @@ python3 tools/suxin/scripts/ci_integration.py --scope all
 ```
 
 The script uses installed Xcode (prefers `/Applications/Xcode_16.4.app` when
-available), boots an installed simulator, builds without signing, seeds original
-test files into App Documents, runs unit/UI tests and archives an unsigned arm64
+available), boots an installed simulator and builds without signing. The real Files
+test uses original TXT/EPUB fixtures in the observed system LocalStorage provider,
+outside the reader container; other fixture-driven reader tests use App Documents.
+It runs unit/UI tests and archives an unsigned arm64
 Release App. The `integration` scope runs twelve native frontend, real-graph,
 PCM-playback and state/cache test methods; `frontend` checks the author oracle
 alone; `picker` performs actual TXT/EPUB selection and cancellation (two methods).

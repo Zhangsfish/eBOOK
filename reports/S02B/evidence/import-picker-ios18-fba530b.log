@@ -1,0 +1,24 @@
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-11-26 06:28:26.960 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT picker created
+2026-11-26 06:29:19.201 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT picker selected count=1
+2026-11-26 06:29:19.229 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT started
+2026-11-26 06:29:19.231 Df eBOOK[13984:aa3a] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 06:29:19.266 Df eBOOK[13984:aa3a] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 06:29:19.313 Df eBOOK[13984:aa3a] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 06:29:19.370 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 06:29:23.741 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT picker created
+2026-11-26 06:29:43.780 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT picker selected count=1
+2026-11-26 06:29:43.801 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT started
+2026-11-26 06:29:43.802 Df eBOOK[13984:aa22] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 06:29:43.975 Df eBOOK[13984:aa22] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 06:29:43.989 Df eBOOK[13984:aa22] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 06:29:43.990 Df eBOOK[13984:a9d1] (Foundation) EBOOK_IMPORT saved books=2
+2026-11-26 06:29:54.507 Df eBOOK[15951:bf04] (Foundation) EBOOK_IMPORT started
+2026-11-26 06:29:54.546 Df eBOOK[15951:bfa5] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 06:29:54.913 Df eBOOK[15951:bfa5] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 06:29:54.973 Df eBOOK[15951:bfa5] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 06:29:55.001 Df eBOOK[15951:bf04] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 06:29:58.029 Df eBOOK[15951:bf04] (Foundation) EBOOK_IMPORT picker created
+2026-11-26 06:30:10.535 Df eBOOK[15951:bf04] (Foundation) EBOOK_IMPORT picker cancelled
+2026-11-26 06:30:22.276 Df log[16578:0] [com.apple.log:] log run noninteractively, parent: 2510 (launchd_sim), args: 'log' 'show' '--last' '30m' '--style' 'compact' '--info' '--predicate' 'eventMessage CONTAINS "EBOOK_IMPORT"'

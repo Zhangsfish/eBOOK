@@ -27,8 +27,9 @@ Sources树：`6d9339b31da7acd614971037c2e9151e493bdc48`。
 | 免费标准macos-15 / iOS18.5 | [45757099825](https://github.com/Zhangsfish/eBOOK/actions/runs/45757099825) | 超时：部分日志40PASS、1FilesFAIL、1TOC未完成；无最终摘要/归档 |
 | 免费标准macos-26 / Xcode26.6(17F113) / iOS26.5 | [45757095612](https://github.com/Zhangsfish/eBOOK/actions/runs/45757095612) | 42PASS/0FAIL/0SKIP；真实导入通过；Release arm64归档通过 |
 
-两轮均执行完整42项、真实原生苏心推理/播放、230万字符长篇回归及unsigned设备归档。
-各项PASS/FAIL、实际Xcode/runtime及资源核验以结果JSON为准。
+两轮均尝试完整42项；26.5完成全部方法、真实原生苏心推理/播放、230万字符长篇回归
+及unsigned设备归档。18.5的这次运行超时，没有最终测试摘要和归档。
+各项PASS/FAIL/未完成、实际Xcode/runtime及资源核验以结果JSON或明确标记的部分日志为准。
 独立dc8ad4a运行45756781805因新的完整验证覆盖其范围而取消，不计测试通过。
 
 后续3bfc352旧系统点位修正没有解决问题：
@@ -40,9 +41,19 @@ Sources树：`6d9339b31da7acd614971037c2e9151e493bdc48`。
 尚未编译Reader或执行XCTest。4a5b716运行45765425726为1/2（取消通过），
 选择失败发生在导航到外部源之前。记录到真实LocalStorage组存在、标准存储目录缺失，
 已在该组下准备原创夹具；系统Files独立启动仍超时。不是模型或正文解析失败。
-当前fba530b只修正观测到的18.5导航栏标题/返回按钮定位，
+fba530b修正观测到的18.5导航栏标题/返回按钮定位，
 [最小回归45767237191](https://github.com/Zhangsfish/eBOOK/actions/runs/45767237191)
-正在执行；App Sources仍为上述6d9339b，不因测试环境调整而改变。
+实际2PASS/0FAIL/0SKIP：从外部系统LocalStorage目录单击导入TXT和EPUB，日志两次
+selected count=1，分别saved books=1/2；取消通过，真实unsigned arm64设备归档通过，
+6项模型资源及2份运行库声明逐SHA核验。App包92,986,336bytes。
+该focused范围没有执行苏心推理，不能将它计入原生模型测试。
+Stock Files独立启动仍记录30秒超时，但未阻止此轮真实picker选择和导入成功。
+App Sources仍为上述6d9339b，不因测试环境调整而改变。
+
+最终完整检查统一执行7ff918a：
+[18.5 /45769244490](https://github.com/Zhangsfish/eBOOK/actions/runs/45769244490)和
+[26.5 /45769249483](https://github.com/Zhangsfish/eBOOK/actions/runs/45769249483)
+均正在运行，等待完整42项及实际归档结果，不提前报PASS。
 
 ## 同版本运行库声明
 

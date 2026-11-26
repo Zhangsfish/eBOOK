@@ -1,95 +1,75 @@
 # S02B integration evidence
 
-Purpose: first-release local Suxin integration on branch codex/s02b-suxin-ios-integration.
+Purpose: first-release local Suxin integration and owner-requested Files follow-up
+on codex/s02b-suxin-ios-integration / PR12. Worktree E:/myself/eBOOK-s02b.
 Authority: tasks/S02B_SUXIN_IOS_INTEGRATION.md and docs/TTS_WORKSTREAMS.md.
-Report: ../S02B_SUXIN_IOS_INTEGRATION.md. evidence/ contains only sanitized small
-JSON/log metadata. Raw audio, models and private inputs never enter this folder.
-Free isolated CI may export bounded original-fixture UI failure screenshots to
-its artifact only; they are downloaded locally, never mixed with user books.
-Record exact tested implementation SHA, CI URL and Windows/simulator/iPhone states
-separately. First-audible targets are NOT_RUN until actually measured, and a mixer
-callback is not a physical acoustic measurement. Independent review precedes the
-new internal TestFlight upload; never self-merge or start the training workstream.
+Current state: IN_PROGRESS until the final complete two-runtime checks finish.
+Do not merge, sign/upload a new beta before independent review, or edit PR7/11.
 
-## Final audit handoff
+## Current source and actual results
 
-Owner follow-up2026-11-26 reopens Files selection repair before the next audit.
-Current investigation: DEBUG test-library storage is being aligned with shipping
-Application Support instead of the shared Documents tree. This is a hypothesis,
-not a proven fix. Constant EBOOK_IMPORT phase/count logs and bounded original UI
-failure screenshots distinguish missing picker callbacks from read failures.
-Use full42 runs on both existing free standard macOS runners; preserve prior failures.
-No new beta before independent review/material clearance. Existing results below
-describe8331b9b and its tested ancestors, not the follow-up changes.
+- Formal App Sources tree6d9339b31da7acd614971037c2e9151e493bdc48, frozen since
+  16fe15da6bcd7431a8a162fd65ca77ce8da6ff4d. Later changes only adjust test/CI/docs.
+- 16fe15d /26.5 run45757095612: complete42PASS/0FAIL/0SKIP; actual native Suxin,
+  long-reader and real Files checks pass, unsigned arm64 Release archive pass.
+- 3bfc352 /18.5 run45761286868: complete41PASS/1FilesFAIL/0SKIP; TOC, actual
+  native Suxin, other reader tests and arm64 archive pass. Keep the failed attempt.
+- 16fe15d /18.5 run45757099825: TIMEOUT with partial40PASS/1FAIL/1TOCunfinished;
+  no final xcresult summary/archive. Never call this a completed42-method run.
+- fba530b3749b1ea94db44fac9b4c01bc9cb81283 /18.5 run45767237191: focused
+  actual external Files import/cancel2PASS/0FAIL/0SKIP. Logs show two selected
+  callbacks and saved books1/2. Actual arm64 archive92,986,336bytes,6 model
+  resources and2 exact-source runtime notices verified. This scope did not run TTS.
+- Final full42 runs at7ff918a1c02f730bf37d351821b37dc79709c2e3 are pending:
+  iOS18.5/45769244490 and iOS26.5/45769249483. Do not infer their results yet.
 
-Runtime-source follow-up: actual iOS/simulator binaries embed33ca962. Same-commit
-LICENSE and complete ThirdPartyNotices were recovered from the binary publisher's
-fork at33ca9628233dc8f002435e868d4c2e9f82766ca1, hash checked as data without installs.
-The resource inspector/archive driver are being updated to bundle and verify them;
-current769e04d CI clones predate these changes and cannot prove their packaging.
-Complete license/distribution review is still separate from material presence.
+## Files investigation and retained failures
 
-769e04d full18.5 run45754799661 is41/42 again. Phase logs show picker creation
-but no selected callback, while fixture/direct imports coordinate and save normally.
-Moving the DEBUG library did not resolve the failure. Original UI screenshots
-were inspected locally; all three source fixtures remain listed, no App import UI.
-Next candidate uses asCopy=false: the existing scoped/coordinated importer owns
-the local copy. Real Files entries are explicitly checked enabled in the UI test.
-Full42 checks are required again; no success inferred from this code change.
+Current App uses UIDocumentPicker asCopy=false; LibraryModel reads the scoped URL
+with NSFileCoordinator and BookImporter makes a bounded App-private copy. DEBUG
+library uses Application Support like the shipping app. Constant EBOOK_IMPORT logs
+contain only phases/counts/codes, never book names/paths/body.
 
-16fe15d complete26.5 run45757095612 is42/42, with single filename activations,
-successful arm64 archive and both exact-source notices verified in the actual App.
-18.5 run45757099825 timed out in the final TOC test's repeated60s animation-idle
-waits. Its partial log reports40 completed PASS,1 Files FAIL,1 TOC incomplete;
-there is no final xcresult summary or archive and no complete-suite PASS.
-Files target on18.5 had frame(80,193.7,254,20.3), wider than visible filename text;
-26.5's label is intrinsic95pt. The next test-only fix taps visible leading text
-on pre26 and removes double-tap retries. App Sources remain6d9339b31da7acd614971037c2e9151e493bdc48.
+Older probes selected source fixtures from the reader's own shared Documents tree.
+18.5 labels were wide; leading-coordinate selection did not fix that experiment.
+The current test uses the actual observed system FileProvider.LocalStorage group,
+prepares only original TXT/EPUB under File Provider Storage/eBOOK Import Test,
+and navigates/selects through real native Files UI. No reader-library injection.
+Observed18.5 title is a menu button, not the nav-bar identifier; wait for the actual
+My iPhone back button and tap it before choosing the external folder.
 
-3bfc352 full18.5 run45761286868 completed41/42 (only Files FAIL), with native/TOC/
-other reader checks and actual Release archive plus both runtime notices PASS.
-Leading-text coordinates did not fix selection. Keep this failed experiment.
-Next narrow investigation prepares original sources in the observed system
-FileProvider.LocalStorage group outside the reader container, then uses real
-Files navigation and cell activation. No app/engine change or library injection.
-The helper records actual group/storage state and hashes; bootstrap failure is
-an error, never a simulated selection or test PASS. Run picker scope first.
-Current candidate60173039c5c2550c9cb268f9e8db44e8c5fbb6fc:
-focused18.5 run45764765246 is pending. It boots the stock Files app, observes its
-actual LocalStorage group via container metadata, prepares two original sources
-in File Provider Storage/eBOOK Import Test and navigates there through real Files.
-Do not count this as an import fix until actual2/2 results; next full checks if green.
-App Sources remain6d9339b31da7acd614971037c2e9151e493bdc48, frozen since16fe15d.
-6017303 probe45764765246 failed before compiling the reader: stock
-simctl launch com.apple.DocumentsApp timed out30s. No UI/XCTest PASS is claimed.
-Bootstrap now observes simctl's actual dataPath/group metadata before launching,
-records state even on stock-app launch timeout, and initializes only its own
-fixture child under an existing LocalStorage group. Never create an invented group.
-4a5b716 focused run45765425726 completed1/2, cancellation PASS, selection FAIL
-before reaching the external folder: the test skipped the non-hittable-at-that-
-instant My iPhone back button and then searched for a location row inside eBOOK.
-18.5 nav-bar identifier is FullDocumentManagerViewControllerNavigationBar, with
-the folder title in a menu button. Fix these observed navigation assumptions;
-do not call this a selected-file callback failure or a completed App fix.
-Provider metadata confirms actual LocalStorage group exists; its standard storage
-directory was absent and prepared under that group. Stock Files launch timed out,
-recorded separately. Next focused run still uses original external sources.
-- The chosen Suxin graph is now used by the formal App, with native Swift G2P,
-  a single background ORT session, short PCM queue, cache and separate rate.
-- Native scope at7c1dba2 is12/12 on both18.5 and26.5, and both unsigned arm64
-  archives passed. Full31951f2 runs were41/42; keep those failures in evidence.
-- UIKit BookDocumentPicker at3633d42 passed isolated real TXT/EPUB selection and
- cancellation in26.5 (2/2), but18.5 was1/2. Test-only2dbaf25 switches both to List mode.
-- Final complete checks:26.5 run45665077113 atf7ae01b and18.5 run45666635333 at2dbaf25.
-  Both use App Sources tree36672759f4c470aff8ac41abee2631829017d2e6.
-  Both completed41PASS/1FAIL/0SKIP; the failure is still Files selection. Both
-  real unsigned Release arm64 archives passed. Keep BLOCKED_QA; isolated success
-  did not prove the full-suite entry fixed. No more App changes after2dbaf25.
-- READY_FOR_AUDIT with BLOCKED_QA/BLOCKED_ENV/incomplete distribution materials;
-  it is not phase acceptance. Physical first-audible/p95/30min/thermal/battery
-  remain NOT_RUN. Final mixer probes3.903774/2.218927s and the isolated12-method
-  probes3.35–3.60s are not physical-phone latency results. Whole-test-host lifetime
-  RSS reached438452224/538345472bytes, not model incremental memory.
-- Runtime ZIP has no notices and Microsoft v1.28.2 source/tag queries return404;
-  full distribution clearance is incomplete. Do not upload a new beta before review.
-- Windows has no Xcode/connected iPhone. No local package/tool installation occurred.
+Stock Files independent simctl launch timed out30s even in the successful fba
+picker run. This does not establish an Apple defect or block all native selection.
+6017303 probe failed before App compilation;4a5b716 failed in test navigation,
+not after external file selection. Preserve both rather than relabeling them PASS.
+Older8331b9b two-runtime41/42 delivery remains a historical section in the report.
+
+## Resource and review boundaries
+
+Actual iOS/simulator ORT slices embed33ca962. Same complete source commit
+33ca9628233dc8f002435e868d4c2e9f82766ca1 in the publisher fork provides
+Microsoft LICENSE and complete ThirdPartyNotices. Preparation hash-pins both;
+actual archives on18.5 and26.5 verify their bundled bytes. Original ZIP0notices
+and old404 queries remain historical evidence. Material recovery is not a
+reproduced binary build, exhaustive dependency BOM or independent legal clearance.
+Do not edit any bundle-producing NOTICE/manifest/prepare/inspector resources
+without rerunning the actual archive checks.
+
+## Evidence map and privacy
+
+- ../S02B_SUXIN_IOS_INTEGRATION.md: canonical report, old failures retained.
+- FILES_IMPORT_FOLLOWUP.md: current selection/CI follow-up.
+- DEVICE_CHECKLIST.md: pending phone tests, not test results.
+- evidence/: only sanitized small JSON/log metadata, exact test SHA and CI URL.
+- ../../.local-test-data/s02b/files-followup/: ignored raw CI downloads and original
+  diagnostic PNGs. Do not add binaries/audio/private books to Git or public artifacts.
+CI may export only bounded original-fixture failure PNGs, never user books.
+
+## Remaining phone validation
+
+Physical new-process first sound, warm/jump p95,1.0x/1.5x each30min, lockscreen,
+interruptions/headphones/Bluetooth, thermal/battery remain NOT_RUN. Mixer callback
+is not acoustic latency; lifetime test-host RSS is not model incremental memory.
+Old installed39.1 is Apple-only. No new signed/TestFlight build is claimed.
+Windows has no Xcode or attached iPhone. Reuse existing Python/gh/Pillow and free
+standard public macOS CI; no local install occurred in this follow-up.

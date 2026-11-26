@@ -1,0 +1,20 @@
+{
+  "source_sha": "fba530b3749b1ea94db44fac9b4c01bc9cb81283",
+  "scope": "picker",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "simulator_name": "iPhone 16 Pro",
+  "host_architecture": "arm64",
+  "host_cpu": "Apple M1 (Virtual)",
+  "host_logical_cpus": 3,
+  "actual_counts": {
+    "totalTestCount": 2,
+    "passedTests": 2,
+    "failedTests": 0,
+    "skippedTests": 0
+  },
+  "neural_audio_generation": false,
+  "metrics": [],
+  "physical_device": "NOT_RUN",
+  "status": "PASS_NATIVE_PICKER_ONLY"
+}

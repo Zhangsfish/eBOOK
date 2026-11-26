@@ -3,29 +3,25 @@
 - Current owner decision (2026-11-25): two independent conversations share this repository; Suxin ships first and model training targets a later version.
 - Current branch/task: `codex/s02b-suxin-ios-integration` / [S02B — Suxin integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
 - State: **IN_PROGRESS — owner2026-11-26 requested Files selection repair**.
-  Prior audit delivery8331b9b retains **BLOCKED_QA / BLOCKED_ENV / incomplete distribution materials**.
-  Native Mandarin frontend, actual ORT adapter, short PCM queue,
-  verified resources/cache, voice/rate settings and cancellation are implemented.
-  Latest native frontend/model/PCM/controller checks are12/12 on iOS18.5 and26.5 at7c1dba2,
-  with real waveform generation/playback and successful unsigned arm64 Release archives.
-  Final full42-method runs are41PASS/1FAIL/0SKIP on both systems: Files selection remains unresolved,
-  even with the explicit UIKit picker and filename activation retry. The26.5 focused picker2/2
-  success did not reproduce in the complete suite; do not call the entry fixed.
-  Tested implementation:2dbaf25f26449a10693e05bd4a206c80805c48db (18.5 full),
-  f7ae01b1c9a78cd0fc3ade5a144af5bd270aa828 (26.5 full), same App Sources tree
-  36672759f4c470aff8ac41abee2631829017d2e6. Both unsigned arm64 Release archives passed.
-  Final delivery only adds reports/evidence; no later App changes or acceptance PASS.
-  Physical-device acceptance and new distribution remain NOT_RUN; full static-runtime/model
-  distribution notice clearance is incomplete. See `reports/S02B_SUXIN_IOS_INTEGRATION.md`.
-  Stop for independent review; do not merge or upload a new beta before that review.
-- Files follow-up checkpoint2026-11-26: App Sources6d9339b31da7acd614971037c2e9151e493bdc48
-  at16fe15d is42/42 on26.5 (45757095612), with actual arm64 archive and2 exact-source
-  runtime notices verified. Same App at3bfc352 on18.5 is41/42 (45761286868), Files only;
-  TOC/native/other reading tests and archive/notices pass. Earlier16fe18 run timed out,
-  retained as partial40PASS/1FAIL/1unfinished, not a completed suite.
-  Stock Files launch also timed out; the external-provider navigation probe is now
-  fba530b /45767237191. No App changes after16fe; no new beta. Follow-up:
-  [FILES_IMPORT_FOLLOWUP.md](reports/S02B/FILES_IMPORT_FOLLOWUP.md).
+  The formal App includes native Mandarin G2P, actual ORT synthesis, short PCM queue,
+  bounded prefetch/cache, separate Suxin rate and Apple fallback.
+  Current App Sources: `6d9339b31da7acd614971037c2e9151e493bdc48`, frozen since16fe15d.
+  Complete26.5 run45757095612 at16fe15d is42PASS/0FAIL/0SKIP, including real Files,
+  native Suxin and long-reader checks, with actual unsigned arm64 Release archive.
+  The older18.5 full run45761286868 at3bfc352 was41/42 (Files only); its TOC/native
+  checks and archive passed. The16fe18 timeout is partial40PASS/1FAIL/1unfinished,
+  not a completed suite. Preserve these older failures.
+  Latest18.5 external-provider probe45767237191 atfba530b is2PASS/0FAIL/0SKIP:
+  actual TXT/EPUB selection, both imports saved, cancellation and device archive pass.
+  It fixes observed UI-test navigation assumptions and uses original source files
+  in the actual system LocalStorage group outside the reader sandbox.
+  Both systems' actual archives verified6 model files and2 recovered exact-source
+  runtime notice files. Material presence is separate from independent distribution review.
+  Final full42 checks at7ff918a:18.5 run45769244490 and26.5 run45769249483 are pending.
+  Physical first sound/p95/long listening/thermal/battery and new TestFlight remain NOT_RUN.
+  Prior8331b9b audit snapshot and all failures remain in the report; no self-merge/new beta.
+  [Current Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) and
+  [canonical S02B report](reports/S02B_SUXIN_IOS_INTEGRATION.md).
 - Coordination: [docs/TTS_WORKSTREAMS.md](docs/TTS_WORKSTREAMS.md). Later-version model work: [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11), `codex/s02a4-teacher-student-tts`; first release does not wait for it.
 - Reader baseline: main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; Suxin experiment frozen at PR #7 `eeee1443c1aac561035cf30590ff323c30ccab8a`.
 - Current executor: Windows without Xcode or attached iPhone. Existing approved Python tools,
