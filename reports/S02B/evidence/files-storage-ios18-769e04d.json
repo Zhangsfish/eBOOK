@@ -1,0 +1,53 @@
+{
+  "source_sha": "769e04dde09f2124042fa15314a30ad660ace2e5",
+  "scope": "all",
+  "xcode": "Xcode 16.4\nBuild version 16F6",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "simulator_name": "iPhone 16 Pro",
+  "host_architecture": "arm64",
+  "host_cpu": "Apple M1 (Virtual)",
+  "host_logical_cpus": 3,
+  "actual_counts": {
+    "totalTestCount": 42,
+    "passedTests": 41,
+    "failedTests": 1,
+    "skippedTests": 0
+  },
+  "neural_audio_generation": true,
+  "metrics": [
+    {
+      "case": "actual_pcm_queue",
+      "chunk_rtf": [
+        0.047324246083135194,
+        0.03514613632410828,
+        0.035253696013002433
+      ],
+      "chunks": 3,
+      "first_scheduled_seconds": 2.367083999999977,
+      "peak_queued_buffers": 3,
+      "physical_device": false,
+      "process_lifetime_peak_rss_bytes": 381452288,
+      "rate": 1.5,
+      "simulator_first_nonzero_mixer_seconds_including_requested_pause": 2.681350208333356,
+      "underflows_within_request": 0
+    },
+    {
+      "case": "native_text_real_graph",
+      "cold_wave_wall_seconds": 2.122826625000016,
+      "end_to_end_native_text": true,
+      "faster_audio_seconds": 2.380045351473923,
+      "faster_generation_seconds": 0.089835917,
+      "faster_rtf": 0.037745464364519817,
+      "initialization_seconds": 1.718259375,
+      "normal_audio_seconds": 3.4481632653061225,
+      "normal_generation_seconds": 0.142326417,
+      "normal_rtf": 0.041276008718039776,
+      "physical_device": false,
+      "process_lifetime_peak_rss_bytes": 447397888,
+      "runtime": "1.28.2",
+      "wav_sha256": "4f02c4cb2ec727fbfae4f5645c8024c2136bed93059454ae4c34fef6244a2c88"
+    }
+  ],
+  "physical_device": "NOT_RUN",
+  "status": "FAIL_ACTUAL_XCTEST"
+}

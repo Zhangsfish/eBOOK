@@ -1,13 +1,36 @@
 # S02B — 苏心原生接入
 
-状态：**READY_FOR_AUDIT**；实现及证据已交付，存在 **BLOCKED_QA / BLOCKED_ENV / 分发材料INCOMPLETE**。
-这不是阶段验收通过，也不是手机已更新；等待独立审查，不自行合并或上传新TestFlight。
+状态：**IN_PROGRESS — 2026-11-26用户要求继续修复Files选书**。
+26.5最终候选完整42项已通过；18.5正在补测。尚无新手机更新，不自行合并或提前分发。
 
 本线在 `codex/s02b-suxin-ios-integration` 更新 PR #12。阅读基线 main
 `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`；交接起点
 `1eb0eef18e7011feb8034a393f084a91483b9a8e`。冻结 PR #7 与训练 PR #11 不改。
 
-## 当前事实
+## 选书跟进：当前状态
+
+见 [Files选书修复跟进](S02B/FILES_IMPORT_FOLLOWUP.md)。App Sources树已更新为
+`6d9339b31da7acd614971037c2e9151e493bdc48`，与16fe15d及后续测试修正3bfc352相同。
+[26.5完整运行45757095612](https://github.com/Zhangsfish/eBOOK/actions/runs/45757095612)
+在16fe15d实际42PASS/0FAIL/0SKIP，单击TXT和EPUB导入、真实苏心及长篇阅读回归通过；
+unsigned设备arm64归档成功，6项模型资源与新增2项同源码运行库声明均按实际包SHA核验。
+
+18.5同版本运行45757099825发生超时，部分日志为40PASS、1FilesFAIL、1TOC未完成，
+不等于42项已执行通过；无最终xcresult摘要或设备归档。旧系统文件名AX标签比实际文字宽，
+3bfc352测试改为单击可见文字左侧，删除双击重试。
+[18.5完整运行45761286868](https://github.com/Zhangsfish/eBOOK/actions/runs/45761286868)
+完整41PASS/1FilesFAIL/0SKIP，TOC和原生模型通过，设备arm64归档及6项资源/2份
+运行库声明实际SHA验证通过。点击可见文字仍失败，未认定根因。
+外部系统Files源的最小检查在fba530b运行45767237191继续进行，详情见跟进报告。
+源码、模型和朗读实现没有因测试点位/源目录/导航修正而改变。
+
+实际运行库两slice内嵌git-commit-id33ca962；已从发布者同一完整源码提交
+`33ca9628233dc8f002435e868d4c2e9f82766ca1`恢复Microsoft LICENSE和完整
+ThirdPartyNotices，按固定字节/SHA准备并在26.5设备归档核实随包。
+声明材料存在与独立许可/分发审查分开；没有把另一版本声明替代成通过。
+真实手机验收与独立审查仍待进行。以下保留8331b9b时的交付及失败历史。
+
+## 8331b9b审查快照与历史事实
 
 | 项目 | 状态与边界 |
 | --- | --- |
@@ -30,7 +53,7 @@ Xcode16.4(16F6)、iOS18.5、ARM64虚拟Mac、iPhone16Pro模拟器；没有模型
 修正先关闭写入器使头部落盘，并延长原创队列文本。旧失败JSON保留于evidence目录，
 其WAV SHA不算已完成WAV文件验收。旧软件探针RTF/首样本仅是失败运行中的诊断数据。
 
-## 最终实现的完整回归
+## 8331b9b实现的完整回归（历史）
 
 App Sources树：`36672759f4c470aff8ac41abee2631829017d2e6`。
 最终实现HEAD `2dbaf25f26449a10693e05bd4a206c80805c48db`；与

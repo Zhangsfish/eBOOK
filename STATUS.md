@@ -18,6 +18,14 @@
   Physical-device acceptance and new distribution remain NOT_RUN; full static-runtime/model
   distribution notice clearance is incomplete. See `reports/S02B_SUXIN_IOS_INTEGRATION.md`.
   Stop for independent review; do not merge or upload a new beta before that review.
+- Files follow-up checkpoint2026-11-26: App Sources6d9339b31da7acd614971037c2e9151e493bdc48
+  at16fe15d is42/42 on26.5 (45757095612), with actual arm64 archive and2 exact-source
+  runtime notices verified. Same App at3bfc352 on18.5 is41/42 (45761286868), Files only;
+  TOC/native/other reading tests and archive/notices pass. Earlier16fe18 run timed out,
+  retained as partial40PASS/1FAIL/1unfinished, not a completed suite.
+  Stock Files launch also timed out; the external-provider navigation probe is now
+  fba530b /45767237191. No App changes after16fe; no new beta. Follow-up:
+  [FILES_IMPORT_FOLLOWUP.md](reports/S02B/FILES_IMPORT_FOLLOWUP.md).
 - Coordination: [docs/TTS_WORKSTREAMS.md](docs/TTS_WORKSTREAMS.md). Later-version model work: [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11), `codex/s02a4-teacher-student-tts`; first release does not wait for it.
 - Reader baseline: main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; Suxin experiment frozen at PR #7 `eeee1443c1aac561035cf30590ff323c30ccab8a`.
 - Current executor: Windows without Xcode or attached iPhone. Existing approved Python tools,

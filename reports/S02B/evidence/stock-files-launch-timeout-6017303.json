@@ -1,0 +1,9 @@
+{
+  "source_sha": "60173039c5c2550c9cb268f9e8db44e8c5fbb6fc",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45764765246",
+  "observed_failure": "subprocess.TimeoutExpired: simctl launch com.apple.DocumentsApp after30 seconds",
+  "phase": "stock Files bootstrap before reader compilation and XCTest",
+  "xctest": "NOT_RUN",
+  "device_archive": "NOT_RUN",
+  "physical_device": "NOT_RUN"
+}
