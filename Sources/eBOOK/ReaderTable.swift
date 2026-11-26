@@ -259,6 +259,12 @@ struct ReaderTable: UIViewRepresentable {
             pendingAnchor = nil
             restoring = false
             report(force: true)
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--uitesting") {
+                let actual = self.anchor()
+                print("S02B_READER_RESTORE targetBlock=\(block) targetUTF16=\(anchor.utf16Offset ?? -1) actualBlock=\(actual.block) actualUTF16=\(actual.utf16Offset ?? -1) width=\(table.bounds.width) height=\(table.bounds.height) contentHeight=\(table.contentSize.height) offsetY=\(table.contentOffset.y) desiredY=\(desired)")
+            }
+            #endif
         }
         func report(force: Bool = false) {
             guard hasRestored, !restoring, pendingAnchor == nil, let table, table.indexPathsForVisibleRows?.isEmpty == false,
@@ -319,7 +325,7 @@ private enum RenderDiagnostics {
         history[name, default: []].append(sample)
         history[name] = Array(history[name, default: []].suffix(256))
         try? JSONEncoder().encode(history[name, default: []]).write(to: url, options: .atomic)
-        table.accessibilityValue = "visible=\(sample.visibleCells);maxText=\(sample.maximumTextUTF16);windowStart=\(window.lowerBound);peakRSS=\(sample.processPeakRSSBytes)"
+        table.accessibilityValue = "visible=\(sample.visibleCells);maxText=\(sample.maximumTextUTF16);windowStart=\(window.lowerBound);peakRSS=\(sample.processPeakRSSBytes);block=\(anchor.block);offset=\(anchor.utf16Offset ?? -1)"
     }
 }
 #endif

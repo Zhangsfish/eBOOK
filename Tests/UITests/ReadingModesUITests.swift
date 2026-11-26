@@ -113,8 +113,11 @@ final class ReadingModesUITests: XCTestCase {
         choose(reopened, id: "library.mode.vertical", title: "上下滚动")
         open(reopened, title: "synthetic_long_gb18030", horizontal: false)
         controls(reopened)
-        XCTAssertTrue(reopened.staticTexts["reader.anchor"].label.hasPrefix("1870/"))
-        XCTAssertFalse(reopened.textViews["reader.page.text"].exists)
         snapshot(reopened, "vertical-restored-chapter")
+        let anchor = reopened.staticTexts["reader.anchor"].label
+        let table = reopened.tables["reader.table"].value as? String ?? ""
+        print("S02B_MODE_RESTORE anchor=\(anchor) table=\(table)")
+        XCTAssertEqual(anchor, "1870/1875", table)
+        XCTAssertFalse(reopened.textViews["reader.page.text"].exists)
     }
 }
