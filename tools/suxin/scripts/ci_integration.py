@@ -121,6 +121,9 @@ def main():
             except subprocess.TimeoutExpired:
                 log.write('\nScreenshot export timed out.\n')
         screenshots = build / 's02b-picker-screenshots'
+        exported_index = build / 's02b-attachments/manifest.json'
+        if exported_index.is_file() and exported_index.stat().st_size < 200_000:
+            shutil.copyfile(exported_index, build / 's02b-screenshot-index.json')
         budget = 12 * 1024 * 1024
         for path in sorted((build / 's02b-attachments').rglob('*.png')):
             size = path.stat().st_size

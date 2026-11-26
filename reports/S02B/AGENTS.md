@@ -28,6 +28,14 @@ fork at33ca9628233dc8f002435e868d4c2e9f82766ca1, hash checked as data without in
 The resource inspector/archive driver are being updated to bundle and verify them;
 current769e04d CI clones predate these changes and cannot prove their packaging.
 Complete license/distribution review is still separate from material presence.
+
+769e04d full18.5 run45754799661 is41/42 again. Phase logs show picker creation
+but no selected callback, while fixture/direct imports coordinate and save normally.
+Moving the DEBUG library did not resolve the failure. Original UI screenshots
+were inspected locally; all three source fixtures remain listed, no App import UI.
+Next candidate uses asCopy=false: the existing scoped/coordinated importer owns
+the local copy. Real Files entries are explicitly checked enabled in the UI test.
+Full42 checks are required again; no success inferred from this code change.
 - The chosen Suxin graph is now used by the formal App, with native Swift G2P,
   a single background ORT session, short PCM queue, cache and separate rate.
 - Native scope at7c1dba2 is12/12 on both18.5 and26.5, and both unsigned arm64

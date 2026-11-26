@@ -2,13 +2,13 @@ import SwiftUI
 import UniformTypeIdentifiers
 import UIKit
 
-/// Keep the system Files UI, but retain its delegate explicitly instead of
-/// relying on SwiftUI's fileImporter presentation/callback lifetime.
+/// Files grants access to the selected document; LibraryModel coordinates the
+/// read and creates the app-owned copy. Avoid a second picker-managed copy.
 @MainActor struct BookDocumentPicker: UIViewControllerRepresentable {
     let onSelection: (URL?) -> Void
     func makeCoordinator() -> Coordinator { Coordinator(onSelection: onSelection) }
     func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.plainText, UTType(filenameExtension: "epub") ?? .data], asCopy: true)
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.plainText, UTType(filenameExtension: "epub") ?? .data], asCopy: false)
         picker.allowsMultipleSelection = false
         picker.shouldShowFileExtensions = true
         picker.delegate = context.coordinator

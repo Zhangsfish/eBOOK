@@ -300,6 +300,8 @@ final class ReaderUITests: XCTestCase {
             snapshot("system-picker-\(name)", app)
             if !file.waitForExistence(timeout: 10) { print("S00_PICKER_TREE \(app.debugDescription)") }
             XCTAssertTrue(file.waitForExistence(timeout: 10))
+            print("S02B_PICKER_TARGET enabled=\(file.isEnabled) hittable=\(file.isHittable) frame=\(file.frame)")
+            XCTAssertTrue(file.isEnabled, "The real Files entry must accept this ebook type")
             // Activate the actual filename. Row centers and icon-preview taps
             // remained in DocumentManager without selecting on both OS versions.
             XCTAssertTrue(file.isHittable); file.tap()
