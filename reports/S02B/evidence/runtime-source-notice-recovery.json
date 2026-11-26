@@ -1,0 +1,24 @@
+{
+  "binary_archive_sha256": "2c2299acbb461d26d4bac4bc85985d40e7c7177ed6072703ae0846d88b0b4599",
+  "embedded_build_info": "ORT Build Info: git-branch=HEAD, git-commit-id=33ca962, fp8-kv-cache=1, build type=Release",
+  "source_repository": "csukuangfj/onnxruntime",
+  "source_commit": "33ca9628233dc8f002435e868d4c2e9f82766ca1",
+  "files": [
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/csukuangfj/onnxruntime/33ca9628233dc8f002435e868d4c2e9f82766ca1/LICENSE",
+      "git_blob_sha": "48bc6bb4996ac924359e8e28b9ae88970e5ed3fc",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "path": "ThirdPartyNotices.txt",
+      "url": "https://raw.githubusercontent.com/csukuangfj/onnxruntime/33ca9628233dc8f002435e868d4c2e9f82766ca1/ThirdPartyNotices.txt",
+      "git_blob_sha": "fbd9f9a95f6013d8ecaef81e02b0033e5882a675",
+      "bytes": 325054,
+      "sha256": "0e07b95f3a8d6230037707c5c4a2b554d12c4cb67369669ac255635528ffcee2"
+    }
+  ],
+  "status": "RECOVERED_MATCHING_COMMIT_NOTICE_CANDIDATES_NOT_YET_BUNDLED",
+  "limits": "Embedded short commit plus fixed fork source; not a reproducible-build proof, complete static dependency BOM or model-distribution clearance."
+}

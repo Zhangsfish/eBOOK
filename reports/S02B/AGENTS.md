@@ -21,6 +21,13 @@ failure screenshots distinguish missing picker callbacks from read failures.
 Use full42 runs on both existing free standard macOS runners; preserve prior failures.
 No new beta before independent review/material clearance. Existing results below
 describe8331b9b and its tested ancestors, not the follow-up changes.
+
+Runtime-source follow-up: actual iOS/simulator binaries embed33ca962. Same-commit
+LICENSE and complete ThirdPartyNotices were recovered from the binary publisher's
+fork at33ca9628233dc8f002435e868d4c2e9f82766ca1, hash checked as data without installs.
+The resource inspector/archive driver are being updated to bundle and verify them;
+current769e04d CI clones predate these changes and cannot prove their packaging.
+Complete license/distribution review is still separate from material presence.
 - The chosen Suxin graph is now used by the formal App, with native Swift G2P,
   a single background ORT session, short PCM queue, cache and separate rate.
 - Native scope at7c1dba2 is12/12 on both18.5 and26.5, and both unsigned arm64

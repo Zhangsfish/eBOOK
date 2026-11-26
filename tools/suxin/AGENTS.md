@@ -10,6 +10,9 @@ No model training, model search or cloud synthesis. Preserve reader controls/TOC
 - manifests/: exact source hashes and generic linguistic conversion data, not weights.
 - scripts/: verified model/data preparation and author-frontended original-text oracle.
 - scripts/inspect_runtime.py: actual ZIP/hash/slice/notice inspection and Xcode-resolved binary matching.
+- It also checks both embedded ORT build stamps against33ca962 and prepares
+  the exact full-commit Microsoft LICENSE/ThirdPartyNotices from the publisher's
+  source fork. Immutable full commit/bytes/SHA are required; not a different tag.
 - NOTICE.md: actual distribution-material gaps; never label incomplete notices PASS.
 - Native tests belong to App Tests, including a real controller/model/player path.
 - ../../.local-test-data/s02b/: ignored model/frontend resources, real audio/logs.
@@ -41,3 +44,10 @@ First actual graph/playback CI at ab0eb54 compiled and synthesized/played real P
 before closing its writer. The failed result remains evidence, not a PASS.
 Fixes close the WAV writer before reopening and lengthen original queue text.
 Final implementation/evidence identities belong in the delivery report, not here.
+
+2026-11-26 owner requested Files repair. In parallel, source-notice candidates
+were recovered from csukuangfj/onnxruntime at33ca9628233dc8f002435e868d4c2e9f82766ca1,
+matching the binary's embedded33ca962. NativeNotices preparation includes these
+two exact files; Release archive verification must check their actual SHA bytes.
+Zero notices inside the original ZIP remains true. This is material recovery,
+not an independent distribution approval or reproduced binary build.

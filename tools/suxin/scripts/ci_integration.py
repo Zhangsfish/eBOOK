@@ -151,7 +151,16 @@ def main():
             data = (app / 'Suxin' / item['path']).read_bytes()
             if len(data) != item['bytes'] or hashlib.sha256(data).hexdigest() != item['sha256']:
                 raise ValueError('Archived model resource mismatch')
+        provenance = json.loads((app / 'NativeNotices/runtime-provenance.json').read_text())
+        source_notices = provenance['supplemental_source_notices']
+        if len(source_notices) != 2:
+            raise ValueError('Both exact-source runtime notice files must be bundled')
+        for item in source_notices:
+            data = (app / 'NativeNotices' / item['bundle_file']).read_bytes()
+            if len(data) != item['bytes'] or hashlib.sha256(data).hexdigest() != item['sha256']:
+                raise ValueError('Archived runtime notice mismatch')
         allowed = {app / 'Suxin/author-LICENSE.txt', app / 'Suxin/pypinyin-LICENSE.txt'}
+        allowed.update(app / 'NativeNotices' / item['bundle_file'] for item in source_notices)
         if set(app.rglob('*.txt')) != allowed or list(app.rglob('*.epub')) or list(app.rglob('*.wav')):
             raise ValueError('Unexpected book/audio/text in release bundle')
         info = plistlib.loads((app / 'Info.plist').read_bytes())
@@ -162,8 +171,9 @@ def main():
                     'architecture': archs, 'bundle_id': info['CFBundleIdentifier'], 'version': info['CFBundleShortVersionString'],
                     'app_bytes': sum(path.stat().st_size for path in app.rglob('*') if path.is_file()),
                     'model_sha256': manifest['files'][0]['sha256'], 'resource_files_verified': len(manifest['files']),
+                    'runtime_source_notice_files_verified': len(source_notices),
                     'signing': 'NOT_RUN', 'testflight': 'NOT_RUN', 'physical_device': 'NOT_RUN',
-                    'distribution_clearance': 'INCOMPLETE', 'public_binary_artifact': False}
+                    'distribution_clearance': 'PENDING_INDEPENDENT_REVIEW', 'public_binary_artifact': False}
         (build / 's02b-device-archive.json').write_text(json.dumps(metadata, indent=2) + '\n')
         print(json.dumps(metadata), flush=True)
     if code or summary['failedTests']:
