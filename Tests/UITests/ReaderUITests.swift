@@ -266,17 +266,23 @@ final class ReaderUITests: XCTestCase {
             let name = (filename as NSString).deletingPathExtension
             let file = app.staticTexts.matching(NSPredicate(format: "label == %@ OR label == %@", name, filename)).firstMatch
             let sourceFolder = "eBOOK Import Test"
-            if !app.navigationBars[sourceFolder].waitForExistence(timeout: 2) {
+            // iOS18 uses a generic navigation-bar identifier and exposes the
+            // directory title as a menu button, e.g. "eBOOK, 操作菜单".
+            let sourceTitle = app.navigationBars.buttons.matching(NSPredicate(
+                format: "label == %@ OR label BEGINSWITH %@", sourceFolder, sourceFolder + ","
+            )).firstMatch
+            func atExternalSource() -> Bool { app.navigationBars[sourceFolder].exists || sourceTitle.exists }
+            if !atExternalSource() {
                 let browse = app.tabBars["DOC.browsingModeTabBar"].buttons.matching(
                     NSPredicate(format: "label == '浏览' OR label == 'Browse'")
                 ).firstMatch
                 XCTAssertTrue(browse.waitForExistence(timeout: 30)); browse.tap()
                 let folder = app.staticTexts[sourceFolder].firstMatch
                 if !folder.waitForExistence(timeout: 2) {
-                    let backToPhone = app.buttons.matching(NSPredicate(format:
+                    let backToPhone = app.navigationBars.buttons.matching(NSPredicate(format:
                         "label == 'On My iPhone' OR label == '我的iPhone' OR label == '我的 iPhone' OR label == '在我的 iPhone 上'"
                     )).firstMatch
-                    if backToPhone.exists, backToPhone.isHittable { backToPhone.tap() }
+                    if backToPhone.waitForExistence(timeout: 5) { backToPhone.tap() }
                 }
                 if !folder.waitForExistence(timeout: 2) {
                     let phone = app.staticTexts.matching(NSPredicate(format:
@@ -289,8 +295,9 @@ final class ReaderUITests: XCTestCase {
                 let folderCell = app.collectionViews["File View"].cells.containing(.staticText, identifier: sourceFolder).firstMatch
                 XCTAssertTrue(folderCell.waitForExistence(timeout: 10)); folderCell.tap()
             }
-            XCTAssertTrue(app.navigationBars[sourceFolder].waitForExistence(timeout: 10),
-                          "Select original files from the external system provider")
+            let inSource = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in atExternalSource() }, object: app)
+            XCTAssertEqual(XCTWaiter.wait(for: [inSource], timeout: 10), .completed,
+                           "Select original files from the external system provider")
             do {
                 // Both runtimes expose icon previews separately from filename
                 // activation. Use the same native List mode on 18.5 and26.5.

@@ -65,6 +65,15 @@ simctl launch com.apple.DocumentsApp timed out30s. No UI/XCTest PASS is claimed.
 Bootstrap now observes simctl's actual dataPath/group metadata before launching,
 records state even on stock-app launch timeout, and initializes only its own
 fixture child under an existing LocalStorage group. Never create an invented group.
+4a5b716 focused run45765425726 completed1/2, cancellation PASS, selection FAIL
+before reaching the external folder: the test skipped the non-hittable-at-that-
+instant My iPhone back button and then searched for a location row inside eBOOK.
+18.5 nav-bar identifier is FullDocumentManagerViewControllerNavigationBar, with
+the folder title in a menu button. Fix these observed navigation assumptions;
+do not call this a selected-file callback failure or a completed App fix.
+Provider metadata confirms actual LocalStorage group exists; its standard storage
+directory was absent and prepared under that group. Stock Files launch timed out,
+recorded separately. Next focused run still uses original external sources.
 - The chosen Suxin graph is now used by the formal App, with native Swift G2P,
   a single background ORT session, short PCM queue, cache and separate rate.
 - Native scope at7c1dba2 is12/12 on both18.5 and26.5, and both unsigned arm64
