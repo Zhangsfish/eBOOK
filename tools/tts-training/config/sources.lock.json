@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-11-25 Asia/Shanghai",
+  "status": "SOURCE_METADATA_LOCKED_NOT_EXECUTED",
+  "code": {
+    "url": "https://github.com/OpenMOSS/MOSS-TTS-Nano.git",
+    "revision": "8b7bcc9341b3b4ef3a3a58ba1338a7d85ff133eb",
+    "license": "Apache-2.0",
+    "reviewed_files": [
+      {
+        "path": "LICENSE",
+        "bytes": 11374,
+        "git_blob": "f95ac2d6ec3449e33a18b54792e733a1701d6482",
+        "sha256": "1dc6904a1959e039b44569c6a726a611f75287051284de1b6cc0dc7712b14d11"
+      },
+      {
+        "path": "README.md",
+        "bytes": 27501,
+        "git_blob": "4b5f9e27dcfabd546201ee5b02b5514a9b96d4a8",
+        "sha256": "f46a17046efc4633e7d044385ebb249ec618c9b46c8ea8991b7bf0595e27aa64"
+      },
+      {
+        "path": "finetuning/README.md",
+        "bytes": 9317,
+        "git_blob": "fc0ee99089dea1b8f6c53634856da0a78881af93",
+        "sha256": "ac109317a84060ba445e0f52a7159f7be23ee54ed5aca677c8e27d5f03832585"
+      },
+      {
+        "path": "finetuning/README_zh.md",
+        "bytes": 9072,
+        "git_blob": "01510175f36e3df248d16729b6a43d1b75095221",
+        "sha256": "45bb7030ceb6618184bd58d8ae98a53d8983ca39e2e67c0d14c6998f0684ea98"
+      },
+      {
+        "path": "finetuning/__init__.py",
+        "bytes": 55,
+        "git_blob": "51a9f3092d9f5b60c609a1edcda09ea3e523eda6",
+        "sha256": "b3ca21bf692155fe29c02ca2ee715c813dd33fb72696eac981f26e14ab9cedbb"
+      },
+      {
+        "path": "finetuning/common.py",
+        "bytes": 5484,
+        "git_blob": "58c021b96382bae37638023595d01b9e66173ba9",
+        "sha256": "a6d9c5c1ca1bdcea84ef05bf41af9e6e2dc712bbf2acc9737918901f5ffaa081"
+      },
+      {
+        "path": "finetuning/configs/accelerate_ddp_8gpu.yaml",
+        "bytes": 278,
+        "git_blob": "00a8908948de5dd7289120196f506c48d5783f26",
+        "sha256": "879e97d6db375c169dd174b121aeb2f34aac5782cfc57ddf52ecb9a4a3761e2d"
+      },
+      {
+        "path": "finetuning/dataset.py",
+        "bytes": 10995,
+        "git_blob": "52594144da2be9d455c2d10a63327cfcb8b6f2f1",
+        "sha256": "3f8771bfc750e572638a26d9a27c525e302ac93bf54ed7f53d052e45effee94b"
+      },
+      {
+        "path": "finetuning/prepare_data.py",
+        "bytes": 8659,
+        "git_blob": "f6c17e90df98b0bc7a539f436ce2ae16d0c543a0",
+        "sha256": "fbe5f9a9b0deff768d1db435052bef369126eaace142637a957ca988f4e6120f"
+      },
+      {
+        "path": "finetuning/run_train.sh",
+        "bytes": 4153,
+        "git_blob": "5a2e89b8c160012c467b6378a04a16164a7e6cf0",
+        "sha256": "7d03c3678ff2d59c1cc0c69ededd3f4faa8f11ab6c8a593032fbc6d21faac22c"
+      },
+      {
+        "path": "finetuning/sft.py",
+        "bytes": 21031,
+        "git_blob": "58fc15bf08cec6c97d744f8c27203c27fed361d4",
+        "sha256": "96c261905aacb5b54e70911f2094740db7ab66d80ea4e396d6ddf34967cb6db3"
+      },
+      {
+        "path": "finetuning/verify.py",
+        "bytes": 5055,
+        "git_blob": "9924ee26281e3a6fa5614c2ce4343f52dba58909",
+        "sha256": "c8d569be62fcf90856bb2adf1803f13cf2afd8e17d6f2eb4de90ffe195f763b9"
+      },
+      {
+        "path": "infer.py",
+        "bytes": 14618,
+        "git_blob": "99844b87891eb959890dfcc325b5431b87d02677",
+        "sha256": "8b55566c9198d383bccc483f0e07ec1680f7e7ed0e22de9e648417afe8351b00"
+      },
+      {
+        "path": "moss_tts_nano/defaults.py",
+        "bytes": 350,
+        "git_blob": "aaae6252c213ba1b6c1a5a6f604bc6c33472722f",
+        "sha256": "a559ab8042bf69ba6a05515e7f3f421e288e02d3a12a87222ebde4615c77a2a2"
+      },
+      {
+        "path": "onnx/export_hf_to_tts_onnx.py",
+        "bytes": 8331,
+        "git_blob": "51dc1feedc42ee0e9f2c32d6d3e5ddca2c1c646d",
+        "sha256": "d037340611b24765a8163bba170ba9fffaeddf14a35d15174661ffb7283b31a4"
+      },
+      {
+        "path": "onnx/export_moss_tts_browser_onnx.py",
+        "bytes": 61975,
+        "git_blob": "920ed0072afa8bd05351a9c2d9e4962c23c39b20",
+        "sha256": "1dc14fca3f642e522f28c1218a9a85f73eb528ab44db889307a72b3d3e146a9f"
+      },
+      {
+        "path": "pyproject.toml",
+        "bytes": 1046,
+        "git_blob": "91ceff707cd6f641174cb5df9d6f598588c13ba1",
+        "sha256": "00747097915da5e0d1a61e49083f0f2200113afaf7c6d4529d1388ef3d893702"
+      },
+      {
+        "path": "requirements.txt",
+        "bytes": 198,
+        "git_blob": "1cf723d5568015f1f0d96ff4e2c775ce5428c544",
+        "sha256": "b6acfa79d55f2c9bc12203be5ca0b6d53562084e37fdbf5a9fdbc6a031976c98"
+      },
+      {
+        "path": "text_normalization_pipeline.py",
+        "bytes": 11909,
+        "git_blob": "f755d7fc47e296f46ffcfd0dc53075e70af6d812",
+        "sha256": "38bd27cb560b10fadf3d59745802fa99f20d86887da43c17cde6d2145bec03ad"
+      }
+    ]
+  },
+  "reference": {
+    "path": "assets/audio/zh_6.wav",
+    "bytes": 837198,
+    "git_blob": "1cb86e2050c71b0d07b14963d59e5676f55b5e36",
+    "sha256": "f618138a1bcb6833e9092cb06c8993c1299cd587eb4dabe61232a4ca93288ae3",
+    "speaker_rights": "NOT_ESTABLISHED"
+  },
+  "models": [
+    {
+      "repo": "OpenMOSS-Team/MOSS-TTS-Nano-100M",
+      "revision": "44502f80dbf9743528fa921cc544d662c685ebec",
+      "local_name": "MOSS-TTS-Nano",
+      "model_card_license": "apache-2.0",
+      "weight_download_verified": false,
+      "files": [
+        {
+          "path": "__init__.py",
+          "bytes": 800,
+          "sha256": "1e297cb29e5780863a21415c8f5c61aad9aebaae807bae20a9a94492249495cb",
+          "git_blob": "d1a2dbc993c113fe412ffa450c5f6746a44fbbc9",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "config.json",
+          "bytes": 5210,
+          "sha256": "ba36b08c80d4ae0805a2bab32b6ac90ec0d1815d01d3854ba42811db1d5bde99",
+          "git_blob": "4404cf3df25cd71a3ac700142d4e87822f4a92e1",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "configuration_moss_tts_nano.py",
+          "bytes": 5033,
+          "sha256": "6f77da729d829e57f08872fcee10e05bb4358305cb175747650d8d05f23c1020",
+          "git_blob": "11bddc1ae3321d521dead62f459234a0a39d860a",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "gpt2_decoder.py",
+          "bytes": 26647,
+          "sha256": "cee01966c5eeeb8f84b83c7a197615b2d7fa876118992dae8a8f851688d868d7",
+          "git_blob": "091ab40301b158a22eee797b04af19bb86a47f52",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "modeling_moss_tts_nano.py",
+          "bytes": 110984,
+          "sha256": "b68ffef1173eb39625dc9321f4ca4bfb7644dff54463e08df348e045b8cb5e04",
+          "git_blob": "b9db358fbe00d0795db5561536d00f2180149121",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "prompting.py",
+          "bytes": 2727,
+          "sha256": "24c1675e08071fc4b70fbc8f531c5f073234b029c55f3f6a8590891c2cb5f583",
+          "git_blob": "12f7855e1da446a91cc2584b5e95203598536dc0",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "pytorch_model.bin",
+          "bytes": 234693095,
+          "sha256": "24003f2f11ac8a2cbf70514db2d8f1c02fb451aa6b3c0bffc9da09f31cd7caa5",
+          "git_blob": "bb41a696b99f5831520009626626f4f97456c0fa",
+          "verification": "official_lfs_metadata_only_not_downloaded"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "bytes": 552,
+          "sha256": "358c249e2fb29060c6b73157d428853b0c48710deffc8ee670ab1013880946c9",
+          "git_blob": "a782b2f1cdab4d0bacb2dc0f85d02c4b1e31f0bd",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "tokenization_moss_tts_nano.py",
+          "bytes": 3558,
+          "sha256": "22872a5cf91aaefcd93b2563a7c9f01996ec4c8da8f1efd670cbe4710474a6cd",
+          "git_blob": "d0a5e1e1201934f9c71595eab33238b8b2307295",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "tokenizer.model",
+          "bytes": 470897,
+          "sha256": "c353ee1479b536bf414c1b247f5542b6607fb8ae91320e5af1781fee200fddff",
+          "git_blob": "d3f5d315af79b92125f71a8ab68c8759c1b3a294",
+          "verification": "official_lfs_metadata_only_not_downloaded"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 1140,
+          "sha256": "2e00db82fd2ba8020e7263a25f31bb8ec6c5cefbfe0b5e0bbd4723ae874d1be1",
+          "git_blob": "38fef7d518a51e58b1294c857049a15197a77457",
+          "verification": "downloaded_small_file_git_blob_checked"
+        }
+      ]
+    },
+    {
+      "repo": "OpenMOSS-Team/MOSS-Audio-Tokenizer-Nano",
+      "revision": "6aa02b01e445cc585582cf0ba480bc3ea6c8dd68",
+      "local_name": "MOSS-Audio-Tokenizer-Nano",
+      "model_card_license": "apache-2.0",
+      "weight_download_verified": false,
+      "files": [
+        {
+          "path": "__init__.py",
+          "bytes": 52,
+          "sha256": "ed0b4910a5e53b1dfc3234cfcf96e2c6890d339f9134a3dfed8481d01b3768fd",
+          "git_blob": "be87d805388ff76659c35e7273e8c3687b55eeff",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "config.json",
+          "bytes": 7385,
+          "sha256": "b38892f8ba00efc18af2ad9eca999c7603f871548c2e7f99258cb1cefc70ee06",
+          "git_blob": "1789fbb15e81a782e83a726998b7c910aade93cf",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "configuration_moss_audio_tokenizer.py",
+          "bytes": 19249,
+          "sha256": "b2d67dc4581e70f4b69b2d7eccefe32581d0c5192fe4d97fe1830e94a255b8aa",
+          "git_blob": "2efd84a7f1b9682d530616e434b13b8dec560136",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "model-00001-of-00001.safetensors",
+          "bytes": 87922568,
+          "sha256": "34d9880d805eecb21bde975202b1c256dbd0eb98c8680b9d3aeffd2bc6ac2f67",
+          "git_blob": "0eb20a3607f11c3070a66415c638cdf79af3e82a",
+          "verification": "official_lfs_metadata_only_not_downloaded"
+        },
+        {
+          "path": "model.safetensors.index.json",
+          "bytes": 34346,
+          "sha256": "2bf639e2c37c8502b1d0d92bf616b8108cb9975d42f587487a103682575b1d6d",
+          "git_blob": "c1e82d52cc62a951fa73edf0df3980215c516832",
+          "verification": "downloaded_small_file_git_blob_checked"
+        },
+        {
+          "path": "modeling_moss_audio_tokenizer.py",
+          "bytes": 138814,
+          "sha256": "b14af7c188944da5101adbd4aaa9c3617d66b83507f0efbd6eb416381a105930",
+          "git_blob": "17fc9d059a1dc0fede4cfd1dfed2cffaef70a4c1",
+          "verification": "downloaded_small_file_git_blob_checked"
+        }
+      ]
+    }
+  ],
+  "onnx_reference_metadata": [
+    {
+      "repo": "OpenMOSS-Team/MOSS-TTS-Nano-100M-ONNX",
+      "revision": "f52645cb467506d8e18e746ddd59482685b74e58",
+      "runtime_bytes": 672115998,
+      "downloaded": false
+    },
+    {
+      "repo": "OpenMOSS-Team/MOSS-Audio-Tokenizer-Nano-ONNX",
+      "revision": "ceff0d0749bfb3fa2d61149794ec6feef0d1e1ae",
+      "runtime_bytes": 90572161,
+      "downloaded": false
+    }
+  ]
+}

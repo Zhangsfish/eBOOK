@@ -1,0 +1,4 @@
+{
+  "torch": "https://download-r2.pytorch.org/whl/cu118/torch-2.7.0%2Bcu118-cp310-cp310-manylinux_2_28_x86_64.whl#sha256=8c25f2641ef57d55aeeb56f5d616186400119a400b0232281f963218ac1bc92b",
+  "torchaudio": "https://download-r2.pytorch.org/whl/cu118/torchaudio-2.7.0%2Bcu118-cp310-cp310-manylinux_2_28_x86_64.whl#sha256=d35be8a9c6669a03670ff249b0b501174cc935a7480412bb862cae186e8e3b1c"
+}
