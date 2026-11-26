@@ -117,7 +117,16 @@ final class ReadingModesUITests: XCTestCase {
         let anchor = reopened.staticTexts["reader.anchor"].label
         let table = reopened.tables["reader.table"].value as? String ?? ""
         print("S02B_MODE_RESTORE anchor=\(anchor) table=\(table)")
-        XCTAssertEqual(anchor, "1870/1875", table)
+        // SwiftUI localizes interpolated integers (for example1,870). Compare
+        // the actual numbers, then independently verify the precise source anchor.
+        let numbers = anchor.components(separatedBy: "/").map { $0.filter(\.isNumber) }
+        XCTAssertEqual(numbers, ["1870", "1875"], "\(anchor); \(table)")
+        let fields = Dictionary(uniqueKeysWithValues: table.components(separatedBy: ";").compactMap { value -> (String, String)? in
+            let pair = value.components(separatedBy: "=")
+            return pair.count == 2 ? (pair[0], pair[1]) : nil
+        })
+        XCTAssertEqual(fields["block"], "1869", table)
+        XCTAssertEqual(fields["offset"], "0", table)
         XCTAssertFalse(reopened.textViews["reader.page.text"].exists)
     }
 }
