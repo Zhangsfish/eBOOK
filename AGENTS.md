@@ -2,7 +2,7 @@
 
 ## Active TTS workstreams (owner direction, 2026-11-25)
 - Read `docs/TTS_WORKSTREAMS.md` before TTS work. The owner has explicitly split two conversations in this repository.
-- `codex/s02b-suxin-ios-integration`: READY_FOR_AUDIT after owner2026-11-26 Files follow-up. Files passes on both runtimes; retain BLOCKED_QA for the Apple range assertion and unresolved26.5 test-host bootstrap failure. Prior audit delivery8331b9b remains recorded. Use `tasks/S02B_SUXIN_IOS_INTEGRATION.md` and its report; retain independent review, do not self-merge or upload a new beta before review.
+- `codex/s02b-suxin-ios-integration`: READY for the owner-requested audit repair round and internal phone-beta preparation (2026-11-26). Read `tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md` and the independent review. Fix R1–R3, diagnose existing iOS26 failures and produce exact test/package evidence; stop at READY_FOR_AUDIT for corrected-code review. The existing owner-only TestFlight path proceeds after that review. Historical source-freeze/no-rerun wording does not block this newly authorized round.
 - `codex/s02a4-teacher-student-tts`: READY for independent later-version model research; use `tasks/S02A4_TEACHER_STUDENT_TTS.md`. It must not edit the first-release App, signing/version or deployment workflow.
 - Follow the task matching the active branch. First-release Suxin delivery does not depend on training. Historical S00-only / no-S02B restrictions do not cancel this new explicit owner authorization. Keep independent review, local-book privacy and honest device evidence.
 

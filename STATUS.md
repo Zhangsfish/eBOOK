@@ -1,5 +1,16 @@
 # Project Status
 
+## Current task — audit repair and phone beta (owner2026-11-26)
+
+- State: **READY**. Execute [S02B_R1_REPAIR_AND_PHONE_BETA.md](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md) in `codex/s02b-suxin-ios-integration` / PR #12.
+- Independent audit: [REQUEST_CHANGES](reports/S02B/INDEPENDENT_REVIEW_20261126.md), implementation ae3592fa3305a4d02a5774386c4e0098b95dba8e; audit handoff e1bb0df75d944d28b2f7e8860b5213bc319a89c0.
+- Repair R1 package allowlist, R2 time splitting, R3 cross-chunk pronunciation context; diagnose retained iOS26 callback/host failures and collect meaningful targeted/full regression evidence.
+- After corrected-code independent review and internal-use resource checks, use the existing authorized owner internal-TestFlight path to obtain phone feedback. Device acceptance is gathered using that test build; it is not a prerequisite for obtaining the test build.
+- This commit dispatches the written task only. New fixes/tests/signing have not executed; no new available phone build is claimed. The last recorded39.1 is Apple-only.
+- Training PR #11, frozen PR #7 and Android work remain separate. No self-merge or public release.
+
+## Previous delivery snapshot (retained; current READY task above supersedes its stop/freeze wording)
+
 - Current owner decision (2026-11-25): two independent conversations share this repository; Suxin ships first and model training targets a later version.
 - Current branch/task: `codex/s02b-suxin-ios-integration` / [S02B — Suxin integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
 - State: **READY_FOR_AUDIT — Files verified; remaining BLOCKED_QA / physical BLOCKED_ENV**.

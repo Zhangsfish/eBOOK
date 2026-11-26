@@ -1,5 +1,14 @@
 # S02B Suxin production integration support
 
+## Current owner-authorized repair round (2026-11-26)
+READY: read repository-root `tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md`.
+The owner has requested audit repairs and early internal-phone testing. R1–R3 fixes,
+relevant code/resource/test changes and diagnostic reruns are now authorized within PR12.
+Historical source-freeze/stop-rerun wording below describes the prior delivery and must not block this task.
+Preserve all old evidence. Corrected code goes through independent review; then use the existing authorized
+owner-only TestFlight path for a test build, without requiring completed phone acceptance before installation.
+No automatic merge, public release, model training or unrelated branch changes.
+
 Authority: tasks/S02B_SUXIN_IOS_INTEGRATION.md and docs/TTS_WORKSTREAMS.md.
 Work only in E:/myself/eBOOK-s02b, branch codex/s02b-suxin-ios-integration / PR12.
 Start baseline1eb0eef18e7011feb8034a393f084a91483b9a8e (reader main83fa0d9).
