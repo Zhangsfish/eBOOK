@@ -20,11 +20,17 @@ struct ReaderView: View {
         Group {
             if let document, let storage = library.storage {
                 ZStack(alignment: .bottomTrailing) {
-                    ReaderTable(document: document, storage: storage, bookID: bookID,
-                                preferences: library.state.preferences, jump: jump) { anchor in
-                        current = anchor
-                        library.updateReading(bookID, anchor: anchor, progress: document.progress(block: anchor.block, fraction: anchor.fraction))
-                    } onError: { loadError = $0 }
+                    Group {
+                        if library.state.preferences.readingMode == .horizontal {
+                            ReaderPages(document: document, storage: storage, bookID: bookID,
+                                preferences: library.state.preferences, jump: jump,
+                                onPosition: { moved($0, document: document) }, onError: { loadError = $0 })
+                        } else {
+                            ReaderTable(document: document, storage: storage, bookID: bookID,
+                                preferences: library.state.preferences, jump: jump,
+                                onPosition: { moved($0, document: document) }, onError: { loadError = $0 })
+                        }
+                    }
                     // Keep the text viewport stable when controls appear/disappear.
                     // The quiet bottom margin also keeps the entry off the text.
                     .padding(.bottom, 44)
@@ -95,7 +101,7 @@ struct ReaderView: View {
             do {
                 let loaded = try storage.document(for: bookID)
                 current = record.reading
-                jump = ReaderJump(block: current.block, fraction: current.fraction)
+                jump = ReaderJump(block: current.block, fraction: current.fraction, utf16Offset: current.utf16Offset)
                 document = loaded
             } catch { loadError = error.localizedDescription }
         }
@@ -103,6 +109,11 @@ struct ReaderView: View {
         .alert("正文读取失败", isPresented: Binding(get: { document != nil && loadError != nil }, set: { if !$0 { loadError = nil } })) {
             Button("好") { loadError = nil }
         } message: { Text(loadError ?? "") }
+    }
+
+    private func moved(_ anchor: ReadingAnchor, document: BookDocument) {
+        current = anchor
+        library.updateReading(bookID, anchor: anchor, progress: document.progress(block: anchor.block, fraction: anchor.fraction))
     }
 
     private func readingControls(_ document: BookDocument) -> some View {
@@ -235,7 +246,7 @@ struct ReaderView: View {
             Button("从当前阅读位置开始朗读") {
                 ensureSpeech(document, storage)
                 let length = document.blocks[current.block].utf16Count
-                speech.seek(TextPosition(block: current.block, utf16Offset: Int(Double(length) * current.fraction)))
+                speech.seek(TextPosition(block: current.block, utf16Offset: current.utf16Offset ?? Int(Double(length) * current.fraction)))
                 speech.play()
             }.font(.caption).padding(.bottom, 4)
         }.padding(.horizontal).background(.bar)

@@ -1,15 +1,16 @@
 import SwiftUI
 import UniformTypeIdentifiers
+import UIKit
 
 struct LibraryView: View {
     @EnvironmentObject private var library: LibraryModel
     @EnvironmentObject private var speech: SpeechController
     @State private var importing = false
-    @State private var encoding: TextEncoding?
+    @State private var path: [UUID] = []
     @State private var removing: BookRecord?
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             Group {
                 if library.state.books.isEmpty {
                     ContentUnavailableView {
@@ -20,7 +21,7 @@ struct LibraryView: View {
                 } else {
                     List {
                         ForEach(library.state.books) { book in
-                            NavigationLink { ReaderView(bookID: book.id) } label: {
+                            NavigationLink(value: book.id) {
                                 HStack(spacing: 16) {
                                     Image(systemName: "book.closed.fill").font(.title).foregroundStyle(.brown)
                                         .frame(width: 44, height: 62).background(.brown.opacity(0.09), in: RoundedRectangle(cornerRadius: 8))
@@ -32,21 +33,38 @@ struct LibraryView: View {
                                     }
                                 }.padding(.vertical, 7)
                             }.accessibilityIdentifier("library.book.\(book.title)")
+                                .listRowBackground(Color(shelfBackground))
                                 .swipeActions { Button("移除", role: .destructive) { removing = book } }
                         }
                         Section { Text("书籍保存在本机，仅导入你有权使用的文件。").font(.footnote).foregroundStyle(.secondary) }
-                    }.listStyle(.plain)
+                    }.listStyle(.plain).scrollContentBackground(.hidden)
                 }
             }
+            .background(Color(shelfBackground))
+            .navigationDestination(for: UUID.self) { ReaderView(bookID: $0) }
             .navigationTitle("书架")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
-                        Picker("TXT 编码", selection: $encoding) {
-                            Text("自动识别").tag(nil as TextEncoding?)
-                            ForEach(TextEncoding.allCases, id: \.self) { Text($0.rawValue).tag(Optional($0)) }
+                        Section("翻页方式") {
+                            ForEach(ReadingMode.allCases, id: \.self) { mode in
+                                Button { setMode(mode) } label: {
+                                    if library.state.preferences.readingMode == mode { Label(mode.title, systemImage: "checkmark") }
+                                    else { Text(mode.title) }
+                                }.accessibilityIdentifier("library.mode.\(mode.rawValue)")
+                            }
                         }
-                    } label: { Label("TXT 编码", systemImage: "textformat.abc") }
+                        Section("书架外观") {
+                            ForEach(ShelfAppearance.allCases, id: \.self) { appearance in
+                                Button { setShelf(appearance) } label: {
+                                    if library.state.preferences.shelfAppearance == appearance { Label(appearance.title, systemImage: "checkmark") }
+                                    else { Text(appearance.title) }
+                                }.accessibilityIdentifier("library.appearance.\(appearance.rawValue)")
+                            }
+                        }
+                    } label: { Label("翻页与书架外观", systemImage: "slider.horizontal.3") }
+                    .accessibilityIdentifier("library.preferences")
+                    .accessibilityValue("\(library.state.preferences.readingMode.title)，书架\(library.state.preferences.shelfAppearance.title)")
                 }
                 ToolbarItem(placement: .topBarTrailing) { importButton }
             }
@@ -73,7 +91,7 @@ struct LibraryView: View {
             .sheet(isPresented: $importing) {
                 BookDocumentPicker { url in
                     importing = false
-                    if let url { Task { await library.importFile(url, encoding: encoding) } }
+                    if let url { Task { await library.importFile(url, encoding: nil) } }
                 }
             }
             .alert("无法完成操作", isPresented: Binding(get: { library.error != nil }, set: { if !$0 { library.error = nil } })) {
@@ -91,6 +109,30 @@ struct LibraryView: View {
             } message: { Text("将移除本机书架副本和进度，原始文件保留。") }
         }
         .tint(.brown)
+        // The navigation destination explicitly uses the READER theme. Shelf
+        // appearance controls only the root; neither preference overwrites the other.
+        .preferredColorScheme(path.isEmpty ? shelfScheme : (library.state.preferences.theme == .dark ? .dark : .light))
+    }
+    private var shelfScheme: ColorScheme? {
+        switch library.state.preferences.shelfAppearance {
+        case .system: return nil
+        case .dark: return .dark
+        case .light, .warm: return .light
+        }
+    }
+    private var shelfBackground: UIColor {
+        switch library.state.preferences.shelfAppearance {
+        case .system: return .systemBackground
+        case .light: return ReaderTheme.light.background
+        case .warm: return ReaderTheme.warm.background
+        case .dark: return ReaderTheme.dark.background
+        }
+    }
+    private func setMode(_ mode: ReadingMode) {
+        var value = library.state.preferences; value.readingMode = mode; library.setPreferences(value)
+    }
+    private func setShelf(_ appearance: ShelfAppearance) {
+        var value = library.state.preferences; value.shelfAppearance = appearance; library.setPreferences(value)
     }
     private var importButton: some View {
         Button { importing = true } label: { Label("导入书籍", systemImage: "plus") }

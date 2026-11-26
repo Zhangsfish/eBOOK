@@ -1,0 +1,120 @@
+import XCTest
+
+final class ReadingModesUITests: XCTestCase {
+    override func setUpWithError() throws { continueAfterFailure = false }
+    private func launch(_ fixture: String, reset: Bool = true) -> XCUIApplication {
+        let app = XCUIApplication()
+        app.launchArguments = ["--uitesting", "--test-import", fixture, "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
+        if reset { app.launchArguments.append("--reset-library") }
+        app.launch(); XCTAssertTrue(app.buttons["library.preferences"].waitForExistence(timeout: 180))
+        return app
+    }
+    private func choose(_ app: XCUIApplication, id: String, title: String) {
+        app.buttons["library.preferences"].tap()
+        let identified = app.buttons[id]
+        let item = identified.waitForExistence(timeout: 3) ? identified : app.buttons[title]
+        XCTAssertTrue(item.waitForExistence(timeout: 10)); item.tap()
+        let saved = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            (app.buttons["library.preferences"].value as? String)?.contains(title) == true
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [saved], timeout: 10), .completed)
+    }
+    private func open(_ app: XCUIApplication, title: String, horizontal: Bool) {
+        let book = app.buttons["library.book.\(title)"]
+        XCTAssertTrue(book.waitForExistence(timeout: 180)); book.tap()
+        let content = horizontal ? app.textViews["reader.page.text"] : app.tables["reader.table"]
+        XCTAssertTrue(content.waitForExistence(timeout: 20))
+        XCTAssertFalse(app.buttons["library.preferences"].exists)
+    }
+    private func controls(_ app: XCUIApplication) {
+        let entry = app.buttons["reader.controls"]
+        XCTAssertTrue(entry.waitForExistence(timeout: 10)); entry.tap()
+        XCTAssertTrue(app.buttons["reader.back"].waitForExistence(timeout: 10))
+    }
+    private func snapshot(_ app: XCUIApplication, _ name: String) {
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = "reading-modes-" + name; attachment.lifetime = .keepAlways; add(attachment)
+    }
+    private func pagePosition(_ app: XCUIApplication) -> String {
+        let value = app.textViews["reader.page.text"].value as? String ?? ""
+        return value.components(separatedBy: ";visibleUTF16=")[0]
+    }
+    private func waitForPosition(_ expected: String, app: XCUIApplication) {
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in self.pagePosition(app) == expected }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 15), .completed)
+    }
+    private func swipe(_ app: XCUIApplication, left: Bool) {
+        let before = pagePosition(app)
+        if left { app.textViews["reader.page.text"].swipeLeft() }
+        else { app.textViews["reader.page.text"].swipeRight() }
+        let changed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            !self.pagePosition(app).isEmpty && self.pagePosition(app) != before
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 15), .completed)
+    }
+    func testShelfAppearanceAndReaderThemePersistIndependently() {
+        let app = launch("synthetic.epub")
+        choose(app, id: "library.appearance.dark", title: "夜间")
+        snapshot(app, "shelf-night")
+        open(app, title: "合成的清晨", horizontal: false)
+        snapshot(app, "reader-warm-shelf-night")
+        controls(app); app.buttons["reader.settings"].tap()
+        XCTAssertTrue(app.buttons["护眼"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["护眼"].isSelected)
+        XCTAssertFalse(app.buttons["library.mode.horizontal"].exists)
+        app.buttons["明亮"].tap(); app.buttons["完成"].tap()
+        snapshot(app, "reader-light-shelf-night")
+        controls(app); app.buttons["reader.back"].tap()
+        XCTAssertTrue(app.buttons["library.preferences"].waitForExistence(timeout: 10))
+        XCTAssertTrue((app.buttons["library.preferences"].value as? String)?.contains("书架夜间") == true)
+        snapshot(app, "shelf-still-night")
+        app.terminate()
+        let reopened = launch("synthetic.epub", reset: false)
+        XCTAssertTrue((reopened.buttons["library.preferences"].value as? String)?.contains("书架夜间") == true)
+        open(reopened, title: "合成的清晨", horizontal: false)
+        controls(reopened); reopened.buttons["reader.settings"].tap()
+        XCTAssertTrue(reopened.buttons["明亮"].waitForExistence(timeout: 10))
+        XCTAssertTrue(reopened.buttons["明亮"].isSelected)
+    }
+    func testHorizontalPagesReturnRestoreTOCAndSwitchToVertical() {
+        let app = launch("synthetic_long_gb18030.txt")
+        choose(app, id: "library.mode.horizontal", title: "左右翻页")
+        open(app, title: "synthetic_long_gb18030", horizontal: true)
+        let beginning = pagePosition(app)
+        XCTAssertTrue(beginning.contains("block=0;offset=0"))
+        swipe(app, left: true); swipe(app, left: false); waitForPosition(beginning, app: app)
+        for _ in 0..<3 { swipe(app, left: true) }
+        let saved = pagePosition(app)
+        XCTAssertNotEqual(saved, beginning)
+        snapshot(app, "horizontal-page")
+        app.terminate()
+        let reopened = launch("synthetic_long_gb18030.txt", reset: false)
+        open(reopened, title: "synthetic_long_gb18030", horizontal: true)
+        waitForPosition(saved, app: reopened)
+        controls(reopened); reopened.buttons["reader.toc"].tap()
+        let search = reopened.searchFields.firstMatch
+        XCTAssertTrue(search.waitForExistence(timeout: 10)); search.tap(); search.typeText("624")
+        let target = reopened.buttons["toc.entry.623"]
+        XCTAssertTrue(target.waitForExistence(timeout: 10)); target.tap()
+        waitForPosition("block=1869;offset=0", app: reopened)
+        controls(reopened); reopened.buttons["reader.toc"].tap()
+        let selected = reopened.buttons["toc.entry.623"]
+        XCTAssertTrue(selected.waitForExistence(timeout: 15)); XCTAssertTrue(selected.isSelected); XCTAssertTrue(selected.isHittable)
+        snapshot(reopened, "toc-current-horizontal")
+        reopened.buttons["完成"].tap()
+        controls(reopened); reopened.buttons["reader.settings"].tap()
+        let font = reopened.sliders["settings.font"]
+        XCTAssertTrue(font.waitForExistence(timeout: 10)); font.adjust(toNormalizedSliderPosition: 0.75)
+        reopened.buttons["完成"].tap()
+        waitForPosition("block=1869;offset=0", app: reopened)
+        snapshot(reopened, "horizontal-large-font")
+        controls(reopened); reopened.buttons["reader.back"].tap()
+        XCTAssertTrue(reopened.buttons["library.preferences"].waitForExistence(timeout: 10))
+        choose(reopened, id: "library.mode.vertical", title: "上下滚动")
+        open(reopened, title: "synthetic_long_gb18030", horizontal: false)
+        controls(reopened)
+        XCTAssertTrue(reopened.staticTexts["reader.anchor"].label.hasPrefix("1870/"))
+        XCTAssertFalse(reopened.textViews["reader.page.text"].exists)
+        snapshot(reopened, "vertical-restored-chapter")
+    }
+}

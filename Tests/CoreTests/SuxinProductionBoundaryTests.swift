@@ -34,6 +34,7 @@ import XCTest
         XCTAssertEqual(oracle.cases.count, 12)
         let engine = try model()
         for row in oracle.cases {
+            print("S02B_AUTHOR_BOUNDARY_CASE " + row.id)
             let parts = try await production(row.text, model: engine)
             XCTAssertEqual(body(parts), Array(row.ids.dropFirst().dropLast()), row.id)
         }
@@ -42,6 +43,7 @@ import XCTest
         let engine = try model()
         for prefix in Array(14...21) + Array(49...56) + Array(235...242) {
             for token in ["12:05", "2026年", "1234", "12.05"] {
+                print("S02B_NUMERIC_BOUNDARY prefix=\(prefix) token=\(token)")
                 let text = String(repeating: "甲", count: prefix) + token + "。小宁走到门口，读完了这段故事。"
                 let parts = try await production(text, model: engine)
                 let reference = try await engine.prepare(text)

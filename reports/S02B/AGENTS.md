@@ -82,7 +82,9 @@ without rerunning the actual archive checks.
 - evidence/: only sanitized small JSON/log metadata, exact test SHA and CI URL.
 - ../../.local-test-data/s02b/files-followup/: ignored raw CI downloads and original
   diagnostic PNGs. Do not add binaries/audio/private books to Git or public artifacts.
-CI may export only bounded original-fixture failure PNGs, never user books.
+CI may export bounded original-fixture UI PNGs for failures and requested mode/theme
+visual verification, never user books. Screenshots remain CI artifacts/local review;
+public reports commit only small sanitized metadata, not new PNGs or audio/models.
 
 ## Remaining phone validation
 

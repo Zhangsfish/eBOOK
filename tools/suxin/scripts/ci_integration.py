@@ -176,7 +176,7 @@ def main():
     result['validation_errors'] = errors
     if errors: result['status'] = 'FAIL_INCOMPLETE_METHOD_OR_NEURAL_EVIDENCE'
     (build / 's02b-result.json').write_text(json.dumps(result, indent=2) + '\n')
-    if code and args.scope in ['all', 'picker']:
+    if args.scope in ['all', 'picker']:
         # Only this isolated simulator's original synthetic-fixture UI is
         # captured. Never export App bundles, audio or imported user books.
         with (build / 's02b-screenshots-export.log').open('w') as log:

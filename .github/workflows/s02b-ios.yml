@@ -40,7 +40,7 @@ jobs:
         env:
           S02B_SCOPE: ${{ inputs.scope || 'all' }}
         run: python3 tools/suxin/scripts/ci_integration.py --scope "$S02B_SCOPE"
-      - name: Upload original-test logs, metadata and failure screenshots
+      - name: Upload original-test logs, metadata and bounded UI screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

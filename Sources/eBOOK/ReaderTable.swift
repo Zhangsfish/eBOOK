@@ -8,6 +8,7 @@ import Darwin
 struct ReaderJump: Equatable {
     var block: Int
     var fraction: Double = 0
+    var utf16Offset: Int? = nil
     var revision = UUID()
 }
 
@@ -108,7 +109,7 @@ struct ReaderTable: UIViewRepresentable {
         }
         if coordinator.lastJump != jump.revision {
             coordinator.lastJump = jump.revision
-            restore = ReadingAnchor(block: jump.block, fraction: jump.fraction)
+            restore = ReadingAnchor(block: jump.block, fraction: jump.fraction, utf16Offset: jump.utf16Offset)
         }
         if let restore {
             coordinator.requestRestore(restore)
@@ -116,7 +117,7 @@ struct ReaderTable: UIViewRepresentable {
     }
     static func dismantleUIView(_ uiView: UITableView, coordinator: Coordinator) { coordinator.report(force: true) }
 
-    final class Coordinator: NSObject, UITableViewDataSource, UITableViewDelegate {
+    @MainActor final class Coordinator: NSObject, UITableViewDataSource, UITableViewDelegate {
         var parent: ReaderTable
         weak var table: UITableView?
         var lastJump: UUID?
@@ -131,6 +132,7 @@ struct ReaderTable: UIViewRepresentable {
         private var lastKnownAnchor: ReadingAnchor?
         private var heightCache: [Int: CGFloat] = [:]
         private var heightWidth: CGFloat = 0
+        private var lineMaps: [Int: ReaderLineMap] = [:]
         init(_ parent: ReaderTable) {
             self.parent = parent
             window = ReadingWindow(total: parent.document.blocks.count)
@@ -201,11 +203,19 @@ struct ReaderTable: UIViewRepresentable {
             let top = table.contentOffset.y + table.adjustedContentInset.top
             let visible = table.indexPathForRow(at: CGPoint(x: 30, y: top + 1)) ?? first
             let rect = table.rectForRow(at: visible)
-            return ReadingAnchor(block: window.lowerBound + visible.row, fraction: min(0.999, max(0, (top - rect.minY) / max(1, rect.height))))
+            let index = window.lowerBound + visible.row
+            let block = parent.document.blocks[index]
+            var offset: Int? = block.imagePath == nil ? nil : 0
+            if block.imagePath == nil, let text = try? attributedText(for: block) {
+                if lineMaps[index] == nil { lineMaps[index] = ReaderLineMap(text: text, width: table.bounds.width - 48) }
+                offset = lineMaps[index]?.offset(atY: max(0, top - rect.minY - 8))
+            }
+            return ReadingAnchor(block: index, fraction: min(0.999, max(0, (top - rect.minY) / max(1, rect.height))), utf16Offset: offset)
         }
         func reloadRows() {
             restoring = true
             heightCache.removeAll()
+            lineMaps.removeAll()
             table?.reloadData(); table?.layoutIfNeeded()
             // Keep scroll reports suspended until the queued anchor restoration.
         }
@@ -220,6 +230,7 @@ struct ReaderTable: UIViewRepresentable {
         func widthChanged() {
             let anchor = pendingAnchor ?? lastKnownAnchor ?? ReadingAnchor(block: parent.jump.block, fraction: parent.jump.fraction)
             heightCache.removeAll()
+            lineMaps.removeAll()
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 self.reloadRows(); self.requestRestore(anchor)
@@ -230,12 +241,18 @@ struct ReaderTable: UIViewRepresentable {
             restoring = true
             let block = min(max(0, anchor.block), parent.document.blocks.count - 1)
             let nextWindow = ReadingWindow(total: parent.document.blocks.count, anchor: block)
-            if nextWindow != window { window = nextWindow; heightCache.removeAll(); table.reloadData() }
+            if nextWindow != window { window = nextWindow; heightCache.removeAll(); lineMaps.removeAll(); table.reloadData() }
             let path = IndexPath(row: block - window.lowerBound, section: 0)
             table.scrollToRow(at: path, at: .top, animated: false)
             table.layoutIfNeeded()
             let rect = table.rectForRow(at: path)
-            let desired = rect.minY + min(0.999, max(0, anchor.fraction)) * rect.height - table.adjustedContentInset.top
+            var within = min(0.999, max(0, anchor.fraction)) * rect.height
+            if let offset = anchor.utf16Offset, parent.document.blocks[block].imagePath == nil,
+               let text = try? attributedText(for: parent.document.blocks[block]) {
+                let map = ReaderLineMap(text: text, width: table.bounds.width - 48)
+                lineMaps[block] = map; within = 8 + map.y(for: offset)
+            }
+            let desired = rect.minY + within - table.adjustedContentInset.top
             let maximum = max(-table.adjustedContentInset.top, table.contentSize.height - table.bounds.height + table.adjustedContentInset.bottom)
             table.setContentOffset(CGPoint(x: 0, y: min(maximum, max(-table.adjustedContentInset.top, desired))), animated: false)
             hasRestored = true
