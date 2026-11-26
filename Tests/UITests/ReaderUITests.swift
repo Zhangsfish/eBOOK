@@ -302,19 +302,15 @@ final class ReaderUITests: XCTestCase {
             XCTAssertTrue(file.waitForExistence(timeout: 10))
             print("S02B_PICKER_TARGET enabled=\(file.isEnabled) hittable=\(file.isHittable) frame=\(file.frame)")
             XCTAssertTrue(file.isEnabled, "The real Files entry must accept this ebook type")
-            // Activate the actual filename. Row centers and icon-preview taps
-            // remained in DocumentManager without selecting on both OS versions.
-            XCTAssertTrue(file.isHittable); file.tap()
+            // iOS18 exposes a full-row label (254pt for a ~95pt filename).
+            // Its default center lies in trailing whitespace. Tap the visible
+            // leading text; iOS26 reports the intrinsic text bounds correctly.
+            XCTAssertTrue(file.isHittable)
+            if #available(iOS 26.0, *) { file.tap() }
+            else { file.coordinate(withNormalizedOffset: CGVector(dx: 0.1, dy: 0.5)).tap() }
             let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
             if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
             let libraryBook = app.buttons["library.book.\(expectedTitle)"]
-            if !libraryBook.waitForExistence(timeout: 5), file.exists, file.isHittable {
-                // Bounded native activation retry; still import the real Files
-                // selection, never seed the library or bypass the picker here.
-                print("S02B_PICKER_SECOND_ACTIVATION \(filename)")
-                file.doubleTap()
-                if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
-            }
             let imported = libraryBook.waitForExistence(timeout: 30)
             if !imported {
                 snapshot("system-picker-import-result-\(name)", app)

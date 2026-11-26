@@ -70,6 +70,19 @@ def main():
                     '-only-testing:EBookUITests/ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel']
     try:
         code = execute(command + ['test-without-building'], 'test', 1500)
+    except subprocess.TimeoutExpired:
+        # Preserve partial observations as partial, never as an XCTest PASS or
+        # a completed-suite count when xcodebuild did not close its result bundle.
+        states = {}
+        for case, state in re.findall(r"Test Case '-\[([^\]]+)\]' (started|passed|failed)",
+                                      (build / 's02b-test.log').read_text()):
+            states[case] = state
+        timeout = {'source_sha': output(['git', 'rev-parse', 'HEAD']), 'scope': args.scope,
+                   'status': 'TIMEOUT_NO_FINAL_XCTEST_SUMMARY', 'physical_device': 'NOT_RUN',
+                   'observation_source': 'partial xcodebuild log, not xcresult summary',
+                   'partial_log_case_states': states}
+        (build / 's02b-timeout.json').write_text(json.dumps(timeout, indent=2) + '\n')
+        raise
     finally:
         if args.scope in ['all', 'picker']:
             # Fixed event names/counts only: no document names, paths or text.
