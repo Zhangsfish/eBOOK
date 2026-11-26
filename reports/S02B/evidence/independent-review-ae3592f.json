@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "review_date": "2026-11-26",
+  "timezone": "Asia/Shanghai",
+  "reviewed_sha": "ae3592fa3305a4d02a5774386c4e0098b95dba8e",
+  "recommendation": "REQUEST_CHANGES",
+  "scope": "iOS reader and Suxin integration, PR12 only",
+  "source_trees_identical_to_actual_ci_sha": "7ff918a1c02f730bf37d351821b37dc79709c2e3",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P1",
+      "path": "scripts/ci_device.sh",
+      "line": 37,
+      "check": "Executed original Python allowlist+assertion AST with required four-notice listing; AssertionError confirmed.",
+      "native_archive_run_by_reviewer": false
+    },
+    {
+      "id": "R2",
+      "priority": "P2",
+      "path": "Sources/ReaderCore/SuxinSegmentation.swift",
+      "line": 13,
+      "input": "甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲12:05。",
+      "actual_parts": [
+        "甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲12:",
+        "05。"
+      ],
+      "reproduction": "Source-level BMP translation of current segmentation branch order, not Swift execution.",
+      "expected": "Keep 12:05 intact so the supported time does not force Apple fallback."
+    },
+    {
+      "id": "R3",
+      "priority": "P2",
+      "path": "Sources/eBOOK/SuxinResources.swift",
+      "line": 94,
+      "input": "甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲不是这样。",
+      "actual_parts": [
+        "甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲甲不",
+        "是这样。"
+      ],
+      "whole_bu_phonemes": [
+        "b",
+        "u",
+        "2"
+      ],
+      "chunk_end_bu_phonemes": [
+        "b",
+        "u",
+        "4"
+      ],
+      "reproduction": "Derived from checked-in syllable table and source sandhi rule. No neural audio produced."
+    }
+  ],
+  "ci_directly_observed": [
+    {
+      "run": 45769244490,
+      "job": 139737620646,
+      "sha": "7ff918a1c02f730bf37d351821b37dc79709c2e3",
+      "pass": 42,
+      "fail": 0,
+      "skip": 0,
+      "neural": true,
+      "unsigned_archive": true
+    },
+    {
+      "run": 45769249483,
+      "job": 139737645806,
+      "sha": "7ff918a1c02f730bf37d351821b37dc79709c2e3",
+      "pass": 41,
+      "fail": 1,
+      "skip": 0,
+      "neural": true,
+      "unsigned_archive": true
+    },
+    {
+      "run": 45771793206,
+      "job": 139745928149,
+      "sha": "565bae04468e9ae1c16eefb4fe08ad84120fac69",
+      "ui_pass": 6,
+      "host_error_records": 1,
+      "neural": false,
+      "unsigned_archive": false
+    }
+  ],
+  "local_checks": {
+    "project_generation": "PASS",
+    "source_safety_after_original_fixture_generation": "PASS",
+    "diff_check": "One trailing-blank-line warning in pre-existing delivery log",
+    "ios_build": "NOT_RUN",
+    "physical_device": "NOT_RUN"
+  },
+  "app_code_changed_by_review": false,
+  "training_changed_by_review": false
+}
