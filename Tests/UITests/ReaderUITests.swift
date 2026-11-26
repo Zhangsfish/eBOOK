@@ -265,27 +265,32 @@ final class ReaderUITests: XCTestCase {
             XCTAssertTrue(button.waitForExistence(timeout: 30)); button.tap()
             let name = (filename as NSString).deletingPathExtension
             let file = app.staticTexts.matching(NSPredicate(format: "label == %@ OR label == %@", name, filename)).firstMatch
-            if !file.waitForExistence(timeout: 5) {
-                // A fresh simulator opens in empty Recents. DocumentManager's
-                // remote view can expose its tabs after the sheet animation;
-                // an immediate exists check silently skipped Browse before.
+            let sourceFolder = "eBOOK Import Test"
+            if !app.navigationBars[sourceFolder].waitForExistence(timeout: 2) {
                 let browse = app.tabBars["DOC.browsingModeTabBar"].buttons.matching(
                     NSPredicate(format: "label == '浏览' OR label == 'Browse'")
                 ).firstMatch
                 XCTAssertTrue(browse.waitForExistence(timeout: 30)); browse.tap()
-                if !file.waitForExistence(timeout: 5) {
+                let folder = app.staticTexts[sourceFolder].firstMatch
+                if !folder.waitForExistence(timeout: 2) {
+                    let backToPhone = app.buttons.matching(NSPredicate(format:
+                        "label == 'On My iPhone' OR label == '我的iPhone' OR label == '我的 iPhone' OR label == '在我的 iPhone 上'"
+                    )).firstMatch
+                    if backToPhone.exists, backToPhone.isHittable { backToPhone.tap() }
+                }
+                if !folder.waitForExistence(timeout: 2) {
                     let phone = app.staticTexts.matching(NSPredicate(format:
                         "label == 'On My iPhone' OR label == '我的iPhone' OR label == '我的 iPhone' OR label == '在我的 iPhone 上'"
                     )).firstMatch
                     if !phone.waitForExistence(timeout: 20) { print("S00_LOCATIONS_TREE \(app.debugDescription)") }
                     XCTAssertTrue(phone.waitForExistence(timeout: 10)); phone.tap()
-                    let folder = app.staticTexts["eBOOK"].firstMatch
-                    XCTAssertTrue(folder.waitForExistence(timeout: 20))
-                    let folderCell = app.collectionViews["File View"].cells.containing(.staticText, identifier: "eBOOK").firstMatch
-                    if folderCell.exists { folderCell.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap() }
-                    else { folder.tap() }
                 }
+                XCTAssertTrue(folder.waitForExistence(timeout: 20))
+                let folderCell = app.collectionViews["File View"].cells.containing(.staticText, identifier: sourceFolder).firstMatch
+                XCTAssertTrue(folderCell.waitForExistence(timeout: 10)); folderCell.tap()
             }
+            XCTAssertTrue(app.navigationBars[sourceFolder].waitForExistence(timeout: 10),
+                          "Select original files from the external system provider")
             do {
                 // Both runtimes expose icon previews separately from filename
                 // activation. Use the same native List mode on 18.5 and26.5.
@@ -302,12 +307,10 @@ final class ReaderUITests: XCTestCase {
             XCTAssertTrue(file.waitForExistence(timeout: 10))
             print("S02B_PICKER_TARGET enabled=\(file.isEnabled) hittable=\(file.isHittable) frame=\(file.frame)")
             XCTAssertTrue(file.isEnabled, "The real Files entry must accept this ebook type")
-            // iOS18 exposes a full-row label (254pt for a ~95pt filename).
-            // Its default center lies in trailing whitespace. Tap the visible
-            // leading text; iOS26 reports the intrinsic text bounds correctly.
             XCTAssertTrue(file.isHittable)
-            if #available(iOS 26.0, *) { file.tap() }
-            else { file.coordinate(withNormalizedOffset: CGVector(dx: 0.1, dy: 0.5)).tap() }
+            let fileCell = app.collectionViews["File View"].cells.containing(.staticText, identifier: file.label).firstMatch
+            XCTAssertTrue(fileCell.waitForExistence(timeout: 10)); XCTAssertTrue(fileCell.isEnabled)
+            fileCell.tap()
             let confirm = app.buttons.matching(NSPredicate(format: "label == '打开' OR label == 'Open'")).firstMatch
             if confirm.waitForExistence(timeout: 2), confirm.isHittable { confirm.tap() }
             let libraryBook = app.buttons["library.book.\(expectedTitle)"]

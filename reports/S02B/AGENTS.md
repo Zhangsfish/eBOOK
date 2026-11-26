@@ -45,6 +45,15 @@ there is no final xcresult summary or archive and no complete-suite PASS.
 Files target on18.5 had frame(80,193.7,254,20.3), wider than visible filename text;
 26.5's label is intrinsic95pt. The next test-only fix taps visible leading text
 on pre26 and removes double-tap retries. App Sources remain6d9339b31da7acd614971037c2e9151e493bdc48.
+
+3bfc352 full18.5 run45761286868 completed41/42 (only Files FAIL), with native/TOC/
+other reader checks and actual Release archive plus both runtime notices PASS.
+Leading-text coordinates did not fix selection. Keep this failed experiment.
+Next narrow investigation prepares original sources in the observed system
+FileProvider.LocalStorage group outside the reader container, then uses real
+Files navigation and cell activation. No app/engine change or library injection.
+The helper records actual group/storage state and hashes; bootstrap failure is
+an error, never a simulated selection or test PASS. Run picker scope first.
 - The chosen Suxin graph is now used by the formal App, with native Swift G2P,
   a single background ORT session, short PCM queue, cache and separate rate.
 - Native scope at7c1dba2 is12/12 on both18.5 and26.5, and both unsigned arm64

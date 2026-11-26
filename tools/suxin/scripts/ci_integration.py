@@ -9,6 +9,7 @@ import shutil
 import re
 import subprocess
 import sys
+import time
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -38,6 +39,44 @@ def main():
     with (build / 's02b-boot.log').open('w') as log:
         subprocess.run(['xcrun', 'simctl', 'bootstatus', device['udid'], '-b'], env=env,
                        stdout=log, stderr=subprocess.STDOUT, check=True, timeout=600)
+    if args.scope in ['all', 'picker']:
+        # Exercise the actual external-document contract. App-private/imported
+        # library data is not a document provider for that same app.
+        launch = subprocess.run(['xcrun', 'simctl', 'launch', device['udid'], 'com.apple.DocumentsApp'],
+                                env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=30)
+        files_data = Path(output(['xcrun', 'simctl', 'get_app_container', device['udid'], 'com.apple.DocumentsApp', 'data']))
+        if files_data.parent.name != 'Application' or files_data.parents[1].name != 'Data' or files_data.parents[2].name != 'Containers':
+            raise RuntimeError('Unexpected observed Simulator container layout')
+        groups = files_data.parents[2] / 'Shared/AppGroup'
+        group_ids = {}
+        for attempt in range(20):
+            for metadata in groups.glob('*/.com.apple.mobile_container_manager.metadata.plist'):
+                value = plistlib.loads(metadata.read_bytes()).get('MCMMetadataIdentifier')
+                if value:
+                    group_ids[value] = metadata.parent
+            if 'group.com.apple.FileProvider.LocalStorage' in group_ids:
+                break
+            time.sleep(0.5)
+        state = {'files_app_launch_exit': launch.returncode, 'observed_group_identifiers': sorted(group_ids),
+                 'source_kind': 'original fixtures in external system LocalStorage, not reader library injection'}
+        if 'group.com.apple.FileProvider.LocalStorage' not in group_ids:
+            (build / 's02b-files-provider.json').write_text(json.dumps(state, indent=2) + '\n')
+            raise RuntimeError('System LocalStorage group unavailable; no external source fabricated')
+        group = group_ids['group.com.apple.FileProvider.LocalStorage'].resolve()
+        storage = group / 'File Provider Storage'
+        state['storage_directory_preexisted'] = storage.is_dir()
+        source = storage / 'eBOOK Import Test'
+        if not source.resolve().is_relative_to(group):
+            raise RuntimeError('External fixture directory escaped the observed system group')
+        source.mkdir(parents=True, exist_ok=True)
+        state['source_relative_to_group'] = 'File Provider Storage/eBOOK Import Test'
+        state['files'] = []
+        for name in ['sample_utf8.txt', 'synthetic.epub']:
+            original = ROOT / 'Tests/Fixtures' / name
+            shutil.copyfile(original, source / name)
+            data = (source / name).read_bytes()
+            state['files'].append({'name': name, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()})
+        (build / 's02b-files-provider.json').write_text(json.dumps(state, indent=2) + '\n')
     common = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK',
               '-destination', 'id=' + device['udid'], '-derivedDataPath', 'build/S02B-DerivedData',
               '-parallel-testing-enabled', 'NO', 'CODE_SIGNING_ALLOWED=NO']
@@ -155,7 +194,7 @@ def main():
         shutil.copyfile(source, build / 'reader-metrics.json')
         subprocess.run([sys.executable, 'scripts/check_reader_metrics.py'], cwd=ROOT, env=env, check=True)
         shutil.copyfile(build / 'reader-metrics-summary.json', build / 's02b-reader-metrics-summary.json')
-    if args.scope in ['all', 'picker', 'integration']:
+    if args.scope in ['all', 'integration'] or (args.scope == 'picker' and not code):
         archive = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK', '-configuration', 'Release',
                    '-destination', 'generic/platform=iOS', '-archivePath', 'build/S02B-device.xcarchive',
                    '-derivedDataPath', 'build/S02B-DerivedData', 'CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'archive']
