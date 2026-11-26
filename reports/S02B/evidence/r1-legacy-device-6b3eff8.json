@@ -1,0 +1,21 @@
+{
+  "head_sha": "6b3eff8f2cd43458889ab96f20c2b29b49b927ec",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "sdk": "26.5",
+  "bundle_id": "com.zhangsfish.ebook",
+  "version": "0.1.0",
+  "build": "31.1",
+  "architecture": "arm64",
+  "minimum_ios": "17.0",
+  "executable_sha256": "9d798f25a01d644206cdae2035a30569fd911d7042e3a06edfb139cf59b854dc",
+  "archive": "PASS_UNSIGNED_ONLY",
+  "signing": "NOT_RUN",
+  "testflight_upload": "NOT_RUN",
+  "physical_device": "NOT_RUN",
+  "bundled_test_books": false,
+  "resource_files_verified": 6,
+  "runtime_source_notice_files_verified": 2,
+  "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+  "unsigned_ipa_sha256": "d4579376a218a3731b7e8517b0d5f3341d42e41abe1d4912d7257f5e4fd9c8db",
+  "unsigned_ipa_installable": false
+}

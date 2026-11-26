@@ -1,0 +1,28 @@
+{
+  "source_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45858764356",
+  "apple_callback_probes": [
+    {
+      "events": [
+        "started",
+        "range",
+        "range",
+        "range",
+        "range",
+        "range",
+        "range",
+        "range",
+        "range",
+        "finished"
+      ],
+      "language": "zh-CN",
+      "range_observed": true,
+      "voice_catalog_count": 68,
+      "voice_id": "com.apple.voice.super-compact.zh-CN.Tingting"
+    }
+  ],
+  "actual_mode_restore_metadata": [
+    "anchor=1,870/1,875 table=visible=1;maxText=1599;windowStart=1863;peakRSS=420118528;block=1869;offset=0"
+  ],
+  "older_host_abort_root_cause": "NOT_DETERMINED; a current passing method set does not identify an old failure"
+}

@@ -16,7 +16,11 @@ UTF16 anchors to old compatible ReadingAnchor data for mode/reflow restoration.
 ShelfAppearance defaults system and ReadingMode defaults vertical on legacy data.
 LibraryView root NavigationStack path selects shelf/reader color scheme separately;
 in-book ReaderSettings.theme remains intact. Encoding defaults automatic in import.
-Five ReaderPaginationTests +two ReadingModesUITests added, currently NOT_RUN.
+Five ReaderPaginationTests +two ReadingModesUITests pass on both18.5 and26.5 at
+6469489062e6b91d743295cc2c08320334dbbf17; each full suite55/55,0skips.
+Earlier6b3 mode assertion ignored localized commas; corrected numeric and exact
+source offset assertions pass, with actual metadata and original screenshots.
+READY_FOR_AUDIT, no further edits/reruns/upload before independent review.
 Inspect bounded original-fixture CI screenshots for shelf-night/reader-warm/light
 independence and horizontal text fit; don't count source compilation as visual QA.
 Report actual CI/test SHA and phone/build availability honestly; no new TestFlight.

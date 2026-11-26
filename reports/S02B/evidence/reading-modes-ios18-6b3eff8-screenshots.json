@@ -1,0 +1,50 @@
+{
+  "source_sha": "6b3eff8f2cd43458889ab96f20c2b29b49b927ec",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45853803232",
+  "original_synthetic_fixtures_only": true,
+  "screenshots_committed": false,
+  "screenshots": [
+    {
+      "name": "reading-modes-horizontal-large-font",
+      "file": "7E3C0837-5D29-46DB-95B5-7F3D4A566FA4.png",
+      "bytes": 306573,
+      "sha256": "93351472104ee03e2120669f42b140f11b22323047f0d4e6e4c87575866c9812"
+    },
+    {
+      "name": "reading-modes-toc-current-horizontal",
+      "file": "4397A105-2A58-46FA-89C3-2DF337A27923.png",
+      "bytes": 349250,
+      "sha256": "bcd7a28a1074a733ff3d75e5bc017c3ee9e88514907a513c915c3903a8d2765c"
+    },
+    {
+      "name": "reading-modes-horizontal-page",
+      "file": "6A0E27EC-01C4-4432-BE03-85CFC2A2F583.png",
+      "bytes": 389830,
+      "sha256": "1428b93feaf1885860a9dfde3d8c6c6d3ec2fed6cf6eed81135121434094e0b0"
+    },
+    {
+      "name": "reading-modes-shelf-still-night",
+      "file": "FC4BA272-D87A-4A69-9345-4DC8869BAC32.png",
+      "bytes": 101954,
+      "sha256": "cc2a9c929f4abbb341f35e6ebd2b38cae82168ce9725109c9ea42172009eb89b"
+    },
+    {
+      "name": "reading-modes-reader-light-shelf-night",
+      "file": "E9160426-83EE-4CB5-AC10-5EB61B07FF4F.png",
+      "bytes": 131161,
+      "sha256": "ea52801799709fe70e096985ec7cbe4b52168e55579aaeed7d5048aa957f4a9a"
+    },
+    {
+      "name": "reading-modes-reader-warm-shelf-night",
+      "file": "7B2BAEF8-87FD-41A8-BF64-2C0289805FFF.png",
+      "bytes": 129797,
+      "sha256": "dce001e801fff72ec0d28e2f5bdb195604c0fe31e4275c7a9be91c870586fdb2"
+    },
+    {
+      "name": "reading-modes-shelf-night",
+      "file": "AB64F694-F934-4FA5-B16D-6B8F0CAF6525.png",
+      "bytes": 101141,
+      "sha256": "62547b2e65acef6b5e370c62941501e6d73c2aace7c1a85a612fcdf884b2edd4"
+    }
+  ]
+}

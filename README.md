@@ -2,34 +2,32 @@
 
 A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-quality Mandarin text-to-speech experience.
 
-## Current work: S02B local Suxin speech
+## Current work: S02B audit repairs and reading modes
 
-The selected Suxin-Light voice and owner-requested Files follow-up are
-**READY_FOR_AUDIT** on
+The owner-authorized audit repair and reading-mode work is **READY_FOR_AUDIT** on
 `codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12).
-See [the task](tasks/S02B_SUXIN_IOS_INTEGRATION.md) and
-[delivery evidence](reports/S02B_SUXIN_IOS_INTEGRATION.md). Desktop, simulator,
+See [repair task](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md),
+[reading modes](tasks/S02B_READING_MODES.md) and
+[repair evidence](reports/S02B/R1_FIXES_AND_PHONE_BETA.md). Desktop, simulator,
 device and TestFlight states are reported separately. A successful CI build is
 not a new installable phone release. The later model-training work in PR #11
 does not block this implementation.
 
-Native frontend/model/PCM checks pass on iOS18.5 and26.5. Current App Sources:
-`6d9339b31da7acd614971037c2e9151e493bdc48`. At7ff918a both complete suites
-pass actual external TXT/EPUB selection/cancellation and all six UI methods.
-iOS18.5 is42PASS/0FAIL/0SKIP; iOS26.5 is41PASS/1FAIL/0SKIP, with only the
-existing Apple speech range-callback assertion failing. Both unsigned arm64
-Release archives verify6 model files and2 recovered exact-source runtime notices.
-The one clean iOS26 recheck at565bae0 passed all six UI methods, but EBookTests
-aborted before its XCTest connection. Its summary has six UI passes and one
-startup-error record, not42 completed methods; native tests/archive did not run.
-The Apple assertion and unresolved test-host failure remain QA blockers.
-See the [Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) for exact SHAs,
-retained failures and the result. Independent distribution review, physical-phone
-latency/long listening and a new TestFlight update remain pending.
+Tested source6469489062e6b91d743295cc2c08320334dbbf17 passes **55/55,0 skipped** on
+both [iOS18.5](https://github.com/Zhangsfish/eBOOK/actions/runs/45858757489) and
+[iOS26.5](https://github.com/Zhangsfish/eBOOK/actions/runs/45858764356): actual graph/PCM,
+production phoneme boundaries, Files, long reading/TOC, horizontal pages and
+independent shelf/reader themes. Both unsigned arm64 archives verify6 model files
+and2 runtime notices;26 actually runs the old device-packaging entry. Earlier
+failures/cancellations remain recorded, including the localized progress-label
+test corrected with independent UTF16 position checks. Prior delivery/history remains in the
+[canonical report](reports/S02B_SUXIN_IOS_INTEGRATION.md). Independent corrected-code
+review precedes a new owner-only TestFlight build; phone acceptance is collected
+using that build. No new available phone build is claimed.
 
 ## Build and run
 
-Requires a Mac with Xcode 16.4 or later and an iOS 17+ simulator/device. There
+Requires a Mac with Python 3.11+, Xcode 16.4 or later and an iOS 17+ simulator/device. There
 is no XcodeGen dependency. The App now uses a revision-pinned ONNX Runtime
 SPM binary and verified local Suxin/model/dictionary resources. Preparation
 downloads data only, installs no Python package and makes no TTS API call.
@@ -59,11 +57,12 @@ available), boots an installed simulator and builds without signing. The real Fi
 test uses original TXT/EPUB fixtures in the observed system LocalStorage provider,
 outside the reader container; other fixture-driven reader tests use App Documents.
 It runs unit/UI tests and archives an unsigned arm64
-Release App. The `integration` scope runs twelve native frontend, real-graph,
-PCM-playback and state/cache test methods; `frontend` checks the author oracle
-alone; `picker` performs actual TXT/EPUB selection and cancellation (two methods).
-Only allowlisted JSON/log evidence and bounded original-fixture UI failure
-screenshots are uploaded by S02B CI. Model-containing
+Release App. The `integration` scope runs eighteen native frontend, real-graph,
+PCM-playback, state/cache and production-boundary methods; `frontend` checks the author oracle
+alone; `picker` performs actual TXT/EPUB selection and cancellation (two methods);
+`reading` runs the five pagination/migration and two reading-mode UI methods.
+Only allowlisted JSON/log evidence and bounded original-fixture UI diagnostic
+and requested mode/theme screenshots are uploaded by S02B CI. Model-containing
 App/IPA/WAV files are not public artifacts. No tool installation or paid API.
 
 `scripts/generate_xcode_project.py` recreates the checked-in project with Python
@@ -71,6 +70,12 @@ stdlib; use `--check` to verify it matches the sources. Recreate small original
 fixtures with `python3 scripts/generate_small_fixtures.py`.
 
 ## Use
+
+On the bookshelf, **翻页与书架外观** replaces the technical TXT-encoding toolbar
+menu. Choose **上下滚动** or **左右翻页** before opening a book. Bookshelf appearance
+has its own system/normal/warm/night setting. The reader's existing theme control
+stays inside 阅读设置 and controls only the book; the two colors are independent.
+Legacy preferences keep vertical scrolling and a system-following bookshelf.
 
 The reader opens with only the text and a subtle **⋯** in the lower-right corner.
 The entry has no white background/border and adapts to light, warm and dark themes.
@@ -81,9 +86,10 @@ Open 朗读 from that panel for playback; 收起 keeps ongoing speech running.
 Voice and rate remain in 阅读设置. Returning from these sheets hides the controls.
 
 Tap **导入书籍** and choose a local TXT or EPUB through Files. TXT defaults to
-BOM/strict UTF-8/legacy-encoding detection. Use the **TXT 编码** menu before import
-for ambiguous BOM-less UTF-16 or legacy files. A byte stream can be valid in
-multiple encodings; automatic detection cannot prove the author's intent.
+BOM/strict UTF-8/UTF-16 heuristics/legacy-encoding detection. A byte stream can be
+valid in multiple encodings; automatic detection cannot prove the author's intent.
+For an ambiguous file, resave it as UTF-8 before import. Decoder APIs retain all
+five supported encoding variants.
 
 Open a book, scroll, use the searchable TOC, or drag reading progress. Reading
 settings include Dynamic Type-aware font size, line spacing and light/warm/dark

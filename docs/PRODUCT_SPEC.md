@@ -23,6 +23,8 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 - Open, remove, and resume a book.
 - Store imported content locally and persist reading/listening positions.
 - Graceful handling of unsupported, encrypted, malformed, and oversized files.
+- Bookshelf settings choose vertical scrolling or horizontal pages before opening a book.
+- Bookshelf appearance has independent system/normal/warm/night choices. It never changes the saved book-reading theme.
 
 ### Reading
 - EPUB chapter/section navigation and table of contents.
@@ -31,6 +33,8 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
   reading anchor; only choosing a chapter navigates the book.
 - TXT reading with sensible paragraph and chapter heuristics; do not pretend TXT has a reliable semantic TOC if it does not.
 - Font size controls, line spacing, page/background themes, including a warm low-glare / eye-comfort theme.
+- The book theme remains adjustable inside reading settings, independently of bookshelf appearance.
+- Horizontal mode turns a viewport-sized native page with left/right swipes; vertical scrolling remains available. Mode/typography changes preserve the nearby source position.
 - Progress indicator and restore last reading position.
 - Screen should remain readable with Dynamic Type and VoiceOver support.
 

@@ -1,0 +1,56 @@
+{
+  "source_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45858757489",
+  "original_synthetic_fixtures_only": true,
+  "screenshots_committed": false,
+  "screenshots": [
+    {
+      "name": "reading-modes-vertical-restored-chapter",
+      "file": "3A215844-6475-4FBA-AEB5-DA38156F66C2.png",
+      "bytes": 615062,
+      "sha256": "5604c7ebdcbc9fac908399179db2357202361d67a7085cb61b92dfd6d6c1f4b1"
+    },
+    {
+      "name": "reading-modes-horizontal-large-font",
+      "file": "98EDB191-E168-4F51-80F2-43CD524B70D3.png",
+      "bytes": 306573,
+      "sha256": "93351472104ee03e2120669f42b140f11b22323047f0d4e6e4c87575866c9812"
+    },
+    {
+      "name": "reading-modes-toc-current-horizontal",
+      "file": "C834BE6E-68AD-4A7B-B384-23FEDC6A8EBA.png",
+      "bytes": 349598,
+      "sha256": "f1886943e176cbb586fe350438b62fa5415a20635b0cb24a9acb95ca4c3eddd4"
+    },
+    {
+      "name": "reading-modes-horizontal-page",
+      "file": "13CC8E43-2BCA-4DF6-BD79-E26E446FB0A5.png",
+      "bytes": 389830,
+      "sha256": "1428b93feaf1885860a9dfde3d8c6c6d3ec2fed6cf6eed81135121434094e0b0"
+    },
+    {
+      "name": "reading-modes-shelf-still-night",
+      "file": "1F166FBB-A510-4056-9E29-9409892F67E2.png",
+      "bytes": 101344,
+      "sha256": "e65172bd7ff5faa99c662cdb8b6ba6322f24e8d285675e8ea18b4ae965bce409"
+    },
+    {
+      "name": "reading-modes-reader-light-shelf-night",
+      "file": "AC9DA06F-DF2A-41CB-891C-25D00F624C41.png",
+      "bytes": 131161,
+      "sha256": "ea52801799709fe70e096985ec7cbe4b52168e55579aaeed7d5048aa957f4a9a"
+    },
+    {
+      "name": "reading-modes-reader-warm-shelf-night",
+      "file": "0A1D09CD-966F-4727-8BA9-44F55C42CDC0.png",
+      "bytes": 129797,
+      "sha256": "dce001e801fff72ec0d28e2f5bdb195604c0fe31e4275c7a9be91c870586fdb2"
+    },
+    {
+      "name": "reading-modes-shelf-night",
+      "file": "9BAF1A1A-959F-4C50-9B4F-A46FBC80E6B5.png",
+      "bytes": 100455,
+      "sha256": "97d11e8aadfa74f659ec1b04815fc3a852fcba069c6ad2c8695bfd36198d9775"
+    }
+  ]
+}

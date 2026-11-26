@@ -1,13 +1,26 @@
 # S02B integration evidence
 
 ## Current owner-authorized repair round (2026-11-26)
-READY: read repository-root `tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md`.
+Authorization: repository-root `tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md`; this round is now READY_FOR_AUDIT as recorded below.
 The owner has requested audit repairs and early internal-phone testing. R1–R3 fixes,
 relevant code/resource/test changes and diagnostic reruns are now authorized within PR12.
 Historical source-freeze/stop-rerun wording below describes the prior delivery and must not block this task.
 Preserve all old evidence. Corrected code goes through independent review; then use the existing authorized
 owner-only TestFlight path for a test build, without requiring completed phone acceptance before installation.
 No automatic merge, public release, model training or unrelated branch changes.
+
+Current delivery2026-11-27: READY_FOR_AUDIT. Source6469489062e6b91d743295cc2c08320334dbbf17
+passes55/55 (47 native/8UI),0skips on18.5/45858757489 and26.5/45858764356.
+Actual graph/PCM/Files/long reader/TOC/modes/independent themes and both unsigned
+arm64 archives pass;26 executes original device entry, both verify6+2 resources.
+13d55d7 targeted18/18, first2d15/18 and6b3 full54/55 remain evidence. The latter
+was a localized comma assertion; final logs show block1869/UTF16 offset0, now
+independently asserted.4d diagnostic attempts were superseded/cancelled, never PASS.
+No new TestFlight or physical results; historical abrt root cause still unknown.
+Source frozen pending independent review; stop edits/reruns/upload. See R1 report,
+reading-modes/DELIVERY.md, PHONE_BETA_PREPARATION.md and evidence/r1-final-*.
+
+## Previous delivery memory (historical)
 
 Purpose: first-release local Suxin integration and owner-requested Files follow-up
 on codex/s02b-suxin-ios-integration / PR12. Worktree E:/myself/eBOOK-s02b.

@@ -1,0 +1,26 @@
+{
+  "source_sha": "6b3eff8f2cd43458889ab96f20c2b29b49b927ec",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45853800306",
+  "apple_callback_probe": {
+    "events": [
+      "started",
+      "range",
+      "range",
+      "range",
+      "range",
+      "range",
+      "range",
+      "range",
+      "range",
+      "finished"
+    ],
+    "language": "zh-CN",
+    "range_observed": true,
+    "voice_catalog_count": 68,
+    "voice_id": "com.apple.voice.super-compact.zh-CN.Tingting"
+  },
+  "failure_location": "Tests/UITests/ReadingModesUITests.swift:116",
+  "failure_assertion": "XCTAssertTrue(reader.anchor.label.hasPrefix(\"1870/\"))",
+  "diagnosis": "PENDING exact label/anchor diagnostic; do not infer lost position from failed text-prefix assertion",
+  "previous_host_abort_root_cause": "NOT_DETERMINED; current native methods actually executed, no matching crash stack"
+}

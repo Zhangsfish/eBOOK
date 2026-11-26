@@ -15,4 +15,3 @@ S02B_PICKER_SECOND_ACTIVATION sample_utf8.txt
     t =    86.01s Double tap "sample_utf8" StaticText
 /Users/runner/work/eBOOK/eBOOK/Tests/UITests/ReaderUITests.swift:319: error: -[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB] : XCTAssertTrue failed
 Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' failed (134.210 seconds).
-

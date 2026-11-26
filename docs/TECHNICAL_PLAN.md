@@ -7,6 +7,8 @@
 - EPUB: use a maintained, license-compatible parser/library if necessary; inspect dependency license and maintenance before adoption. Parse metadata, spine, navigation/TOC, XHTML content, and images defensively.
 - TXT: detect BOM first; support strict UTF-8, UTF-16 LE/BE, GBK, and GB18030 decoding. Many Chinese novel TXT files are GBK-encoded. Normalize line endings while preserving paragraph boundaries. Do not silently accept mojibake or lossy replacement characters; report a clear decoding error if the encoding cannot be determined.
 - Reading renderer: native text/layout components with chapter-aware navigation. Avoid a giant single Text view for a multi-million-character novel.
+- Horizontal renderer: demand-driven TextKit viewport layout with UIPageViewController; at most4 source blocks per page,8 cached small source strings and64 predecessor positions. Never pre-layout a whole book. Optional UTF16 anchors migrate legacy block/fraction positions and preserve reflow location.
+- Shelf appearance is a separate persisted preference; root navigation selects shelf/reader color schemes from their respective values. Keep the existing in-book theme control.
 - TXT navigation: use conservative heading heuristics for common forms such as `001标题`, `第N章 标题`, and `N.第N章标题`. Do not classify every numbered line as a chapter. If confidence is low, keep the book readable as continuous text and avoid inventing a misleading TOC.
 - Local speech: AVSpeechSynthesizer adapter for offline fallback and initial playback proof.
 - Audio session: AVAudioSession configured for spoken audio / background playback; handle interruptions, route changes, lock-screen controls, and remote commands.
@@ -22,6 +24,7 @@ Define a provider protocol independent of UI/player, conceptually:
 Separate:
 1. Text preparation: remove navigation noise, normalize punctuation, preserve dialogue and paragraph pauses.
 2. Chunking: split on paragraph/sentence boundaries, enforce vendor payload limits, keep stable chunk IDs.
+   Suxin resolves one bounded source block with phrase/tone context, then slices mapped phoneme IDs into short audio chunks. Number/time protection applies to both outer windows and inner clauses; cache identity includes actual model-input IDs and the contextual schema version.
 3. Synthesis: provider adapter.
 4. Cache: local audio cache keyed by book fingerprint + chapter/chunk + voice/model + synthesis settings.
 5. Playback queue: AVPlayer-based queue for generated audio; AVSpeechSynthesizer fallback adapter.

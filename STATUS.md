@@ -2,11 +2,12 @@
 
 ## Current task — audit repair and phone beta (owner2026-11-26)
 
-- State: **IN_PROGRESS**. Execute [S02B_R1_REPAIR_AND_PHONE_BETA.md](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md) in `codex/s02b-suxin-ios-integration` / PR #12.
+- State: **READY_FOR_AUDIT**. Completed [S02B_R1_REPAIR_AND_PHONE_BETA.md](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md) plus the owner-authorized reading modes in `codex/s02b-suxin-ios-integration` / PR #12. Stop for independent review.
 - Independent audit: [REQUEST_CHANGES](reports/S02B/INDEPENDENT_REVIEW_20261126.md), implementation ae3592fa3305a4d02a5774386c4e0098b95dba8e; audit handoff e1bb0df75d944d28b2f7e8860b5213bc319a89c0.
 - Repair R1 package allowlist, R2 time splitting, R3 cross-chunk pronunciation context; diagnose retained iOS26 callback/host failures and collect meaningful targeted/full regression evidence.
+- Tested source6469489062e6b91d743295cc2c08320334dbbf17: iOS18.5/45858757489 and26.5/45858764356 each **55PASS/0FAIL/0SKIP**, exact47 native/8UI methods. Real graph/PCM, original Files selection/cancel, long reading/TOC, migration, horizontal pages and independent shelf/reader themes pass. Both unsigned arm64 archives verify6 model files/2 runtime notices;26 actually executes the old device entry. Report: [R1 repair](reports/S02B/R1_FIXES_AND_PHONE_BETA.md), [reading modes](reports/S02B/reading-modes/DELIVERY.md).
 - After corrected-code independent review and internal-use resource checks, use the existing authorized owner internal-TestFlight path to obtain phone feedback. Device acceptance is gathered using that test build; it is not a prerequisite for obtaining the test build.
-- R1–R3 implementation and6 new native boundary methods are prepared; local packaging fault-injection5/5 and12 actual author-frontended original references passed. Real Xcode/graph/device entry results pending; no signing/new phone build. Owner also authorizes bookshelf-only mode selection and independent shelf appearance; existing reader theme stays in-book. See tasks/S02B_READING_MODES.md.
+- R1–R3 production boundaries pass; local packaging fault-injection5/5 and12 actual author-frontended original references pass. The earlier6b3eff8 runs were54/55 because a progress-label test ignored localized commas; final logs prove block1869/UTF16 offset0, now checked directly. Keep all failed/cancelled evidence. Apple callback passes now without identifying the old abrt root cause. No signing/new phone build; physical and independent distribution checks remain pending. Existing39.1 is unchanged.
 - Training PR #11, frozen PR #7 and Android work remain separate. No self-merge or public release.
 
 ## Previous delivery snapshot (retained; current READY task above supersedes its stop/freeze wording)
