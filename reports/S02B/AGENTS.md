@@ -54,6 +54,17 @@ FileProvider.LocalStorage group outside the reader container, then uses real
 Files navigation and cell activation. No app/engine change or library injection.
 The helper records actual group/storage state and hashes; bootstrap failure is
 an error, never a simulated selection or test PASS. Run picker scope first.
+Current candidate60173039c5c2550c9cb268f9e8db44e8c5fbb6fc:
+focused18.5 run45764765246 is pending. It boots the stock Files app, observes its
+actual LocalStorage group via container metadata, prepares two original sources
+in File Provider Storage/eBOOK Import Test and navigates there through real Files.
+Do not count this as an import fix until actual2/2 results; next full checks if green.
+App Sources remain6d9339b31da7acd614971037c2e9151e493bdc48, frozen since16fe15d.
+6017303 probe45764765246 failed before compiling the reader: stock
+simctl launch com.apple.DocumentsApp timed out30s. No UI/XCTest PASS is claimed.
+Bootstrap now observes simctl's actual dataPath/group metadata before launching,
+records state even on stock-app launch timeout, and initializes only its own
+fixture child under an existing LocalStorage group. Never create an invented group.
 - The chosen Suxin graph is now used by the formal App, with native Swift G2P,
   a single background ORT session, short PCM queue, cache and separate rate.
 - Native scope at7c1dba2 is12/12 on both18.5 and26.5, and both unsigned arm64

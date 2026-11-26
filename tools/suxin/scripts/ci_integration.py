@@ -42,25 +42,38 @@ def main():
     if args.scope in ['all', 'picker']:
         # Exercise the actual external-document contract. App-private/imported
         # library data is not a document provider for that same app.
-        launch = subprocess.run(['xcrun', 'simctl', 'launch', device['udid'], 'com.apple.DocumentsApp'],
-                                env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=30)
-        files_data = Path(output(['xcrun', 'simctl', 'get_app_container', device['udid'], 'com.apple.DocumentsApp', 'data']))
-        if files_data.parent.name != 'Application' or files_data.parents[1].name != 'Data' or files_data.parents[2].name != 'Containers':
-            raise RuntimeError('Unexpected observed Simulator container layout')
-        groups = files_data.parents[2] / 'Shared/AppGroup'
+        state = {'source_kind': 'original fixtures in external system LocalStorage, not reader library injection'}
+        def record_provider_state():
+            (build / 's02b-files-provider.json').write_text(json.dumps(state, indent=2) + '\n')
+        if not device.get('dataPath') or not Path(device['dataPath']).is_dir():
+            state['status'] = 'OBSERVED_SIMULATOR_DATA_PATH_UNAVAILABLE'; record_provider_state()
+            raise RuntimeError('No actual Simulator data path; no group path fabricated')
+        groups = Path(device['dataPath']) / 'Containers/Shared/AppGroup'
         group_ids = {}
-        for attempt in range(20):
+        def scan_groups():
             for metadata in groups.glob('*/.com.apple.mobile_container_manager.metadata.plist'):
                 value = plistlib.loads(metadata.read_bytes()).get('MCMMetadataIdentifier')
                 if value:
                     group_ids[value] = metadata.parent
-            if 'group.com.apple.FileProvider.LocalStorage' in group_ids:
-                break
-            time.sleep(0.5)
-        state = {'files_app_launch_exit': launch.returncode, 'observed_group_identifiers': sorted(group_ids),
-                 'source_kind': 'original fixtures in external system LocalStorage, not reader library injection'}
+            state['observed_group_identifiers'] = sorted(group_ids)
+            record_provider_state()
+        def launch_files():
+            try:
+                launch = subprocess.run(['xcrun', 'simctl', 'launch', device['udid'], 'com.apple.DocumentsApp'],
+                                        env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=30)
+                state['files_app_launch_exit'] = launch.returncode
+            except subprocess.TimeoutExpired:
+                state['files_app_launch_status'] = 'TIMEOUT_30_SECONDS'
+            record_provider_state()
+        scan_groups()
         if 'group.com.apple.FileProvider.LocalStorage' not in group_ids:
-            (build / 's02b-files-provider.json').write_text(json.dumps(state, indent=2) + '\n')
+            launch_files()
+            for attempt in range(20):
+                scan_groups()
+                if 'group.com.apple.FileProvider.LocalStorage' in group_ids:
+                    break
+                time.sleep(0.5)
+        if 'group.com.apple.FileProvider.LocalStorage' not in group_ids:
             raise RuntimeError('System LocalStorage group unavailable; no external source fabricated')
         group = group_ids['group.com.apple.FileProvider.LocalStorage'].resolve()
         storage = group / 'File Provider Storage'
@@ -76,7 +89,8 @@ def main():
             shutil.copyfile(original, source / name)
             data = (source / name).read_bytes()
             state['files'].append({'name': name, 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()})
-        (build / 's02b-files-provider.json').write_text(json.dumps(state, indent=2) + '\n')
+        record_provider_state()
+        launch_files()
     common = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK',
               '-destination', 'id=' + device['udid'], '-derivedDataPath', 'build/S02B-DerivedData',
               '-parallel-testing-enabled', 'NO', 'CODE_SIGNING_ALLOWED=NO']
