@@ -1,11 +1,12 @@
 # S02B — 第一版接入苏心并交付手机使用
 
-状态：**IN_PROGRESS — 用户2026-11-26要求继续修复Files选书，再交独立审查。**
+状态：**READY_FOR_AUDIT — Files已验证，整体保留BLOCKED_QA / 真机BLOCKED_ENV。**
 当前App Sources为6d9339b31da7acd614971037c2e9151e493bdc48。7ff918a完整回归：18.5
-为42/42，26.5为41/42（Apple范围回调失败）。两系统实际选书、全部UI与真实苏心通过；
-unsigned arm64归档均核验6项模型及2份同源码运行库声明。当前565bae0干净环境完整复核26.5，
-App/测试未变，只做这一次复核，保留失败。真机与新TestFlight仍NOT_RUN，独立分发审查待进行。
-详见 [交付报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md)。以下是验收目标，等待独立审查，
+42/42；26.5为41/42（Apple范围回调失败）。两系统实际选书、全部6项UI与真实苏心12项通过，
+unsigned arm64归档均核验6项模型及2份同源码运行库声明。一次565bae0干净复核得到6项UI通过，
+但EBookTests在XCTest连接前abrt退出；原生单测/新归档未执行，不能写成42项完成或Apple复核通过。
+不再重跑，保留失败等待独立审查。真机与新TestFlight仍NOT_RUN，独立分发审查待进行。
+详见 [交付报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md)。以下是验收目标，未因交付而自动通过；
 不自行合并或提前上传新beta。
 用户决定：2026-11-25（Asia/Shanghai）。
 

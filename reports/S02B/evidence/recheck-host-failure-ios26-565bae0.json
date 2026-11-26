@@ -1,0 +1,36 @@
+{
+  "source_sha": "565bae04468e9ae1c16eefb4fe08ad84120fac69",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45771793206",
+  "simulator_build": [
+    "** TEST BUILD SUCCEEDED **"
+  ],
+  "xctest_summary_counts": {
+    "totalTestCount": 7,
+    "passedTests": 6,
+    "failedTests": 1,
+    "skippedTests": 0
+  },
+  "interpretation": "6 actual UI methods PASS plus1 test-host startup error record, not7 completed methods; EBookTests unit/native methods NOT_RUN",
+  "ui_method_results": [
+    "Test Case '-[EBookUITests.ReaderUITests testEPUBTOCImageAndReaderControls]' passed (138.015 seconds).",
+    "Test Case '-[EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB]' passed (128.149 seconds).",
+    "Test Case '-[EBookUITests.ReaderUITests testLongBookIncrementalScrollingChapterNavigationTypographyAndRelaunch]' passed (221.077 seconds).",
+    "Test Case '-[EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains]' passed (43.441 seconds).",
+    "Test Case '-[EBookUITests.ReaderUITests testSystemDocumentPickerPresentsAndCanCancel]' passed (35.092 seconds).",
+    "Test Case '-[EBookUITests.ReaderUITests testTOCReopensAtLiveChapterAfterScrollingSearchAndRelaunch]' passed (150.011 seconds)."
+  ],
+  "test_failures": [
+    {
+      "failureText": "Early unexpected exit, operation never finished bootstrapping - no restart will be attempted. (Underlying Error: Test crashed with signal abrt before establishing connection.)",
+      "targetName": "EBookTests",
+      "testIdentifier": 1,
+      "testIdentifierString": "eBOOK (12072) encountered an error",
+      "testName": "eBOOK (12072) encountered an error"
+    }
+  ],
+  "native_model_evidence_this_attempt": "NOT_RUN; no metrics/waveform proof",
+  "device_archive_this_attempt": "NOT_RUN; exact42-count guard failed before archive",
+  "crash_stack": "Not present in exported artifacts; no unique code/environment cause established",
+  "physical_device": "NOT_RUN",
+  "further_retry": "STOP; one bounded recheck completed; await independent audit"
+}

@@ -4,8 +4,8 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 
 ## Current work: S02B local Suxin speech
 
-The selected Suxin-Light voice is implemented. The owner has reopened Files
-selection follow-up (**IN_PROGRESS**) on
+The selected Suxin-Light voice and owner-requested Files follow-up are
+**READY_FOR_AUDIT** on
 `codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12).
 See [the task](tasks/S02B_SUXIN_IOS_INTEGRATION.md) and
 [delivery evidence](reports/S02B_SUXIN_IOS_INTEGRATION.md). Desktop, simulator,
@@ -19,7 +19,10 @@ pass actual external TXT/EPUB selection/cancellation and all six UI methods.
 iOS18.5 is42PASS/0FAIL/0SKIP; iOS26.5 is41PASS/1FAIL/0SKIP, with only the
 existing Apple speech range-callback assertion failing. Both unsigned arm64
 Release archives verify6 model files and2 recovered exact-source runtime notices.
-One clean complete iOS26 recheck is running at565bae0, with App/tests unchanged.
+The one clean iOS26 recheck at565bae0 passed all six UI methods, but EBookTests
+aborted before its XCTest connection. Its summary has six UI passes and one
+startup-error record, not42 completed methods; native tests/archive did not run.
+The Apple assertion and unresolved test-host failure remain QA blockers.
 See the [Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) for exact SHAs,
 retained failures and the result. Independent distribution review, physical-phone
 latency/long listening and a new TestFlight update remain pending.

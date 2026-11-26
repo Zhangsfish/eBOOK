@@ -3,7 +3,7 @@
 Purpose: first-release local Suxin integration and owner-requested Files follow-up
 on codex/s02b-suxin-ios-integration / PR12. Worktree E:/myself/eBOOK-s02b.
 Authority: tasks/S02B_SUXIN_IOS_INTEGRATION.md and docs/TTS_WORKSTREAMS.md.
-Current state: IN_PROGRESS during one bounded clean iOS26 Apple-callback recheck.
+Current state: READY_FOR_AUDIT with BLOCKED_QA; physical checks BLOCKED_ENV/NOT_RUN.
 Do not merge, sign/upload a new beta before independent review, or edit PR7/11.
 
 ## Current source and actual results
@@ -23,10 +23,15 @@ Do not merge, sign/upload a new beta before independent review, or edit PR7/11.
 - Full42 at7ff918a1c02f730bf37d351821b37dc79709c2e3:18.5/45769244490 is42/42;
   26.5/45769249483 is41/42, only Apple speech sawRange at line184 fails.
   Actual Files/cancel, all UI, native Suxin12 and both arm64 archives pass.
-- One clean full26.5 recheck565bae04468e9ae1c16eefb4fe08ad84120fac69 /
-  45771793206 is pending. App/tests unchanged; preserve the initial failed attempt.
-  VoiceDB warnings also exist in prior16fe15d42PASS log, so the exact cause is
-  NOT_UNIQUELY_IDENTIFIED. Do not weaken assertions, skip or retry indefinitely.
+- One clean26.5 recheck565bae04468e9ae1c16eefb4fe08ad84120fac69 /45771793206:
+  actual six UI methods PASS, but EBookTests aborted before XCTest connection.
+  The7-count summary means6 UI passes plus1 startup-error record, not7 executed
+  methods or a completed42-method suite. Unit/native methods and archive NOT_RUN.
+  Existing artifacts lack its full crash stack; code/environment cause not unique.
+  Apple callback recheck was not achieved. Stop reruns; preserve both failures.
+  VoiceDB warnings also exist in prior16fe15d42PASS log; do not call them proof.
+- source-identity-d84ceb4.json verifies all six build-input trees/blobs identical
+  between7ff918a,565bae0,d84ceb4; only docs/evidence differ. Final delivery stays docs-only.
 
 ## Files investigation and retained failures
 

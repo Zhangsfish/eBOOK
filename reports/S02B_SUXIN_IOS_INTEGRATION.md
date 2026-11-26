@@ -1,48 +1,85 @@
 # S02B — 苏心原生接入
 
-状态：**IN_PROGRESS — 选书已在两系统完整回归中通过，正在有限复核一项Apple回调失败**。
-尚无新手机更新；不自行合并或提前分发。
+状态：**READY_FOR_AUDIT — Files已验证；整体BLOCKED_QA，真机BLOCKED_ENV / NOT_RUN。**
+选书在两系统完整回归中通过；26.5的Apple范围回调与后续测试宿主启动崩溃尚未解决。
+尚无新手机更新；停止改动等待独立审查，不自行合并或提前分发。
 
 本线在 `codex/s02b-suxin-ios-integration` 更新 PR #12。阅读基线 main
 `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`；交接起点
 `1eb0eef18e7011feb8034a393f084a91483b9a8e`。冻结 PR #7 与训练 PR #11 不改。
 
-## 选书跟进：实际结果（2026-11-26）
+## 选书跟进：最终实际结果（2026-11-26）
 
 正式App Sources树：`6d9339b31da7acd614971037c2e9151e493bdc48`，冻结自
 `16fe15da6bcd7431a8a162fd65ca77ce8da6ff4d`。Files用asCopy=false取得授权URL，
-由既有security scope→NSFileCoordinator→有界App私有副本完成导入。
-DEBUG书架使用Application Support；阶段日志只有固定事件/数量/代码。
+由security scope→NSFileCoordinator→有界App私有副本完成导入。DEBUG书架放Application Support，
+阶段日志只有固定事件/数量/代码。原有阅读、同步目录、三种主题与右下角入口保留。
 
-测试源改为实际观测到的系统LocalStorage组中的原创文件，位于reader沙盒之外，
-通过原生Files导航、实际单击TXT/EPUB并核对书架2本。18.5的标题/返回定位按真实AX树修正，
-没有通过注入书架或放宽导入断言来报成功。以前同App Documents源失败的唯一根因未确定。
+测试源是实际观测到的系统LocalStorage组中的原创文件，位于reader沙盒之外；通过原生Files
+实际单击TXT/EPUB并核对书架2本。18.5标题/返回定位按真实AX树修正。未注入书架或放宽断言。
+以前同App Documents源选择失败的唯一根因仍未确定，旧失败继续保留。
 
-| 实际执行 | 选书和取消 | 完整套件 | 设备归档 |
+| 实际执行 | 选书和取消 | 全套/宿主结果 | 设备归档 |
 | --- | --- | --- | --- |
 | 18.5 /7ff918a / [45769244490](https://github.com/Zhangsfish/eBOOK/actions/runs/45769244490) | PASS | 42PASS/0FAIL/0SKIP | unsigned Release arm64 PASS，92,986,336bytes |
 | 26.5 /7ff918a / [45769249483](https://github.com/Zhangsfish/eBOOK/actions/runs/45769249483) | PASS | 41PASS/1FAIL/0SKIP；Apple范围回调失败 | unsigned Release arm64 PASS，92,966,548bytes |
+| 26.5 /565bae0 / [45771793206](https://github.com/Zhangsfish/eBOOK/actions/runs/45771793206) | PASS | 6项UI通过+1宿主启动错误记录；原生单测NOT_RUN，非完整42项 | NOT_RUN |
 | 18.5 focused /fba530b / [45767237191](https://github.com/Zhangsfish/eBOOK/actions/runs/45767237191) | 2PASS/0FAIL/0SKIP | focused只测Files，不测模型 | unsigned Release arm64 PASS |
 
-26.5唯一失败为`testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets`的
-`sawRange`断言（SpeechControllerTests.swift:184）：finished等待完成，但未观察到range。
-该轮12项真实苏心、15项核心、其他speech/controller及全部6项UI均通过。
-系统VoiceDB解码警告在这次失败和以前16fe15d完整42PASS日志中都存在，不能据此唯一认定根因。
-原始失败JSON、精确断言及小型日志保留在`S02B/evidence/apple-range-failure-ios26-7ff918a.*`。
+完整7ff918a执行SHA：`7ff918a1c02f730bf37d351821b37dc79709c2e3`。
+一次干净复核SHA：`565bae04468e9ae1c16eefb4fe08ad84120fac69`。源码身份
+`S02B/evidence/source-identity-d84ceb4.json`核对Sources、Tests、工程、scripts、tools/suxin及
+工作流的Git对象一致；两测试SHA和文档检查点d84ceb4只有文档/小型证据差异。
+交付HEAD另见PR，不能把文档提交说成另一次XCTest执行。
 
-只做一次干净环境完整复核：565bae04468e9ae1c16eefb4fe08ad84120fac69 /
-[45771793206](https://github.com/Zhangsfish/eBOOK/actions/runs/45771793206)，正在运行。
-它与7ff918a的差异仅文档/小型证据；App、测试、生成器、模型/运行库资源准备均未改变。
-不降低断言、不跳过、不给失败用例改成Mock；如仍失败，交审时保留相应QA阻碍。
+### 未解决的26.5检查
 
-两系统本轮实际归档均核对6项模型资源、2份同源码运行库声明的真实字节/SHA。
-运行库两slice内嵌33ca962，声明来自发布者同一完整源码提交
-33ca9628233dc8f002435e868d4c2e9f82766ca1。原ZIP无notices及旧404记录保留。
-材料恢复/随包核验不是重现二进制或完整分发许可批准，独立审查仍待进行。
+7ff918a唯一失败是`testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets`的
+`sawRange`断言（SpeechControllerTests.swift:184）：finished完成，但未观察到range。
+该轮12项真实苏心、15项核心、其余speech/controller和全部6项UI通过。系统VoiceDB解码警告
+在这次失败和以前16fe15d完整42PASS日志中都有，不能据此唯一认定根因。
+失败JSON/精确断言/小型日志保留于`S02B/evidence/apple-range-failure-ios26-7ff918a.*`。
 
-更早8331b9b、16fe18超时及3bfc352旧源失败见
-[Files跟进](S02B/FILES_IMPORT_FOLLOWUP.md)与以下历史章节，未删除或改写成通过。
-真机首声/p95、1.0×/1.5×各30分钟、锁屏/中断/蓝牙、发热耗电仍NOT_RUN。
+只做了一次干净复核565bae0：实际Simulator test build成功，全部6项UI通过；EBookTests
+在与XCTest建立连接前signal abrt。摘要total7代表6个UI方法+1启动错误记录，不能算7个
+正常方法执行或完成42项；无本轮原生模型/PCM证据，设备归档在42-count门禁前停止。
+现有artifact无完整crash stack，不能唯一归因于App代码或runner环境。Apple回调复核没有完成。
+见`recheck-host-failure-ios26-565bae0.json`。不再重跑、不降断言、不跳过，保留BLOCKED_QA交审。
+
+### 同实现的真实原生软件探针
+
+以下仅为7ff918a两轮中实际通过的原生测试结果，来自ARM64 Apple M1 Virtual/3逻辑核。
+18.5为Xcode16.4(16F6)、iPhone16Pro Simulator；26.5为Xcode26.6(17F113)、iPhone17Pro Simulator。
+每个速度是短文本n=1；队列另3块。565bae0没有本轮原生数据，不拿旧值冒充它的推理结果。
+
+| 指标 | iOS18.5 /7ff918a | iOS26.5 /7ff918a |
+| --- | ---: | ---: |
+| 图Session创建，秒 | 1.056013 | 1.262616 |
+| 新Session/空缓存完整WAV墙钟，秒 | 1.322459 | 1.569222 |
+| 1.0×推理秒 / 音频秒 / RTF | 0.106452 / 3.448163 / 0.030872 | 0.100500 / 3.448163 / 0.029146 |
+| 1.5×推理秒 / 音频秒 / RTF | 0.094472 / 2.380045 / 0.039693 | 0.080381 / 2.380045 / 0.033773 |
+| 队列3块RTF范围 | 0.040501–0.070899 | 0.037298–0.104010 |
+| 首次排队，秒 | 1.522734 | 1.938748 |
+| 首个非零混音器样本，秒 | 1.840560 | 2.253557 |
+| 最大缓冲 / 单请求欠载 | 3 / 0 | 3 / 0 |
+| 探针测试宿主lifetime峰值RSS，bytes | 449314816 | 512376832 |
+| 阅读探针进程峰值RSS，bytes | 358727680 | 423575552 |
+
+新Session“冷”不是全新App进程；模型/系统库可能已由测试宿主加载。混音器探针包含主动暂停500ms，
+音频会话在计时前已激活，不是物理iPhone出声时间。RSS是进程lifetime峰值，非模型增量。
+两系统模型/代码相同，数值波动不能当作新的优化收益。实际有效WAV SHA仍为
+`4f02c4cb2ec727fbfae4f5645c8024c2136bed93059454ae4c34fef6244a2c88`。
+短段RTF不能替代连续30分钟、跨窗口衔接或实际手机发热/电量验收。
+
+两完整运行的230万字符原创GB18030阅读回归均为256样本/4会话/1875索引块，最远1869，
+最多2可见cell、1599 UTF16渲染正文、12块窗口。两真实arm64归档均验证6项模型资源和
+2份同源码运行库声明；原ZIP无notices及旧404保留。两slice内嵌33ca962，声明来自同一完整源码
+33ca9628233dc8f002435e868d4c2e9f82766ca1；材料存在不是重现二进制或完整分发许可批准。
+
+当前版本为0.1.0、工程CURRENT_PROJECT_VERSION=1，以执行SHA识别测试；不是新TestFlight build。
+物理iPhone首声/p95、1.0×/1.5×各30分钟、锁屏/中断/蓝牙、发热耗电与新内部安装均NOT_RUN。
+完整分发审查PENDING；待审查后沿用既有签名/内部TestFlight路径，不自批、自并或公共发布。
+详细Files历史见[跟进](S02B/FILES_IMPORT_FOLLOWUP.md)，以下8331b9b及其他历史失败全部保留。
 
 ## 8331b9b审查快照与历史事实
 

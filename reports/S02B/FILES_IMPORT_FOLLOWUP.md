@@ -1,7 +1,7 @@
 # Files 选书修复跟进
 
 用户2026-11-26要求先处理选书失败，再准备手机更新。继续现有PR #12，不合并。
-状态：IN_PROGRESS；7ff918a选书在两系统完整回归中都通过；18.5完整42/42，26.5完整41/42（Apple范围回调），正在一次干净环境复核。
+状态：READY_FOR_AUDIT；选书在两系统完整回归中都通过。整体保留BLOCKED_QA：26.5的Apple范围回调失败，干净复核又遇到测试宿主启动崩溃；真机/新TestFlight未执行。
 
 ## 已观察的故障及修复点
 
@@ -57,8 +57,11 @@ App Sources仍为上述6d9339b，不因测试环境调整而改变。
 实际41PASS/1FAIL/0SKIP。两系统Files和全部UI通过、原生苏心12项通过，真实arm64归档
 及6项模型资源/2份运行库声明通过。26.5失败是Apple语音完成后缺少range进度事件；
 VoiceDB警告在此前通过日志也有，未唯一认定根因。原始失败证据保留。
-只追加一次干净环境复核：565bae0 /[45771793206](https://github.com/Zhangsfish/eBOOK/actions/runs/45771793206)，
-App和测试均未改变。若仍失败如实保留QA阻碍，不反复重跑到绿。
+只追加了一次干净环境复核：565bae0 /[45771793206](https://github.com/Zhangsfish/eBOOK/actions/runs/45771793206)。
+实际6项UI均通过，包括TXT/EPUB导入和取消；但EBookTests在XCTest连接前signal abrt。
+xcresult摘要为6PASS+1启动错误记录，不能写成7个方法完成或完整42项；单元/原生推理检查与
+新设备归档NOT_RUN，未完成Apple回调复核。现有artifact无完整crash stack，未唯一定位根因。
+App和测试未变；源码身份见source-identity-d84ceb4.json。不再重跑，保留QA阻碍交审。
 
 ## 同版本运行库声明
 
