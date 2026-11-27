@@ -73,7 +73,7 @@ enum EPUBParser {
         let archive = try ZIPArchive(data: data)
         guard try archive.read("mimetype", maximum: 100) == Data("application/epub+zip".utf8) else { throw ReaderError.invalid("文件不是有效 EPUB。") }
         guard archive.entries["META-INF/encryption.xml"] == nil else {
-            throw ReaderError.unsupported("此 EPUB 声明了加密资源；S00 不支持加密书籍或 DRM。")
+            throw ReaderError.unsupported("这本 EPUB 含有加密内容，无法导入。")
         }
         let container = try XMLTree.parse(archive.read("META-INF/container.xml"))
         guard let rootfile = container.all("rootfile").first?.attributes["full-path"] else { throw ReaderError.invalid("EPUB 缺少根文档。") }
