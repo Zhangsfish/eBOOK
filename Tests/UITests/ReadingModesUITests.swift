@@ -48,8 +48,12 @@ final class ReadingModesUITests: XCTestCase {
     }
     private func swipe(_ app: XCUIApplication, left: Bool) {
         let before = pagePosition(app)
-        if left { app.textViews["reader.page.text"].swipeLeft() }
-        else { app.textViews["reader.page.text"].swipeRight() }
+        // A defined80%-width drag crosses the paging threshold on both iOS
+        // versions; XCTest's default text-element flick can be too short.
+        let page = app.textViews["reader.page.text"]
+        let start = page.coordinate(withNormalizedOffset: CGVector(dx: left ? 0.9 : 0.1, dy: 0.45))
+        let end = page.coordinate(withNormalizedOffset: CGVector(dx: left ? 0.1 : 0.9, dy: 0.45))
+        start.press(forDuration: 0.05, thenDragTo: end)
         let changed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
             !self.pagePosition(app).isEmpty && self.pagePosition(app) != before
         }, object: app)
@@ -104,7 +108,12 @@ final class ReadingModesUITests: XCTestCase {
         controls(app)
         let slider = app.sliders["reader.seek"]
         let beforeValue = slider.value as? String ?? ""
-        slider.adjust(toNormalizedSliderPosition: 0.85)
+        // Drag the real thumb centre, rather than relying on XCTest's
+        // normalized adjustment geometry for a custom UISlider thumb image.
+        let start = slider.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0.5))
+            .withOffset(CGVector(dx: 22, dy: 0))
+        let end = slider.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
+        start.press(forDuration: 0.05, thenDragTo: end)
         let sought = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in self.pagePosition(app) != beginning }, object: app)
         XCTAssertEqual(XCTWaiter.wait(for: [sought], timeout: 10), .completed,
                        "Seek did not move: slider \(beforeValue)→\(slider.value ?? "nil"), before=\(beginning), actual=\(pagePosition(app))")
