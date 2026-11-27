@@ -7,7 +7,7 @@ on:
     inputs:
       scope:
         type: choice
-        options: [frontend, integration, picker, reading, all]
+        options: [frontend, integration, picker, reading, epub, all]
         default: all
         description: Actual native frontend or complete App regression
       runner:

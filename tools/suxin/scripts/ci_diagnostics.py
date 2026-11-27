@@ -4,6 +4,14 @@ import json
 import re
 import subprocess
 
+EPUB_CORE_METHODS = {
+    'testEPUB3MetadataSpineFragmentTOCAndLocalImages', 'testEPUB2NCXNavigation',
+    'testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook',
+    'testZIPCRCAndDeclaredExpansionLimitsAreEnforced',
+    'testTOCFollowsChapterBodyBoundariesAndNestedEPUBDestinations',
+}
+EPUB_UI_METHOD = 'testHTMLVoidEPUBImportsReadsAndRestoresChapterNavigation'
+
 
 def method_coverage(root, build, scope, summary):
     expected = set()
@@ -19,6 +27,9 @@ def method_coverage(root, build, scope, summary):
                             or (scope == 'frontend' and cls == 'SuxinFrontendTests')
                             or (scope == 'reading' and (cls in ['ReaderPaginationTests', 'ReadingModesUITests']
                                 or (cls == 'ReaderUITests' and name == 'testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains')))
+                            or (scope == 'epub' and (cls == 'EPUBCompatibilityTests'
+                                or (cls == 'ReaderCoreTests' and name in EPUB_CORE_METHODS)
+                                or (cls == 'ReaderUITests' and name == EPUB_UI_METHOD)))
                             or (scope == 'picker' and name in ['testFilesPickerImportsSelectedTXTAndEPUB', 'testSystemDocumentPickerPresentsAndCanCancel']))
                 if selected:
                     expected.add(f'{target}.{cls} {name}')

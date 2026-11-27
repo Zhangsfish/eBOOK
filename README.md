@@ -2,7 +2,14 @@
 
 A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-quality Mandarin text-to-speech experience.
 
-## Current work: compact reading controls and help
+## Current work: EPUB compatibility repair
+
+Owner feedback on49.1 identified a valid ZIP whose chapter contains an HTML-style
+unclosed `br`. The scoped fix retries only supported void-tag closure and reparses
+with the existing XML limits. Native regression and the next internal phone update
+are in progress; private books never enter Git/CI. [Task](tasks/S02B_EPUB_COMPATIBILITY.md).
+
+### Retained49.1 delivery: compact reading controls and help
 
 Internal **TestFlight0.1.0(49.1)** is available, with the bottom icon row/smaller
 progress dot, animated tutorial and bookshelf feedback. State: **WAITING_OWNER_FEEDBACK**.

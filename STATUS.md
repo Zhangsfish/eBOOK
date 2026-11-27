@@ -1,5 +1,11 @@
 # Project Status
 
+## Current repair — owner EPUB compatibility (2026-11-28)
+
+- **IN_PROGRESS**: [task](tasks/S02B_EPUB_COMPATIBILITY.md), existing PR12/branch; owner phone feedback reopens the prior freeze for this scoped import defect.
+- Local diagnosis: ZIP CRCs pass, but one spine page has an unclosed HTML `br` void tag. A private minimal repaired copy passes desktop XML/CRC checks. Neither book nor its text is in Git/CI.
+- App repair and original regression fixtures are implemented; real native EPUB tests and the next internal phone build are pending. Preserve49.1, Suxin, all reader UI and saved data. No merge/public release.
+
 ## Current delivery — TestFlight49.1, waiting for owner feedback (2026-11-27)
 
 - **WAITING_OWNER_FEEDBACK**: [task](tasks/S02B_READER_HELP.md), existing PR12/branch. **0.1.0(49.1) is available** to the existing owner group. Bottom icon row/small progress dot, skippable/replayable tutorial and bookshelf feedback are delivered. [Phone update](reports/S02B/reader-help/PHONE_DELIVERY.md).

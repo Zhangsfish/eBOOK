@@ -174,6 +174,27 @@ final class ReaderUITests: XCTestCase {
         snapshot("long-book-restored", reopened)
     }
 
+    func testHTMLVoidEPUBImportsReadsAndRestoresChapterNavigation() throws {
+        let app = launch("compat_void.epub")
+        open(app, title: "合成的清晨")
+        let first = app.tables["reader.table"].staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "换行前")).firstMatch
+        XCTAssertTrue(first.waitForExistence(timeout: 15))
+        XCTAssertTrue(first.label.contains("换行后。"))
+        snapshot("original-html-void-reader", app)
+        showControls(app); app.buttons["reader.toc"].tap()
+        let next = app.buttons["toc.entry.1"]
+        XCTAssertTrue(next.waitForExistence(timeout: 10)); next.tap()
+        let last = app.tables["reader.table"].staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "风从窗边经过。测试结束。")).firstMatch
+        XCTAssertTrue(last.waitForExistence(timeout: 10)); XCTAssertTrue(last.isHittable)
+        snapshot("original-html-void-second-chapter", app)
+        app.terminate()
+        let restored = launch("compat_void.epub", reset: false)
+        open(restored, title: "合成的清晨")
+        showControls(restored); restored.buttons["reader.toc"].tap()
+        let selected = restored.buttons["toc.entry.1"]
+        XCTAssertTrue(selected.waitForExistence(timeout: 10)); XCTAssertTrue(selected.isSelected)
+    }
+
     func testEPUBTOCImageAndReaderControls() throws {
         let app = launch("synthetic.epub")
         open(app, title: "合成的清晨")

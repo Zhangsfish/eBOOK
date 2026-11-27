@@ -10,14 +10,14 @@ import re
 import subprocess
 import sys
 import time
-from ci_diagnostics import collect_crashes, method_coverage
+from ci_diagnostics import collect_crashes, method_coverage, EPUB_CORE_METHODS, EPUB_UI_METHOD
 
 ROOT = Path(__file__).resolve().parents[3]
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--scope', choices=['frontend', 'integration', 'picker', 'reading', 'all'], default='integration')
+    parser.add_argument('--scope', choices=['frontend', 'integration', 'picker', 'reading', 'epub', 'all'], default='integration')
     args = parser.parse_args()
     build = ROOT / 'build'; build.mkdir(exist_ok=True)
     env = dict(os.environ)
@@ -106,12 +106,12 @@ def main():
         raise RuntimeError('Actual App/test compilation failed')
     subprocess.run([sys.executable, 'tools/suxin/scripts/inspect_runtime.py', '--verify-spm-dir',
                     'build/S02B-DerivedData/SourcePackages'], cwd=ROOT, env=env, check=True)
-    if args.scope in ['all', 'picker', 'reading']:
+    if args.scope in ['all', 'picker', 'reading', 'epub']:
         app = build / 'S02B-DerivedData/Build/Products/Debug-iphonesimulator/eBOOK.app'
         subprocess.run(['xcrun', 'simctl', 'install', device['udid'], str(app)], env=env, check=True)
         container = Path(output(['xcrun', 'simctl', 'get_app_container', device['udid'], 'com.zhangsfish.ebook', 'data']))
         documents = container / 'Documents'; documents.mkdir(exist_ok=True)
-        for source in [ROOT / '.local-test-data/synthetic_long_gb18030.txt', ROOT / 'Tests/Fixtures/sample_utf8.txt', ROOT / 'Tests/Fixtures/synthetic.epub']:
+        for source in [ROOT / '.local-test-data/synthetic_long_gb18030.txt', ROOT / 'Tests/Fixtures/sample_utf8.txt', ROOT / 'Tests/Fixtures/synthetic.epub', ROOT / 'Tests/Fixtures/compat_void.epub']:
             shutil.copyfile(source, documents / source.name)
     command = common + ['-configuration', 'Debug', '-resultBundlePath', 'build/S02B-tests.xcresult']
     if args.scope == 'frontend':
@@ -125,6 +125,10 @@ def main():
     elif args.scope == 'reading':
         command += ['-only-testing:EBookTests/ReaderPaginationTests', '-only-testing:EBookUITests/ReadingModesUITests',
                     '-only-testing:EBookUITests/ReaderUITests/testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains']
+    elif args.scope == 'epub':
+        command += ['-only-testing:EBookTests/EPUBCompatibilityTests']
+        command += ['-only-testing:EBookTests/ReaderCoreTests/' + name for name in sorted(EPUB_CORE_METHODS)]
+        command += ['-only-testing:EBookUITests/ReaderUITests/' + EPUB_UI_METHOD]
     try:
         code = execute(command + ['test-without-building'], 'test', 1500)
     except subprocess.TimeoutExpired:
@@ -171,7 +175,7 @@ def main():
               'host_cpu': output(['sysctl', '-n', 'machdep.cpu.brand_string']), 'host_logical_cpus': os.cpu_count(),
               'actual_counts': {key: summary[key] for key in ['totalTestCount', 'passedTests', 'failedTests', 'skippedTests']},
               'neural_audio_generation': neural, 'metrics': metrics, 'physical_device': 'NOT_RUN',
-              'status': ({'frontend': 'PASS_NATIVE_FRONTEND_ONLY', 'picker': 'PASS_NATIVE_PICKER_ONLY', 'reading': 'PASS_NATIVE_READING_ONLY'}.get(args.scope, 'PASS_NATIVE_INTEGRATION')) if not code else 'FAIL_ACTUAL_XCTEST'}
+              'status': ({'frontend': 'PASS_NATIVE_FRONTEND_ONLY', 'picker': 'PASS_NATIVE_PICKER_ONLY', 'reading': 'PASS_NATIVE_READING_ONLY', 'epub': 'PASS_NATIVE_EPUB_ONLY'}.get(args.scope, 'PASS_NATIVE_INTEGRATION')) if not code else 'FAIL_ACTUAL_XCTEST'}
     (build / 's02b-result.json').write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result), flush=True)
     if args.scope in ['integration', 'all'] and (not neural or len(metrics) != 2):
@@ -179,7 +183,7 @@ def main():
     result['validation_errors'] = errors
     if errors: result['status'] = 'FAIL_INCOMPLETE_METHOD_OR_NEURAL_EVIDENCE'
     (build / 's02b-result.json').write_text(json.dumps(result, indent=2) + '\n')
-    if args.scope in ['all', 'picker', 'reading']:
+    if args.scope in ['all', 'picker', 'reading', 'epub']:
         # Only this isolated simulator's original synthetic-fixture UI is
         # captured. Never export App bundles, audio or imported user books.
         with (build / 's02b-screenshots-export.log').open('w') as log:
@@ -211,7 +215,7 @@ def main():
         shutil.copyfile(source, build / 'reader-metrics.json')
         subprocess.run([sys.executable, 'scripts/check_reader_metrics.py'], cwd=ROOT, env=env, check=True)
         shutil.copyfile(build / 'reader-metrics-summary.json', build / 's02b-reader-metrics-summary.json')
-    if args.scope in ['all', 'integration'] or (args.scope in ['picker', 'reading'] and not code):
+    if args.scope in ['all', 'integration'] or (args.scope in ['picker', 'reading', 'epub'] and not code):
         archive = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK', '-configuration', 'Release',
                    '-destination', 'generic/platform=iOS', '-archivePath', 'build/S02B-device.xcarchive',
                    '-derivedDataPath', 'build/S02B-DerivedData', 'CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'archive']
