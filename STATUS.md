@@ -1,5 +1,11 @@
 # Project Status
 
+## Current owner request — reader controls, tutorial and feedback (2026-11-27)
+
+- **IN_PROGRESS**: [task](tasks/S02B_READER_HELP.md), existing PR12/branch. Compact bottom icon row and smaller progress thumb, local skippable/replayable animated tutorial, bookshelf feedback with the existing approved contact.
+- Owner explicitly requests direct internal phone testing after focused real validation, without another web review for this scope. Preserve Suxin and existing privacy/progress; no merge/public release or other workstream changes.
+- 48.1 and all earlier evidence below remain retained. New source/build/device acceptance is not yet claimed. [Current scope memory](reports/S02B/reader-help/AGENTS.md)
+
 ## Current delivery — TestFlight 48.1, waiting for phone feedback (2026-11-27)
 
 - **APPROVED_FOR_OWNER_BETA** for owner-requested copy and side taps. [Independent review](reports/S02B/owner-polish/INDEPENDENT_REVIEW.md) · [Delivery evidence](reports/S02B/owner-polish/DELIVERY.md).

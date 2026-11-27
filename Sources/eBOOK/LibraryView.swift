@@ -8,6 +8,9 @@ struct LibraryView: View {
     @State private var importing = false
     @State private var path: [UUID] = []
     @State private var removing: BookRecord?
+    @State private var showingTutorial = false
+    @State private var showingFeedback = false
+    @AppStorage("ebook.tutorial.v1.seen") private var tutorialSeen = false
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -61,7 +64,15 @@ struct LibraryView: View {
                                 }.accessibilityIdentifier("library.appearance.\(appearance.rawValue)")
                             }
                         }
-                    } label: { Label("翻页与书架外观", systemImage: "slider.horizontal.3") }
+                        Section {
+                            Button { showingTutorial = true } label: {
+                                Label("新手教程", systemImage: "play.circle")
+                            }.accessibilityIdentifier("library.tutorial")
+                            Button { showingFeedback = true } label: {
+                                Label("意见反馈", systemImage: "envelope")
+                            }.accessibilityIdentifier("library.feedback")
+                        }
+                    } label: { Label("书架设置", systemImage: "slider.horizontal.3") }
                     .accessibilityIdentifier("library.preferences")
                     .accessibilityValue("\(library.state.preferences.readingMode.title)，书架\(library.state.preferences.shelfAppearance.title)")
                 }
@@ -92,6 +103,17 @@ struct LibraryView: View {
                     importing = false
                     if let url { Task { await library.importFile(url, encoding: nil) } }
                 }
+            }
+            .sheet(isPresented: $showingFeedback) { ReaderFeedbackView() }
+            .fullScreenCover(isPresented: $showingTutorial) { ReaderTutorialView() }
+            .task {
+                #if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("--uitesting") {
+                    if ProcessInfo.processInfo.arguments.contains("--show-tutorial") { showingTutorial = true }
+                    return
+                }
+                #endif
+                if !tutorialSeen { tutorialSeen = true; showingTutorial = true }
             }
             .alert("无法完成操作", isPresented: Binding(get: { library.error != nil }, set: { if !$0 { library.error = nil } })) {
                 Button("好") { library.error = nil }

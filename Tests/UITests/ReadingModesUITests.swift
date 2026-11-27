@@ -2,11 +2,14 @@ import XCTest
 
 final class ReadingModesUITests: XCTestCase {
     override func setUpWithError() throws { continueAfterFailure = false }
-    private func launch(_ fixture: String, reset: Bool = true) -> XCUIApplication {
+    private func launch(_ fixture: String, reset: Bool = true, extra: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = ["--uitesting", "--test-import", fixture, "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
         if reset { app.launchArguments.append("--reset-library") }
-        app.launch(); XCTAssertTrue(app.buttons["library.preferences"].waitForExistence(timeout: 180))
+        app.launchArguments += extra
+        app.launch()
+        let ready = extra.contains("--show-tutorial") ? "tutorial.skip" : "library.preferences"
+        XCTAssertTrue(app.buttons[ready].waitForExistence(timeout: 180))
         return app
     }
     private func choose(_ app: XCUIApplication, id: String, title: String) {
@@ -68,6 +71,91 @@ final class ReadingModesUITests: XCTestCase {
         changed.isInverted = true
         XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 1), .completed)
         XCTAssertEqual(pagePosition(app), expected)
+    }
+    func testBottomIconRowAndSmallSliderKeepNavigationAndThemes() {
+        let app = launch("synthetic.epub")
+        choose(app, id: "library.mode.horizontal", title: "左右翻页")
+        open(app, title: "合成的清晨", horizontal: true)
+        let beginning = pagePosition(app)
+        for theme in ["护眼", "夜间", "明亮"] {
+            controls(app)
+            let buttons = ["reader.back", "reader.speech", "reader.toc", "reader.settings"].map { app.buttons[$0] }
+            for button in buttons {
+                XCTAssertTrue(button.isHittable)
+                XCTAssertGreaterThanOrEqual(button.frame.height, 44)
+                XCTAssertGreaterThanOrEqual(button.frame.width, 44)
+                XCTAssertEqual(button.frame.midY, buttons[0].frame.midY, accuracy: 1)
+                XCTAssertGreaterThan(button.frame.minY, app.frame.maxY - 200)
+            }
+            for index in 1..<buttons.count { XCTAssertGreaterThan(buttons[index].frame.minX, buttons[index - 1].frame.maxX) }
+            let slider = app.sliders["reader.seek"]
+            XCTAssertTrue(slider.isHittable)
+            XCTAssertGreaterThanOrEqual(slider.frame.minY, buttons[0].frame.maxY - 1)
+            assertPositionStays(beginning, app: app)
+            app.buttons["reader.settings"].tap()
+            XCTAssertTrue(app.buttons[theme].waitForExistence(timeout: 10)); app.buttons[theme].tap()
+            app.buttons["完成"].tap()
+            controls(app); snapshot(app, "bottom-controls-" + theme)
+            app.buttons["reader.controls.dismiss"].tap()
+            XCTAssertTrue(app.buttons["reader.controls"].waitForExistence(timeout: 10))
+            waitForPosition(beginning, app: app)
+        }
+        controls(app)
+        app.sliders["reader.seek"].adjust(toNormalizedSliderPosition: 0.85)
+        let sought = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in self.pagePosition(app) != beginning }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [sought], timeout: 10), .completed)
+        let saved = pagePosition(app)
+        app.buttons["reader.toc"].tap()
+        XCTAssertTrue(app.buttons["完成"].waitForExistence(timeout: 10)); app.buttons["完成"].tap()
+        waitForPosition(saved, app: app)
+    }
+    func testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences() {
+        let app = launch("synthetic.epub", extra: ["--show-tutorial"])
+        XCTAssertTrue(app.buttons["tutorial.skip"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.otherElements["tutorial.animation"].exists)
+        snapshot(app, "tutorial-import")
+        app.buttons["tutorial.skip"].tap()
+        choose(app, id: "library.mode.horizontal", title: "左右翻页")
+        app.buttons["library.preferences"].tap()
+        app.buttons["library.tutorial"].tap()
+        XCTAssertTrue(app.staticTexts["tutorial.title"].waitForExistence(timeout: 10))
+        XCTAssertEqual(app.staticTexts["tutorial.title"].label, "把好书放进书架")
+        let titles = ["按自己的习惯翻页", "需要时，打开阅读控制", "读累了，就听一会儿"]
+        for title in titles {
+            app.buttons["tutorial.next"].tap()
+            XCTAssertEqual(app.staticTexts["tutorial.title"].label, title)
+        }
+        app.buttons["tutorial.previous"].tap()
+        XCTAssertEqual(app.staticTexts["tutorial.title"].label, titles[1])
+        snapshot(app, "tutorial-reading-controls")
+        app.buttons["tutorial.next"].tap(); app.buttons["tutorial.next"].tap()
+        XCTAssertTrue(app.buttons["library.preferences"].waitForExistence(timeout: 10))
+        XCTAssertTrue((app.buttons["library.preferences"].value as? String)?.contains("左右翻页") == true)
+        open(app, title: "合成的清晨", horizontal: true)
+        XCTAssertFalse(app.buttons["reader.back"].exists)
+    }
+    func testTutorialReduceMotionShowsStaticStoryboard() {
+        let app = launch("synthetic.epub", extra: ["--show-tutorial", "--test-reduce-motion"])
+        XCTAssertTrue(app.buttons["tutorial.skip"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.otherElements["tutorial.static"].exists)
+        XCTAssertFalse(app.otherElements["tutorial.animation"].exists)
+        for _ in 0..<3 { app.buttons["tutorial.next"].tap(); XCTAssertTrue(app.otherElements["tutorial.static"].exists) }
+        app.buttons["tutorial.next"].tap()
+        XCTAssertTrue(app.buttons["library.preferences"].waitForExistence(timeout: 10))
+    }
+    func testFeedbackCanCopyContactAndReturnToShelf() {
+        let app = launch("synthetic.epub")
+        app.buttons["library.preferences"].tap(); app.buttons["library.feedback"].tap()
+        let email = app.buttons["feedback.email"]
+        XCTAssertTrue(email.waitForExistence(timeout: 10)); XCTAssertTrue(email.label.contains("zhangs.taq@gmail.com"))
+        XCTAssertTrue(app.buttons["feedback.homepage"].isHittable)
+        app.buttons["feedback.copy"].tap()
+        XCTAssertTrue(app.buttons["feedback.copy"].label.contains("已复制邮箱"))
+        snapshot(app, "feedback-contact")
+        // Do not launch Mail/browser or send a message during automated tests.
+        app.buttons["feedback.dismiss"].tap()
+        XCTAssertTrue(app.buttons["library.preferences"].waitForExistence(timeout: 10))
+        open(app, title: "合成的清晨", horizontal: false)
     }
     func testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone() {
         let app = launch("synthetic_long_gb18030.txt")

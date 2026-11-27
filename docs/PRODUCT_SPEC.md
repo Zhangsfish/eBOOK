@@ -25,6 +25,7 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 - Graceful handling of unsupported, encrypted, malformed, and oversized files.
 - Bookshelf settings choose vertical scrolling or horizontal pages before opening a book.
 - Bookshelf appearance has independent system/normal/warm/night choices. It never changes the saved book-reading theme.
+- The bookshelf settings also offer a replayable animated beginner tutorial and feedback/contact. The tutorial appears once, can be skipped immediately, and demonstrates actions without changing books or preferences.
 
 ### Reading
 - EPUB chapter/section navigation and table of contents.
@@ -36,6 +37,7 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 - The book theme remains adjustable inside reading settings, independently of bookshelf appearance.
 - Horizontal mode turns a viewport-sized native page with left/right swipes or single taps in the left/right thirds (previous/next). The middle stays available for text interaction. Vertical scrolling remains available. Mode/typography changes preserve the nearby source position.
 - Progress indicator and restore last reading position.
+- A quiet bottom-right ellipsis opens one bottom row of exit/speech/TOC/typography icons, with progress below. The slider has a small visible thumb and retains a full-height native touch/accessibility control; the ellipsis closes the controls.
 - Screen should remain readable with Dynamic Type and VoiceOver support.
 
 ### Listening

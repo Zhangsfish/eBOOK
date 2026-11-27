@@ -36,9 +36,6 @@ struct ReaderView: View {
                     .padding(.bottom, 44)
                     if showingControls {
                         readingControls(document)
-                            .padding(12)
-                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
-                            .padding(12)
                     } else {
                         Button { showingControls = true } label: {
                             Image(systemName: "ellipsis")
@@ -117,49 +114,50 @@ struct ReaderView: View {
     }
 
     private func readingControls(_ document: BookDocument) -> some View {
-        VStack(spacing: 12) {
-            HStack {
+        VStack(spacing: 0) {
+            HStack(spacing: 16) {
                 Button { dismiss() } label: {
-                    Image(systemName: "chevron.left").frame(width: 44, height: 44)
+                    Image(systemName: "chevron.left").frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
                 }.accessibilityLabel("返回书架").accessibilityIdentifier("reader.back")
-                Text(library.record(bookID)?.title ?? "阅读").font(.headline).lineLimit(1)
-                Spacer(minLength: 0)
-                Button { showingControls = false } label: {
-                    Image(systemName: "xmark").frame(width: 44, height: 44)
-                }.accessibilityLabel("收起阅读控制").accessibilityIdentifier("reader.controls.dismiss")
-            }
-            HStack(spacing: 12) {
                 Button {
                     showingControls = false; showingSpeech = true
                 } label: {
-                    Label("朗读", systemImage: speech.book?.id == bookID && speech.status == .playing ? "speaker.wave.2.fill" : "speaker.wave.2")
-                        .frame(maxWidth: .infinity, minHeight: 44)
+                    Image(systemName: speech.book?.id == bookID && speech.status == .playing ? "speaker.wave.2.fill" : "speaker.wave.2")
+                        .frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
                 }.accessibilityLabel("朗读控制").accessibilityIdentifier("reader.speech")
                 Button {
                     tocQuery = ""
                     showingControls = false; showingTOC = true
                 } label: {
-                    Label("目录", systemImage: "list.bullet").frame(maxWidth: .infinity, minHeight: 44)
-                }.accessibilityIdentifier("reader.toc")
+                    Image(systemName: "list.bullet").frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
+                }.accessibilityLabel("目录").accessibilityIdentifier("reader.toc")
                 Button {
                     showingControls = false; showingSettings = true
                 } label: {
-                    Label("字号", systemImage: "textformat.size").frame(maxWidth: .infinity, minHeight: 44)
+                    Image(systemName: "textformat.size").frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
                 }.accessibilityLabel("阅读设置").accessibilityIdentifier("reader.settings")
-            }
-            HStack {
+            }.font(.system(size: 18, weight: .regular))
+            HStack(spacing: 8) {
                 Text("\(Int(document.progress(block: current.block, fraction: current.fraction) * 100))%")
                     .monospacedDigit().accessibilityIdentifier("reader.progress")
-                Slider(value: Binding(get: { document.progress(block: current.block, fraction: current.fraction) }, set: {
+                ReaderProgressSlider(value: Binding(get: { document.progress(block: current.block, fraction: current.fraction) }, set: {
                     jump = ReaderJump(block: document.block(atProgress: $0))
-                }), in: 0...1)
-                .accessibilityLabel("阅读进度").accessibilityIdentifier("reader.seek")
+                }), color: library.state.preferences.theme.foreground,
+                    increasedContrast: colorSchemeContrast == .increased)
+                .frame(maxWidth: .infinity).frame(height: 44)
                 Text("\(current.block + 1)/\(document.blocks.count)")
                     .monospacedDigit().accessibilityIdentifier("reader.anchor")
-            }.font(.caption)
+                Button { showingControls = false } label: {
+                    Image(systemName: "ellipsis").font(.system(size: 16))
+                        .frame(width: 44, height: 44).contentShape(Rectangle())
+                }.accessibilityLabel("收起阅读控制").accessibilityIdentifier("reader.controls.dismiss")
+            }.font(.caption2)
         }
         .buttonStyle(.plain)
-        .foregroundStyle(Color(library.state.preferences.theme.foreground))
+        .foregroundStyle(Color(library.state.preferences.theme.foreground)
+            .opacity(colorSchemeContrast == .increased ? 1 : 0.65))
+        .padding(.leading, 16).padding(.trailing, 8)
+        .background(Color(library.state.preferences.theme.background).opacity(0.97))
     }
 
     private var toc: some View {
