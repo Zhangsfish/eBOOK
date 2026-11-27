@@ -1,5 +1,7 @@
 # Bottom controls, tutorial and feedback
 
+**WAITING_OWNER_FEEDBACK**. Actual0.1.0(49.1) is available. Reader1619c200ed7552be5687c4446240daefe676fb4c, bridgeba2c4417f3302f0f8a16c8d7003a167149993dec, run46017595137. Final18.5/26.5 each14/14 and real archives/6+2 PASS. Apple accepted22:41:35Beijing, returned existing-groupIN_BETA_TESTING/available22:43:46 on2026-11-27. PHONE_DELIVERY.md and phone-delivery-evidence.json are canonical. Stop edits/uploads and wait for owner phone feedback; earlier candidate/pending paragraphs below are historical. No merge/public release.
+
 Owner instruction 2026-11-27 reopens PR12 on its existing branch from
 566a7fa94296633c4078f9b06b7d261a26cc32a7. Changes: a quiet bottom row of four
 reader icons with the progress slider below and a smaller visible thumb; a local,

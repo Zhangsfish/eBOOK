@@ -1,12 +1,12 @@
 # 底部阅读控制、教程与反馈
 
-当前 **IN_PROGRESS**，尚未声称新包可安装。Owner于2026-11-27明确要求：完成真实验证后直接使用现有内部TestFlight提测，本轮不再提交网页端审查。不合并PR、不公开发布。
+当前 **WAITING_OWNER_FEEDBACK**。两套最终回归各14/14及Release归档已通过；[实际49.1流程](https://github.com/Zhangsfish/lecture-asset/actions/runs/46017595137)已交付 **0.1.0（49.1）**。Apple于北京时间2026-11-27 22:43:46确认既有内部组可安装。[手机交付](PHONE_DELIVERY.md)。Owner明确要求本轮直接内部提测，不再提交网页端审查。不合并PR、不公开发布。
 
-起点 `566a7fa94296633c4078f9b06b7d261a26cc32a7`；当前候选测试与拟签名打包版本 `1619c200ed7552be5687c4446240daefe676fb4c`。它包含完整44点透明thumb及PrivacyInfo声明、明确的面板zIndex，以及仅用于专项UI测试的原生滑块几何/触摸计数。Release和普通Debug均使用标准UISlider。初轮a82be00、89c643d、84e49d4及其测试记录保留如下。
+起点 `566a7fa94296633c4078f9b06b7d261a26cc32a7`；实际测试与签名打包固定版本 `1619c200ed7552be5687c4446240daefe676fb4c`。它包含44点透明thumb及PrivacyInfo声明、明确的面板zIndex，以及仅用于专项UI测试的原生滑块几何/触摸计数。Release和普通Debug均使用标准UISlider。文档提交208fd7c与它的八项构建输入相同。初轮a82be00、89c643d、84e49d4及其测试记录保留如下。
 
 ## 修改
 
-右下角三个点保留。展开后最下方只有一排返回、喇叭、目录、字号图标，去掉原来的书名标题、大卡片、文字标签与独立关闭行。下方保留进度和收起入口。按钮仍有至少44点的触控区域；进度圆点可见部分为12点，周围保留44点透明thumb，使轨道两端也能拖动。仅在主题/对比度改变时替换thumb图片，避免拖动过程中重复替换。保留原生UISlider及辅助功能。
+右下角三个点保留。展开后最下方只有一排返回、喇叭、目录、字号图标，去掉原来的书名标题、大卡片、文字标签与独立关闭行。下方保留进度和收起入口。图标按钮仍有至少44点触控区域；进度圆点可见部分12点，提供44点外层布局和透明thumb，保留系统滑块的触控行为。仅在主题/对比度改变时替换thumb图片，避免拖动过程中重复替换。保留原生UISlider及辅助功能。
 
 颜色跟随书内的明亮、护眼、夜间主题，按钮弱化显示；增强对比度时使用完整前景色。展开/收起不改变正文视口和当前源位置。原有上下滚动、左右点按/滑动、实时目录及字号/行距仍保留。
 
@@ -16,7 +16,7 @@
 
 苏心模型、中文前处理、音频队列/缓存、语速实现、书籍存储和阅读锚点算法没有改动。没有新增依赖。
 
-首次教程的已看标记使用App自身的UserDefaults。根据[Apple官方用途声明](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitypereasons?language=objc)，在PrivacyInfo.xcprivacy补充CA92.1；本机解析核对只增加该类别及原因，原有无跟踪/无收集声明不变。最终84e49d4的两套CI也包含这份元数据，不把此前89c643d的CI说成另一源码的完整实测。
+首次教程的已看标记使用App自身的UserDefaults。根据[Apple官方用途声明](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitypereasons?language=objc)，在PrivacyInfo.xcprivacy补充CA92.1；本机解析核对只增加该类别及原因，原有无跟踪/无收集声明不变。最终两套CI均包含这份元数据。
 
 ## 真实验证
 
@@ -33,8 +33,8 @@
 | [89c643d / iOS18.5 / 46005486587](https://github.com/Zhangsfish/eBOOK/actions/runs/46005486587) | 14PASS/0FAIL/0SKIP；unsigned arm64 Release及6+2资源通过。 |
 | [84e49d4 / iOS26.5 / 46009570704](https://github.com/Zhangsfish/eBOOK/actions/runs/46009570704) | 12PASS/2FAIL/0SKIP；明确横向拖动已通过；进度仍0%未推进；教程第二次Next后即时断言读到前页标题。无Release归档。 |
 | [84e49d4 / iOS18.5 / 46009580484](https://github.com/Zhangsfish/eBOOK/actions/runs/46009580484) | 14PASS/0FAIL/0SKIP；Xcode16.4（16F6），iPhone16Pro；unsigned arm64 Release93,186,443字节，6+2资源通过。 |
-| [最终1619c20 / iOS26.5 / 46014013164](https://github.com/Zhangsfish/eBOOK/actions/runs/46014013164) | PENDING |
-| [最终1619c20 / iOS18.5 / 46014021341](https://github.com/Zhangsfish/eBOOK/actions/runs/46014021341) | PENDING |
+| [最终1619c20 / iOS26.5 / 46014013164](https://github.com/Zhangsfish/eBOOK/actions/runs/46014013164) | **14PASS/0FAIL/0SKIP**；Xcode26.6（17F113），iPhone17Pro；unsigned arm64 Release93,182,738字节，6+2资源通过，原设备归档入口实际执行。 |
+| [最终1619c20 / iOS18.5 / 46014021341](https://github.com/Zhangsfish/eBOOK/actions/runs/46014021341) | **14PASS/0FAIL/0SKIP**；Xcode16.4（16F6），iPhone16Pro；unsigned arm64 Release93,186,531字节，6+2资源通过。 |
 
 初轮26.5失败发生在原有 `testHorizontalPagesReturnRestoreTOCAndSwitchToVertical` 的第一次左滑，没有观察到新页面位置。此时底部面板尚未展开。分页器/手势代码与48.1完全相同；不据此擅自宣称基础设施或产品根因。保留原记录，仅进行一次同源码完整reading范围复核，没有降低断言、跳过失败或修改App。18.5实际截图已核读三主题底部控制、教程与反馈；截图只含原创夹具。
 
@@ -44,8 +44,10 @@
 
 84e49d4的实际横向拖动通过，进度仍未推进。1619c20明确底部面板zIndex为1；专项测试使用真实UISlider子类只读取原生thumbRect转换到窗口的位置、记录super追踪事件和valueChanged次数，测试从该真实位置拖动。不改进度值、不替换触摸结果，Release和普通Debug没有这个子类。教程保留相同标题断言，改为有界等待新标题，而不是点击后立即读可能尚未刷新的快照。
 
-本轮是UI范围回归，不冒充完整55项或新模型音频/真机长听测试。新源码的签名上传、Apple可安装状态、手机手感和VoiceOver人工检查均待实际结果。
+最终两套原生事件记录均为begins=1、accepted=true，18.5有14次continue/16次valueChanged，26.5有13次continue/22次valueChanged；均由真实拖动推进到block3/offset0。26.5实际原生视图高34点，外层布局44点；18.5原生高44点。没有把外层尺寸误写成两套原生控件高度相同。最终实际事件及摘要见[evidence.json](evidence.json)。没有据此宣称某个单一历史失败根因已被唯一证明。
+
+本轮是UI范围回归，不冒充完整55项或新模型音频/真机长听测试。签名上传和Apple可安装状态已实际核验；手机安装/手感、首次教程实际体验及VoiceOver人工检查等待owner反馈。
 
 ## 交付
 
-待两套实际结果后，将现有eBOOK专用桥固定到通过的精确源码，沿用既有内部组和签名流程上传一次，并读回Apple的VALID/INTERNAL_ONLY/IN_BETA_TESTING。当前48.1保留。交付准确新build与更新说明后停止，等待用户手机反馈。
+现有eBOOK专用桥ba2c4417f3302f0f8a16c8d7003a167149993dec只更新两个精确源码引用，签名/静态链接/同build双归档摘要/资源校验/既有组及Internal Only约束保留。[实际49.1流程](https://github.com/Zhangsfish/lecture-asset/actions/runs/46017595137)完成；Apple已读回VALID/INTERNAL_ONLY、既有组关联及IN_BETA_TESTING。没有重复上传，48.1和更早包保留。真实归档摘要和可安装事件见[交付证据](phone-delivery-evidence.json)。现在停止开发与上传，等待手机反馈。

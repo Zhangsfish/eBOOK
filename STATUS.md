@@ -1,10 +1,11 @@
 # Project Status
 
-## Current owner request — reader controls, tutorial and feedback (2026-11-27)
+## Current delivery — TestFlight49.1, waiting for owner feedback (2026-11-27)
 
-- **IN_PROGRESS**: [task](tasks/S02B_READER_HELP.md), existing PR12/branch. Compact bottom icon row and smaller progress thumb, local skippable/replayable animated tutorial, bookshelf feedback with the existing approved contact.
+- **WAITING_OWNER_FEEDBACK**: [task](tasks/S02B_READER_HELP.md), existing PR12/branch. **0.1.0(49.1) is available** to the existing owner group. Bottom icon row/small progress dot, skippable/replayable tutorial and bookshelf feedback are delivered. [Phone update](reports/S02B/reader-help/PHONE_DELIVERY.md).
 - Owner explicitly requests direct internal phone testing after focused real validation, without another web review for this scope. Preserve Suxin and existing privacy/progress; no merge/public release or other workstream changes.
-- 48.1 and all earlier evidence below remain retained. New source/build/device acceptance is not yet claimed. [Current scope memory](reports/S02B/reader-help/AGENTS.md)
+- Exact reader1619c200ed7552be5687c4446240daefe676fb4c: actual18.5/26.5 each14PASS/0FAIL/0SKIP and unsigned arm64/6+2 PASS. Actual bridgeba2c441/run46017595137 verifies paired archives and AppleVALID/INTERNAL_ONLY/existing-group/IN_BETA_TESTING at22:43:46Beijing. [Test report](reports/S02B/reader-help/DELIVERY.md).
+- Preserve48.1 and all earlier results/failures. New phone installation/upgrade, touch/VoiceOver and owner acceptance remain pending. **Stop development/uploads pending feedback.** [Current scope memory](reports/S02B/reader-help/AGENTS.md)
 
 ## Current delivery — TestFlight 48.1, waiting for phone feedback (2026-11-27)
 

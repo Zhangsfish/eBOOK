@@ -1,11 +1,11 @@
 {
   "base_sha": "566a7fa94296633c4078f9b06b7d261a26cc32a7",
-  "tested_implementation_sha": "84e49d46ed2e1ecd0c481122dd3bf69d4df97a7a",
-  "status": "AWAIT_NATIVE_HIT_TEST_DIAGNOSTICS",
+  "tested_implementation_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+  "status": "WAITING_OWNER_FEEDBACK",
   "authorization": "Owner requests direct existing internal TestFlight after focused real checks; no further web review for this scope.",
   "build_input_git_objects": {
-    "Sources": "b4b1a3addd8a2495656dd03d55ba7704631b908e",
-    "Tests": "fe42b0538c453f57cb1eb1cc0e807c357a92ee3b",
+    "Sources": "4b5584e299ada01e0e9f9681e00c0cfa66a1cde8",
+    "Tests": "7c45399a99a01b35e6fc2730ba59c1fb75f0ecc8",
     "scripts": "032b8e95768897c146d92c91198df87755f9f947",
     "tools/suxin": "c61bb6beedcdab3b82bf7a7cb5d01c1d54d7ce3e",
     ".github/workflows": "e3c327eaa05302d76d52499467e436856415d917",
@@ -30,6 +30,7 @@
     "AGENTS.md",
     "STATUS.md",
     "Sources/eBOOK/LibraryView.swift",
+    "Sources/eBOOK/PrivacyInfo.xcprivacy",
     "Sources/eBOOK/ReaderFeedbackView.swift",
     "Sources/eBOOK/ReaderProgressSlider.swift",
     "Sources/eBOOK/ReaderTutorialView.swift",
@@ -611,6 +612,184 @@
           "observation": "Immediate title assertion observed previous title after second Next tap."
         }
       ]
+    },
+    {
+      "run_id": 46014021341,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46014021341",
+      "result": {
+        "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+        "scope": "reading",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+        "simulator_name": "iPhone 16 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "host_logical_cpus": 3,
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 14,
+          "failedTests": 0,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "metrics": [],
+        "physical_device": "NOT_RUN",
+        "status": "PASS_NATIVE_READING_ONLY",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "passed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "unsigned_device_archive": {
+        "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+        "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+        "architecture": "arm64",
+        "bundle_id": "com.zhangsfish.ebook",
+        "version": "0.1.0",
+        "app_bytes": 93186531,
+        "unsigned_executable_sha256": "2b46feb19b55b7a3bcda1b7369fcfd739b5c5c6ffc845df20af417071faec733",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "original_device_entry_executed": false,
+        "signing": "NOT_RUN",
+        "testflight": "NOT_RUN",
+        "physical_device": "NOT_RUN",
+        "public_binary_artifact": false
+      },
+      "native_seek_events": [
+        "READER_SEEK_BEFORE frame=(41.33333333333333, 796.6666666666666, 275.0, 43.0) value=0.0;screenX=61.33333333333333;screenY=818.6666666666666;width=279.0;height=44.0;begins=0;accepted=false;moves=0;actions=0;lastAction=0.0;firstX=0.0;firstY=0.0",
+        "READER_SEEK_AFTER value=0.6721311;screenX=221.33333333333331;screenY=818.6666666666666;width=272.0;height=44.0;begins=1;accepted=true;moves=14;actions=16;lastAction=0.9663742;firstX=21.999994913736984;firstY=21.999989827473996 position=block=3;offset=0"
+      ]
+    },
+    {
+      "run_id": 46014013164,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46014013164",
+      "result": {
+        "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+        "scope": "reading",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "simulator_name": "iPhone 17 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "host_logical_cpus": 3,
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 14,
+          "failedTests": 0,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "metrics": [],
+        "physical_device": "NOT_RUN",
+        "status": "PASS_NATIVE_READING_ONLY",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "passed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "unsigned_device_archive": {
+        "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+        "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+        "architecture": "arm64",
+        "bundle_id": "com.zhangsfish.ebook",
+        "version": "0.1.0",
+        "app_bytes": 93182738,
+        "unsigned_executable_sha256": "ab0af3b8746f3d56b967e255002c9316eebc432a644402c7ff8f6a78c450c7ee",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "original_device_entry_executed": true,
+        "signing": "NOT_RUN",
+        "testflight": "NOT_RUN",
+        "physical_device": "NOT_RUN",
+        "public_binary_artifact": false
+      },
+      "native_seek_events": [
+        "READER_SEEK_BEFORE frame=(41.33333333333333, 801.0, 275.0, 34.0) value=0.0;screenX=63.33333333333333;screenY=818.0;width=275.0;height=34.0;begins=0;accepted=false;moves=0;actions=0;lastAction=0.0;firstX=0.0;firstY=0.0",
+        "READER_SEEK_AFTER value=0.6721311;screenX=221.33333333333331;screenY=818.0;width=268.0;height=34.0;begins=1;accepted=true;moves=13;actions=22;lastAction=0.82960516;firstX=22.0;firstY=17.0 position=block=3;offset=0"
+      ]
     }
   ],
   "original_fixture_screenshots": [
@@ -757,13 +936,104 @@
         2622
       ],
       "visually_inspected": true
+    },
+    {
+      "run_id": 46014013164,
+      "attempt": 1,
+      "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+      "label": "reading-modes-bottom-controls-明亮",
+      "sha256": "e49d97663dc889a0871b6f92a885baafbc4d4d77f6a779ecf66d0099033d5779",
+      "bytes": 111874,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 46014013164,
+      "attempt": 1,
+      "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+      "label": "reading-modes-bottom-controls-夜间",
+      "sha256": "d4de1bb3af3f13d0ed76b1629eb2b1d94f83ea27eb51043b47b0e3ba2724c346",
+      "bytes": 110866,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 46014013164,
+      "attempt": 1,
+      "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+      "label": "reading-modes-bottom-controls-护眼",
+      "sha256": "609283ed7a6c2aed14e5fc07df0cb77622905be2acc1655a03ab7cf0b18ea283",
+      "bytes": 110930,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 46014013164,
+      "attempt": 1,
+      "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+      "label": "reading-modes-feedback-contact",
+      "sha256": "48926616e30ce86e3028248c1933ef1d214fa8da2e16781185959be8c609f097",
+      "bytes": 118342,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 46014013164,
+      "attempt": 1,
+      "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+      "label": "reading-modes-tutorial-reading-controls",
+      "sha256": "82126e9491dac5aeb798286ebd930b8cefa5f89552c0b2180981af0f1e279888",
+      "bytes": 471640,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 46014013164,
+      "attempt": 1,
+      "source_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+      "label": "reading-modes-tutorial-import",
+      "sha256": "19ddd98b7ec3c290ff315b094df4c86d5c666197c1305b919caffdeaaaa15163",
+      "bytes": 434456,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
     }
   ],
-  "screenshot_note": "Twelve actual original-fixture captures viewed in local QA contact sheets. Tutorial captures occur during animation, not an asserted end-frame snapshot. No raw screenshot index or simulator identifiers are committed.",
+  "screenshot_note": "Initial12 plus final-source26.5 six original-fixture captures were visually inspected. Source89c643d18.5 footer crops and source84e49d4 full18.5 captures were also inspected locally. Tutorial snapshots may occur during animation; no end-frame timing claim. Raw indexes/simulator identifiers are not committed.",
   "candidate_implementation_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
-  "pending_runs": [
-    46014013164,
-    46014021341
-  ],
-  "initial_implementation_sha": "a82be00c063adf8fbfa7534c2053c3cd3075a465"
+  "pending_runs": [],
+  "initial_implementation_sha": "a82be00c063adf8fbfa7534c2053c3cd3075a465",
+  "working_tree_build_input_differences": [],
+  "phone_delivery": {
+    "run_id": 46017595137,
+    "url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/46017595137",
+    "reader_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+    "bridge_sha": "ba2c4417f3302f0f8a16c8d7003a167149993dec",
+    "allocated_version": "0.1.0",
+    "allocated_build": "49.1",
+    "status": "TESTFLIGHT_AVAILABLE",
+    "build": "49.1",
+    "accepted_at_utc": "2026-11-27T14:41:35.8638740Z",
+    "available_at_utc": "2026-11-27T14:43:46.0201200Z",
+    "evidence": "phone-delivery-evidence.json"
+  },
+  "new_phone_build": "0.1.0(49.1), VALID/INTERNAL_ONLY, existing owner group verified, IN_BETA_TESTING",
+  "new_physical_device_acceptance": "NOT_RUN; awaits owner after update"
 }

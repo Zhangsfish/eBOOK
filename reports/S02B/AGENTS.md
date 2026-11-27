@@ -1,5 +1,8 @@
 # S02B integration evidence
 
+## Latest owner UI trial —2026-11-27
+Reader-help task is delivered as0.1.0(49.1), WAITING_OWNER_FEEDBACK. Exact compiled/tested1619c200ed7552be5687c4446240daefe676fb4c has actual18.5/26.5 each14/14,0skips and unsigned arm64/6+2. Existing bridgeba2c441/run46017595137 returned AppleVALID/INTERNAL_ONLY/existing owner association/IN_BETA_TESTING at22:43:46Beijing. Owner explicitly authorized direct internal delivery without another web review for these UI changes. Canonical reader-help/PHONE_DELIVERY.md and safe events record actual build and paired archive baseline. Prior failures retained in reader-help/DELIVERY.md/evidence.json. Stop edits/uploads; phone installation/acceptance pending. Older freeze/delivery text below is historical, not an instruction to reupload47.1/48.1.
+
 ## Current owner decision2026-11-27
 WAITING_OWNER_FEEDBACK. Independent review is complete; see REVIEW_AND_OWNER_TRIAL_20261127.md.
 Freeze App feature implementation. Repository-root tasks/S02B_OWNER_PHONE_TRIAL.md is delivered.

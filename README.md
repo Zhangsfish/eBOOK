@@ -4,10 +4,13 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 
 ## Current work: compact reading controls and help
 
-The owner requests a bottom icon row, smaller progress dot, animated beginner
-tutorial and bookshelf feedback. Current state: **IN_PROGRESS**. The owner explicitly
-authorizes direct internal TestFlight delivery after focused real checks, without
-another web review for this scope. [Task](tasks/S02B_READER_HELP.md) · [Evidence](reports/S02B/reader-help/DELIVERY.md)
+Internal **TestFlight0.1.0(49.1)** is available, with the bottom icon row/smaller
+progress dot, animated tutorial and bookshelf feedback. State: **WAITING_OWNER_FEEDBACK**.
+Exact reader1619c200ed7552be5687c4446240daefe676fb4c passed14/14 on each of iOS18.5/26.5;
+Apple verified existing-group availability at22:43:46Beijing on2026-11-27.
+The owner authorized direct internal testing without another web review for this scope.
+[Phone update](reports/S02B/reader-help/PHONE_DELIVERY.md) · [Test report](reports/S02B/reader-help/DELIVERY.md).
+Stop development/uploads and await actual phone feedback. No merge or public release.
 
 ### Retained 48.1 delivery
 

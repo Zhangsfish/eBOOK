@@ -1,5 +1,7 @@
 # 历史任务：47.1 手机试用交付
 
+最新reader-help界面已交付为[0.1.0（49.1）](../reports/S02B/reader-help/PHONE_DELIVERY.md)，任务[S02B_READER_HELP.md](S02B_READER_HELP.md)已完成上传，等待手机反馈；不要重复执行历史上传。
+
 后续的文案与点按翻页更新已经交付为 [0.1.0（48.1）](../reports/S02B/owner-polish/PHONE_DELIVERY.md)。最新任务见 [S02B_OWNER_POLISH_PHONE_DELIVERY.md](S02B_OWNER_POLISH_PHONE_DELIVERY.md)。
 
 状态：**WAITING_OWNER_FEEDBACK — 0.1.0（47.1）已可安装，停止开发与上传。**
