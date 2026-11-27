@@ -36,6 +36,7 @@ struct ReaderView: View {
                     .padding(.bottom, 44)
                     if showingControls {
                         readingControls(document)
+                            .zIndex(1)
                     } else {
                         Button { showingControls = true } label: {
                             Image(systemName: "ellipsis")

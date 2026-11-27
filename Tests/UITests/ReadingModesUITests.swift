@@ -46,6 +46,11 @@ final class ReadingModesUITests: XCTestCase {
         let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in self.pagePosition(app) == expected }, object: app)
         XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 15), .completed, "expected=\(expected); actual=\(pagePosition(app))")
     }
+    private func waitForTutorialTitle(_ title: String, app: XCUIApplication) {
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", title),
+                                               object: app.staticTexts["tutorial.title"])
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed)
+    }
     private func swipe(_ app: XCUIApplication, left: Bool) {
         let before = pagePosition(app)
         // A defined80%-width drag crosses the paging threshold on both iOS
@@ -110,12 +115,21 @@ final class ReadingModesUITests: XCTestCase {
         let beforeValue = slider.value as? String ?? ""
         // Drag the real thumb centre, rather than relying on XCTest's
         // normalized adjustment geometry for a custom UISlider thumb image.
-        let start = slider.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0.5))
-            .withOffset(CGVector(dx: 22, dy: 0))
+        let fields = Dictionary(uniqueKeysWithValues: beforeValue.components(separatedBy: ";").compactMap { field -> (String, String)? in
+            let pair = field.components(separatedBy: "=")
+            return pair.count == 2 ? (pair[0], pair[1]) : nil
+        })
+        guard let x = Double(fields["screenX"] ?? ""), let y = Double(fields["screenY"] ?? "") else {
+            XCTFail("Missing actual native thumb geometry: \(beforeValue)"); return
+        }
+        print("READER_SEEK_BEFORE frame=\(slider.frame) \(beforeValue)")
+        let start = app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: x, dy: y))
         let end = slider.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5))
         start.press(forDuration: 0.05, thenDragTo: end)
         let sought = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in self.pagePosition(app) != beginning }, object: app)
-        XCTAssertEqual(XCTWaiter.wait(for: [sought], timeout: 10), .completed,
+        let result = XCTWaiter.wait(for: [sought], timeout: 10)
+        print("READER_SEEK_AFTER \(slider.value ?? "nil") position=\(pagePosition(app))")
+        XCTAssertEqual(result, .completed,
                        "Seek did not move: slider \(beforeValue)→\(slider.value ?? "nil"), before=\(beginning), actual=\(pagePosition(app))")
         let saved = pagePosition(app)
         app.buttons["reader.toc"].tap()
@@ -136,12 +150,13 @@ final class ReadingModesUITests: XCTestCase {
         let titles = ["按自己的习惯翻页", "需要时，打开阅读控制", "读累了，就听一会儿"]
         for title in titles {
             app.buttons["tutorial.next"].tap()
-            XCTAssertEqual(app.staticTexts["tutorial.title"].label, title)
+            waitForTutorialTitle(title, app: app)
         }
         app.buttons["tutorial.previous"].tap()
-        XCTAssertEqual(app.staticTexts["tutorial.title"].label, titles[1])
+        waitForTutorialTitle(titles[1], app: app)
         snapshot(app, "tutorial-reading-controls")
-        app.buttons["tutorial.next"].tap(); app.buttons["tutorial.next"].tap()
+        app.buttons["tutorial.next"].tap(); waitForTutorialTitle(titles[2], app: app)
+        app.buttons["tutorial.next"].tap()
         XCTAssertTrue(app.buttons["library.preferences"].waitForExistence(timeout: 10))
         XCTAssertTrue((app.buttons["library.preferences"].value as? String)?.contains("左右翻页") == true)
         open(app, title: "合成的清晨", horizontal: true)

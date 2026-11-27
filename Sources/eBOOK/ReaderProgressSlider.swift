@@ -8,7 +8,11 @@ struct ReaderProgressSlider: UIViewRepresentable {
     let increasedContrast: Bool
 
     func makeUIView(context: Context) -> UISlider {
+        #if DEBUG
+        let slider: UISlider = ProcessInfo.processInfo.arguments.contains("--uitesting") ? ReaderSeekProbe() : UISlider()
+        #else
         let slider = UISlider()
+        #endif
         slider.minimumValue = 0; slider.maximumValue = 1
         slider.accessibilityLabel = "阅读进度"
         slider.accessibilityIdentifier = "reader.seek"
@@ -44,6 +48,41 @@ struct ReaderProgressSlider: UIViewRepresentable {
         var parent: ReaderProgressSlider
         var thumbColor: UIColor?
         init(_ parent: ReaderProgressSlider) { self.parent = parent }
-        @objc func changed(_ slider: UISlider) { parent.value = Double(slider.value) }
+        @objc func changed(_ slider: UISlider) {
+            #if DEBUG
+            (slider as? ReaderSeekProbe)?.recordAction()
+            #endif
+            parent.value = Double(slider.value)
+        }
     }
 }
+
+#if DEBUG
+/// Live geometry/event counters for the isolated original-fixture UI tests only.
+/// Normal Debug launches and every Release build use the stock UISlider above.
+private final class ReaderSeekProbe: UISlider {
+    private var begins = 0, moves = 0, actions = 0
+    private var accepted = false
+    private var lastAction: Float = 0
+    private var firstPoint = CGPoint.zero
+
+    override var accessibilityValue: String? {
+        get {
+            let thumb = thumbRect(forBounds: bounds, trackRect: trackRect(forBounds: bounds), value: value)
+            let point = convert(CGPoint(x: thumb.midX, y: thumb.midY), to: nil)
+            return "value=\(value);screenX=\(point.x);screenY=\(point.y);width=\(bounds.width);height=\(bounds.height);begins=\(begins);accepted=\(accepted);moves=\(moves);actions=\(actions);lastAction=\(lastAction);firstX=\(firstPoint.x);firstY=\(firstPoint.y)"
+        }
+        set { super.accessibilityValue = newValue }
+    }
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        begins += 1; firstPoint = touch.location(in: self)
+        accepted = super.beginTracking(touch, with: event)
+        return accepted
+    }
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        moves += 1
+        return super.continueTracking(touch, with: event)
+    }
+    func recordAction() { actions += 1; lastAction = value }
+}
+#endif
