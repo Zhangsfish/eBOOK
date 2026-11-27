@@ -1,6 +1,8 @@
 # 界面文案与点按翻页
 
-状态 **READY_FOR_AUDIT**。当前 TestFlight 为 **0.1.0（47.1）**。
+当前 **APPROVED_FOR_OWNER_BETA**；[独立审查](INDEPENDENT_REVIEW.md)通过。仅执行[手机交付任务](../../../tasks/S02B_OWNER_POLISH_PHONE_DELIVERY.md)，随后等待反馈。以下保留实现交付事实。
+
+实现交付时状态 **READY_FOR_AUDIT**。当前 TestFlight 为 **0.1.0（47.1）**。
 本轮实际测试源码 `03fe0237462f0af0595d47c455c7e5756d6cbd97`，起点 `452d1671e9f4500cd2edece8553c212da9cf5244`。
 交付提交只更新文档与证据，八项构建输入与实际测试源码一致。[任务](../../../tasks/S02B_OWNER_POLISH.md) · [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12)
 

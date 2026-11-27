@@ -1,6 +1,8 @@
 # Owner反馈：文案清理与点按翻页
 
-状态 **READY_FOR_AUDIT**，2026-11-27。两套 iOS 模拟器各 10/10，通过 Release arm64 归档验证。
+当前 **APPROVED_FOR_OWNER_BETA**：[独立审查](../reports/S02B/owner-polish/INDEPENDENT_REVIEW.md)通过；仅执行[手机交付](S02B_OWNER_POLISH_PHONE_DELIVERY.md)。以下保留实现交付时的边界。
+
+实现交付时状态 **READY_FOR_AUDIT**，2026-11-27。两套 iOS 模拟器各 10/10，通过 Release arm64 归档验证。
 实测源码 `03fe0237462f0af0595d47c455c7e5756d6cbd97`。本对话owner在47.1试用后反馈“语音很好”，
 明确要求这两项修正；这是对等待反馈/冻结状态的有界重开，不扩展语音模型或其他功能。
 

@@ -1,11 +1,12 @@
 # Project Status
 
-## Current task — owner UI feedback (2026-11-27)
+## Current decision — approved UI follow-up, deliver phone update (2026-11-27)
 
-- Owner reports the47.1 voice is good; this is qualitative sound feedback, not p95/long-listening/thermal/battery measurements.
-- **READY_FOR_AUDIT** for the copy and side-tap follow-up on PR #12. [Task](tasks/S02B_OWNER_POLISH.md) · [Delivery and evidence](reports/S02B/owner-polish/DELIVERY.md)
-- Horizontal reading supports previous/next side taps alongside swipes. The bookshelf, reader settings, TOC and speech panel use shorter copy.
-- Tested `03fe0237462f0af0595d47c455c7e5756d6cbd97`. iOS 18.5 and 26.5 each passed 10 tests and the unsigned Release arm64 archive with 6+2 verified resources. The current internal TestFlight build is 47.1. This follow-up awaits independent review.
+- **APPROVED_FOR_OWNER_BETA** for owner-requested copy and side taps. [Independent review](reports/S02B/owner-polish/INDEPENDENT_REVIEW.md) · [Delivery evidence](reports/S02B/owner-polish/DELIVERY.md).
+- Approved/tested `03fe0237462f0af0595d47c455c7e5756d6cbd97`; delivery2d3be5e has identical eight build inputs. Independent review verified actual18.5/26.5 logs and artifacts: each10PASS/0FAIL/0SKIP, unsigned arm64 and6+2 resources. No App blocker identified for owner trial.
+- Sole **READY** task: [deliver the approved phone update](tasks/S02B_OWNER_POLISH_PHONE_DELIVERY.md). Freeze App implementation. Bridge still pins6469489 and its old executable digest; update only bounded delivery wiring, then verify the actual new build.
+- Current installable TestFlight remains **0.1.0 (47.1)** using6469489; the new revision signing/upload/phone results are NOT_RUN. Owner's voice feedback for47.1 is positive, without implied performance/thermal/long-listening results.
+- After new-build installability, stop **WAITING_OWNER_FEEDBACK**. Owner-accepted core use ends this MVP implementation round.
 
 ## Delivered owner trial — retained evidence
 
