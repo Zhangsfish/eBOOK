@@ -1,5 +1,15 @@
 # S02B integration evidence
 
+## Current owner decision2026-11-27
+APPROVED_FOR_OWNER_BETA. Independent review is complete; see REVIEW_AND_OWNER_TRIAL_20261127.md.
+Freeze App feature implementation. Sole READY task: repository-root tasks/S02B_OWNER_PHONE_TRIAL.md.
+Complete bounded existing-bridge signing/upload for pinned source6469489062e6b91d743295cc2c08320334dbbf17,
+verify owner installability, then WAITING_OWNER_FEEDBACK. Historical stop-upload-before-review below
+does not block this now-approved same-source internal delivery. Keep phone/install states factual.
+Owner-accepted core use ends this MVP implementation round; no unsolicited additional feature/optimization.
+
+## Previous task memory (historical)
+
 ## Current owner-authorized repair round (2026-11-26)
 Authorization: repository-root `tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md`; this round is now READY_FOR_AUDIT as recorded below.
 The owner has requested audit repairs and early internal-phone testing. R1–R3 fixes,

@@ -1,5 +1,16 @@
 # 手机内部测试版准备
 
+## 当前决定：APPROVED_FOR_OWNER_BETA（2026-11-27）
+
+独立复审已通过，批准reader源码6469489062e6b91d743295cc2c08320334dbbf17。
+立即执行 [唯一交付任务](../../tasks/S02B_OWNER_PHONE_TRIAL.md)：更新旧桥双重reader pin、
+无Apple凭据资源准备、archive后统一包校验，再签名上传到既有owner内部组并读回可安装状态。
+当前新build仍未上传/可安装；此批准不等于TESTFLIGHT_AVAILABLE。
+此次只批准同一源码的有限交付接线，不再等待一轮App功能审查或追加开发。
+可安装后给用户短说明，停WAITING_OWNER_FEEDBACK；下方准备记录保留为旧桥的准确起点。
+
+## 既有准备记录（历史事实）
+
 状态：PREPARATION_ONLY。新版本尚未签名/上传，不是可安装包或用户手机测试结果。
 
 只读核对了现有eBOOK专用签名桥：

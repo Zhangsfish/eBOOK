@@ -1,81 +1,21 @@
-# 当前对话交接 — 第一版苏心接入
+# 当前交接 — 只发手机测试版，停止App迭代
 
-## 本轮授权（2026-11-26，现已交复审）
+独立复审已完成，结论 **APPROVED_FOR_OWNER_BETA**。
+批准reader源码 `6469489062e6b91d743295cc2c08320334dbbf17`（18.5/26.5各55/55），交付ca640cd的8项构建输入与其一致。
+R1打包、R2时间、R3读音上下文均关闭；未发现需继续阻止owner内部试用的新App阻断。
+复审依据：[REVIEW_AND_OWNER_TRIAL_20261127.md](../reports/S02B/REVIEW_AND_OWNER_TRIAL_20261127.md)。
 
-用户要求布置下一轮，并希望尽早用手机测试。使用PR #12的最新
-`codex/s02b-suxin-ios-integration`，任务基线e1bb0df75d944d28b2f7e8860b5213bc319a89c0。
-先读AGENTS、STATUS、产品/技术规格、独立审查报告，再执行
-[S02B_R1_REPAIR_AND_PHONE_BETA.md](S02B_R1_REPAIR_AND_PHONE_BETA.md)。
+**唯一下一步是 [S02B_OWNER_PHONE_TRIAL.md](S02B_OWNER_PHONE_TRIAL.md)。**
+暂停App源码修改、加功能、换模型、泛优化与没有新问题的全量重跑。
+只更新现有lecture-asset的eBOOK专用签名桥的reader固定SHA、无凭据资源准备、
+上传前统一包校验；按既有授权给现有owner内部组上传当前已批准源码并读回可安装状态。
+旧桥HEAD0be62cf仍指向7509547/39.1，直接重跑它会打旧版，必须先完成任务列出的最小接线。
 
-本轮：修复R1设备包声明校验、R2时间边界、R3发音上下文，补足生产分段回归，
-诊断iOS26的Apple回调与测试宿主问题，运行实际设备包入口及受影响回归。
-提交逐项证据和准确执行SHA，停READY_FOR_AUDIT供独立复审。
-此前“源码冻结、不再复核”是历史，不再禁止当前明确返工。
+这些有界交付变更与内部上传已批准，不再回到“等App代码审查”或重复问同一安装许可。
+若确有交付阻塞给准确原因，不以继续开发替代交付。当前没有新TestFlight build，
+文档或IPA准备完成不算用户已经能安装。
 
-修复经过独立复审和内部试用必要资源核对后，复用既有owner内部TestFlight路径，
-提供可安装新build及短说明，用户先做约10分钟声音/等待/跳转/锁屏/发热检查。
-详细指标由开发侧记录。不要把完整真机验收设成获得真机测试包的前置条件。
-不重复索取已授权内部安装许可，不自并、不公共发布，不动训练PR #11或Android线。
-
-新任务写入不等于已启动Codex、完成修复或上传测试版；状态必须来自真实执行。
-
-## 当前执行进展（2026-11-27）
-
-已同步到ab7a53f并实现R1–R3。首次2d8ebc3定向15/18暴露独立标点窗口，13d55d7集中正式
-外层窗口后iOS18.5真实18/18及unsigned设备归档通过。6b3eff8另实现用户授权的
-tasks/S02B_READING_MODES.md：书架选择上下/左右翻页，书架外观与保留的书内主题独立。
-6b3eff8两轮54/55的失败已确认是测试忽略本地化数字逗号，非位置丢失。最终源码
-6469489062e6b91d743295cc2c08320334dbbf17：18.5/45858757489与26.5/45858764356
-均55PASS/0FAIL/0SKIP，实际47原生/8UI，含图/PCM、真实Files、模式/主题/位置。
-两轮arm64 unsigned archive6+2资源核验通过，26实际执行旧设备入口。所有失败和取消保留。
-状态READY_FOR_AUDIT，停止改动/重跑/分发等待当前代码独立复审；真机结果NOT_RUN。
-报告为reports/S02B/R1_FIXES_AND_PHONE_BETA.md，签名桥准备见PHONE_BETA_PREPARATION.md。
-旧桥仍0be62cf/reader7509547，未修改/启动；修复与界面须独立复审后再提供新内部手机build。
-
-## 上一轮交付及原始交接（保留历史）
-
-## 当前交付状态
-
-本轮 **READY_FOR_AUDIT**；Files在两系统真实验证通过，整体仍保留BLOCKED_QA/真机BLOCKED_ENV。
-正式App包含原生Swift中文前端、真实ORT、短段PCM播放、有界缓存/预取、苏心音色和独立语速。
-App Sources树 `6d9339b31da7acd614971037c2e9151e493bdc48`，冻结自16fe15d。
-
-- 7ff918a1c02f730bf37d351821b37dc79709c2e3 /18.5完整45769244490：42PASS/0FAIL/0SKIP。
-- 同7ff918a /26.5完整45769249483：41PASS/1FAIL/0SKIP，Apple sawRange断言失败。
-  两系统实际外部Files导入/取消、全部UI、真实苏心12项通过；两轮设备归档均验证6项模型和2份同源码声明。
-- 只做一次干净26.5复核：565bae04468e9ae1c16eefb4fe08ad84120fac69 /45771793206。
-  实际6项UI通过，但EBookTests在XCTest连接前signal abrt；摘要的第7项是启动错误记录，
-  不是完成的测试方法。原生单测及设备归档未执行，没有完成Apple回调复核。
-- App/测试/工程/脚本/资源准备在7ff918a、565bae0及d84ceb4间逐Git对象核对一致，
-  见source-identity-d84ceb4.json。此后的交付只补文档和小型证据。
-
-VoiceDB警告在旧通过日志也存在；现有artifact没有启动崩溃的完整stack，不能唯一归因代码或runner。
-所有旧Files失败、超时部分结果及本次Apple/宿主失败保留；不再重跑、不降断言、不标阶段PASS。
-真机首声/p95/各30分钟/发热耗电与新TestFlight未执行，独立分发审查待进行。
-
-见 [报告](../reports/S02B_SUXIN_IOS_INTEGRATION.md) 和
-[真机清单](../reports/S02B/DEVICE_CHECKLIST.md)。停在独立审查，不自批、自并或提前分发。
-冻结PR #7、训练PR #11及Android线不改。
-
-## 原始实施交接（保留背景）
-
-在 `Zhangsfish/eBOOK` 的 `codex/s02b-suxin-ios-integration` 独立 worktree 工作。
-先读 `AGENTS.md`、`STATUS.md`、产品/技术规格、`docs/TTS_WORKSTREAMS.md` 和
-`tasks/S02B_SUXIN_IOS_INTEGRATION.md`，以该任务为本线的 READY 授权。
-
-用户决定把任务分成两个对话：本线直接接入已经试听认可的苏心，验证延迟和连续
-播放，通过后交付现有内部 TestFlight；另一条线在 PR #11 做自训模型，留待第二版。
-本线不等训练，不再选择 Kokoro/Matcha 或教师模型，不向用户抛架构问题。
-
-从 main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656` 开始；冻结实验参考为 PR #7
-的 `eeee1443c1aac561035cf30590ff323c30ccab8a`，按需读其报告/资源清单/原生桥。
-不能把实验整包合并进 App。苏心确实合成过，但只有作者预计算 ID 的 iOS 后端
-验证，完整原生文字前端和真机首声尚未完成；保留原始慢段证据。
-
-按任务实施：原生前端一致性 → 真实 ONNX 图 → 短首块/有界预取/取消 → App
-音色与位置/后台操作 → 真机端到端和长听 → 审查及既有签名/内部 TestFlight。
-保留 Apple 系统语音和已验收阅读行为。报告真实执行 SHA、测试和精确环境阻塞；
-不得把源码、桌面数据、unsigned IPA 或写好的任务说成已在手机上线。
-
-每次开始先检查两分支的新提交，遵守文件归属；不写 `tools/tts-training/` 或训练
-产物，不修改 PR #11 分支。接口需求写入本任务交接给另一线。
+可安装后直接给用户准确build和更新说明、约10分钟短试用，
+然后停止在 **WAITING_OWNER_FEEDBACK**。用户认可且无核心故障就结束本轮MVP功能开发。
+仅实际反馈可重新打开有界修复；其余需求留待以后明确提出。
+不动训练PR #11、历史PR #7或Android；不自并、不公共发布。

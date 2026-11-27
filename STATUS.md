@@ -1,14 +1,14 @@
 # Project Status
 
-## Current task — audit repair and phone beta (owner2026-11-26)
+## Current task — owner phone trial, development frozen (2026-11-27)
 
-- State: **READY_FOR_AUDIT**. Completed [S02B_R1_REPAIR_AND_PHONE_BETA.md](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md) plus the owner-authorized reading modes in `codex/s02b-suxin-ios-integration` / PR #12. Stop for independent review.
-- Independent audit: [REQUEST_CHANGES](reports/S02B/INDEPENDENT_REVIEW_20261126.md), implementation ae3592fa3305a4d02a5774386c4e0098b95dba8e; audit handoff e1bb0df75d944d28b2f7e8860b5213bc319a89c0.
-- Repair R1 package allowlist, R2 time splitting, R3 cross-chunk pronunciation context; diagnose retained iOS26 callback/host failures and collect meaningful targeted/full regression evidence.
-- Tested source6469489062e6b91d743295cc2c08320334dbbf17: iOS18.5/45858757489 and26.5/45858764356 each **55PASS/0FAIL/0SKIP**, exact47 native/8UI methods. Real graph/PCM, original Files selection/cancel, long reading/TOC, migration, horizontal pages and independent shelf/reader themes pass. Both unsigned arm64 archives verify6 model files/2 runtime notices;26 actually executes the old device entry. Report: [R1 repair](reports/S02B/R1_FIXES_AND_PHONE_BETA.md), [reading modes](reports/S02B/reading-modes/DELIVERY.md).
-- After corrected-code independent review and internal-use resource checks, use the existing authorized owner internal-TestFlight path to obtain phone feedback. Device acceptance is gathered using that test build; it is not a prerequisite for obtaining the test build.
-- R1–R3 production boundaries pass; local packaging fault-injection5/5 and12 actual author-frontended original references pass. The earlier6b3eff8 runs were54/55 because a progress-label test ignored localized commas; final logs prove block1869/UTF16 offset0, now checked directly. Keep all failed/cancelled evidence. Apple callback passes now without identifying the old abrt root cause. No signing/new phone build; physical and independent distribution checks remain pending. Existing39.1 is unchanged.
-- Training PR #11, frozen PR #7 and Android work remain separate. No self-merge or public release.
+- Decision: **APPROVED_FOR_OWNER_BETA**. R1–R3 CLOSED; reviewed reader `6469489062e6b91d743295cc2c08320334dbbf17`, delivery `ca640cd1f982b71927c7db2138150ff657cfdb11`. Actual iOS18.5 and26.5 each55/55; original device entry/6+2 resources verified.
+- **Sole READY task:** [deliver the owner phone build](tasks/S02B_OWNER_PHONE_TRIAL.md). Feature development stops now. [Independent review and stop rules](reports/S02B/REVIEW_AND_OWNER_TRIAL_20261127.md).
+- Use the existing eBOOK-only signing bridge, update its old reader pin plus resource preparation/archive verification, upload the approved source to the existing internal owner group, verify installability, then **WAITING_OWNER_FEEDBACK**.
+- Current `TESTFLIGHT_AVAILABLE=NO`: no new signed/uploaded/processed build observed. Last recorded39.1 remains Apple-only. Approval/task dispatch is not installation.
+- Phone sound/latency/background/thermal/upgrade observations remain NOT_RUN. These are obtained from the test build and are not conditions to obtain it.
+- After owner accepts core use, end this MVP implementation round and freeze the usable version. Only actual owner-reported/core defects reopen fixes. No extra feature, model switch or generic optimization.
+- PR #11 / #7 / Android remain separate. No self-merge or public App Store release.
 
 ## Previous delivery snapshot (retained; current READY task above supersedes its stop/freeze wording)
 
