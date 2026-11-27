@@ -1,12 +1,25 @@
 # S02B integration evidence
 
 ## Current owner decision2026-11-27
-APPROVED_FOR_OWNER_BETA. Independent review is complete; see REVIEW_AND_OWNER_TRIAL_20261127.md.
-Freeze App feature implementation. Sole READY task: repository-root tasks/S02B_OWNER_PHONE_TRIAL.md.
-Complete bounded existing-bridge signing/upload for pinned source6469489062e6b91d743295cc2c08320334dbbf17,
-verify owner installability, then WAITING_OWNER_FEEDBACK. Historical stop-upload-before-review below
-does not block this now-approved same-source internal delivery. Keep phone/install states factual.
+WAITING_OWNER_FEEDBACK. Independent review is complete; see REVIEW_AND_OWNER_TRIAL_20261127.md.
+Freeze App feature implementation. Repository-root tasks/S02B_OWNER_PHONE_TRIAL.md is delivered.
+Bounded bridge signing/upload for pinned source6469489062e6b91d743295cc2c08320334dbbf17 is complete;
+47.1 is installable. Historical dispatch/stop-before-review text below is superseded.
+Keep actual installability separate from pending phone upgrade/acceptance.
 Owner-accepted core use ends this MVP implementation round; no unsolicited additional feature/optimization.
+Owner-trial delivery record: OWNER_PHONE_TRIAL.md. Ignored .local-test-data/s02b/owner-trial/
+holds temporary scope/syntax checks and safe CI downloads; no key or IPA is stored publicly.
+Actual delivery2026-11-27: WAITING_OWNER_FEEDBACK, TESTFLIGHT_AVAILABLE=YES,0.1.0（47.1）.
+Bridge code a866cd83c342e3652555080de949ca47ac1349e0/run45933165856 delivered exact reader6469489.
+Apple VALID/INTERNAL_ONLY/unexpired/existing Owner iPhone group/IN_BETA_TESTING read back11:21:56 Beijing.
+Initial40.1 rejected Invalid Signature;44 confirms framework90035.41–46 were diagnostic candidates,
+never uploaded.41/42 verifier literal-format
+error is retained/corrected.46 proves active static linkage and removes only an unused33,798-byte
+framework; executable f35c5846…ca934 and6+2 resources unchanged; actual Apple preflight passes.
+47 repeats guarded archive correction and is accepted.39.1 preserved. Phone upgrade/sound/thermal
+and owner acceptance NOT_RUN. Stop edits/uploads/duplicate CI pending actual feedback.
+evidence/owner-phone-trial.json contains fixed safe events only; raw signing logs/keys/IPA/model/audio
+are not public evidence. Historical no-new-build/stop-before-review text below is superseded.
 
 ## Previous task memory (historical)
 

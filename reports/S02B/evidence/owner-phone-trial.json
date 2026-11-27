@@ -1,0 +1,454 @@
+{
+  "schema": 1,
+  "state": "WAITING_OWNER_FEEDBACK",
+  "TESTFLIGHT_AVAILABLE": true,
+  "app_version": "0.1.0",
+  "build": "47.1",
+  "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+  "tested_bridge_code_sha": "a866cd83c342e3652555080de949ca47ac1349e0",
+  "build_input_git_objects": {
+    "Sources": "7dca7a128cd2275bfc823aa66ad120cadcafe994",
+    "Tests": "ea26db4a87e6e840d0f23a33a3f2011ee3835946",
+    "scripts": "032b8e95768897c146d92c91198df87755f9f947",
+    "tools/suxin": "cf6b6fb9b0862e736e41c56ed38ae0cf4fc1fb39",
+    ".github/workflows": "e3c327eaa05302d76d52499467e436856415d917",
+    "eBOOK.xcodeproj": "720fbd7247076273e2629893e340a52fc873cb8d",
+    ".gitattributes": "4916dfcb1876771c966c5eac086e6943b5df875a",
+    ".gitignore": "434c606deda9d9e322c50041a12015617061a800"
+  },
+  "working_tree_build_input_differences": [],
+  "phone_upgrade_and_acceptance": "NOT_RUN",
+  "scope": "Actual arm64 archive, bounded packaging, Apple upload/processing/internal installability. No new full App suite or phone execution.",
+  "local_bridge_checks": {
+    "base_sha": "0be62cf0a51a5dfc0f8a271b95c2ae9e31c22ded",
+    "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+    "yaml_parser": "PyYAML 6.0.2",
+    "workflow_yaml_and_embedded_python_syntax": "PASS",
+    "both_pins_exact": true,
+    "secret_references_team_group_same_step_preserved": true,
+    "existing_group_mutation_unchanged": true,
+    "internal_only_unchanged": true,
+    "changed_paths": [
+      ".github/workflows/s00-testflight.yml",
+      "reports/S00/ebook-device-bridge-01/AGENTS.md",
+      "scripts/ebook_prepare_archive.py",
+      "scripts/ebook_testflight_diagnostics.py",
+      "scripts/ebook_testflight_release.sh",
+      "scripts/ebook_testflight_status.swift",
+      "scripts/ebook_validate_export.py",
+      "scripts/ebook_verify_export.py"
+    ],
+    "bash_syntax": "PASS; existing E:/Git/bin/bash.exe",
+    "swift_typecheck_and_actual_prepare": "NOT_RUN_LOCALLY; actual credential-free CI step required"
+  },
+  "runs": [
+    {
+      "run_id": 45927979017,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45927979017",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T02:23:36.0994980Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=40.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T02:24:44.3402020Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T02:24:44.3941660Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T02:24:44.8074590Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"40.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T02:26:17.9200520Z",
+          "event": "EBOOK_EXPORT_UPLOAD_FAILED exit=70"
+        },
+        {
+          "timestamp": "2026-11-27T02:26:18.0711120Z",
+          "event": "EBOOK_PRIVATE_LOG_CATEGORIES=UPLOAD_PROCESSING"
+        },
+        {
+          "timestamp": "2026-11-27T02:26:18.0715370Z",
+          "event": "EBOOK_PRIVATE_ERROR_TERMS_1=error exportarchive invalid [redacted] code failed to [redacted] code [redacted] the [redacted] app [redacted] is not [redacted] signed [redacted] have signed [redacted] with a distribution certificate not an [redacted] certificate or a development certificate [redacted] the code signing [redacted] are [redacted] the [redacted] the [redacted]"
+        }
+      ],
+      "run_number": 40,
+      "run_attempt": 1,
+      "operation": "upload",
+      "conclusion": "failure",
+      "bridge_sha": "0ca6de5695728618c31e80996241e63f7a52c67c"
+    },
+    {
+      "run_id": 45929985789,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45929985789",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T02:43:54.4971350Z",
+          "event": "EBOOK_BUILD_NOT_FOUND build=40.1"
+        },
+        {
+          "timestamp": "2026-11-27T02:43:54.5833610Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=41.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T02:44:52.8983690Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T02:44:52.9459210Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T02:44:53.3204780Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"41.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T02:45:17.7395740Z",
+          "event": "EBOOK_EXPORT_ONLY_SUCCEEDED_NO_UPLOAD"
+        },
+        {
+          "timestamp": "2026-11-27T02:45:18.8086490Z",
+          "event": "EBOOK_SIGNED_EXPORT_AUDIT {\"adhoc_signature\": false, \"apple_distribution_authority\": true, \"apple_generic_anchor\": false, \"build\": \"41.1\", \"codesign_deep_strict\": true, \"embedded_framework_count\": 1, \"get_task_allow_false\": true, \"ipa_bytes\": 69098357, \"ipa_sha256\": \"403e1900475a452e1ec11fd0739a14b4c25d7b1f897ded3b6fc60fc8caa7fc64\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"no_upload\": true, \"profile_app_identifier_matches\": true, \"profile_team_matches\": true, \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\"}"
+        }
+      ],
+      "run_number": 41,
+      "run_attempt": 1,
+      "operation": "inspect-export",
+      "conclusion": "failure",
+      "bridge_sha": "6ee2a4890ae08134ed03d1540b1df30043d19c40"
+    },
+    {
+      "run_id": 45930428649,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45930428649",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T02:48:34.3661230Z",
+          "event": "EBOOK_BUILD_NOT_FOUND build=40.1"
+        },
+        {
+          "timestamp": "2026-11-27T02:48:34.5114180Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=42.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T02:49:52.2541690Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T02:49:52.2947030Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T02:49:52.7750110Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"42.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T02:50:18.4710400Z",
+          "event": "EBOOK_EXPORT_ONLY_SUCCEEDED_NO_UPLOAD"
+        },
+        {
+          "timestamp": "2026-11-27T02:50:19.9948320Z",
+          "event": "EBOOK_SIGNED_EXPORT_AUDIT {\"adhoc_signature\": false, \"app_signature_detail\": {\"adhoc_signature\": false, \"anchor_errors\": [], \"anchor_exit\": 1, \"apple_distribution_authority\": true, \"authority_count\": 3, \"strict_errors\": [], \"strict_exit\": 0}, \"apple_distribution_authority\": true, \"apple_generic_anchor\": false, \"build\": \"42.1\", \"certificate_audit\": {\"certificate_count\": 3, \"chain_trust_errors\": [], \"chain_trust_exit\": 0, \"extraction_exit\": 0, \"leaf_present_in_profile\": true}, \"codesign_deep_strict\": true, \"component_audits\": [{\"adhoc_signature\": false, \"anchor_errors\": [], \"anchor_exit\": 1, \"apple_distribution_authority\": true, \"authority_count\": 3, \"component\": \"ONNXRUNTIME_FRAMEWORK\", \"static_archive_magic\": false, \"strict_errors\": [], \"strict_exit\": 0}], \"embedded_framework_count\": 1, \"get_task_allow_false\": true, \"ipa_bytes\": 69098354, \"ipa_sha256\": \"eadb3fa961cdeff65d061ba6b6b000038e289789d61d711c59fe18b0da65c74e\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"no_upload\": true, \"profile_app_identifier_matches\": true, \"profile_team_matches\": true, \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\"}"
+        }
+      ],
+      "run_number": 42,
+      "run_attempt": 1,
+      "operation": "inspect-export",
+      "conclusion": "failure",
+      "bridge_sha": "e49554d43931fbcb09ee174f08d5af6bd84d4b7a"
+    },
+    {
+      "run_id": 45930880791,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45930880791",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T02:53:05.1884670Z",
+          "event": "EBOOK_BUILD_NOT_FOUND build=40.1"
+        },
+        {
+          "timestamp": "2026-11-27T02:53:05.2593060Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=43.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T02:54:39.9536990Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T02:54:39.9834640Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T02:54:40.3222120Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"43.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T02:55:01.1636200Z",
+          "event": "EBOOK_EXPORT_ONLY_SUCCEEDED_NO_UPLOAD"
+        },
+        {
+          "timestamp": "2026-11-27T02:55:02.5083820Z",
+          "event": "EBOOK_SIGNED_EXPORT_AUDIT {\"adhoc_signature\": false, \"app_signature_detail\": {\"adhoc_signature\": false, \"anchor_errors\": [], \"anchor_exit\": 0, \"apple_distribution_authority\": true, \"authority_count\": 3, \"strict_errors\": [], \"strict_exit\": 0}, \"apple_distribution_authority\": true, \"apple_generic_anchor\": true, \"build\": \"43.1\", \"certificate_audit\": {\"certificate_count\": 3, \"chain_trust_errors\": [], \"chain_trust_exit\": 0, \"extraction_exit\": 0, \"leaf_present_in_profile\": true}, \"codesign_deep_strict\": true, \"component_audits\": [{\"adhoc_signature\": false, \"anchor_errors\": [], \"anchor_exit\": 0, \"apple_distribution_authority\": true, \"authority_count\": 3, \"component\": \"ONNXRUNTIME_FRAMEWORK\", \"static_archive_magic\": false, \"strict_errors\": [], \"strict_exit\": 0}], \"embedded_framework_count\": 1, \"get_task_allow_false\": true, \"ipa_bytes\": 69098366, \"ipa_sha256\": \"309ea636474624b035fa8b53403c110a726b6272cad84e0e4f606086e727ade3\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"no_upload\": true, \"profile_app_identifier_matches\": true, \"profile_team_matches\": true, \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\"}"
+        },
+        {
+          "timestamp": "2026-11-27T02:56:19.4641680Z",
+          "event": "EBOOK_APPLE_PREFLIGHT_VALIDATION_FAILED_NO_UPLOAD exit=1"
+        },
+        {
+          "timestamp": "2026-11-27T02:56:19.5879630Z",
+          "event": "EBOOK_PRIVATE_LOG_CATEGORIES=OTHER"
+        },
+        {
+          "timestamp": "2026-11-27T02:56:19.5888560Z",
+          "event": "EBOOK_PRIVATE_VALIDATION_CODES=NONE_OBSERVED"
+        },
+        {
+          "timestamp": "2026-11-27T02:56:19.5922580Z",
+          "event": "EBOOK_PRIVATE_SIGNATURE_COMPONENT=ONNXRUNTIME_FRAMEWORK"
+        },
+        {
+          "timestamp": "2026-11-27T02:56:19.5925810Z",
+          "event": "EBOOK_PRIVATE_ERROR_TERMS_1=error [redacted]"
+        }
+      ],
+      "run_number": 43,
+      "run_attempt": 1,
+      "operation": "inspect-export",
+      "conclusion": "failure",
+      "bridge_sha": "30cf62a5e543d171295d4d574157f3a450044b96"
+    },
+    {
+      "run_id": 45931499589,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45931499589",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T03:00:11.8932940Z",
+          "event": "EBOOK_BUILD_NOT_FOUND build=40.1"
+        },
+        {
+          "timestamp": "2026-11-27T03:00:12.0921280Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=44.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T03:01:21.2078280Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T03:01:21.2456050Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T03:01:21.6121340Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"44.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:01:49.7350510Z",
+          "event": "EBOOK_EXPORT_ONLY_SUCCEEDED_NO_UPLOAD"
+        },
+        {
+          "timestamp": "2026-11-27T03:01:55.7855920Z",
+          "event": "EBOOK_SIGNED_EXPORT_AUDIT {\"adhoc_signature\": false, \"app_dynamically_loads_onnxruntime\": false, \"app_signature_detail\": {\"adhoc_signature\": false, \"anchor_errors\": [], \"anchor_exit\": 0, \"apple_distribution_authority\": true, \"authority_count\": 3, \"code_directory_flags\": \"0x0\", \"strict_errors\": [], \"strict_exit\": 0, \"team_identifier_matches\": true}, \"apple_distribution_authority\": true, \"apple_generic_anchor\": true, \"build\": \"44.1\", \"certificate_audit\": {\"certificate_count\": 3, \"chain_trust_errors\": [], \"chain_trust_exit\": 0, \"extraction_exit\": 0, \"leaf_present_in_profile\": true}, \"codesign_deep_strict\": true, \"component_audits\": [{\"adhoc_signature\": false, \"anchor_errors\": [], \"anchor_exit\": 0, \"apple_distribution_authority\": true, \"authority_count\": 3, \"binary_kind\": \"MH_DYLIB\", \"code_directory_flags\": \"0x0\", \"component\": \"ONNXRUNTIME_FRAMEWORK\", \"static_archive_magic\": false, \"strict_errors\": [], \"strict_exit\": 0, \"team_identifier_matches\": true}], \"embedded_framework_count\": 1, \"get_task_allow_false\": true, \"ipa_bytes\": 69098346, \"ipa_sha256\": \"2ca53d89c2bfdf5f5ad8499002ae9328550593b38318a65d2e840c124c4d828c\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"no_upload\": true, \"profile_app_identifier_matches\": true, \"profile_team_matches\": true, \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.4525710Z",
+          "event": "EBOOK_APPLE_PREFLIGHT_VALIDATION_FAILED_NO_UPLOAD exit=1"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5252430Z",
+          "event": "EBOOK_PRIVATE_LOG_CATEGORIES=OTHER"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5253740Z",
+          "event": "EBOOK_PRIVATE_VALIDATION_CODES=APPLE_ERROR_-19241,APPLE_ERROR_90035,APPLE_ERROR_90725"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5269850Z",
+          "event": "EBOOK_PRIVATE_SIGNATURE_COMPONENT=ONNXRUNTIME_FRAMEWORK"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5270890Z",
+          "event": "EBOOK_PRIVATE_VALIDATION_REASONS=INVALID_SIGNATURE,CODE_REQUIREMENT_UNSATISFIED"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5271650Z",
+          "event": "EBOOK_PRIVATE_ERROR_TERMS_1=error [redacted]"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5273290Z",
+          "event": "EBOOK_PRIVATE_ERROR_TERMS_2=[redacted] invalid signature code failed to satisfy specified code requirement [redacted] the file [redacted] path [redacted] app [redacted] onnxruntime framework onnxruntime is not [redacted] signed [redacted] have signed [redacted] with a distribution certificate not an [redacted] certificate or a development certificate [redacted] the code signing"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5284480Z",
+          "event": "EBOOK_PRIVATE_ERROR_TERMS_3=[redacted] the server [redacted] response was [redacted] code [redacted] invalid signature code failed to satisfy specified code requirement [redacted] the file [redacted] path [redacted] app [redacted] onnxruntime framework onnxruntime [redacted] is not [redacted] signed [redacted] have signed [redacted] with a distribution certificate not an [redacted]"
+        },
+        {
+          "timestamp": "2026-11-27T03:03:20.5288380Z",
+          "event": "EBOOK_PRIVATE_ERROR_TERMS_4=[redacted] error [redacted] code a server error [redacted] code [redacted] a server error [redacted] invalid signature code failed to satisfy specified code requirement [redacted] the file [redacted] path [redacted] app [redacted] onnxruntime framework onnxruntime is not [redacted] signed [redacted] have signed [redacted] with a distribution"
+        }
+      ],
+      "run_number": 44,
+      "run_attempt": 1,
+      "operation": "inspect-export",
+      "conclusion": "failure",
+      "bridge_sha": "962da31da47434b3005fdf2a887dbc46f428238d"
+    },
+    {
+      "run_id": 45932244457,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45932244457",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T03:07:20.4605440Z",
+          "event": "EBOOK_BUILD_NOT_FOUND build=40.1"
+        },
+        {
+          "timestamp": "2026-11-27T03:07:20.5300000Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=45.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T03:08:01.9636210Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T03:08:01.9924480Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T03:08:02.1993900Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"45.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:08:04.2558080Z",
+          "event": "EBOOK_ARCHIVE_STATIC_ONNX_SYMBOL_NOT_PROVEN_NO_REMOVAL"
+        }
+      ],
+      "run_number": 45,
+      "run_attempt": 1,
+      "operation": "inspect-export",
+      "conclusion": "failure",
+      "bridge_sha": "15f56d67dcd74ad7e5f122da1c97effb8ca3d589"
+    },
+    {
+      "run_id": 45932641642,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45932641642",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T03:11:36.7676070Z",
+          "event": "EBOOK_BUILD_NOT_FOUND build=40.1"
+        },
+        {
+          "timestamp": "2026-11-27T03:11:36.8430360Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=46.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T03:12:51.1354450Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T03:12:51.1688340Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T03:12:51.5098940Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"46.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:12:56.4864030Z",
+          "event": "EBOOK_ARCHIVE_PACKAGING_ADJUSTMENT {\"action\": \"REMOVE_UNUSED_EMBEDDED_ONNX_FRAMEWORK\", \"app_bytes_after\": 93019412, \"app_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\", \"app_executable_unchanged\": true, \"dynamic_onnx_dependency\": false, \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"removed_bytes\": 33798, \"removed_framework_binary_sha256\": \"f7f5fd3eb654095732250aa21bc27bd266212dd36d93a4ecc400334a90dbd080\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"static_OrtGetApiBase_defined\": true, \"static_link_proof\": \"ACTIVE_STATIC_ARCHIVE_LINK_MAP\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:13:16.4469590Z",
+          "event": "EBOOK_EXPORT_ONLY_SUCCEEDED_NO_UPLOAD"
+        },
+        {
+          "timestamp": "2026-11-27T03:13:17.6754210Z",
+          "event": "EBOOK_SIGNED_EXPORT_AUDIT {\"adhoc_signature\": false, \"app_dynamically_loads_onnxruntime\": false, \"app_signature_detail\": {\"adhoc_signature\": false, \"anchor_errors\": [], \"anchor_exit\": 0, \"apple_distribution_authority\": true, \"authority_count\": 3, \"code_directory_flags\": \"0x0\", \"strict_errors\": [], \"strict_exit\": 0, \"team_identifier_matches\": true}, \"apple_distribution_authority\": true, \"apple_generic_anchor\": true, \"build\": \"46.1\", \"certificate_audit\": {\"certificate_count\": 3, \"chain_trust_errors\": [], \"chain_trust_exit\": 0, \"extraction_exit\": 0, \"leaf_present_in_profile\": true}, \"codesign_deep_strict\": true, \"component_audits\": [], \"embedded_framework_count\": 0, \"get_task_allow_false\": true, \"ipa_bytes\": 69092100, \"ipa_sha256\": \"9a86914366ef3f52bc0e5f96ee5e63e88beaa663907e99b1d0d390363defae61\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"no_upload\": true, \"profile_app_identifier_matches\": true, \"profile_team_matches\": true, \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:14:39.2463110Z",
+          "event": "EBOOK_APPLE_PREFLIGHT_VALIDATION_PASSED_NO_UPLOAD"
+        }
+      ],
+      "run_number": 46,
+      "run_attempt": 1,
+      "operation": "inspect-export",
+      "conclusion": "success",
+      "bridge_sha": "a866cd83c342e3652555080de949ca47ac1349e0"
+    },
+    {
+      "run_id": 45933165856,
+      "ci_url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/45933165856",
+      "approved_reader_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+      "events": [
+        {
+          "timestamp": "2026-11-27T03:16:45.1447690Z",
+          "event": "EBOOK_RELEASE_START version=0.1.0 build=47.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T03:18:09.1068150Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED"
+        },
+        {
+          "timestamp": "2026-11-27T03:18:09.1386090Z",
+          "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T03:18:09.5018790Z",
+          "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED {\"app_bytes\": 93053210, \"build\": \"47.1\", \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"source_sha\": \"6469489062e6b91d743295cc2c08320334dbbf17\", \"unsigned_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:18:14.6864850Z",
+          "event": "EBOOK_ARCHIVE_PACKAGING_ADJUSTMENT {\"action\": \"REMOVE_UNUSED_EMBEDDED_ONNX_FRAMEWORK\", \"app_bytes_after\": 93019412, \"app_executable_sha256\": \"f35c58465cc729b41aec172c0a536a7eb7e7be23dd4a84292114cdd6b07ca934\", \"app_executable_unchanged\": true, \"dynamic_onnx_dependency\": false, \"model_sha256\": \"5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa\", \"removed_bytes\": 33798, \"removed_framework_binary_sha256\": \"66c905c734a4b3fa3b0402b5e2d8bd43d77bbd432b59ade45d4e41e9758cd514\", \"resource_files_verified\": 6, \"runtime_source_notice_files_verified\": 2, \"static_OrtGetApiBase_defined\": true, \"static_link_proof\": \"ACTIVE_STATIC_ARCHIVE_LINK_MAP\"}"
+        },
+        {
+          "timestamp": "2026-11-27T03:19:46.8645460Z",
+          "event": "EBOOK_EXPORT_UPLOAD_ACCEPTED version=0.1.0 build=47.1 code_sha=6469489062e6b91d743295cc2c08320334dbbf17"
+        },
+        {
+          "timestamp": "2026-11-27T03:19:46.8866530Z",
+          "event": "EBOOK_IPA_EXPORT_NOT_RETAINED_BY_XCODE"
+        },
+        {
+          "timestamp": "2026-11-27T03:21:56.3920720Z",
+          "event": "EBOOK_PROCESSING_STATUS_VALID build=47.1"
+        },
+        {
+          "timestamp": "2026-11-27T03:21:56.3932090Z",
+          "event": "EBOOK_BUILD_AUDIENCE_INTERNAL_ONLY"
+        },
+        {
+          "timestamp": "2026-11-27T03:21:56.3943550Z",
+          "event": "EBOOK_OWNER_GROUP_ASSOCIATION_START"
+        },
+        {
+          "timestamp": "2026-11-27T03:21:56.3948020Z",
+          "event": "EBOOK_OWNER_GROUP_ASSOCIATION_VERIFIED"
+        },
+        {
+          "timestamp": "2026-11-27T03:21:56.3953100Z",
+          "event": "EBOOK_INSTALLABILITY_QUERY_START"
+        },
+        {
+          "timestamp": "2026-11-27T03:21:56.3954000Z",
+          "event": "EBOOK_INTERNAL_STATE_IN_BETA_TESTING"
+        },
+        {
+          "timestamp": "2026-11-27T03:21:56.3959410Z",
+          "event": "EBOOK_TESTFLIGHT_AVAILABLE build=47.1"
+        }
+      ],
+      "run_number": 47,
+      "run_attempt": 1,
+      "operation": "upload",
+      "conclusion": "success",
+      "bridge_sha": "a866cd83c342e3652555080de949ca47ac1349e0"
+    }
+  ]
+}

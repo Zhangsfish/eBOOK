@@ -1,6 +1,8 @@
 # 唯一下一步：把已批准版本交到owner手机上
 
-状态：**READY_FOR_DELIVERY — App独立复审已通过，停止功能开发。**
+状态：**WAITING_OWNER_FEEDBACK — 0.1.0（47.1）已可安装，停止开发与上传。**
+实际[交付记录](../reports/S02B/OWNER_PHONE_TRIAL.md)：Apple于2026-11-27 11:21:56（北京时间）
+读回VALID/INTERNAL_ONLY、既有组及IN_BETA_TESTING。等待owner手机反馈，不重复执行下列已完成步骤。
 日期：2026-11-27。依据：[复审及收口决定](../reports/S02B/REVIEW_AND_OWNER_TRIAL_20261127.md)。
 
 ## 交付身份
