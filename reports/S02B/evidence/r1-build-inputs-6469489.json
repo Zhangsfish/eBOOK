@@ -1,0 +1,15 @@
+{
+  "tested_source_sha": "6469489062e6b91d743295cc2c08320334dbbf17",
+  "build_input_git_objects": {
+    "Sources": "7dca7a128cd2275bfc823aa66ad120cadcafe994",
+    "Tests": "ea26db4a87e6e840d0f23a33a3f2011ee3835946",
+    "scripts": "032b8e95768897c146d92c91198df87755f9f947",
+    "tools/suxin": "cf6b6fb9b0862e736e41c56ed38ae0cf4fc1fb39",
+    ".github/workflows": "e3c327eaa05302d76d52499467e436856415d917",
+    "eBOOK.xcodeproj": "720fbd7247076273e2629893e340a52fc873cb8d",
+    ".gitattributes": "4916dfcb1876771c966c5eac086e6943b5df875a",
+    ".gitignore": "434c606deda9d9e322c50041a12015617061a800"
+  },
+  "working_tree_build_input_differences_at_check": [],
+  "meaning": "Git input identity only. Actual platform execution/results are reported separately. Final report-only delivery may have a later HEAD."
+}

@@ -37,7 +37,7 @@ public enum TextDecoder {
         switch encoding {
         case .utf8:
             guard let value = String(data: payload, encoding: .utf8) else {
-                throw ReaderError.invalid("UTF-8 字节无效，请检查文件或手动选择编码。")
+                throw ReaderError.invalid("TXT 编码无效，请另存为 UTF-8 后重新导入。")
             }
             text = value
         case .utf16LE, .utf16BE:
@@ -45,13 +45,13 @@ public enum TextDecoder {
         case .gbk, .gb18030:
             let hasFourByte = try validateLegacy(payload)
             guard encoding != .gbk || !hasFourByte else {
-                throw ReaderError.invalid("文件包含 GB18030 四字节字符，请选择 GB18030。")
+                throw ReaderError.invalid("这份文件使用 GB18030 编码，请另存为 UTF-8 后重新导入。")
             }
             let cfEncoding = CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue)
             let nsEncoding = String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(cfEncoding))
             guard let value = String(data: payload, encoding: nsEncoding),
                   value.data(using: nsEncoding, allowLossyConversion: false) == payload else {
-                throw ReaderError.invalid("GBK/GB18030 解码失败，未使用有损替换。请检查编码。")
+                throw ReaderError.invalid("无法读取 TXT 文字，请另存为 UTF-8 后重新导入。")
             }
             text = value
         }
@@ -107,7 +107,7 @@ public enum TextDecoder {
             let first = bytes[index]
             if first <= 0x7F { index += 1; continue }
             guard (0x81...0xFE).contains(first), index + 1 < bytes.count else {
-                throw ReaderError.invalid("无法严格识别 TXT 编码，请检查文件或手动选择编码。")
+                throw ReaderError.invalid("无法识别 TXT 编码，请另存为 UTF-8 后重新导入。")
             }
             let second = bytes[index + 1]
             if (0x30...0x39).contains(second) {

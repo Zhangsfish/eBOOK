@@ -1,0 +1,703 @@
+{
+  "tested_implementation_sha": "03fe0237462f0af0595d47c455c7e5756d6cbd97",
+  "base_sha": "452d1671e9f4500cd2edece8553c212da9cf5244",
+  "build_input_git_objects": {
+    "Sources": "4b3139883f55572855f89063f2a14890964863a7",
+    "Tests": "a7a7a6cee8c198b791beb056e7c5c8601555eefc",
+    "scripts": "032b8e95768897c146d92c91198df87755f9f947",
+    "tools/suxin": "c61bb6beedcdab3b82bf7a7cb5d01c1d54d7ce3e",
+    ".github/workflows": "e3c327eaa05302d76d52499467e436856415d917",
+    "eBOOK.xcodeproj": "720fbd7247076273e2629893e340a52fc873cb8d",
+    ".gitattributes": "4916dfcb1876771c966c5eac086e6943b5df875a",
+    ".gitignore": "434c606deda9d9e322c50041a12015617061a800"
+  },
+  "working_tree_build_input_differences": [],
+  "scope": "Five native pagination tests plus five UI methods, actual unsigned arm64 archives; no new full55 suite or TTS waveform test.",
+  "new_phone_build": "NOT_RUN; available47.1 remains compiled from6469489",
+  "new_physical_device_and_voiceover": "NOT_RUN",
+  "superseded_cancelled_runs": [
+    45941322897,
+    45941322947
+  ],
+  "superseded_sha": "f7b42093999df8b559aaa807885db5d9f2cf1e80",
+  "runs": [
+    {
+      "run_id": 45939771262,
+      "phase": "initial",
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45939771262",
+      "result": {
+        "source_sha": "124640205d7d67198ab72f22482f65f44e8aa3a1",
+        "scope": "reading",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+        "simulator_name": "iPhone 16 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "actual_counts": {
+          "totalTestCount": 10,
+          "passedTests": 9,
+          "failedTests": 1,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "physical_device": "NOT_RUN",
+        "status": "FAIL_ACTUAL_XCTEST",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 10,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "failed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 10,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "archive": "NOT_RUN_AFTER_TEST_FAILURE",
+      "original_fixture_screenshot_metadata": [
+        {
+          "file": "270BA0AA-68D7-4656-A2B8-6279EEB6CD27.png",
+          "test": "ReaderUITests/testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains()",
+          "name": "clean-reading-settings_0_A2FC8B60-64B6-49BC-AA6D-72848EA60991.png",
+          "associated_with_failure": false,
+          "bytes": 135490,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "871084c3211d145e947b03a393483678fb2718d71b5f1622cadec4062f55076a"
+        },
+        {
+          "file": "4D586736-2ECC-4D0E-B72F-929233810E9E.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-vertical-restored-chapter_0_274BCFF3-A0D1-44E4-A5A4-898707949B00.png",
+          "associated_with_failure": false,
+          "bytes": 615062,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "5604c7ebdcbc9fac908399179db2357202361d67a7085cb61b92dfd6d6c1f4b1"
+        },
+        {
+          "file": "AEDA47C9-5F4B-418F-A776-2136F4C0398C.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-large-font_0_56A70C18-1440-47A3-A3E4-32F39B175BE5.png",
+          "associated_with_failure": false,
+          "bytes": 306573,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "93351472104ee03e2120669f42b140f11b22323047f0d4e6e4c87575866c9812"
+        },
+        {
+          "file": "51631C1D-740E-4020-AC78-D8CD5F44EA1C.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-toc-current-horizontal_0_BA21C1B6-E050-4BA1-8958-BF135B8116CB.png",
+          "associated_with_failure": false,
+          "bytes": 349464,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "bac89f4f283dd479930277be406eeb8b03d333d5a06fde17d3a94f7d575417a4"
+        },
+        {
+          "file": "787D6CA0-3F47-4C1F-8AD9-E226C29D3431.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-page_0_E0FEDBEB-BAD8-40FC-8F02-2BDD8ADB1CBA.png",
+          "associated_with_failure": false,
+          "bytes": 389830,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "1428b93feaf1885860a9dfde3d8c6c6d3ec2fed6cf6eed81135121434094e0b0"
+        },
+        {
+          "file": "78461CA5-5C6F-4D83-B63A-6D3EA471F4FB.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-still-night_0_3C9BA048-3617-47EE-986F-4E0B40D482AD.png",
+          "associated_with_failure": false,
+          "bytes": 86767,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "8c27fd5e085c6c3661e091db311dd0a1567df945ac87dab5743ff1428bd08c62"
+        },
+        {
+          "file": "EEB0C272-4631-4663-A194-09960C25D6D3.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-light-shelf-night_0_E1406AFF-03EB-4F9F-90B0-F4EA3C5DAEB4.png",
+          "associated_with_failure": false,
+          "bytes": 131161,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "ea52801799709fe70e096985ec7cbe4b52168e55579aaeed7d5048aa957f4a9a"
+        },
+        {
+          "file": "BDD86A00-BD48-4BCB-B265-E280C0913BC1.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-warm-shelf-night_0_EE07B910-8956-4986-8910-7DA684B53895.png",
+          "associated_with_failure": false,
+          "bytes": 129797,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "dce001e801fff72ec0d28e2f5bdb195604c0fe31e4275c7a9be91c870586fdb2"
+        },
+        {
+          "file": "DBD6B0BC-9AE5-4CAB-9F30-15CEB7A40928.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-night_0_AE724028-746C-4D83-844E-0A1F7D2F0537.png",
+          "associated_with_failure": false,
+          "bytes": 85764,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "876d7ba3c8bde21ad29e4f368f8b89b9230cb1d549e362818e594f91ea5e7cd5"
+        },
+        {
+          "file": "8AFF5DAF-3670-4470-B653-D2EEA56A69AD.png",
+          "test": "ReadingModesUITests/testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone()",
+          "name": "reading-modes-side-taps-and-text-selection_0_B388B284-329B-4E44-9AEA-884EDE3970AD.png",
+          "associated_with_failure": false,
+          "bytes": 381038,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "1395aaeeea89666c574112835a5acf8bbe0cc7db12395af1df601e4a3145d642"
+        }
+      ]
+    },
+    {
+      "run_id": 45939771381,
+      "phase": "initial",
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45939771381",
+      "result": {
+        "source_sha": "124640205d7d67198ab72f22482f65f44e8aa3a1",
+        "scope": "reading",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "simulator_name": "iPhone 17 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "actual_counts": {
+          "totalTestCount": 10,
+          "passedTests": 9,
+          "failedTests": 1,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "physical_device": "NOT_RUN",
+        "status": "FAIL_ACTUAL_XCTEST",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 10,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "failed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 10,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "archive": "NOT_RUN_AFTER_TEST_FAILURE",
+      "original_fixture_screenshot_metadata": [
+        {
+          "file": "503F3EB0-9881-434B-9660-4512FB11E824.png",
+          "test": "ReaderUITests/testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains()",
+          "name": "clean-reading-settings_0_8EA2CDF0-8033-4E22-ADD9-200269DDE434.png",
+          "associated_with_failure": false,
+          "bytes": 173806,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "b711429ac24255574ac28a9ac4b9e56d6e2fcbab4f37ceb359a6b7e6bc87a61c"
+        },
+        {
+          "file": "094B302A-72A8-4AF1-85BD-EC724ED85695.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-vertical-restored-chapter_0_B824013C-247E-4712-9E0C-103F5E280591.png",
+          "associated_with_failure": false,
+          "bytes": 635059,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "dfb8fc7d30d84c929262a41749f917efacbc8669018502eb5f6b84b1e44c83ef"
+        },
+        {
+          "file": "AC2022EF-CE33-4437-9C7E-8B4C11704C96.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-large-font_0_F2D0FD2B-F537-494D-A74E-14ABDB777D94.png",
+          "associated_with_failure": false,
+          "bytes": 313575,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "437d100b0e7369d29d19a748e2d00fc9e44f9020f05f9ca3c11857306d21d749"
+        },
+        {
+          "file": "D9C15216-A625-48E1-B005-9BDFDC3B103E.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-toc-current-horizontal_0_74EA555B-C706-442D-9789-E28EAF79A881.png",
+          "associated_with_failure": false,
+          "bytes": 290334,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "6511cb46b05cff52bb69533004936f459587de6233f7c6f09c5c73a12e1cc565"
+        },
+        {
+          "file": "5DE8A4C2-A767-457A-B4A4-45340802F264.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-page_0_94EA4ACF-C2E9-493D-8630-E2B8EA6D7210.png",
+          "associated_with_failure": false,
+          "bytes": 390014,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "1b88f50cbfd14200408568b3497d4cd66ddcd86ef69d6fc7b1bc2c386d3c9e94"
+        },
+        {
+          "file": "EA173AEA-A9E6-4058-923D-2A3FF7412AEB.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-still-night_0_342C36A7-3F29-40DE-862F-B612562EF936.png",
+          "associated_with_failure": false,
+          "bytes": 94896,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "6edbc00cec3fafa2ea4c16c018a661ac7ad09fcc5ce9465bf69a6f791b5d38b4"
+        },
+        {
+          "file": "24D55E5E-9556-45CD-83D6-4C917D0FEDC0.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-light-shelf-night_0_0826EF4D-11ED-4937-BDAC-CCD0EFC5A5A4.png",
+          "associated_with_failure": false,
+          "bytes": 129498,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "2bf9d17619932e0d3cf51a4027c0c62056d0628e22cbfa0facfda8f33d6b259d"
+        },
+        {
+          "file": "6EC07A87-CEC3-4AB4-A222-03D487B10BA1.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-warm-shelf-night_0_FD24F195-E5E1-486E-B0DB-BDD4795CE2AE.png",
+          "associated_with_failure": false,
+          "bytes": 129366,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "c185c0dd984926563c67dca2bbe2d5e321b991882b83f83d27b97cc665b437e1"
+        },
+        {
+          "file": "413E0386-456E-4D0D-9346-C702A0B1536B.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-night_0_A0B0AA9E-1F61-407A-8A95-2B6054FFAE1F.png",
+          "associated_with_failure": false,
+          "bytes": 94642,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "3a235c6ebcbb2344243892225411b837db5bda5da8a3c6022d44d68c5357c489"
+        },
+        {
+          "file": "A605E4C5-5CA7-4756-85DB-0157978D7C4C.png",
+          "test": "ReadingModesUITests/testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone()",
+          "name": "reading-modes-side-taps-and-text-selection_0_54D8CC10-12FE-4132-A96E-DA881404583C.png",
+          "associated_with_failure": false,
+          "bytes": 381620,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "b40c435783bcc47a7142f1484d5f9c500d450ee94ef08a9009fefd66373f0309"
+        }
+      ]
+    },
+    {
+      "run_id": 45941580059,
+      "phase": "final",
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45941580059",
+      "result": {
+        "source_sha": "03fe0237462f0af0595d47c455c7e5756d6cbd97",
+        "scope": "reading",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+        "simulator_name": "iPhone 16 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "actual_counts": {
+          "totalTestCount": 10,
+          "passedTests": 10,
+          "failedTests": 0,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "physical_device": "NOT_RUN",
+        "status": "PASS_NATIVE_READING_ONLY",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 10,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 10,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "archive": {
+        "source_sha": "03fe0237462f0af0595d47c455c7e5756d6cbd97",
+        "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+        "architecture": "arm64",
+        "bundle_id": "com.zhangsfish.ebook",
+        "version": "0.1.0",
+        "app_bytes": 93057256,
+        "unsigned_executable_sha256": "c897648f807110f728875d5dc66384a1efa19d7b8a2a57bc8c7a6819a977bcfd",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "original_device_entry_executed": false,
+        "signing": "NOT_RUN",
+        "testflight": "NOT_RUN",
+        "physical_device": "NOT_RUN",
+        "distribution_clearance": "PENDING_INDEPENDENT_REVIEW",
+        "public_binary_artifact": false
+      },
+      "original_fixture_screenshot_metadata": [
+        {
+          "file": "47C4578A-017D-4074-985D-01C2199308E0.png",
+          "test": "ReaderUITests/testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains()",
+          "name": "clean-reading-settings_0_23AE3A36-6316-457A-9F12-94B37F1BED18.png",
+          "associated_with_failure": false,
+          "bytes": 135100,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "f6f08f1a27d5ac5926f0ca9e4b61e92461bbf80cc08bea22c43d376bbc591a5d"
+        },
+        {
+          "file": "8B8D5E3C-840C-461D-81C5-868DE48347F3.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-vertical-restored-chapter_0_63063F27-F243-492C-9BE3-DE0D652449EA.png",
+          "associated_with_failure": false,
+          "bytes": 615062,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "5604c7ebdcbc9fac908399179db2357202361d67a7085cb61b92dfd6d6c1f4b1"
+        },
+        {
+          "file": "474C62DF-8909-4315-9215-CD9BF479D40A.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-large-font_0_3F3B6971-2ED3-4CFF-91CF-66A733087AE3.png",
+          "associated_with_failure": false,
+          "bytes": 306573,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "93351472104ee03e2120669f42b140f11b22323047f0d4e6e4c87575866c9812"
+        },
+        {
+          "file": "CCCF177C-35D1-4837-B994-4702469ABE6E.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-toc-current-horizontal_0_650154BC-1D4D-45DB-AC0B-7D0010BAC9A6.png",
+          "associated_with_failure": false,
+          "bytes": 348895,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "1d458bbff1ea6b5955901a7adbe5db7ea387afc090bf6aa6fead410c246e459a"
+        },
+        {
+          "file": "DFD77CCB-5C33-4353-8F13-A1C6056916E7.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-page_0_4F3324C6-913B-45A1-9223-28D88633B693.png",
+          "associated_with_failure": false,
+          "bytes": 389830,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "1428b93feaf1885860a9dfde3d8c6c6d3ec2fed6cf6eed81135121434094e0b0"
+        },
+        {
+          "file": "3B01932B-F42A-4286-AA9E-4984B5AACC74.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-still-night_0_F8B5DE7C-C4C9-4CFC-B598-5765B565AA30.png",
+          "associated_with_failure": false,
+          "bytes": 87523,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "27b36e8bf3814027e2e31ccf3385b75cda0fd57355abbb78f5710985ba44a1d9"
+        },
+        {
+          "file": "C0F74EAF-A394-4EF3-B48A-C1F22EACB126.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-light-shelf-night_0_6F6964C7-72C6-4090-9093-EC16E45F956F.png",
+          "associated_with_failure": false,
+          "bytes": 131161,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "ea52801799709fe70e096985ec7cbe4b52168e55579aaeed7d5048aa957f4a9a"
+        },
+        {
+          "file": "51BBF9C7-30A3-4E2A-8575-A715ADC03408.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-warm-shelf-night_0_67354019-9900-4628-B4F2-96D6B79870D9.png",
+          "associated_with_failure": false,
+          "bytes": 129797,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "dce001e801fff72ec0d28e2f5bdb195604c0fe31e4275c7a9be91c870586fdb2"
+        },
+        {
+          "file": "46DB050C-E346-46A6-A31D-ADB53A57FACC.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-night_0_379C3927-1442-44DF-AA4A-701495F4E3B6.png",
+          "associated_with_failure": false,
+          "bytes": 86276,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "87c4411a636901ffcaa9bf85053d078e308da95098da2affab2dd1f0b3d43544"
+        },
+        {
+          "file": "86B1A7E4-A50C-415D-9121-01C7705AE880.png",
+          "test": "ReadingModesUITests/testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone()",
+          "name": "reading-modes-side-taps-and-text-selection_0_71699028-652D-44C4-8517-79DE702FBC15.png",
+          "associated_with_failure": false,
+          "bytes": 381038,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "1395aaeeea89666c574112835a5acf8bbe0cc7db12395af1df601e4a3145d642"
+        }
+      ]
+    },
+    {
+      "run_id": 45941580359,
+      "phase": "final",
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45941580359",
+      "result": {
+        "source_sha": "03fe0237462f0af0595d47c455c7e5756d6cbd97",
+        "scope": "reading",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "simulator_name": "iPhone 17 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "actual_counts": {
+          "totalTestCount": 10,
+          "passedTests": 10,
+          "failedTests": 0,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "physical_device": "NOT_RUN",
+        "status": "PASS_NATIVE_READING_ONLY",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 10,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 10,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "archive": {
+        "source_sha": "03fe0237462f0af0595d47c455c7e5756d6cbd97",
+        "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+        "architecture": "arm64",
+        "bundle_id": "com.zhangsfish.ebook",
+        "version": "0.1.0",
+        "app_bytes": 93053775,
+        "unsigned_executable_sha256": "c65185f96e9c10e2e3fbe81a090a3b6564eff84f0be26beacd9b85c4e04fbc4e",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "original_device_entry_executed": true,
+        "signing": "NOT_RUN",
+        "testflight": "NOT_RUN",
+        "physical_device": "NOT_RUN",
+        "distribution_clearance": "PENDING_INDEPENDENT_REVIEW",
+        "public_binary_artifact": false
+      },
+      "original_fixture_screenshot_metadata": [
+        {
+          "file": "6C19E472-E596-414D-9474-6ACFA41EA92F.png",
+          "test": "ReaderUITests/testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains()",
+          "name": "clean-reading-settings_0_F8A16188-25AC-4045-8EB7-077A686272EA.png",
+          "associated_with_failure": false,
+          "bytes": 173780,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "351def672bbbd31a9eba1fbf373a0943b229be7635c6d603f923ca8d992059b7"
+        },
+        {
+          "file": "00378AA1-A095-4978-97E6-73AD8C615A87.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-vertical-restored-chapter_0_F29F989B-005C-45D7-AC80-C4E46B1638C0.png",
+          "associated_with_failure": false,
+          "bytes": 664421,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "c6bca13d692ec7e7c9d44fbe98af71759064c723dd5e9bf73b0222977a83062d"
+        },
+        {
+          "file": "6371A4A1-405D-4AA8-BFB0-0F8DAAF289A9.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-large-font_0_C10F15D0-D3BC-4A57-9943-C02BA5FFAA4B.png",
+          "associated_with_failure": false,
+          "bytes": 345300,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "f3be6942f14ab6d776b08405e52ef20519090bae94f82f11ed7224076902b9b0"
+        },
+        {
+          "file": "01146EF4-1A74-44F9-9364-B68E88524236.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-toc-current-horizontal_0_018BDA84-5B35-4DD6-827D-4E477A0EB53D.png",
+          "associated_with_failure": false,
+          "bytes": 290334,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "6511cb46b05cff52bb69533004936f459587de6233f7c6f09c5c73a12e1cc565"
+        },
+        {
+          "file": "BC648C0D-283B-4649-9BFB-88207A00EC46.png",
+          "test": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical()",
+          "name": "reading-modes-horizontal-page_0_EBAD36CB-2B80-48DD-95AE-67271D1A318B.png",
+          "associated_with_failure": false,
+          "bytes": 390014,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "1b88f50cbfd14200408568b3497d4cd66ddcd86ef69d6fc7b1bc2c386d3c9e94"
+        },
+        {
+          "file": "33CDF51C-8730-46F8-8390-37B95B408F06.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-still-night_0_574377D1-5EE6-480E-B814-C5CB93D8197F.png",
+          "associated_with_failure": false,
+          "bytes": 93705,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "6ec1bce95a7fad0080b497f8ab1e5b85c4c5dcd7cdd87dbf86999a526be1fbe8"
+        },
+        {
+          "file": "CDBBADBB-45C7-4A5A-BB7D-2C613F5302B2.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-light-shelf-night_0_E2A5F225-C3F0-4846-BC48-892D7E9F5E68.png",
+          "associated_with_failure": false,
+          "bytes": 129498,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "2bf9d17619932e0d3cf51a4027c0c62056d0628e22cbfa0facfda8f33d6b259d"
+        },
+        {
+          "file": "FC81E634-4974-4574-A50C-6E944E030B0F.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-reader-warm-shelf-night_0_DC21A219-F886-4AB2-AE79-06C92D1506E2.png",
+          "associated_with_failure": false,
+          "bytes": 129366,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "c185c0dd984926563c67dca2bbe2d5e321b991882b83f83d27b97cc665b437e1"
+        },
+        {
+          "file": "7698F354-2488-4336-AE05-5518CCEE3EBB.png",
+          "test": "ReadingModesUITests/testShelfAppearanceAndReaderThemePersistIndependently()",
+          "name": "reading-modes-shelf-night_0_BE93AD1C-15F3-448C-BA13-60DFDF351429.png",
+          "associated_with_failure": false,
+          "bytes": 93737,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "b77fea8f0bb815bbdb0ecefc397dcbb5bb5802414d5499c451e8e764269ca048"
+        },
+        {
+          "file": "EA1700B0-FE03-4D9F-AE8B-0F8FA1D30865.png",
+          "test": "ReadingModesUITests/testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone()",
+          "name": "reading-modes-side-taps-and-text-selection_0_75F39A5D-2F20-4022-8596-A5B3695F6F0E.png",
+          "associated_with_failure": false,
+          "bytes": 381620,
+          "width": 1206,
+          "height": 2622,
+          "sha256": "b40c435783bcc47a7142f1484d5f9c500d450ee94ef08a9009fefd66373f0309"
+        }
+      ]
+    }
+  ]
+}

@@ -22,17 +22,36 @@ private final class XMLTree: NSObject, XMLParserDelegate {
 
     static func parse(_ data: Data) throws -> XMLNode {
         guard data.count <= 8 * 1024 * 1024 else { throw ReaderError.tooLarge("EPUB XML 文档过大。") }
-        // Disallow custom entity declarations, including UTF-16 encoded declarations.
-        let probe = String(data: data, encoding: .utf8)
-            ?? String(data: data, encoding: .utf16) ?? ""
-        guard !probe.uppercased().contains("<!ENTITY") else { throw ReaderError.unsupported("EPUB 不允许自定义 XML 实体。") }
+        // XML keywords are ASCII. Ignore encoding padding so declarations in
+        // UTF-16/32, with or without a BOM, cannot bypass the same policy.
+        let entityKeyword = Array("<!ENTITY".utf8)
+        var matched = 0
+        for byte in data where byte != 0 {
+            let upper = (97...122).contains(byte) ? byte - 32 : byte
+            matched = upper == entityKeyword[matched] ? matched + 1 : (upper == 60 ? 1 : 0)
+            if matched == entityKeyword.count { throw ReaderError.unsupported("EPUB 不允许自定义 XML 实体。") }
+        }
         let delegate = XMLTree(), parser = XMLParser(data: data)
         parser.shouldResolveExternalEntities = false
+        parser.externalEntityResolvingPolicy = .never
         parser.delegate = delegate
         guard parser.parse(), delegate.failure == nil, let root = delegate.root else {
             throw delegate.failure ?? ReaderError.invalid("EPUB XML/XHTML 格式损坏。")
         }
         return root
+    }
+    static func parseXHTML(_ data: Data) throws -> XMLNode {
+        do { return try parse(data) }
+        catch let error as ReaderError {
+            switch error {
+            case .invalid, .tooLarge:
+                // Strict XML remains the authority, including on the repaired
+                // document. Never retry forbidden entity declarations.
+                guard let repaired = XHTMLVoidRepair.repair(data) else { throw error }
+                return try parse(repaired)
+            default: throw error
+            }
+        }
     }
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes: [String: String]) {
         count += 1
@@ -73,7 +92,7 @@ enum EPUBParser {
         let archive = try ZIPArchive(data: data)
         guard try archive.read("mimetype", maximum: 100) == Data("application/epub+zip".utf8) else { throw ReaderError.invalid("文件不是有效 EPUB。") }
         guard archive.entries["META-INF/encryption.xml"] == nil else {
-            throw ReaderError.unsupported("此 EPUB 声明了加密资源；S00 不支持加密书籍或 DRM。")
+            throw ReaderError.unsupported("这本 EPUB 含有加密内容，无法导入。")
         }
         let container = try XMLTree.parse(archive.read("META-INF/container.xml"))
         guard let rootfile = container.all("rootfile").first?.attributes["full-path"] else { throw ReaderError.invalid("EPUB 缺少根文档。") }
@@ -93,7 +112,7 @@ enum EPUBParser {
         }
         var navigation: [Navigation] = []
         if let nav = manifest.values.first(where: { $0.properties.contains("nav") }) {
-            let tree = try XMLTree.parse(archive.read(nav.path))
+            let tree = try XMLTree.parseXHTML(archive.read(nav.path))
             if let toc = tree.all("nav").first(where: { ($0.attributes["epub:type"] ?? $0.attributes["type"] ?? "").split(separator: " ").contains("toc") }) {
                 func visit(_ node: XMLNode, depth: Int) throws {
                     if node.name == "a", let href = node.attributes["href"] {
@@ -122,7 +141,7 @@ enum EPUBParser {
             guard let id = reference.attributes["idref"], let item = manifest[id], item.media == "application/xhtml+xml" else {
                 throw ReaderError.unsupported("EPUB spine 含有缺失或非 XHTML 章节。")
             }
-            let tree = try XMLTree.parse(archive.read(item.path))
+            let tree = try XMLTree.parseXHTML(archive.read(item.path))
             guard let body = tree.all("body").first else { throw ReaderError.invalid("EPUB XHTML 缺少 body。") }
             let label = navigation.first(where: { $0.path == item.path })?.title
                 ?? tree.all("h1").first.map { clean($0.text) } ?? "第 \(builder.chapters.count + 1) 节"
@@ -184,7 +203,7 @@ enum EPUBParser {
         let path = String(href.split(separator: "#", maxSplits: 1, omittingEmptySubsequences: false)[0])
         guard let decoded = path.removingPercentEncoding, !decoded.contains(":"), !decoded.contains("\\"),
               !decoded.contains("\0"), !decoded.contains("?"), !decoded.hasPrefix("/") else {
-            throw ReaderError.unsupported("EPUB 含有外部或不安全的资源地址。")
+            throw ReaderError.unsupported("EPUB 中的资源地址无法读取。")
         }
         if decoded.isEmpty { return base }
         var components = base.split(separator: "/").dropLast().map(String.init)

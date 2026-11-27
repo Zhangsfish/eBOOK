@@ -1,0 +1,98 @@
+{
+  "base_sha": "452d1671e9f4500cd2edece8553c212da9cf5244",
+  "tested_implementation_sha": "03fe0237462f0af0595d47c455c7e5756d6cbd97",
+  "check": "Byte comparison outside normalized Swift string literals for listed files; not a general Swift AST/semantic proof.",
+  "literal_only_changes": {
+    "Sources/ReaderCore/BookStorage.swift": [
+      {
+        "before": "\"无法创建本机副本。\"",
+        "after": "\"无法保存书籍文件。\""
+      }
+    ],
+    "Sources/ReaderCore/EPUBParser.swift": [
+      {
+        "before": "\"此 EPUB 声明了加密资源；S00 不支持加密书籍或 DRM。\"",
+        "after": "\"这本 EPUB 含有加密内容，无法导入。\""
+      },
+      {
+        "before": "\"EPUB 含有外部或不安全的资源地址。\"",
+        "after": "\"EPUB 中的资源地址无法读取。\""
+      }
+    ],
+    "Sources/ReaderCore/ZIPArchive.swift": [
+      {
+        "before": "\"EPUB 路径无效、重复或不安全。\"",
+        "after": "\"EPUB 文件中的资源路径无效。\""
+      }
+    ],
+    "Sources/ReaderCore/TextDecoder.swift": [
+      {
+        "before": "\"UTF-8 字节无效，请检查文件或手动选择编码。\"",
+        "after": "\"TXT 编码无效，请另存为 UTF-8 后重新导入。\""
+      },
+      {
+        "before": "\"文件包含 GB18030 四字节字符，请选择 GB18030。\"",
+        "after": "\"这份文件使用 GB18030 编码，请另存为 UTF-8 后重新导入。\""
+      },
+      {
+        "before": "\"GBK/GB18030 解码失败，未使用有损替换。请检查编码。\"",
+        "after": "\"无法读取 TXT 文字，请另存为 UTF-8 后重新导入。\""
+      },
+      {
+        "before": "\"无法严格识别 TXT 编码，请检查文件或手动选择编码。\"",
+        "after": "\"无法识别 TXT 编码，请另存为 UTF-8 后重新导入。\""
+      }
+    ],
+    "Sources/eBOOK/AppleSpeechProvider.swift": [
+      {
+        "before": "\"未找到本机中文语音，请在 iOS 辅助功能的朗读内容中下载语音。\"",
+        "after": "\"未找到中文语音，请在 iOS 设置的辅助功能→朗读内容中下载。\""
+      },
+      {
+        "before": "\"本机朗读已停止，请再次播放。\"",
+        "after": "\"朗读已停止，请再次播放。\""
+      }
+    ],
+    "Sources/eBOOK/LibraryModel.swift": [
+      {
+        "before": "\"书架无法读取，已停止写入以保留原文件。请保留本机数据后排查。\\(error.localizedDescription)\"",
+        "after": "\"书架无法读取：\\(error.localizedDescription)\""
+      },
+      {
+        "before": "\"本地存储不可用：\\(error.localizedDescription)\"",
+        "after": "\"书架存储无法访问：\\(error.localizedDescription)\""
+      },
+      {
+        "before": "\"保存失败，当前位置暂存在内存：\\(error.localizedDescription)\"",
+        "after": "\"更改未能保存：\\(error.localizedDescription)\""
+      }
+    ],
+    "Sources/eBOOK/LocalSpeechProvider.swift": [
+      {
+        "before": "\"本段含英文或苏心暂不支持的字符，使用苹果系统中文语音；后续中文继续使用苏心。\"",
+        "after": "\"本段使用系统语音\""
+      }
+    ],
+    "Sources/eBOOK/SpeechController.swift": [
+      {
+        "before": "\"本机中文朗读\"",
+        "after": "\"朗读\""
+      }
+    ],
+    "Sources/eBOOK/SuxinSpeechProvider.swift": [
+      {
+        "before": "\"苏心 · 离线中文\"",
+        "after": "\"苏心\""
+      }
+    ]
+  },
+  "unchanged_model_frontend_native_runtime_and_preferences_paths": [
+    "Sources/NativeTTS",
+    "Sources/ReaderCore/SuxinFrontend.swift",
+    "Sources/ReaderCore/SuxinSegmentation.swift",
+    "Sources/eBOOK/SuxinResources.swift",
+    "Sources/eBOOK/ReaderTable.swift",
+    "Sources/ReaderCore/Models.swift"
+  ],
+  "paginator_before_page_controller_changes_only_error_text": true
+}

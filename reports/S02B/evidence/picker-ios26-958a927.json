@@ -1,0 +1,20 @@
+{
+  "source_sha": "958a927d6a278283fb435850f8ab1bcc6217f3a4",
+  "scope": "picker",
+  "xcode": "Xcode 26.6\nBuild version 17F113",
+  "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+  "simulator_name": "iPhone 17 Pro",
+  "host_architecture": "arm64",
+  "host_cpu": "Apple M1 (Virtual)",
+  "host_logical_cpus": 3,
+  "actual_counts": {
+    "totalTestCount": 1,
+    "passedTests": 0,
+    "failedTests": 1,
+    "skippedTests": 0
+  },
+  "neural_audio_generation": false,
+  "metrics": [],
+  "physical_device": "NOT_RUN",
+  "status": "FAIL_ACTUAL_XCTEST"
+}

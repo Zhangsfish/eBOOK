@@ -20,12 +20,13 @@ def generate():
         objects[key] = {'isa': isa, **fields}
         return Ref(key)
     ordering = lambda path: path.relative_to(ROOT).as_posix()
-    app_sources = sorted((ROOT / 'Sources').rglob('*.swift'), key=ordering)
+    app_sources = sorted(list((ROOT / 'Sources').rglob('*.swift')) + list((ROOT / 'Sources').rglob('*.cpp')), key=ordering)
     unit_sources = sorted((ROOT / 'Tests' / 'CoreTests').glob('*.swift'), key=ordering)
     ui_sources = sorted((ROOT / 'Tests' / 'UITests').glob('*.swift'), key=ordering)
     def file(path, file_type=None):
         rel = path.relative_to(ROOT).as_posix()
-        return obj('file:' + rel, 'PBXFileReference', lastKnownFileType=file_type or ('sourcecode.swift' if path.suffix == '.swift' else 'text'), path=rel, sourceTree='<group>')
+        kind = {'.swift': 'sourcecode.swift', '.cpp': 'sourcecode.cpp.cpp'}.get(path.suffix, 'text')
+        return obj('file:' + rel, 'PBXFileReference', lastKnownFileType=file_type or kind, path=rel, sourceTree='<group>')
     all_files = []
     def sources(name, paths):
         builds = []
@@ -43,7 +44,9 @@ def generate():
             builds.append(obj('resource:' + name + path, 'PBXBuildFile', fileRef=ref))
         return obj('resources:' + name, 'PBXResourcesBuildPhase', buildActionMask='2147483647', files=builds, runOnlyForDeploymentPostprocessing='0')
     app_resources = resources('app', [('Sources/eBOOK/PrivacyInfo.xcprivacy', 'text.xml'),
-                                      ('Sources/eBOOK/Assets.xcassets', 'folder.assetcatalog')])
+                                      ('Sources/eBOOK/Assets.xcassets', 'folder.assetcatalog'),
+                                      ('.local-test-data/s02b/bundle/Suxin', 'folder'),
+                                      ('.local-test-data/s02b/bundle/NativeNotices', 'folder')])
     unit_resources = resources('unit', [('Tests/Fixtures', 'folder'), ('.local-test-data/synthetic_long_gb18030.txt', 'text')])
     ui_resources = resources('ui', [])
     products = []
@@ -78,14 +81,21 @@ def generate():
         'INFOPLIST_FILE': 'Sources/eBOOK/Info.plist', 'GENERATE_INFOPLIST_FILE': 'NO',
         'MARKETING_VERSION': '0.1.0', 'CURRENT_PROJECT_VERSION': '1',
         'ASSETCATALOG_COMPILER_APPICON_NAME': 'AppIcon',
-        'OTHER_LDFLAGS': ['$(inherited)', '-lz'], 'LD_RUNPATH_SEARCH_PATHS': ['$(inherited)', '@executable_path/Frameworks'],
+        'SWIFT_OBJC_BRIDGING_HEADER': 'Sources/NativeTTS/SuxinBridge.h',
+        'CLANG_CXX_LANGUAGE_STANDARD': 'c++17', 'CLANG_CXX_LIBRARY': 'libc++',
+        'OTHER_LDFLAGS': ['$(inherited)', '-lz', '-lc++', '-framework', 'CoreML'], 'LD_RUNPATH_SEARCH_PATHS': ['$(inherited)', '@executable_path/Frameworks'],
         'SUPPORTED_PLATFORMS': 'iphoneos iphonesimulator', 'SUPPORTS_MACCATALYST': 'NO'})
     unit_config = configurations('unit', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'com.zhangsfish.ebook.tests',
         'GENERATE_INFOPLIST_FILE': 'YES', 'TEST_HOST': '$(BUILT_PRODUCTS_DIR)/eBOOK.app/eBOOK', 'BUNDLE_LOADER': '$(TEST_HOST)',
         'LD_RUNPATH_SEARCH_PATHS': ['$(inherited)', '@executable_path/Frameworks', '@loader_path/Frameworks']})
     ui_config = configurations('ui', {**base, 'PRODUCT_BUNDLE_IDENTIFIER': 'com.zhangsfish.ebook.uitests',
         'GENERATE_INFOPLIST_FILE': 'YES', 'TEST_TARGET_NAME': 'eBOOK'})
-    app_target = obj('target:app', 'PBXNativeTarget', buildConfigurationList=app_config, buildPhases=[app_phase, app_resources], buildRules=[], dependencies=[], name='eBOOK', productName='eBOOK', productReference=app_product, productType='com.apple.product-type.application')
+    ort_package = obj('package:ort', 'XCRemoteSwiftPackageReference', repositoryURL='https://github.com/csukuangfj/onnxruntime-libs',
+                      requirement={'kind': 'revision', 'revision': '8ebc5ebf92190903c274a7621ba4c96a732335ec'})
+    ort_product = obj('package-product:ort', 'XCSwiftPackageProductDependency', package=ort_package, productName='onnxruntime-ios')
+    ort_build = obj('build:ort', 'PBXBuildFile', productRef=ort_product)
+    frameworks = obj('frameworks:app', 'PBXFrameworksBuildPhase', buildActionMask='2147483647', files=[ort_build], runOnlyForDeploymentPostprocessing='0')
+    app_target = obj('target:app', 'PBXNativeTarget', buildConfigurationList=app_config, buildPhases=[app_phase, frameworks, app_resources], buildRules=[], dependencies=[], packageProductDependencies=[ort_product], name='eBOOK', productName='eBOOK', productReference=app_product, productType='com.apple.product-type.application')
     proxy = obj('proxy:app', 'PBXContainerItemProxy', containerPortal=Ref(uid('project')), proxyType='1', remoteGlobalIDString=app_target, remoteInfo='eBOOK')
     def test_target(name, phase, resource_phase, config, output):
         dependency = obj('dependency:' + name, 'PBXTargetDependency', target=app_target, targetProxy=proxy)
@@ -94,7 +104,7 @@ def generate():
     ui_target = test_target('EBookUITests', ui_phase, ui_resources, ui_config, ui_product)
     project = obj('project', 'PBXProject', attributes={'BuildIndependentTargetsInParallel': 'YES', 'LastUpgradeCheck': '1640', 'TargetAttributes': {
         str(app_target): {'CreatedOnToolsVersion': '16.4'}, str(unit_target): {'CreatedOnToolsVersion': '16.4', 'TestTargetID': app_target}, str(ui_target): {'CreatedOnToolsVersion': '16.4', 'TestTargetID': app_target}}},
-        buildConfigurationList=project_config, compatibilityVersion='Xcode 14.0', developmentRegion='zh_CN', hasScannedForEncodings='0', knownRegions=['zh_CN', 'en', 'Base'], mainGroup=main_group, productRefGroup=products_group, projectDirPath='', projectRoot='', targets=[app_target, unit_target, ui_target])
+        buildConfigurationList=project_config, compatibilityVersion='Xcode 14.0', developmentRegion='zh_CN', hasScannedForEncodings='0', knownRegions=['zh_CN', 'en', 'Base'], mainGroup=main_group, productRefGroup=products_group, packageReferences=[ort_package], projectDirPath='', projectRoot='', targets=[app_target, unit_target, ui_target])
     def render(value, level=0):
         if isinstance(value, Ref): return str(value)
         if isinstance(value, dict):

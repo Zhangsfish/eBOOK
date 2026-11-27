@@ -1,0 +1,44 @@
+getpwuid_r did not find a match for uid 501
+Timestamp               Ty Process[PID:TID]
+2026-11-26 04:34:30.995 Df eBOOK[20861:faf0] (Foundation) EBOOK_IMPORT started
+2026-11-26 04:34:31.000 Df eBOOK[20861:fb24] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 04:34:31.094 Df eBOOK[20861:fb24] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 04:34:31.136 Df eBOOK[20861:fb24] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 04:34:31.650 Df eBOOK[20861:faf0] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 04:35:57.028 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT picker created
+2026-11-26 04:36:24.344 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT picker selected count=1
+2026-11-26 04:36:24.360 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT started
+2026-11-26 04:36:24.361 Df eBOOK[25071:12470] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 04:36:24.383 Df eBOOK[25071:12470] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 04:36:24.424 Df eBOOK[25071:12470] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 04:36:24.467 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 04:36:29.328 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT picker created
+2026-11-26 04:36:44.318 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT picker selected count=1
+2026-11-26 04:36:44.334 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT started
+2026-11-26 04:36:44.340 Df eBOOK[25071:1243e] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 04:36:44.416 Df eBOOK[25071:1243e] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 04:36:44.423 Df eBOOK[25071:1243e] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 04:36:44.424 Df eBOOK[25071:122cc] (Foundation) EBOOK_IMPORT saved books=2
+2026-11-26 04:36:55.180 Df eBOOK[27725:13d78] (Foundation) EBOOK_IMPORT started
+2026-11-26 04:36:55.181 Df eBOOK[27725:13d9e] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 04:36:55.190 Df eBOOK[27725:13d9e] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 04:36:57.241 Df eBOOK[27725:13d9e] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 04:36:57.251 Df eBOOK[27725:13d78] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 04:40:06.901 Df eBOOK[36877:194f2] (Foundation) EBOOK_IMPORT started
+2026-11-26 04:40:06.905 Df eBOOK[36877:1956c] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 04:40:06.959 Df eBOOK[36877:1956c] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 04:40:06.978 Df eBOOK[36877:1956c] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 04:40:07.279 Df eBOOK[36877:194f2] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 04:40:50.977 Df eBOOK[38739:1a709] (Foundation) EBOOK_IMPORT started
+2026-11-26 04:40:50.980 Df eBOOK[38739:1a7b8] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 04:40:51.000 Df eBOOK[38739:1a7b8] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 04:40:51.034 Df eBOOK[38739:1a7b8] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 04:40:51.397 Df eBOOK[38739:1a709] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 04:40:54.387 Df eBOOK[38739:1a709] (Foundation) EBOOK_IMPORT picker created
+2026-11-26 04:41:08.306 Df eBOOK[38739:1a709] (Foundation) EBOOK_IMPORT picker cancelled
+2026-11-26 04:41:14.754 Df eBOOK[39446:1ae5d] (Foundation) EBOOK_IMPORT started
+2026-11-26 04:41:14.755 Df eBOOK[39446:1af1a] (Foundation) EBOOK_IMPORT coordination requested
+2026-11-26 04:41:14.775 Df eBOOK[39446:1af1a] (Foundation) EBOOK_IMPORT coordination entered
+2026-11-26 04:41:17.623 Df eBOOK[39446:1af1a] (Foundation) EBOOK_IMPORT coordination returned
+2026-11-26 04:41:17.637 Df eBOOK[39446:1ae5d] (Foundation) EBOOK_IMPORT saved books=1
+2026-11-26 04:44:43.494 Df log[47932:0] [com.apple.log:] log run noninteractively, parent: 6273 (launchd_sim), args: 'log' 'show' '--last' '30m' '--style' 'compact' '--info' '--predicate' 'eventMessage CONTAINS "EBOOK_IMPORT"'

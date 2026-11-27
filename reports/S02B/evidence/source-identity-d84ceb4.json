@@ -1,0 +1,69 @@
+{
+  "refs": {
+    "ios18_completed": "7ff918a1c02f730bf37d351821b37dc79709c2e3",
+    "ios26_clean_recheck": "565bae04468e9ae1c16eefb4fe08ad84120fac69",
+    "documentation_checkpoint": "d84ceb4e4ab102d8dfd8b9a2134b843ce2cbed8a"
+  },
+  "verified_equal_git_build_input_object_ids": {
+    "Sources": {
+      "ios18_completed": "6d9339b31da7acd614971037c2e9151e493bdc48",
+      "ios26_clean_recheck": "6d9339b31da7acd614971037c2e9151e493bdc48",
+      "documentation_checkpoint": "6d9339b31da7acd614971037c2e9151e493bdc48"
+    },
+    "Tests": {
+      "ios18_completed": "57d475c2648f5aa0b04df8eb6580a73ddb82b77d",
+      "ios26_clean_recheck": "57d475c2648f5aa0b04df8eb6580a73ddb82b77d",
+      "documentation_checkpoint": "57d475c2648f5aa0b04df8eb6580a73ddb82b77d"
+    },
+    "eBOOK.xcodeproj": {
+      "ios18_completed": "7d2a07924ddddb7a2cde970b34259ad54684e0e5",
+      "ios26_clean_recheck": "7d2a07924ddddb7a2cde970b34259ad54684e0e5",
+      "documentation_checkpoint": "7d2a07924ddddb7a2cde970b34259ad54684e0e5"
+    },
+    "scripts": {
+      "ios18_completed": "58c88804f1d96c790567c625b40a07ff9508c28c",
+      "ios26_clean_recheck": "58c88804f1d96c790567c625b40a07ff9508c28c",
+      "documentation_checkpoint": "58c88804f1d96c790567c625b40a07ff9508c28c"
+    },
+    "tools/suxin": {
+      "ios18_completed": "fb86cc34efe56e643ca28c5187c6d5cee52cc9f5",
+      "ios26_clean_recheck": "fb86cc34efe56e643ca28c5187c6d5cee52cc9f5",
+      "documentation_checkpoint": "fb86cc34efe56e643ca28c5187c6d5cee52cc9f5"
+    },
+    ".github/workflows/s02b-ios.yml": {
+      "ios18_completed": "0fe7a1141bfca9b9c0d5fc50e9550c9d051f577e",
+      "ios26_clean_recheck": "0fe7a1141bfca9b9c0d5fc50e9550c9d051f577e",
+      "documentation_checkpoint": "0fe7a1141bfca9b9c0d5fc50e9550c9d051f577e"
+    }
+  },
+  "all_changes_after_tested_sha_are_documentation_or_small_evidence": true,
+  "changed_paths": [
+    "README.md",
+    "STATUS.md",
+    "reports/S02B/AGENTS.md",
+    "reports/S02B/DEVICE_CHECKLIST.md",
+    "reports/S02B/FILES_IMPORT_FOLLOWUP.md",
+    "reports/S02B/evidence/apple-range-failure-ios26-7ff918a.json",
+    "reports/S02B/evidence/apple-range-failure-ios26-7ff918a.log",
+    "reports/S02B/evidence/archive-picker-ios18-fba530b.json",
+    "reports/S02B/evidence/external-picker-ios18-fba530b.json",
+    "reports/S02B/evidence/external-provider-ios18-fba530b.json",
+    "reports/S02B/evidence/final-archive-ios18-7ff918a.json",
+    "reports/S02B/evidence/final-full-ios18-7ff918a.json",
+    "reports/S02B/evidence/final-import-ios18-7ff918a.log",
+    "reports/S02B/evidence/final-provider-ios18-7ff918a.json",
+    "reports/S02B/evidence/final-reader-ios18-7ff918a.json",
+    "reports/S02B/evidence/first-archive-ios26-7ff918a.json",
+    "reports/S02B/evidence/first-full-ios26-7ff918a.json",
+    "reports/S02B/evidence/first-import-ios26-7ff918a.log",
+    "reports/S02B/evidence/first-provider-ios26-7ff918a.json",
+    "reports/S02B/evidence/first-reader-ios26-7ff918a.json",
+    "reports/S02B/evidence/import-picker-ios18-fba530b.log",
+    "reports/S02B_SUXIN_IOS_INTEGRATION.md",
+    "tasks/CODEX_HANDOFF_S02B.md",
+    "tasks/S02B_SUXIN_IOS_INTEGRATION.md"
+  ],
+  "last_app_source_commit": "16fe15da6bcd7431a8a162fd65ca77ce8da6ff4d",
+  "app_sources_tree": "6d9339b31da7acd614971037c2e9151e493bdc48",
+  "scope": "Source/build-input identity only. Separate CI results determine PASS/FAIL; this is not a new build or phone test."
+}

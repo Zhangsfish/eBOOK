@@ -20,19 +20,23 @@ struct ReaderView: View {
         Group {
             if let document, let storage = library.storage {
                 ZStack(alignment: .bottomTrailing) {
-                    ReaderTable(document: document, storage: storage, bookID: bookID,
-                                preferences: library.state.preferences, jump: jump) { anchor in
-                        current = anchor
-                        library.updateReading(bookID, anchor: anchor, progress: document.progress(block: anchor.block, fraction: anchor.fraction))
-                    } onError: { loadError = $0 }
+                    Group {
+                        if library.state.preferences.readingMode == .horizontal {
+                            ReaderPages(document: document, storage: storage, bookID: bookID,
+                                preferences: library.state.preferences, jump: jump,
+                                onPosition: { moved($0, document: document) }, onError: { loadError = $0 })
+                        } else {
+                            ReaderTable(document: document, storage: storage, bookID: bookID,
+                                preferences: library.state.preferences, jump: jump,
+                                onPosition: { moved($0, document: document) }, onError: { loadError = $0 })
+                        }
+                    }
                     // Keep the text viewport stable when controls appear/disappear.
                     // The quiet bottom margin also keeps the entry off the text.
                     .padding(.bottom, 44)
                     if showingControls {
                         readingControls(document)
-                            .padding(12)
-                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
-                            .padding(12)
+                            .zIndex(1)
                     } else {
                         Button { showingControls = true } label: {
                             Image(systemName: "ellipsis")
@@ -95,7 +99,7 @@ struct ReaderView: View {
             do {
                 let loaded = try storage.document(for: bookID)
                 current = record.reading
-                jump = ReaderJump(block: current.block, fraction: current.fraction)
+                jump = ReaderJump(block: current.block, fraction: current.fraction, utf16Offset: current.utf16Offset)
                 document = loaded
             } catch { loadError = error.localizedDescription }
         }
@@ -105,50 +109,56 @@ struct ReaderView: View {
         } message: { Text(loadError ?? "") }
     }
 
+    private func moved(_ anchor: ReadingAnchor, document: BookDocument) {
+        current = anchor
+        library.updateReading(bookID, anchor: anchor, progress: document.progress(block: anchor.block, fraction: anchor.fraction))
+    }
+
     private func readingControls(_ document: BookDocument) -> some View {
-        VStack(spacing: 12) {
-            HStack {
+        VStack(spacing: 0) {
+            HStack(spacing: 16) {
                 Button { dismiss() } label: {
-                    Image(systemName: "chevron.left").frame(width: 44, height: 44)
+                    Image(systemName: "chevron.left").frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
                 }.accessibilityLabel("返回书架").accessibilityIdentifier("reader.back")
-                Text(library.record(bookID)?.title ?? "阅读").font(.headline).lineLimit(1)
-                Spacer(minLength: 0)
-                Button { showingControls = false } label: {
-                    Image(systemName: "xmark").frame(width: 44, height: 44)
-                }.accessibilityLabel("收起阅读控制").accessibilityIdentifier("reader.controls.dismiss")
-            }
-            HStack(spacing: 12) {
                 Button {
                     showingControls = false; showingSpeech = true
                 } label: {
-                    Label("朗读", systemImage: speech.book?.id == bookID && speech.status == .playing ? "speaker.wave.2.fill" : "speaker.wave.2")
-                        .frame(maxWidth: .infinity, minHeight: 44)
+                    Image(systemName: speech.book?.id == bookID && speech.status == .playing ? "speaker.wave.2.fill" : "speaker.wave.2")
+                        .frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
                 }.accessibilityLabel("朗读控制").accessibilityIdentifier("reader.speech")
                 Button {
                     tocQuery = ""
                     showingControls = false; showingTOC = true
                 } label: {
-                    Label("目录", systemImage: "list.bullet").frame(maxWidth: .infinity, minHeight: 44)
-                }.accessibilityIdentifier("reader.toc")
+                    Image(systemName: "list.bullet").frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
+                }.accessibilityLabel("目录").accessibilityIdentifier("reader.toc")
                 Button {
                     showingControls = false; showingSettings = true
                 } label: {
-                    Label("字号", systemImage: "textformat.size").frame(maxWidth: .infinity, minHeight: 44)
+                    Image(systemName: "textformat.size").frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
                 }.accessibilityLabel("阅读设置").accessibilityIdentifier("reader.settings")
-            }
-            HStack {
+            }.font(.system(size: 18, weight: .regular))
+            HStack(spacing: 8) {
                 Text("\(Int(document.progress(block: current.block, fraction: current.fraction) * 100))%")
                     .monospacedDigit().accessibilityIdentifier("reader.progress")
-                Slider(value: Binding(get: { document.progress(block: current.block, fraction: current.fraction) }, set: {
+                ReaderProgressSlider(value: Binding(get: { document.progress(block: current.block, fraction: current.fraction) }, set: {
                     jump = ReaderJump(block: document.block(atProgress: $0))
-                }), in: 0...1)
-                .accessibilityLabel("阅读进度").accessibilityIdentifier("reader.seek")
+                }), color: library.state.preferences.theme.foreground,
+                    increasedContrast: colorSchemeContrast == .increased)
+                .frame(maxWidth: .infinity).frame(height: 44)
                 Text("\(current.block + 1)/\(document.blocks.count)")
                     .monospacedDigit().accessibilityIdentifier("reader.anchor")
-            }.font(.caption)
+                Button { showingControls = false } label: {
+                    Image(systemName: "ellipsis").font(.system(size: 16))
+                        .frame(width: 44, height: 44).contentShape(Rectangle())
+                }.accessibilityLabel("收起阅读控制").accessibilityIdentifier("reader.controls.dismiss")
+            }.font(.caption2)
         }
         .buttonStyle(.plain)
-        .foregroundStyle(Color(library.state.preferences.theme.foreground))
+        .foregroundStyle(Color(library.state.preferences.theme.foreground)
+            .opacity(colorSchemeContrast == .increased ? 1 : 0.65))
+        .padding(.leading, 16).padding(.trailing, 8)
+        .background(Color(library.state.preferences.theme.background).opacity(0.97))
     }
 
     private var toc: some View {
@@ -157,11 +167,8 @@ struct ReaderView: View {
             ScrollViewReader { proxy in
                 List {
                     if let document {
-                        if document.heuristicTOC {
-                            Text("TXT 目录由标题格式推测，可能有遗漏。").font(.footnote).foregroundStyle(.secondary)
-                        }
                         if document.toc.isEmpty {
-                            Text("未检测到可靠章节，可使用阅读进度浏览全文。").foregroundStyle(.secondary)
+                            Text("暂无目录").foregroundStyle(.secondary)
                         }
                         ForEach(document.toc.filter { tocQuery.isEmpty || $0.title.localizedCaseInsensitiveContains(tocQuery) }) { entry in
                             Button {
@@ -206,8 +213,10 @@ struct ReaderView: View {
     private func playback(_ document: BookDocument, storage: BookStorage) -> some View {
         let active = speech.book?.id == bookID
         return VStack(spacing: 4) {
+            if active && speech.preparing { ProgressView("正在准备朗读…").font(.caption) }
+            if active, let notice = speech.notice { Text(notice).font(.caption).foregroundStyle(.secondary) }
             HStack {
-                Label(active ? speech.status.rawValue : "本机语音 · 不发送正文", systemImage: "waveform")
+                Label(active ? speech.status.rawValue : "未播放", systemImage: "waveform")
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 if active {
@@ -233,7 +242,7 @@ struct ReaderView: View {
             Button("从当前阅读位置开始朗读") {
                 ensureSpeech(document, storage)
                 let length = document.blocks[current.block].utf16Count
-                speech.seek(TextPosition(block: current.block, utf16Offset: Int(Double(length) * current.fraction)))
+                speech.seek(TextPosition(block: current.block, utf16Offset: current.utf16Offset ?? Int(Double(length) * current.fraction)))
                 speech.play()
             }.font(.caption).padding(.bottom, 4)
         }.padding(.horizontal).background(.bar)
@@ -259,18 +268,24 @@ struct ReaderSettings: View {
                         ForEach(ReaderTheme.allCases, id: \.self) { Text($0.title).tag($0) }
                     }.pickerStyle(.segmented).accessibilityIdentifier("settings.theme")
                 }
-                Section("本机朗读") {
-                    Text("使用设备已有语音，不向云端发送书籍正文。语音质量取决于设备安装的语音。").font(.footnote).foregroundStyle(.secondary)
+                Section("朗读") {
+                    if library.state.preferences.voiceIdentifier == SuxinSpeechProvider.voiceID {
+                        LabeledContent("苏心语速", value: String(format: "%.2f×", library.state.preferences.suxinRate))
+                        Slider(value: Binding(get: { Double(library.state.preferences.suxinRate) }, set: {
+                            var value = library.state.preferences; value.suxinRate = Float($0); library.setPreferences(value); speech.preferencesChanged()
+                        }), in: 0.5...2, step: 0.05).accessibilityLabel("苏心朗读语速").accessibilityIdentifier("settings.suxinRate")
+                    } else {
                     LabeledContent("语速", value: String(format: "%.2f", library.state.preferences.speechRate))
                     Slider(value: Binding(get: { Double(library.state.preferences.speechRate) }, set: {
                         var value = library.state.preferences; value.speechRate = Float($0); library.setPreferences(value); speech.preferencesChanged()
                     }), in: 0.35...0.65, step: 0.025).accessibilityLabel("朗读语速")
+                    }
                     Picker("语音", selection: Binding(get: { library.state.preferences.voiceIdentifier ?? "" }, set: {
                         var value = library.state.preferences; value.voiceIdentifier = $0.isEmpty ? nil : $0; library.setPreferences(value); speech.preferencesChanged()
                     })) {
                         Text("默认中文语音").tag("")
-                        ForEach(speech.provider.voices.filter { $0.language.hasPrefix("zh") }) { Text("\($0.name) · \($0.language)").tag($0.id) }
-                    }
+                        ForEach(speech.provider.voices.filter { $0.language.hasPrefix("zh") }) { Text($0.name).tag($0.id) }
+                    }.accessibilityIdentifier("settings.voice")
                 }
             }.navigationTitle("阅读设置").toolbar { ToolbarItem(placement: .topBarTrailing) { Button("完成") { dismiss() } } }
         }

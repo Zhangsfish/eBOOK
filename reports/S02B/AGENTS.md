@@ -1,0 +1,135 @@
+# S02B integration evidence
+
+## Latest owner UI trial —2026-11-27
+Reader-help task is delivered as0.1.0(49.1), WAITING_OWNER_FEEDBACK. Exact compiled/tested1619c200ed7552be5687c4446240daefe676fb4c has actual18.5/26.5 each14/14,0skips and unsigned arm64/6+2. Existing bridgeba2c441/run46017595137 returned AppleVALID/INTERNAL_ONLY/existing owner association/IN_BETA_TESTING at22:43:46Beijing. Owner explicitly authorized direct internal delivery without another web review for these UI changes. Canonical reader-help/PHONE_DELIVERY.md and safe events record actual build and paired archive baseline. Prior failures retained in reader-help/DELIVERY.md/evidence.json. Stop edits/uploads; phone installation/acceptance pending. Older freeze/delivery text below is historical, not an instruction to reupload47.1/48.1.
+
+## Current owner decision2026-11-27
+WAITING_OWNER_FEEDBACK. Independent review is complete; see REVIEW_AND_OWNER_TRIAL_20261127.md.
+Freeze App feature implementation. Repository-root tasks/S02B_OWNER_PHONE_TRIAL.md is delivered.
+Bounded bridge signing/upload for pinned source6469489062e6b91d743295cc2c08320334dbbf17 is complete;
+47.1 is installable. Historical dispatch/stop-before-review text below is superseded.
+Keep actual installability separate from pending phone upgrade/acceptance.
+Owner-accepted core use ends this MVP implementation round; no unsolicited additional feature/optimization.
+Owner-trial delivery record: OWNER_PHONE_TRIAL.md. Ignored .local-test-data/s02b/owner-trial/
+holds temporary scope/syntax checks and safe CI downloads; no key or IPA is stored publicly.
+Actual delivery2026-11-27: WAITING_OWNER_FEEDBACK, TESTFLIGHT_AVAILABLE=YES,0.1.0（47.1）.
+Bridge code a866cd83c342e3652555080de949ca47ac1349e0/run45933165856 delivered exact reader6469489.
+Apple VALID/INTERNAL_ONLY/unexpired/existing Owner iPhone group/IN_BETA_TESTING read back11:21:56 Beijing.
+Initial40.1 rejected Invalid Signature;44 confirms framework90035.41–46 were diagnostic candidates,
+never uploaded.41/42 verifier literal-format
+error is retained/corrected.46 proves active static linkage and removes only an unused33,798-byte
+framework; executable f35c5846…ca934 and6+2 resources unchanged; actual Apple preflight passes.
+47 repeats guarded archive correction and is accepted.39.1 preserved. Phone upgrade/sound/thermal
+and owner acceptance NOT_RUN. Stop edits/uploads/duplicate CI pending actual feedback.
+evidence/owner-phone-trial.json contains fixed safe events only; raw signing logs/keys/IPA/model/audio
+are not public evidence. Historical no-new-build/stop-before-review text below is superseded.
+
+## Previous task memory (historical)
+
+## Current owner-authorized repair round (2026-11-26)
+Authorization: repository-root `tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md`; this round is now READY_FOR_AUDIT as recorded below.
+The owner has requested audit repairs and early internal-phone testing. R1–R3 fixes,
+relevant code/resource/test changes and diagnostic reruns are now authorized within PR12.
+Historical source-freeze/stop-rerun wording below describes the prior delivery and must not block this task.
+Preserve all old evidence. Corrected code goes through independent review; then use the existing authorized
+owner-only TestFlight path for a test build, without requiring completed phone acceptance before installation.
+No automatic merge, public release, model training or unrelated branch changes.
+
+Current delivery2026-11-27: READY_FOR_AUDIT. Source6469489062e6b91d743295cc2c08320334dbbf17
+passes55/55 (47 native/8UI),0skips on18.5/45858757489 and26.5/45858764356.
+Actual graph/PCM/Files/long reader/TOC/modes/independent themes and both unsigned
+arm64 archives pass;26 executes original device entry, both verify6+2 resources.
+13d55d7 targeted18/18, first2d15/18 and6b3 full54/55 remain evidence. The latter
+was a localized comma assertion; final logs show block1869/UTF16 offset0, now
+independently asserted.4d diagnostic attempts were superseded/cancelled, never PASS.
+No new TestFlight or physical results; historical abrt root cause still unknown.
+Source frozen pending independent review; stop edits/reruns/upload. See R1 report,
+reading-modes/DELIVERY.md, PHONE_BETA_PREPARATION.md and evidence/r1-final-*.
+
+## Previous delivery memory (historical)
+
+Purpose: first-release local Suxin integration and owner-requested Files follow-up
+on codex/s02b-suxin-ios-integration / PR12. Worktree E:/myself/eBOOK-s02b.
+Authority: tasks/S02B_SUXIN_IOS_INTEGRATION.md and docs/TTS_WORKSTREAMS.md.
+Current state: READY_FOR_AUDIT with BLOCKED_QA; physical checks BLOCKED_ENV/NOT_RUN.
+Do not merge, sign/upload a new beta before independent review, or edit PR7/11.
+
+## Current source and actual results
+
+- Formal App Sources tree6d9339b31da7acd614971037c2e9151e493bdc48, frozen since
+  16fe15da6bcd7431a8a162fd65ca77ce8da6ff4d. Later changes only adjust test/CI/docs.
+- 16fe15d /26.5 run45757095612: complete42PASS/0FAIL/0SKIP; actual native Suxin,
+  long-reader and real Files checks pass, unsigned arm64 Release archive pass.
+- 3bfc352 /18.5 run45761286868: complete41PASS/1FilesFAIL/0SKIP; TOC, actual
+  native Suxin, other reader tests and arm64 archive pass. Keep the failed attempt.
+- 16fe15d /18.5 run45757099825: TIMEOUT with partial40PASS/1FAIL/1TOCunfinished;
+  no final xcresult summary/archive. Never call this a completed42-method run.
+- fba530b3749b1ea94db44fac9b4c01bc9cb81283 /18.5 run45767237191: focused
+  actual external Files import/cancel2PASS/0FAIL/0SKIP. Logs show two selected
+  callbacks and saved books1/2. Actual arm64 archive92,986,336bytes,6 model
+  resources and2 exact-source runtime notices verified. This scope did not run TTS.
+- Full42 at7ff918a1c02f730bf37d351821b37dc79709c2e3:18.5/45769244490 is42/42;
+  26.5/45769249483 is41/42, only Apple speech sawRange at line184 fails.
+  Actual Files/cancel, all UI, native Suxin12 and both arm64 archives pass.
+- One clean26.5 recheck565bae04468e9ae1c16eefb4fe08ad84120fac69 /45771793206:
+  actual six UI methods PASS, but EBookTests aborted before XCTest connection.
+  The7-count summary means6 UI passes plus1 startup-error record, not7 executed
+  methods or a completed42-method suite. Unit/native methods and archive NOT_RUN.
+  Existing artifacts lack its full crash stack; code/environment cause not unique.
+  Apple callback recheck was not achieved. Stop reruns; preserve both failures.
+  VoiceDB warnings also exist in prior16fe15d42PASS log; do not call them proof.
+- source-identity-d84ceb4.json verifies all six build-input trees/blobs identical
+  between7ff918a,565bae0,d84ceb4; only docs/evidence differ. Final delivery stays docs-only.
+
+## Files investigation and retained failures
+
+Current App uses UIDocumentPicker asCopy=false; LibraryModel reads the scoped URL
+with NSFileCoordinator and BookImporter makes a bounded App-private copy. DEBUG
+library uses Application Support like the shipping app. Constant EBOOK_IMPORT logs
+contain only phases/counts/codes, never book names/paths/body.
+
+Older probes selected source fixtures from the reader's own shared Documents tree.
+18.5 labels were wide; leading-coordinate selection did not fix that experiment.
+The current test uses the actual observed system FileProvider.LocalStorage group,
+prepares only original TXT/EPUB under File Provider Storage/eBOOK Import Test,
+and navigates/selects through real native Files UI. No reader-library injection.
+Observed18.5 title is a menu button, not the nav-bar identifier; wait for the actual
+My iPhone back button and tap it before choosing the external folder.
+
+Stock Files independent simctl launch timed out30s even in the successful fba
+picker run. This does not establish an Apple defect or block all native selection.
+6017303 probe failed before App compilation;4a5b716 failed in test navigation,
+not after external file selection. Preserve both rather than relabeling them PASS.
+Older8331b9b two-runtime41/42 delivery remains a historical section in the report.
+
+## Resource and review boundaries
+
+Actual iOS/simulator ORT slices embed33ca962. Same complete source commit
+33ca9628233dc8f002435e868d4c2e9f82766ca1 in the publisher fork provides
+Microsoft LICENSE and complete ThirdPartyNotices. Preparation hash-pins both;
+actual archives on18.5 and26.5 verify their bundled bytes. Original ZIP0notices
+and old404 queries remain historical evidence. Material recovery is not a
+reproduced binary build, exhaustive dependency BOM or independent legal clearance.
+Do not edit any bundle-producing NOTICE/manifest/prepare/inspector resources
+without rerunning the actual archive checks.
+
+## Evidence map and privacy
+
+- ../S02B_SUXIN_IOS_INTEGRATION.md: canonical report, old failures retained.
+- FILES_IMPORT_FOLLOWUP.md: current selection/CI follow-up.
+- DEVICE_CHECKLIST.md: pending phone tests, not test results.
+- evidence/: only sanitized small JSON/log metadata, exact test SHA and CI URL.
+- ../../.local-test-data/s02b/files-followup/: ignored raw CI downloads and original
+  diagnostic PNGs. Do not add binaries/audio/private books to Git or public artifacts.
+CI may export bounded original-fixture UI PNGs for failures and requested mode/theme
+visual verification, never user books. Screenshots remain CI artifacts/local review;
+public reports commit only small sanitized metadata, not new PNGs or audio/models.
+
+## Remaining phone validation
+
+Physical new-process first sound, warm/jump p95,1.0x/1.5x each30min, lockscreen,
+interruptions/headphones/Bluetooth, thermal/battery remain NOT_RUN. Mixer callback
+is not acoustic latency; lifetime test-host RSS is not model incremental memory.
+Old installed39.1 is Apple-only. No new signed/TestFlight build is claimed.
+Windows has no Xcode or attached iPhone. Reuse existing Python/gh/Pillow and free
+standard public macOS CI; no local install occurred in this follow-up.

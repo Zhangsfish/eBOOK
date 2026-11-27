@@ -10,6 +10,8 @@ import MediaPlayer
     @Published private(set) var position = TextPosition()
     @Published private(set) var document: BookDocument?
     @Published var error: String?
+    @Published private(set) var preparing = false
+    @Published private(set) var notice: String?
     let provider: SpeechProvider
     private weak var library: LibraryModel?
     private var storage: BookStorage?
@@ -22,7 +24,7 @@ import MediaPlayer
     private var commands: [(MPRemoteCommand, Any)] = []
 
     init(provider: SpeechProvider? = nil, managesAudio: Bool = true) {
-        self.provider = provider ?? AppleSpeechProvider()
+        self.provider = provider ?? LocalSpeechProvider()
         self.managesAudio = managesAudio
         if managesAudio { configureSystemControls() }
     }
@@ -64,7 +66,7 @@ import MediaPlayer
     }
 
     func stop() {
-        persist(); generation += 1; provider.cancel(); hasUtterance = false; status = .stopped
+        persist(); generation += 1; provider.cancel(); hasUtterance = false; status = .stopped; preparing = false; notice = nil
         if managesAudio { try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation) }
         updateNowPlaying()
     }
@@ -77,7 +79,7 @@ import MediaPlayer
     func seek(_ target: TextPosition) {
         guard let document else { return }
         let shouldPlay = status == .playing
-        generation += 1; provider.cancel(); hasUtterance = false
+        generation += 1; provider.cancel(); hasUtterance = false; preparing = false; notice = nil
         position = document.clamped(target); persist()
         if shouldPlay {
             do { try speakNext() } catch { fail(error) }
@@ -159,19 +161,22 @@ import MediaPlayer
         while position.block < document.blocks.count {
             let block = document.blocks[position.block]
             let text = try storage.text(for: block, book: book.id)
-            let candidates = TextChunker.chunks(text, startUTF16: position.utf16Offset)
+            let preferences = library?.state.preferences ?? ReaderPreferences()
+            let candidates = speechChunks(text, preferences: preferences, start: position.utf16Offset)
             if let chunk = candidates.first(where: { !$0.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) {
+                generation += 1
                 let token = generation, blockIndex = position.block
-                let preferences = library?.state.preferences ?? ReaderPreferences()
                 provider.onEvent = { [weak self] event in
                     guard let self, self.generation == token, self.position.block == blockIndex else { return }
                     switch event {
+                    case .preparing(let value): self.preparing = value
+                    case .notice(let value): self.notice = value
                     case .started: break
                     case .range(let start, _):
                         self.position.utf16Offset = min(block.utf16Count, chunk.startUTF16 + start)
                         if Date().timeIntervalSince(self.lastSave) >= 1 { self.persist() }
                     case .finished:
-                        self.hasUtterance = false
+                        self.hasUtterance = false; self.preparing = false
                         self.position.utf16Offset = chunk.endUTF16
                         self.persist()
                         if self.status == .playing {
@@ -182,8 +187,18 @@ import MediaPlayer
                     }
                 }
                 hasUtterance = true
-                let stableID = "\(book.fingerprint):\(blockIndex):\(chunk.startUTF16):\(preferences.voiceIdentifier ?? "zh-CN"):\(preferences.speechRate)"
-                try provider.speak(SpeechRequest(stableID: stableID, chunk: chunk, voiceID: preferences.voiceIdentifier, rate: preferences.speechRate))
+                try provider.speak(request(chunk, block: blockIndex, book: book, preferences: preferences, context: text))
+                // Read at most the next non-empty bounded block/chunk. Only a
+                // single lookahead hint is retained by the local provider.
+                if let next = candidates.dropFirst().first {
+                    provider.prefetch(request(next, block: blockIndex, book: book, preferences: preferences, context: text))
+                } else if blockIndex + 1 < document.blocks.count {
+                    let index = blockIndex + 1
+                    let nextText = try storage.text(for: document.blocks[index], book: book.id)
+                    if let next = speechChunks(nextText, preferences: preferences, start: 0).first {
+                        provider.prefetch(request(next, block: index, book: book, preferences: preferences, context: nextText))
+                    }
+                }
                 updateNowPlaying(); return
             }
             if position.block + 1 < document.blocks.count { position = TextPosition(block: position.block + 1) }
@@ -196,16 +211,27 @@ import MediaPlayer
         }
     }
 
+    private func request(_ chunk: SpeechChunk, block: Int, book: BookRecord, preferences: ReaderPreferences, context: String) -> SpeechRequest {
+        let rate = preferences.voiceIdentifier == SuxinSpeechProvider.voiceID ? preferences.suxinRate : preferences.speechRate
+        let stableID = "\(book.fingerprint):\(block):\(chunk.startUTF16):\(preferences.voiceIdentifier ?? "zh-CN"):\(rate)"
+        return SpeechRequest(stableID: stableID, chunk: chunk, voiceID: preferences.voiceIdentifier, rate: rate, contextText: context)
+    }
+    private func speechChunks(_ text: String, preferences: ReaderPreferences, start: Int) -> [SpeechChunk] {
+        let model = preferences.voiceIdentifier == SuxinSpeechProvider.voiceID
+        return model ? SuxinSegmentation.windows(text, startUTF16: start)
+            : TextChunker.chunks(text, maximumUTF16: 280, startUTF16: start)
+    }
+
     private func fail(_ error: Error) {
         self.error = error.localizedDescription
-        provider.cancel(); hasUtterance = false; status = .paused; persist(); updateNowPlaying()
+        provider.cancel(); hasUtterance = false; status = .paused; preparing = false; persist(); updateNowPlaying()
         if managesAudio { try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation) }
     }
 
     private func updateNowPlaying() {
         guard managesAudio, let book else { return }
         var info: [String: Any] = [MPMediaItemPropertyTitle: book.title,
-                                  MPMediaItemPropertyArtist: book.author ?? "本机中文朗读",
+                                  MPMediaItemPropertyArtist: book.author ?? "朗读",
                                   MPNowPlayingInfoPropertyPlaybackRate: status == .playing ? 1.0 : 0.0]
         if let document, position.block < document.blocks.count {
             let chapter = document.blocks[position.block].chapter

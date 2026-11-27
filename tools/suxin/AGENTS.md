@@ -1,0 +1,62 @@
+# S02B Suxin production integration support
+
+## Current owner-authorized repair round (2026-11-26)
+READY: read repository-root `tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md`.
+The owner has requested audit repairs and early internal-phone testing. R1–R3 fixes,
+relevant code/resource/test changes and diagnostic reruns are now authorized within PR12.
+Historical source-freeze/stop-rerun wording below describes the prior delivery and must not block this task.
+Preserve all old evidence. Corrected code goes through independent review; then use the existing authorized
+owner-only TestFlight path for a test build, without requiring completed phone acceptance before installation.
+No automatic merge, public release, model training or unrelated branch changes.
+
+Authority: tasks/S02B_SUXIN_IOS_INTEGRATION.md and docs/TTS_WORKSTREAMS.md.
+Work only in E:/myself/eBOOK-s02b, branch codex/s02b-suxin-ios-integration / PR12.
+Start baseline1eb0eef18e7011feb8034a393f084a91483b9a8e (reader main83fa0d9).
+Frozen S02A.3 reference checkout E:/myself/eBOOK-s02a remains read-only at eeee144.
+No model training, model search or cloud synthesis. Preserve reader controls/TOC.
+
+## File map
+- manifests/: exact source hashes and generic linguistic conversion data, not weights.
+- scripts/: verified model/data preparation and author-frontended original-text oracle.
+- scripts/inspect_runtime.py: actual ZIP/hash/slice/notice inspection and Xcode-resolved binary matching.
+- It also checks both embedded ORT build stamps against33ca962 and prepares
+  the exact full-commit Microsoft LICENSE/ThirdPartyNotices from the publisher's
+  source fork. Immutable full commit/bytes/SHA are required; not a different tag.
+- NOTICE.md: actual distribution-material gaps; never label incomplete notices PASS.
+- Native tests belong to App Tests, including a real controller/model/player path.
+- ../../.local-test-data/s02b/: ignored model/frontend resources, real audio/logs.
+- ../../reports/S02B/: task memory and public-safe evidence only.
+
+## Implementation decisions
+Use the already validated ORT1.28.2 iOS runtime directly, not the full historical
+Kokoro/Matcha experiment. Swift Mandarin G2P uses the full pinned pypinyin0.55
+character/phrase lexicons, maximal phrase matching and exact author rules.
+Generic syllable conversion data is a linguistic lookup, never per-book IDs.
+Native text handling must be checked against actual author's Python on unseen
+original texts; diagnostic five-case precomputed IDs are not end-to-end proof.
+
+Initial English/unsupported-character scope may explicitly use Apple system speech
+with a visible notice, as permitted by the task; never silently drop letters or
+pretend eSpeak/English G2P was ported. Keep Apple voices and existing rate settings.
+Suxin uses short PCM chunks, one background session, bounded prefetch/cache and
+generation identities so cancellation cannot play or persist late results.
+
+Actual host is Windows, not the preparer's historical Linux statement. Xcode is
+available only through ordinary free macOS CI. The authorized internal TestFlight
+bridge exists, but new code must retain independent audit and real device gates.
+No new dependency installation is currently needed: reuse the already approved
+Suxin Python environment for local oracle generation, standard-library build tools,
+and pinned native framework/source/data downloads. No global environment edits.
+
+First actual graph/playback CI at ab0eb54 compiled and synthesized/played real PCM;
+11 methods ran with9PASS/2FAIL, due to too-short queue fixture and reopening WAV
+before closing its writer. The failed result remains evidence, not a PASS.
+Fixes close the WAV writer before reopening and lengthen original queue text.
+Final implementation/evidence identities belong in the delivery report, not here.
+
+2026-11-26 owner requested Files repair. In parallel, source-notice candidates
+were recovered from csukuangfj/onnxruntime at33ca9628233dc8f002435e868d4c2e9f82766ca1,
+matching the binary's embedded33ca962. NativeNotices preparation includes these
+two exact files; Release archive verification must check their actual SHA bytes.
+Zero notices inside the original ZIP remains true. This is material recovery,
+not an independent distribution approval or reproduced binary build.

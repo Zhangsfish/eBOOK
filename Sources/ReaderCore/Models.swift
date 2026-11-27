@@ -16,7 +16,7 @@ public enum TextEncoding: String, Codable, CaseIterable, Sendable {
     case gbk = "GBK", gb18030 = "GB18030"
 }
 
-public struct TextPosition: Codable, Equatable, Sendable {
+public struct TextPosition: Codable, Equatable, Hashable, Sendable {
     public var block: Int
     public var utf16Offset: Int
     public init(block: Int = 0, utf16Offset: Int = 0) {
@@ -27,8 +27,9 @@ public struct TextPosition: Codable, Equatable, Sendable {
 public struct ReadingAnchor: Codable, Equatable, Sendable {
     public var block: Int
     public var fraction: Double
-    public init(block: Int = 0, fraction: Double = 0) {
-        self.block = block; self.fraction = fraction
+    public var utf16Offset: Int?
+    public init(block: Int = 0, fraction: Double = 0, utf16Offset: Int? = nil) {
+        self.block = block; self.fraction = fraction; self.utf16Offset = utf16Offset
     }
 }
 
@@ -129,17 +130,46 @@ public enum ReaderTheme: String, Codable, CaseIterable, Sendable {
     }
 }
 
+public enum ReadingMode: String, Codable, CaseIterable, Sendable {
+    case vertical, horizontal
+    public var title: String { self == .vertical ? "上下滚动" : "左右翻页" }
+}
+
+public enum ShelfAppearance: String, Codable, CaseIterable, Sendable {
+    case system, light, warm, dark
+    public var title: String {
+        switch self { case .system: return "跟随系统"; case .light: return "正常"; case .warm: return "护眼"; case .dark: return "夜间" }
+    }
+}
+
 public struct ReaderPreferences: Codable, Equatable, Sendable {
     public var fontSize: Double = 21
     public var lineSpacing: Double = 9
     public var theme: ReaderTheme = .warm
+    public var shelfAppearance: ShelfAppearance = .system
+    public var readingMode: ReadingMode = .vertical
     public var speechRate: Float = 0.5
+    public var suxinRate: Float = 1
     public var voiceIdentifier: String?
     public init() {}
+    private enum CodingKeys: String, CodingKey { case fontSize, lineSpacing, theme, shelfAppearance, readingMode, speechRate, suxinRate, voiceIdentifier }
+    public init(from decoder: Decoder) throws {
+        let fields = try decoder.container(keyedBy: CodingKeys.self)
+        fontSize = try fields.decodeIfPresent(Double.self, forKey: .fontSize) ?? 21
+        lineSpacing = try fields.decodeIfPresent(Double.self, forKey: .lineSpacing) ?? 9
+        theme = try fields.decodeIfPresent(ReaderTheme.self, forKey: .theme) ?? .warm
+        shelfAppearance = try fields.decodeIfPresent(ShelfAppearance.self, forKey: .shelfAppearance) ?? .system
+        readingMode = try fields.decodeIfPresent(ReadingMode.self, forKey: .readingMode) ?? .vertical
+        speechRate = try fields.decodeIfPresent(Float.self, forKey: .speechRate) ?? 0.5
+        suxinRate = try fields.decodeIfPresent(Float.self, forKey: .suxinRate) ?? 1
+        voiceIdentifier = try fields.decodeIfPresent(String.self, forKey: .voiceIdentifier)
+        validate()
+    }
     public mutating func validate() {
         fontSize = fontSize.isFinite ? min(36, max(14, fontSize)) : 21
         lineSpacing = lineSpacing.isFinite ? min(24, max(0, lineSpacing)) : 9
         speechRate = speechRate.isFinite ? min(0.65, max(0.35, speechRate)) : 0.5
+        suxinRate = suxinRate.isFinite ? min(2, max(0.5, suxinRate)) : 1
     }
 }
 

@@ -1,0 +1,21 @@
+{
+  "source_sha": "7ff918a1c02f730bf37d351821b37dc79709c2e3",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45769249483",
+  "actual_counts": {
+    "totalTestCount": 42,
+    "passedTests": 41,
+    "failedTests": 1,
+    "skippedTests": 0
+  },
+  "failed_test": "SpeechControllerTests/testActualAppleSynthesizerCallbacksWhenSimulatorHasVoiceAssets()",
+  "failure_text": "XCTAssertTrue failed",
+  "assertion": "Tests/CoreTests/SpeechControllerTests.swift:184 sawRange must be true",
+  "finished_expectation": "completed; no timeout at line183",
+  "actual_files_selection_and_cancel": "PASS in this complete run",
+  "native_suxin_methods": "12 PASS in this complete run",
+  "voice_database_decode_warnings": true,
+  "same_warnings_also_present_in_prior_16fe15d_42_pass_log": true,
+  "root_cause": "NOT_UNIQUELY_IDENTIFIED",
+  "clean_rerun": "one bounded full run45771793206 at565bae04468e9ae1c16eefb4fe08ad84120fac69; no implementation/test changes",
+  "physical_device": "NOT_RUN"
+}

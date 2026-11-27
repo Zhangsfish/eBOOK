@@ -1,0 +1,46 @@
+{
+  "status": "READY_FOR_AUDIT_WITH_BLOCKERS",
+  "app_sources_tree": "36672759f4c470aff8ac41abee2631829017d2e6",
+  "runs": [
+    {
+      "source_sha": "2dbaf25f26449a10693e05bd4a206c80805c48db",
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45666635333",
+      "platform": "iOS Simulator",
+      "os": "18.5",
+      "actual_counts": {
+        "totalTestCount": 42,
+        "passedTests": 41,
+        "failedTests": 1,
+        "skippedTests": 0
+      },
+      "failed_tests": [
+        "ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB()"
+      ],
+      "evidence_file": "full-ios18-2dbaf25.json",
+      "evidence_sha256": "b13742e7f073a86bbeee2f76e83faf91182388bd045f1b09c96889e5e0fdf0fe",
+      "full_xctest_log_sha256": "e161d1e41aa600a56dd69ffd8a81d651dbb48c66a8139abe1a7a81e7040dd89d",
+      "actual_graph": true,
+      "physical_device": "NOT_RUN"
+    },
+    {
+      "source_sha": "f7ae01b1c9a78cd0fc3ade5a144af5bd270aa828",
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45665077113",
+      "platform": "iOS Simulator",
+      "os": "26.5",
+      "actual_counts": {
+        "totalTestCount": 42,
+        "passedTests": 41,
+        "failedTests": 1,
+        "skippedTests": 0
+      },
+      "failed_tests": [
+        "ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB()"
+      ],
+      "evidence_file": "full-ios26-f7ae01b.json",
+      "evidence_sha256": "2ef0cc10968ab9b9574485e829fcd6d81af697ff99e5a7107eaabccdbbff891d",
+      "full_xctest_log_sha256": "81a02a131090a2b75358d371bdaf1f9afb3a943f654f9c477cd228969b62e5b0",
+      "actual_graph": true,
+      "physical_device": "NOT_RUN"
+    }
+  ]
+}

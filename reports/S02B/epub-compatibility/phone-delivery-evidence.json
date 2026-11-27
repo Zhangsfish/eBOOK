@@ -1,0 +1,129 @@
+{
+  "run_id": 46044956972,
+  "url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/46044956972",
+  "reader_sha": "dfbcc0f9204a47960e16bb4a3270c9811a7da697",
+  "bridge_sha": "8a27770a05bfe997359abcb9764be637b1e29706",
+  "events": [
+    {
+      "timestamp_utc": "2026-11-27T17:51:16.1649460Z",
+      "event": "Xcode 26.6"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:51:16.1650950Z",
+      "event": "Build version 17F113"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:51:16.5611060Z",
+      "event": "EBOOK_RELEASE_START version=0.1.0 build=50.1 code_sha=dfbcc0f9204a47960e16bb4a3270c9811a7da697"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:52:35.0206000Z",
+      "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED link_map=NO"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:53:07.6228380Z",
+      "event": "EBOOK_UNSIGNED_ARCHIVE_SUCCEEDED link_map=YES"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:53:07.6881100Z",
+      "event": "EBOOK_UNSIGNED_ARCHIVE_METADATA_VERIFIED"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:53:08.1173710Z",
+      "event": "EBOOK_ARCHIVE_RESOURCES_VERIFIED",
+      "fields": {
+        "app_bytes": 93199189,
+        "build": "50.1",
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "source_sha": "dfbcc0f9204a47960e16bb4a3270c9811a7da697",
+        "unsigned_executable_sha256": "7eba3d410451c6b0d81e45bba5742b1b84b2ba536005ae1c736cc611d22bf13c"
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:53:12.8742920Z",
+      "event": "EBOOK_ARCHIVE_BASELINE_VERIFIED",
+      "fields": {
+        "build": "50.1",
+        "no_map_sha256": "7eba3d410451c6b0d81e45bba5742b1b84b2ba536005ae1c736cc611d22bf13c",
+        "source_sha": "dfbcc0f9204a47960e16bb4a3270c9811a7da697",
+        "with_map_sha256": "7eba3d410451c6b0d81e45bba5742b1b84b2ba536005ae1c736cc611d22bf13c"
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:53:12.8750320Z",
+      "event": "EBOOK_ARCHIVE_PACKAGING_ADJUSTMENT",
+      "fields": {
+        "action": "REMOVE_UNUSED_EMBEDDED_ONNX_FRAMEWORK",
+        "app_bytes_after": 93165391,
+        "app_executable_sha256": "7eba3d410451c6b0d81e45bba5742b1b84b2ba536005ae1c736cc611d22bf13c",
+        "app_executable_unchanged": true,
+        "dynamic_onnx_dependency": false,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "no_map_baseline_sha256": "7eba3d410451c6b0d81e45bba5742b1b84b2ba536005ae1c736cc611d22bf13c",
+        "removed_bytes": 33798,
+        "removed_framework_binary_sha256": "96773ca984e3d457b2763fa34224d8b2aa49c7e72797c6d3d1951b7c9f7b91cd",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "static_OrtGetApiBase_defined": true,
+        "static_link_proof": "ACTIVE_STATIC_ARCHIVE_LINK_MAP"
+      }
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:54:45.7799920Z",
+      "event": "EBOOK_EXPORT_UPLOAD_ACCEPTED version=0.1.0 build=50.1 code_sha=dfbcc0f9204a47960e16bb4a3270c9811a7da697"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:54:45.8082630Z",
+      "event": "EBOOK_IPA_EXPORT_NOT_RETAINED_BY_XCODE"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:57:00.1582110Z",
+      "event": "EBOOK_PROCESSING_STATUS_VALID build=50.1"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:57:00.1593800Z",
+      "event": "EBOOK_BUILD_AUDIENCE_INTERNAL_ONLY"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:57:00.1594460Z",
+      "event": "EBOOK_OWNER_GROUP_ASSOCIATION_START"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:57:00.1600880Z",
+      "event": "EBOOK_OWNER_GROUP_ASSOCIATION_VERIFIED"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:57:00.1602870Z",
+      "event": "EBOOK_INSTALLABILITY_QUERY_START"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:57:00.1603690Z",
+      "event": "EBOOK_INTERNAL_STATE_IN_BETA_TESTING"
+    },
+    {
+      "timestamp_utc": "2026-11-27T17:57:00.1608160Z",
+      "event": "EBOOK_TESTFLIGHT_AVAILABLE build=50.1"
+    }
+  ],
+  "TESTFLIGHT_AVAILABLE": true,
+  "bundle_version": "0.1.0",
+  "build": "50.1",
+  "upload_run_number": 50,
+  "upload_run_attempt": 1,
+  "job_id": 140661783078,
+  "workflow_conclusion": "success",
+  "physical_device": "NOT_RUN",
+  "status": "WAITING_OWNER_FEEDBACK",
+  "build_input_git_objects": {
+    "Sources": "e024c631fad968d8ce75be06b3f196712a28955f",
+    "Tests": "e0f779504d6c9ea96d036dd84779d090c31bc417",
+    "scripts": "0686984f1e27c99dd8a1fd98b4750d1381498678",
+    "tools/suxin": "01d50ba12e768f98cecb6cb3dd60f998d8b4c279",
+    ".github/workflows": "a9ffd227ecf68e9004824bef372828fdc14cb2f3",
+    "eBOOK.xcodeproj": "ba5219f426b97239cdd025233ad844187ac06e68",
+    ".gitattributes": "4916dfcb1876771c966c5eac086e6943b5df875a",
+    ".gitignore": "434c606deda9d9e322c50041a12015617061a800"
+  }
+}

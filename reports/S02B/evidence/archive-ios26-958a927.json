@@ -1,0 +1,15 @@
+{
+  "source_sha": "958a927d6a278283fb435850f8ab1bcc6217f3a4",
+  "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+  "architecture": "arm64",
+  "bundle_id": "com.zhangsfish.ebook",
+  "version": "0.1.0",
+  "app_bytes": 92634564,
+  "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+  "resource_files_verified": 6,
+  "signing": "NOT_RUN",
+  "testflight": "NOT_RUN",
+  "physical_device": "NOT_RUN",
+  "distribution_clearance": "INCOMPLETE",
+  "public_binary_artifact": false
+}

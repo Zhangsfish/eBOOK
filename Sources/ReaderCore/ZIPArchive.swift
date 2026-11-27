@@ -43,7 +43,7 @@ struct ZIPArchive {
             let finish = cursor + 46 + nameSize + extra + comment
             guard finish <= end, nameSize > 0, nameSize <= 1024,
                   let name = String(data: data.subdata(in: cursor + 46..<cursor + 46 + nameSize), encoding: .utf8),
-                  Self.safeName(name), items[name] == nil else { throw ReaderError.invalid("EPUB 路径无效、重复或不安全。") }
+                  Self.safeName(name), items[name] == nil else { throw ReaderError.invalid("EPUB 文件中的资源路径无效。") }
             guard flags & 0x41 == 0, [0, 8].contains(method) else { throw ReaderError.unsupported("EPUB 已加密或压缩方式不受支持。") }
             let attributes = try data.u32(cursor + 38)
             guard (attributes >> 16) & 0xF000 != 0xA000 else { throw ReaderError.unsupported("EPUB 不允许符号链接。") }

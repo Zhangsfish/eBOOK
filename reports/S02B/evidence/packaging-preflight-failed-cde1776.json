@@ -1,0 +1,11 @@
+{
+  "source_sha": "cde17763c5caf91ead4cde28b4656bb7aff6bac9",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45651917504",
+  "xcode": "16.4 (16F6)",
+  "simulator_runtime": "iOS 18.5",
+  "actual_app_and_test_compilation": "PASS_TEST_BUILD_SUCCEEDED",
+  "tests": "NOT_RUN_STOPPED_BEFORE_XCTEST",
+  "archive": "NOT_RUN",
+  "status": "FAIL_RUNTIME_RESOLVED_TARGET_SELECTION",
+  "diagnostic": "The original scan matched all same-named package frameworks; inspection now targets artifacts/onnxruntime-libs/OnnxruntimeIOS, the path shown by Xcode ProcessXCFramework. Exact device and simulator binary SHA checks remain mandatory."
+}

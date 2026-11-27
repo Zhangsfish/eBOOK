@@ -13,7 +13,9 @@ import SwiftUI
             var base = root ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("eBOOK", isDirectory: true)
             #if DEBUG
             if ProcessInfo.processInfo.arguments.contains("--uitesting") {
-                base = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(".ui-test-library")
+                // Match the shipping app: imported/indexed books are private
+                // support data, not a File Provider's shared Documents tree.
+                base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent(".ui-test-library", isDirectory: true)
                 if ProcessInfo.processInfo.arguments.contains("--reset-library"), FileManager.default.fileExists(atPath: base.path) {
                     try FileManager.default.removeItem(at: base)
                 }
@@ -24,14 +26,18 @@ import SwiftUI
             do { state = try storage.loadLibrary() }
             catch {
                 persistenceBlocked = true
-                self.error = "书架无法读取，已停止写入以保留原文件。请保留本机数据后排查。\(error.localizedDescription)"
+                self.error = "书架无法读取：\(error.localizedDescription)"
             }
-        } catch { storage = nil; self.error = "本地存储不可用：\(error.localizedDescription)" }
+        } catch { storage = nil; self.error = "书架存储无法访问：\(error.localizedDescription)" }
     }
 
     func importFile(_ url: URL, encoding: TextEncoding?) async {
-        guard !importing, !persistenceBlocked, let storage else { return }
+        guard !importing, !persistenceBlocked, let storage else {
+            NSLog("EBOOK_IMPORT ignored busy=%d blocked=%d storage=%d", importing ? 1 : 0, persistenceBlocked ? 1 : 0, storage == nil ? 0 : 1)
+            return
+        }
         importing = true
+        NSLog("EBOOK_IMPORT started")
         defer { importing = false }
         let scoped = url.startAccessingSecurityScopedResource()
         defer { if scoped { url.stopAccessingSecurityScopedResource() } }
@@ -41,12 +47,18 @@ import SwiftUI
             }.value
             var next = state
             next.books.insert(record, at: 0)
-            do { try storage.saveLibrary(next); state = next }
+            do {
+                try storage.saveLibrary(next); state = next
+                NSLog("EBOOK_IMPORT saved books=%ld", state.books.count)
+            }
             catch {
                 try? FileManager.default.removeItem(at: storage.directory(for: record.id))
                 throw error
             }
-        } catch { self.error = "导入失败：\(error.localizedDescription)" }
+        } catch {
+            NSLog("EBOOK_IMPORT failed code=%ld", (error as NSError).code)
+            self.error = "导入失败：\(error.localizedDescription)"
+        }
     }
 
     nonisolated private static func importCoordinated(_ url: URL, storage: BookStorage, encoding: TextEncoding?) throws -> BookRecord {
@@ -55,9 +67,12 @@ import SwiftUI
         let coordinator = NSFileCoordinator(filePresenter: nil)
         var coordinationError: NSError?
         var result: Result<BookRecord, Error>?
+        NSLog("EBOOK_IMPORT coordination requested")
         coordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &coordinationError) { readableURL in
+            NSLog("EBOOK_IMPORT coordination entered")
             result = Result { try BookImporter.importFile(readableURL, storage: storage, encoding: encoding) }
         }
+        NSLog("EBOOK_IMPORT coordination returned")
         if let coordinationError { throw coordinationError }
         guard let result else { throw ReaderError.invalid("文件提供程序未返回可读取的文件。") }
         return try result.get()
@@ -93,7 +108,7 @@ import SwiftUI
     func persist() {
         guard !persistenceBlocked else { return }
         do { try storage?.saveLibrary(state) }
-        catch { self.error = "保存失败，当前位置暂存在内存：\(error.localizedDescription)" }
+        catch { self.error = "更改未能保存：\(error.localizedDescription)" }
     }
 
     #if DEBUG

@@ -15,12 +15,17 @@ public struct SpeechRequest: Sendable {
     public let chunk: SpeechChunk
     public let voiceID: String?
     public let rate: Float
-    public init(stableID: String, chunk: SpeechChunk, voiceID: String?, rate: Float) {
+    /// At most one bounded source block, not a chapter or entire book.
+    public let contextText: String?
+    public init(stableID: String, chunk: SpeechChunk, voiceID: String?, rate: Float, contextText: String? = nil) {
         self.stableID = stableID; self.chunk = chunk; self.voiceID = voiceID; self.rate = rate
+        self.contextText = contextText
     }
 }
 
 public enum SpeechEvent: Sendable, Equatable {
+    case preparing(Bool)
+    case notice(String?)
     case started
     case range(startUTF16: Int, length: Int)
     case finished
@@ -38,6 +43,11 @@ public enum SpeechEvent: Sendable, Equatable {
     func pause()
     func resume() throws
     func cancel()
+    func prefetch(_ request: SpeechRequest)
+}
+
+public extension SpeechProvider {
+    func prefetch(_ request: SpeechRequest) {}
 }
 
 public struct FutureAudioAsset: Sendable {

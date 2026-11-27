@@ -87,6 +87,26 @@ import AVFoundation
         XCTAssertEqual(fake.requests.last?.rate, 0.6)
     }
 
+    func testSuxinRateLookaheadAndCancelledSameBlockEventsDoNotMoveNewPosition() throws {
+        let (library, book, doc, storage) = try context(text: String(repeating: "清晨的风吹过石桥，她把书轻轻合上。", count: 45))
+        var preferences = library.state.preferences
+        preferences.voiceIdentifier = SuxinSpeechProvider.voiceID; preferences.suxinRate = 1.5
+        library.setPreferences(preferences)
+        let fake = FakeSpeechProvider()
+        let controller = SpeechController(provider: fake, managesAudio: false)
+        controller.attach(library); controller.load(book, document: doc, storage: storage); controller.play()
+        XCTAssertEqual(fake.requests.first?.rate, 1.5)
+        XCTAssertLessThanOrEqual(fake.requests[0].chunk.text.utf16.count, 240)
+        let old = fake.onEvent
+        fake.onEvent?(.finished)
+        let next = controller.position
+        old?(.range(startUTF16: 1, length: 1)); old?(.failed("stale failure"))
+        XCTAssertEqual(controller.position, next); XCTAssertNil(controller.error)
+        controller.pause()
+        XCTAssertEqual(library.record(book.id)?.reading, ReadingAnchor())
+        XCTAssertEqual(try storage.loadLibrary().preferences.suxinRate, 1.5)
+    }
+
     func testCorruptLibraryBlocksWritesRatherThanReplacingExistingState() throws {
         let storage = try BookStorage(root: root.appendingPathComponent("corrupt"))
         let url = storage.root.appendingPathComponent("library.json")
@@ -149,8 +169,24 @@ import AVFoundation
         }
         let provider = AppleSpeechProvider()
         let finished = expectation(description: "real Apple speech finished")
-        var sawRange = false
+        var sawRange = false, eventKinds: [String] = []
+        let voice = AVSpeechSynthesisVoice(language: "zh-CN")
+        defer {
+            let probe: [String: Any] = ["range_observed": sawRange, "events": eventKinds,
+                "voice_id": voice?.identifier ?? "missing", "language": voice?.language ?? "missing",
+                "voice_catalog_count": AVSpeechSynthesisVoice.speechVoices().count]
+            if let data = try? JSONSerialization.data(withJSONObject: probe, options: [.sortedKeys]),
+               let json = String(data: data, encoding: .utf8) { print("S02B_APPLE_PROBE " + json) }
+        }
         provider.onEvent = { event in
+            switch event {
+            case .started: eventKinds.append("started")
+            case .range: eventKinds.append("range")
+            case .finished: eventKinds.append("finished")
+            case .cancelled: eventKinds.append("cancelled")
+            case .failed: eventKinds.append("failed")
+            default: break
+            }
             if case .range = event { sawRange = true }
             if event == .finished { finished.fulfill() }
         }

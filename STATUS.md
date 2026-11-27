@@ -1,5 +1,70 @@
 # Project Status
 
+## Current delivery — TestFlight50.1, waiting for EPUB phone retry (2026-11-28)
+
+- **WAITING_OWNER_FEEDBACK — 0.1.0(50.1) available**. [Task](tasks/S02B_EPUB_COMPATIBILITY.md), existing PR12/branch. The EPUB import repair is delivered through the existing direct owner-internal path. [Phone update](reports/S02B/epub-compatibility/PHONE_DELIVERY.md).
+- Local diagnosis: ZIP CRCs pass, but one spine page has an unclosed HTML `br` void tag. Generic bounded void-tag repair preserves content and the XML/entity/path/CRC/size limits. Private book/corrected copy stay local/ignored; only14 original fixtures enter Git/CI.
+- Exact readerdfbcc0f9204a47960e16bb4a3270c9811a7da697: actual18.5/26.5 each11PASS/0FAIL/0SKIP, exact method sets and unsigned arm64/6+2 PASS. [Test report](reports/S02B/epub-compatibility/DELIVERY.md).
+- Bridge8a27770/run46044956972: paired executable baseline/static-link/resource checks PASS; Apple accepted01:54:45Beijing and returnedVALID/INTERNAL_ONLY/existing-group/IN_BETA_TESTING at01:57:00 on2026-11-28. Prior49.1 retained.
+- Owner must retry the original file on the phone; this private iPhone result remainsNOT_RUN. **Stop development/uploads and wait for feedback.** No merge/public release or other-workstream changes.
+
+## Retained delivery — TestFlight49.1 (2026-11-27)
+
+- **WAITING_OWNER_FEEDBACK**: [task](tasks/S02B_READER_HELP.md), existing PR12/branch. **0.1.0(49.1) is available** to the existing owner group. Bottom icon row/small progress dot, skippable/replayable tutorial and bookshelf feedback are delivered. [Phone update](reports/S02B/reader-help/PHONE_DELIVERY.md).
+- Owner explicitly requests direct internal phone testing after focused real validation, without another web review for this scope. Preserve Suxin and existing privacy/progress; no merge/public release or other workstream changes.
+- Exact reader1619c200ed7552be5687c4446240daefe676fb4c: actual18.5/26.5 each14PASS/0FAIL/0SKIP and unsigned arm64/6+2 PASS. Actual bridgeba2c441/run46017595137 verifies paired archives and AppleVALID/INTERNAL_ONLY/existing-group/IN_BETA_TESTING at22:43:46Beijing. [Test report](reports/S02B/reader-help/DELIVERY.md).
+- Preserve48.1 and all earlier results/failures. New phone installation/upgrade, touch/VoiceOver and owner acceptance remain pending. **Stop development/uploads pending feedback.** [Current scope memory](reports/S02B/reader-help/AGENTS.md)
+
+## Current delivery — TestFlight 48.1, waiting for phone feedback (2026-11-27)
+
+- **APPROVED_FOR_OWNER_BETA** for owner-requested copy and side taps. [Independent review](reports/S02B/owner-polish/INDEPENDENT_REVIEW.md) · [Delivery evidence](reports/S02B/owner-polish/DELIVERY.md).
+- Approved/tested `03fe0237462f0af0595d47c455c7e5756d6cbd97`; delivery2d3be5e has identical eight build inputs. Independent review verified actual18.5/26.5 logs and artifacts: each10PASS/0FAIL/0SKIP, unsigned arm64 and6+2 resources. No App blocker identified for owner trial.
+- **WAITING_OWNER_FEEDBACK**. The approved reader is available as **0.1.0 (48.1)**. Apple read back `VALID`, `INTERNAL_ONLY`, unexpired, existing Owner iPhone linkage and `IN_BETA_TESTING` at 19:38:08 Beijing. [Phone delivery](reports/S02B/owner-polish/PHONE_DELIVERY.md)
+- Bridge `e0a122b499ef417fba032e58cb1181594634a08a` verified matching executable digests with and without a link map, then the existing static-link and 6+2 resource checks. [Actual upload run 45991125943](https://github.com/Zhangsfish/lecture-asset/actions/runs/45991125943)
+- App work is frozen pending actual 48.1 phone feedback. The owner liked the voice on 47.1. Device experience on 48.1 is pending.
+
+## Delivered owner trial — retained evidence
+
+- Decision: **APPROVED_FOR_OWNER_BETA**. R1–R3 CLOSED; reviewed reader `6469489062e6b91d743295cc2c08320334dbbf17`, delivery `ca640cd1f982b71927c7db2138150ff657cfdb11`. Actual iOS18.5 and26.5 each55/55; original device entry/6+2 resources verified.
+- **WAITING_OWNER_FEEDBACK:** [owner trial delivery](reports/S02B/OWNER_PHONE_TRIAL.md), **0.1.0（47.1）**. [Independent review and stop rules](reports/S02B/REVIEW_AND_OWNER_TRIAL_20261127.md). Feature development remains frozen.
+- Existing eBOOK-only bridge `a866cd83c342e3652555080de949ca47ac1349e0`, [actual run45933165856](https://github.com/Zhangsfish/lecture-asset/actions/runs/45933165856), delivered the approved reader. Bounded packaging removes only a proven-unused framework; the compiled executable and6+2 resources remain intact.
+- `TESTFLIGHT_AVAILABLE=YES`: Apple read back47.1 VALID/INTERNAL_ONLY/unexpired, the existing Owner iPhone group and IN_BETA_TESTING at2026-11-27 11:21:56 Beijing.39.1 retained; owner installation/upgrade is still NOT_RUN, not inferred from availability.
+- Owner's later qualitative voice feedback is positive. Latency/background/thermal/upgrade measurements remain unreported; do not promote the sound comment into those results.
+- After owner accepts core use, end this MVP implementation round and freeze the usable version. Only actual owner-reported/core defects reopen fixes. No extra feature, model switch or generic optimization.
+- PR #11 / #7 / Android remain separate. No self-merge or public App Store release.
+
+## Previous delivery snapshot (retained; current READY task above supersedes its stop/freeze wording)
+
+- Current owner decision (2026-11-25): two independent conversations share this repository; Suxin ships first and model training targets a later version.
+- Current branch/task: `codex/s02b-suxin-ios-integration` / [S02B — Suxin integration](tasks/S02B_SUXIN_IOS_INTEGRATION.md).
+- State: **READY_FOR_AUDIT — Files verified; remaining BLOCKED_QA / physical BLOCKED_ENV**.
+  App Sources `6d9339b31da7acd614971037c2e9151e493bdc48`, frozen since16fe15d.
+  Complete7ff918a results:18.5/45769244490 is42PASS/0FAIL/0SKIP;
+  26.5/45769249483 is41PASS/1FAIL/0SKIP. Real TXT/EPUB selection/cancel, all six UI,
+  native Suxin12 and long-reader checks pass in both complete runs. Actual unsigned
+  arm64 Release archives verify6 model files and2 exact-source runtime notices.
+  The26.5 failure is Apple speech sawRange at line184 after finished was observed.
+  One clean recheck565bae0/45771793206 ended with6 UI PASS plus1 EBookTests
+  startup error record (signal abrt before XCTest connection); unit/native methods
+  and archive NOT_RUN in that attempt. This is not a completed42-method suite or
+  a successful Apple-callback recheck. No further rerun; unique cause remains unknown.
+  Preserve all prior failures and the18.5 partial timeout. Independent distribution
+  review and physical first sound/p95/long listening/thermal/battery remain pending.
+  No new signed/TestFlight build; old39.1 is unchanged. Stop for independent audit,
+  do not self-merge, upload before review, or start another feature/model task.
+  [Files follow-up](reports/S02B/FILES_IMPORT_FOLLOWUP.md) and
+  [canonical report](reports/S02B_SUXIN_IOS_INTEGRATION.md).
+- Coordination: [docs/TTS_WORKSTREAMS.md](docs/TTS_WORKSTREAMS.md). Later-version model work: [PR #11](https://github.com/Zhangsfish/eBOOK/pull/11), `codex/s02a4-teacher-student-tts`; first release does not wait for it.
+- Reader baseline: main `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; Suxin experiment frozen at PR #7 `eeee1443c1aac561035cf30590ff323c30ccab8a`.
+- Current executor: Windows without Xcode or attached iPhone. Existing approved Python tools,
+  ordinary free macOS CI and the owner internal-TestFlight signing bridge are available;
+  new native/device results are not claimed until actually observed.
+- First delivery uses the existing owner internal-TestFlight path after real integration, validation and independent review. No App Store public release is claimed or newly scheduled.
+
+## Historical S00 status (retained for evidence)
+
+The following snapshot predates the current TTS authorization. PR #5 was subsequently merged at `83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656`; its historical do-not-merge wording is not current PR state. S00 details and earlier test boundaries remain as recorded.
+
 - Project: eBOOK — iOS ebook reader
 - Current phase: S00 device preparation follow-up; S01 PR #4 remains READY_FOR_AUDIT.
 - Current authorized task on this branch: `tasks/S00_DEVICE_VALIDATION.md`.

@@ -28,7 +28,7 @@ private struct UtteranceReference: @unchecked Sendable { let value: AVSpeechUtte
         let utterance = AVSpeechUtterance(string: request.chunk.text)
         let voice = request.voiceID.flatMap { AVSpeechSynthesisVoice(identifier: $0) }
             ?? AVSpeechSynthesisVoice(language: "zh-CN")
-        guard let voice else { throw ReaderError.unsupported("未找到本机中文语音，请在 iOS 辅助功能的朗读内容中下载语音。") }
+        guard let voice else { throw ReaderError.unsupported("未找到中文语音，请在 iOS 设置的辅助功能→朗读内容中下载。") }
         utterance.voice = voice
         utterance.rate = min(AVSpeechUtteranceMaximumSpeechRate, max(AVSpeechUtteranceMinimumSpeechRate, request.rate))
         utterance.postUtteranceDelay = request.chunk.text.hasSuffix("\n") ? 0.18 : 0.05
@@ -39,7 +39,7 @@ private struct UtteranceReference: @unchecked Sendable { let value: AVSpeechUtte
     func resume() throws {
         wantsPause = false
         if !synthesizer.continueSpeaking(), !synthesizer.isSpeaking {
-            throw ReaderError.invalid("本机朗读已停止，请再次播放。")
+            throw ReaderError.invalid("朗读已停止，请再次播放。")
         }
     }
     func cancel() { current = nil; wantsPause = false; synthesizer.stopSpeaking(at: .immediate) }

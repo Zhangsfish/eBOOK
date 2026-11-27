@@ -1,0 +1,19 @@
+{
+  "samples": 256,
+  "process_sessions": 5,
+  "indexed_blocks": 1875,
+  "distinct_top_blocks": 11,
+  "furthest_top_block": 1869,
+  "maximum_visible_cells": 2,
+  "maximum_rendered_text_utf16": 1599,
+  "maximum_window_blocks": 12,
+  "early_scroll_window_shift_observed": true,
+  "maximum_process_peak_rss_bytes": 400818176,
+  "per_session_peak_growth_bytes": [
+    1343488,
+    4505600,
+    78004224,
+    9158656,
+    17432576
+  ]
+}

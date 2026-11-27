@@ -36,8 +36,11 @@ for name in files:
     data = git('show', f'{args.ref}:{name}')
     assert not any(re.search(pattern, data) for pattern in patterns), f'Credential pattern in {name}'
     sizes.append(len(data))
-    if name.startswith('reports/S00/evidence/screenshots/') and name.endswith('.png'):
+    approved_screenshots = ('reports/S00/evidence/screenshots/', 'reports/S00/toc-current-chapter/evidence/')
+    if name.startswith(approved_screenshots) and name.endswith('.png'):
         assert data.startswith(b'\x89PNG\r\n\x1a\n') and len(data) <= 5*1024*1024, 'Unexpected screenshot'
+        if name.startswith('reports/S00/toc-current-chapter/evidence/'):
+            assert data == git('show', '83fa0d90fd4cd0dbcd791eeb4a3edd53ba985656:' + name), 'Changed baseline TOC screenshot'
     else:
         assert len(data) < 200_000, f'Unexpected large tracked file: {name}'
     if name.startswith('Sources/') and name.endswith('.swift'):

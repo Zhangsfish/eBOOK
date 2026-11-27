@@ -23,6 +23,9 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 - Open, remove, and resume a book.
 - Store imported content locally and persist reading/listening positions.
 - Graceful handling of unsupported, encrypted, malformed, and oversized files.
+- Bookshelf settings choose vertical scrolling or horizontal pages before opening a book.
+- Bookshelf appearance has independent system/normal/warm/night choices. It never changes the saved book-reading theme.
+- The bookshelf settings also offer a replayable animated beginner tutorial and feedback/contact. The tutorial appears once, can be skipped immediately, and demonstrates actions without changing books or preferences.
 
 ### Reading
 - EPUB chapter/section navigation and table of contents.
@@ -31,7 +34,10 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
   reading anchor; only choosing a chapter navigates the book.
 - TXT reading with sensible paragraph and chapter heuristics; do not pretend TXT has a reliable semantic TOC if it does not.
 - Font size controls, line spacing, page/background themes, including a warm low-glare / eye-comfort theme.
+- The book theme remains adjustable inside reading settings, independently of bookshelf appearance.
+- Horizontal mode turns a viewport-sized native page with left/right swipes or single taps in the left/right thirds (previous/next). The middle stays available for text interaction. Vertical scrolling remains available. Mode/typography changes preserve the nearby source position.
 - Progress indicator and restore last reading position.
+- A quiet bottom-right ellipsis opens one bottom row of exit/speech/TOC/typography icons, with progress below. The slider has a small visible thumb and retains a full-height native touch/accessibility control; the ellipsis closes the controls.
 - Screen should remain readable with Dynamic Type and VoiceOver support.
 
 ### Listening
@@ -52,6 +58,7 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 ## Quality bar
 - Importing a valid EPUB/TXT should be straightforward.
 - The first reading screen should be usable without onboarding.
+- Keep product copy brief: no repeated local-storage/privacy/rights/implementation disclaimers in the bookshelf, settings, TOC or playback panel. Retain concise operational states, necessary errors and deletion consequences.
 - Typography and background themes should be calm and comfortable for long sessions.
 - The speech voice should sound natural over long-form Chinese fiction, not like a navigation system or news bulletin.
 - Playback must not restart from the beginning after ordinary app suspension or navigation.

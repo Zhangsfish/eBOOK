@@ -1,0 +1,20 @@
+{
+  "source_sha": "16fe15da6bcd7431a8a162fd65ca77ce8da6ff4d",
+  "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45757099825",
+  "status": "TIMEOUT_NO_FINAL_XCTEST_SUMMARY",
+  "observation_source": "partial xcodebuild log, not final xcresult",
+  "partial_counts": {
+    "passed": 40,
+    "failed": 1,
+    "started": 1
+  },
+  "failed_cases": [
+    "EBookUITests.ReaderUITests testFilesPickerImportsSelectedTXTAndEPUB"
+  ],
+  "incomplete_cases": [
+    "EBookUITests.ReaderUITests testTOCReopensAtLiveChapterAfterScrollingSearchAndRelaunch"
+  ],
+  "test_log_sha256": "8b383c3fa54cbc89641ac623b560550422d52da9cebc5bad6340ada3451eb216",
+  "archive": "NOT_RUN",
+  "physical_device": "NOT_RUN"
+}

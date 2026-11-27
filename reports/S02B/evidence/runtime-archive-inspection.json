@@ -1,0 +1,57 @@
+{
+  "runtime_version": "1.28.2",
+  "spm_revision": "8ebc5ebf92190903c274a7621ba4c96a732335ec",
+  "archive_url": "https://github.com/csukuangfj/onnxruntime-libs/releases/download/v1.28.2/onnxruntime-ios-static-xcframework-1.28.2.xcframework.zip",
+  "archive_sha256": "2c2299acbb461d26d4bac4bc85985d40e7c7177ed6072703ae0846d88b0b4599",
+  "archive_bytes": 33821118,
+  "available_libraries": [
+    {
+      "BinaryPath": "onnxruntime.framework/onnxruntime",
+      "LibraryIdentifier": "ios-arm64_x86_64-simulator",
+      "LibraryPath": "onnxruntime.framework",
+      "SupportedArchitectures": [
+        "arm64",
+        "x86_64"
+      ],
+      "SupportedPlatform": "ios",
+      "SupportedPlatformVariant": "simulator"
+    },
+    {
+      "BinaryPath": "onnxruntime.framework/onnxruntime",
+      "LibraryIdentifier": "ios-arm64",
+      "LibraryPath": "onnxruntime.framework",
+      "SupportedArchitectures": [
+        "arm64"
+      ],
+      "SupportedPlatform": "ios"
+    }
+  ],
+  "binaries": [
+    {
+      "member": "onnxruntime.xcframework/ios-arm64_x86_64-simulator/onnxruntime.framework/onnxruntime",
+      "sha256": "948c78175cf7b3449adc960cc4caa421bc40f33b98b4598f49194aa18fc3592a",
+      "bytes": 92316512
+    },
+    {
+      "member": "onnxruntime.xcframework/ios-arm64/onnxruntime.framework/onnxruntime",
+      "sha256": "45f514c9eeb397c1047af5e00050c8e84ecd37c75c7db12854bdef48e86b2be4",
+      "bytes": 44739584
+    }
+  ],
+  "included_notices": [],
+  "distribution_clearance": "INCOMPLETE_REQUIRES_FULL_TRANSITIVE_REVIEW",
+  "source_notice_queries": [
+    {
+      "url": "https://api.github.com/repos/microsoft/onnxruntime/git/ref/tags/v1.28.2",
+      "http_status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.2/LICENSE",
+      "http_status": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.28.2/ThirdPartyNotices.txt",
+      "http_status": 404
+    }
+  ]
+}
