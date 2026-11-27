@@ -23,18 +23,26 @@ struct ReaderProgressSlider: UIViewRepresentable {
         let ink = color.resolvedColor(with: slider.traitCollection)
         slider.minimumTrackTintColor = ink.withAlphaComponent(increasedContrast ? 1 : 0.55)
         slider.maximumTrackTintColor = ink.withAlphaComponent(increasedContrast ? 0.45 : 0.16)
-        let thumb = UIGraphicsImageRenderer(size: CGSize(width: 12, height: 12)).image { context in
-            ink.withAlphaComponent(increasedContrast ? 1 : 0.75).setFill()
-            context.cgContext.fillEllipse(in: CGRect(x: 0, y: 0, width: 12, height: 12))
+        let thumbColor = ink.withAlphaComponent(increasedContrast ? 1 : 0.75)
+        // UIKit tracks using the thumb image's bounds. Keep a44pt transparent
+        // thumb around the12pt visible dot, including at either end of the track.
+        // Replacing the thumb during every drag update can also disturb tracking.
+        if context.coordinator.thumbColor?.isEqual(thumbColor) != true {
+            let thumb = UIGraphicsImageRenderer(size: CGSize(width: 44, height: 44)).image { context in
+                thumbColor.setFill()
+                context.cgContext.fillEllipse(in: CGRect(x: 16, y: 16, width: 12, height: 12))
+            }
+            slider.setThumbImage(thumb, for: .normal)
+            slider.setThumbImage(thumb, for: .highlighted)
+            context.coordinator.thumbColor = thumbColor
         }
-        slider.setThumbImage(thumb, for: .normal)
-        slider.setThumbImage(thumb, for: .highlighted)
     }
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
 
     final class Coordinator: NSObject {
         var parent: ReaderProgressSlider
+        var thumbColor: UIColor?
         init(_ parent: ReaderProgressSlider) { self.parent = parent }
         @objc func changed(_ slider: UISlider) { parent.value = Double(slider.value) }
     }

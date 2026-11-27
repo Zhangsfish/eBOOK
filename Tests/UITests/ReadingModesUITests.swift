@@ -53,7 +53,8 @@ final class ReadingModesUITests: XCTestCase {
         let changed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
             !self.pagePosition(app).isEmpty && self.pagePosition(app) != before
         }, object: app)
-        XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 15), .completed)
+        XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 15), .completed,
+                       "Swipe did not move: before=\(before), actual=\(pagePosition(app))")
     }
     private func tapPage(_ app: XCUIApplication, x: CGFloat) {
         let before = pagePosition(app)
@@ -101,9 +102,12 @@ final class ReadingModesUITests: XCTestCase {
             waitForPosition(beginning, app: app)
         }
         controls(app)
-        app.sliders["reader.seek"].adjust(toNormalizedSliderPosition: 0.85)
+        let slider = app.sliders["reader.seek"]
+        let beforeValue = slider.value as? String ?? ""
+        slider.adjust(toNormalizedSliderPosition: 0.85)
         let sought = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in self.pagePosition(app) != beginning }, object: app)
-        XCTAssertEqual(XCTWaiter.wait(for: [sought], timeout: 10), .completed)
+        XCTAssertEqual(XCTWaiter.wait(for: [sought], timeout: 10), .completed,
+                       "Seek did not move: slider \(beforeValue)→\(slider.value ?? "nil"), before=\(beginning), actual=\(pagePosition(app))")
         let saved = pagePosition(app)
         app.buttons["reader.toc"].tap()
         XCTAssertTrue(app.buttons["完成"].waitForExistence(timeout: 10)); app.buttons["完成"].tap()
