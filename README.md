@@ -5,15 +5,13 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 ## Current work: owner feedback and reader polish
 
 Internal TestFlight **0.1.0（47.1）** is available, and the owner reports the voice
-sounds good. The current bounded follow-up cleans UI copy and adds left/right
-side taps in horizontal mode: [task](tasks/S02B_OWNER_POLISH.md), same PR12.
-New source requires its own focused reading/settings regression and independent
-review;47.1 remains the installed-version candidate until that delivery.
+sounds good. The copy cleanup and side-tap follow-up is **READY_FOR_AUDIT** on PR #12.
+iOS 18.5 and 26.5 each passed 10 focused tests and the unsigned Release arm64
+archive checks. [Task](tasks/S02B_OWNER_POLISH.md) · [Delivery results](reports/S02B/owner-polish/DELIVERY.md)
 
 ### Previously approved implementation
 
-The owner-authorized audit repair and reading-mode work is **READY_FOR_AUDIT** on
-`codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12).
+The earlier audit repair and reading-mode implementation was approved for the owner beta.
 See [repair task](tasks/S02B_R1_REPAIR_AND_PHONE_BETA.md),
 [reading modes](tasks/S02B_READING_MODES.md) and
 [repair evidence](reports/S02B/R1_FIXES_AND_PHONE_BETA.md). Desktop, simulator,
@@ -106,8 +104,8 @@ five supported encoding variants.
 
 Open a book, scroll, use the searchable TOC, or drag reading progress. Reading
 settings include Dynamic Type-aware font size, line spacing and light/warm/dark
-themes. TXT TOCs are explicitly labeled heuristic; low-confidence files retain
-continuous reading with progress navigation.
+themes. TXT TOCs use detected chapter headings; files without detected chapters
+retain continuous reading with progress navigation.
 
 Listening has separate saved progress. Use play/pause, previous/next text block
 or chapter, voice selection and rate. **从当前阅读位置开始朗读** explicitly moves
@@ -156,8 +154,8 @@ body is sent by this application to a cloud TTS service.
   deleting App data removes them. There is no cloud provider or vendor credential.
 - Resource hashes and author/pypinyin license declarations are bundled. Full
   model/data/static-runtime distribution clearance is incomplete; see
-  [the notice status](tools/suxin/NOTICE.md). This is separate from executing local
-  tests and remains a gate for a new internal distribution.
+  [the notice status](tools/suxin/NOTICE.md).47.1's limited owner trial was approved;
+  full public-distribution clearance remains separate from that internal approval.
 
 ## Evidence and review
 

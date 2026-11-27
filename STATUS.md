@@ -3,9 +3,9 @@
 ## Current task — owner UI feedback (2026-11-27)
 
 - Owner reports the47.1 voice is good; this is qualitative sound feedback, not p95/long-listening/thermal/battery measurements.
-- **IN_PROGRESS:** [copy cleanup and side-tap turns](tasks/S02B_OWNER_POLISH.md), same branch/PR12, base452d1671e9f4500cd2edece8553c212da9cf5244.
-- Remove repetitive UI explanations; horizontal pages gain left/right side taps while keeping swipes, selection, quiet controls, TOC and anchors. Do not change the approved speech implementation.
-- New code/build tests pending;47.1 remains the available internal version. No new upload or merge before independent review of this follow-up.
+- **READY_FOR_AUDIT** for the copy and side-tap follow-up on PR #12. [Task](tasks/S02B_OWNER_POLISH.md) · [Delivery and evidence](reports/S02B/owner-polish/DELIVERY.md)
+- Horizontal reading supports previous/next side taps alongside swipes. The bookshelf, reader settings, TOC and speech panel use shorter copy.
+- Tested `03fe0237462f0af0595d47c455c7e5756d6cbd97`. iOS 18.5 and 26.5 each passed 10 tests and the unsigned Release arm64 archive with 6+2 verified resources. The current internal TestFlight build is 47.1. This follow-up awaits independent review.
 
 ## Delivered owner trial — retained evidence
 

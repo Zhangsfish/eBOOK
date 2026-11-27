@@ -1,6 +1,7 @@
 # Owner反馈：文案清理与点按翻页
 
-状态：READY / IN_PROGRESS，2026-11-27。本对话owner在47.1试用后反馈“语音很好”，
+状态 **READY_FOR_AUDIT**，2026-11-27。两套 iOS 模拟器各 10/10，通过 Release arm64 归档验证。
+实测源码 `03fe0237462f0af0595d47c455c7e5756d6cbd97`。本对话owner在47.1试用后反馈“语音很好”，
 明确要求这两项修正；这是对等待反馈/冻结状态的有界重开，不扩展语音模型或其他功能。
 
 - 分支/PR：codex/s02b-suxin-ios-integration / #12。起点452d1671e9f4500cd2edece8553c212da9cf5244。

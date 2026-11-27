@@ -6,8 +6,9 @@
 起点452d1671e9f4500cd2edece8553c212da9cf5244；不改模型/音频队列或签名桥。
 
 ## 文件与状态
-- DELIVERY.md：修改、实际测试版本与结果、CI链接、已知边界；尚未执行的保留NOT_RUN。
-- 后续evidence小型JSON：真实CI摘要/精确方法集合及原创夹具截图元数据。
+- `DELIVERY.md` 记录改动、CI 和审查状态 **READY_FOR_AUDIT**。
+- `evidence.json` 记录实测源码 `03fe0237462f0af0595d47c455c7e5756d6cbd97`、两套各 10/10、归档资源与原创夹具截图摘要。保留初轮失败和中间取消。
+- `scope.json` 记录本机对文案改动范围的核验。
 - .local-test-data/s02b/owner-polish/：忽略的临时CI下载/图像；不提交模型、音频、私人书籍或原始签名材料。
 
 ## 约束
