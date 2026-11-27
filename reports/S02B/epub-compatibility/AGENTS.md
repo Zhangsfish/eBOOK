@@ -20,3 +20,14 @@ DELIVERY.md and evidence.json will hold sanitized diagnosis, exact source/comman
 real native tests and packaging. Private-file checks are desktop structural checks,
 not an iOS import claim. Match direct phone delivery to actual tested code and read
 Apple availability before declaring a new version installable. Stop for phone feedback.
+
+Final delivery: WAITING_OWNER_FEEDBACK,0.1.0(50.1) available. Exact reader
+dfbcc0f9204a47960e16bb4a3270c9811a7da697;18.5/46042489928 and26.5/46042481531
+each11PASS/0FAIL/0SKIP, exact method sets, unsigned arm64 and6+2 PASS. The cancelled
+redundant push/all run46042395921 is not a passing test. Original screenshots only.
+Bridge8a27770a05bfe997359abcb9764be637b1e29706/run46044956972 actually accepted50.1
+at01:54:45Beijing and returnedVALID/INTERNAL_ONLY/existing-group/IN_BETA_TESTING
+at01:57:00 on2026-11-28. Safe events inphone-delivery-evidence.json; raw logs and
+private book evidence remain ignored. PHONE_DELIVERY.md is canonical phone status.
+No new neural/long-listening/private-book native result inferred. Freeze changes
+and uploads pending owner retry; no merge/public release or other workstream.

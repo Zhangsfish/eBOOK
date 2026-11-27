@@ -1,0 +1,86 @@
+{
+  "run_id": 46042481531,
+  "job_id": 140653431861,
+  "workflow_conclusion": "success",
+  "result": {
+    "source_sha": "dfbcc0f9204a47960e16bb4a3270c9811a7da697",
+    "scope": "epub",
+    "xcode": "Xcode 26.6\nBuild version 17F113",
+    "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+    "simulator_name": "iPhone 17 Pro",
+    "host_architecture": "arm64",
+    "host_cpu": "Apple M1 (Virtual)",
+    "host_logical_cpus": 3,
+    "actual_counts": {
+      "totalTestCount": 11,
+      "passedTests": 11,
+      "failedTests": 0,
+      "skippedTests": 0
+    },
+    "neural_audio_generation": false,
+    "metrics": [],
+    "physical_device": "NOT_RUN",
+    "status": "PASS_NATIVE_EPUB_ONLY",
+    "validation_errors": []
+  },
+  "method_coverage": {
+    "scope": "epub",
+    "expected_method_count": 11,
+    "expected_methods": [
+      "EBookTests.EPUBCompatibilityTests testBareHTMLVoidElementsPreserveEveryChapterTextImageAndTOC",
+      "EBookTests.EPUBCompatibilityTests testCommentsCDATAQuotedAttributesAndPairedTagsAreNotRewritten",
+      "EBookTests.EPUBCompatibilityTests testEntityDeclarationsAndLimitsRemainForbiddenAfterCompatibilityRepair",
+      "EBookTests.EPUBCompatibilityTests testMalformedNestingAndTruncationStillFailWithoutPartialBooks",
+      "EBookTests.EPUBCompatibilityTests testUTF16BothByteOrdersWithAndWithoutBOMRetainChineseAndEmoji",
+      "EBookTests.ReaderCoreTests testEPUB2NCXNavigation",
+      "EBookTests.ReaderCoreTests testEPUB3MetadataSpineFragmentTOCAndLocalImages",
+      "EBookTests.ReaderCoreTests testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook",
+      "EBookTests.ReaderCoreTests testTOCFollowsChapterBodyBoundariesAndNestedEPUBDestinations",
+      "EBookTests.ReaderCoreTests testZIPCRCAndDeclaredExpansionLimitsAreEnforced",
+      "EBookUITests.ReaderUITests testHTMLVoidEPUBImportsReadsAndRestoresChapterNavigation"
+    ],
+    "observed_method_states": {
+      "EBookTests.EPUBCompatibilityTests testBareHTMLVoidElementsPreserveEveryChapterTextImageAndTOC": "passed",
+      "EBookTests.EPUBCompatibilityTests testCommentsCDATAQuotedAttributesAndPairedTagsAreNotRewritten": "passed",
+      "EBookTests.EPUBCompatibilityTests testEntityDeclarationsAndLimitsRemainForbiddenAfterCompatibilityRepair": "passed",
+      "EBookTests.EPUBCompatibilityTests testMalformedNestingAndTruncationStillFailWithoutPartialBooks": "passed",
+      "EBookTests.EPUBCompatibilityTests testUTF16BothByteOrdersWithAndWithoutBOMRetainChineseAndEmoji": "passed",
+      "EBookTests.ReaderCoreTests testEPUB2NCXNavigation": "passed",
+      "EBookTests.ReaderCoreTests testEPUB3MetadataSpineFragmentTOCAndLocalImages": "passed",
+      "EBookTests.ReaderCoreTests testMalformedEPUBTraversalEntitiesAndFailedImportLeaveNoPartialBook": "passed",
+      "EBookTests.ReaderCoreTests testTOCFollowsChapterBodyBoundariesAndNestedEPUBDestinations": "passed",
+      "EBookTests.ReaderCoreTests testZIPCRCAndDeclaredExpansionLimitsAreEnforced": "passed",
+      "EBookUITests.ReaderUITests testHTMLVoidEPUBImportsReadsAndRestoresChapterNavigation": "passed"
+    },
+    "missing_methods": [],
+    "unexpected_methods": [],
+    "unfinished_methods": [],
+    "xctest_summary_count": 11,
+    "errors": [],
+    "scope_note": "Host startup errors are summary records, never counted as executed methods."
+  },
+  "unsigned_archive": {
+    "source_sha": "dfbcc0f9204a47960e16bb4a3270c9811a7da697",
+    "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+    "architecture": "arm64",
+    "bundle_id": "com.zhangsfish.ebook",
+    "version": "0.1.0",
+    "app_bytes": 93199690,
+    "unsigned_executable_sha256": "2d8950a7ee6886678bc0c45d8593f58dd0435b8d06ef9c917aa16dedc97f5c12",
+    "resource_files_verified": 6,
+    "runtime_source_notice_files_verified": 2,
+    "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+    "original_device_entry_executed": true,
+    "signing": "NOT_RUN",
+    "testflight": "NOT_RUN",
+    "physical_device": "NOT_RUN",
+    "distribution_clearance": "PENDING_INDEPENDENT_REVIEW",
+    "public_binary_artifact": false
+  },
+  "archive_clearance_note": "distribution_clearance is the unchanged historical CI-template field, not a new audit claim; direct internal owner testing is separately authorized.",
+  "raw_artifact_sha256": {
+    "s02b-result.json": "da8bd9213ffb1763ce87cfdc09135b3445447b59d8c7cafad7bcb2ba880892df",
+    "s02b-method-coverage.json": "41e142a6e8c81126dbf7276020bf1048424286d238b6e7cda0ee5c7710ee96b5",
+    "s02b-device-archive.json": "d883ea8a3427dcace95da0d0823728654cbbe8ce68203d4d7a9afdb88a7512b8"
+  }
+}

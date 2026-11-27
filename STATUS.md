@@ -1,12 +1,14 @@
 # Project Status
 
-## Current repair — owner EPUB compatibility (2026-11-28)
+## Current delivery — TestFlight50.1, waiting for EPUB phone retry (2026-11-28)
 
-- **IN_PROGRESS**: [task](tasks/S02B_EPUB_COMPATIBILITY.md), existing PR12/branch; owner phone feedback reopens the prior freeze for this scoped import defect.
-- Local diagnosis: ZIP CRCs pass, but one spine page has an unclosed HTML `br` void tag. A private minimal repaired copy passes desktop XML/CRC checks. Neither book nor its text is in Git/CI.
-- App repair and original regression fixtures are implemented; real native EPUB tests and the next internal phone build are pending. Preserve49.1, Suxin, all reader UI and saved data. No merge/public release.
+- **WAITING_OWNER_FEEDBACK — 0.1.0(50.1) available**. [Task](tasks/S02B_EPUB_COMPATIBILITY.md), existing PR12/branch. The EPUB import repair is delivered through the existing direct owner-internal path. [Phone update](reports/S02B/epub-compatibility/PHONE_DELIVERY.md).
+- Local diagnosis: ZIP CRCs pass, but one spine page has an unclosed HTML `br` void tag. Generic bounded void-tag repair preserves content and the XML/entity/path/CRC/size limits. Private book/corrected copy stay local/ignored; only14 original fixtures enter Git/CI.
+- Exact readerdfbcc0f9204a47960e16bb4a3270c9811a7da697: actual18.5/26.5 each11PASS/0FAIL/0SKIP, exact method sets and unsigned arm64/6+2 PASS. [Test report](reports/S02B/epub-compatibility/DELIVERY.md).
+- Bridge8a27770/run46044956972: paired executable baseline/static-link/resource checks PASS; Apple accepted01:54:45Beijing and returnedVALID/INTERNAL_ONLY/existing-group/IN_BETA_TESTING at01:57:00 on2026-11-28. Prior49.1 retained.
+- Owner must retry the original file on the phone; this private iPhone result remainsNOT_RUN. **Stop development/uploads and wait for feedback.** No merge/public release or other-workstream changes.
 
-## Current delivery — TestFlight49.1, waiting for owner feedback (2026-11-27)
+## Retained delivery — TestFlight49.1 (2026-11-27)
 
 - **WAITING_OWNER_FEEDBACK**: [task](tasks/S02B_READER_HELP.md), existing PR12/branch. **0.1.0(49.1) is available** to the existing owner group. Bottom icon row/small progress dot, skippable/replayable tutorial and bookshelf feedback are delivered. [Phone update](reports/S02B/reader-help/PHONE_DELIVERY.md).
 - Owner explicitly requests direct internal phone testing after focused real validation, without another web review for this scope. Preserve Suxin and existing privacy/progress; no merge/public release or other workstream changes.

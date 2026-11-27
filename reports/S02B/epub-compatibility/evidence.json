@@ -1,0 +1,86 @@
+{
+  "base_sha": "425ea4d7bdbff7f6b4035d48314c5ccebeea0a26",
+  "tested_source_sha": "dfbcc0f9204a47960e16bb4a3270c9811a7da697",
+  "state": "WAITING_OWNER_FEEDBACK",
+  "local": {
+    "environment": "Windows; Python 3.11.11; no local Swift/Xcode installation",
+    "fixture_generation": "PASS: 14 original EPUBs; deterministic bytes and all ZIP CRCs",
+    "project_check": "PASS: python scripts/generate_xcode_project.py --check",
+    "python_syntax": "PASS: generator and both changed CI scripts",
+    "packaging_unit_tests": {
+      "passed": 5,
+      "failed": 0,
+      "command": "python -m unittest discover -s Tests/Packaging -v"
+    },
+    "diff_check": "PASS",
+    "private_book": "Desktop XML/CRC and unchanged-other-members checks PASS; native import NOT_RUN; file, text, paths and raw evidence kept local/ignored"
+  },
+  "native": [
+    {
+      "run_id": 46042481531,
+      "runner": "macos-26",
+      "url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46042481531",
+      "expected_methods": 11,
+      "status": "PASS_NATIVE_EPUB_ONLY",
+      "actual_counts": {
+        "total": 11,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0
+      },
+      "job_id": 140653431861,
+      "evidence": "native-ios26.json",
+      "artifact": {
+        "id": 15221433677,
+        "bytes": 429124,
+        "digest": "sha256:3d9a0b97b8e7d9ffb11a9a9f7b2d279bf335b74d5c1d24ff2b5404abd6f25376",
+        "retention_days": 7
+      }
+    },
+    {
+      "run_id": 46042489928,
+      "runner": "macos-15",
+      "url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46042489928",
+      "expected_methods": 11,
+      "status": "PASS_NATIVE_EPUB_ONLY",
+      "actual_counts": {
+        "total": 11,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0
+      },
+      "job_id": 140653512488,
+      "evidence": "native-ios18.json",
+      "artifact": {
+        "id": 15220797917,
+        "bytes": 432833,
+        "digest": "sha256:8840a63cae250128f8c5b9a8e9ed8b0ab993d2b3dbf5010daaf7492e095ffb99",
+        "retention_days": 7
+      }
+    }
+  ],
+  "cancelled_redundant_auto_all_run": 46042395921,
+  "cancelled_run_note": "Workflow-edit push triggered default all. Cancel requested before the two deliberate focused epub runs; never a passing test claim.",
+  "testflight": {
+    "status": "TESTFLIGHT_AVAILABLE",
+    "previous_available_build": "49.1",
+    "version": "0.1.0",
+    "build": "50.1",
+    "run_id": 46044956972,
+    "run_number": 50,
+    "run_attempt": 1,
+    "bridge_sha": "8a27770a05bfe997359abcb9764be637b1e29706",
+    "job_id": 140661783078,
+    "url": "https://github.com/Zhangsfish/lecture-asset/actions/runs/46044956972",
+    "evidence": "phone-delivery-evidence.json",
+    "accepted_utc": "2026-11-27T17:54:45.7799920Z",
+    "available_utc": "2026-11-27T17:57:00.1608160Z",
+    "processing_state": "VALID",
+    "audience": "INTERNAL_ONLY",
+    "owner_group": "EXISTING_GROUP_ASSOCIATION_VERIFIED",
+    "internal_state": "IN_BETA_TESTING",
+    "expiry": "UNCHANGED_HELPER_REQUIRES_EXPIRED_FALSE"
+  },
+  "physical_phone": "NOT_RUN",
+  "privacy": "Only original synthetic fixtures and sanitized metrics in Git/CI; no private EPUB, text, models, audio or signing logs"
+}

@@ -2,12 +2,16 @@
 
 A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-quality Mandarin text-to-speech experience.
 
-## Current work: EPUB compatibility repair
+## Current delivery: EPUB compatibility repair
 
-Owner feedback on49.1 identified a valid ZIP whose chapter contains an HTML-style
-unclosed `br`. The scoped fix retries only supported void-tag closure and reparses
-with the existing XML limits. Native regression and the next internal phone update
-are in progress; private books never enter Git/CI. [Task](tasks/S02B_EPUB_COMPATIBILITY.md).
+**TestFlight0.1.0(50.1) is available — WAITING_OWNER_FEEDBACK.** The reader now
+handles supported HTML-style unclosed void tags in EPUB chapters while retaining
+strict revalidation and all import limits. Exact readerdfbcc0f9204a47960e16bb4a3270c9811a7da697
+passed11/11 on each of iOS18.5/26.5 plus unsigned arm64/6+2 checks. Apple verified
+existing-group availability at01:57:00Beijing on2026-11-28.
+[Phone update](reports/S02B/epub-compatibility/PHONE_DELIVERY.md) · [Tests](reports/S02B/epub-compatibility/DELIVERY.md).
+Update the existing App and retry the original EPUB. Private books remain local;
+the native tests use original fixtures. Stop edits/uploads and await phone feedback.
 
 ### Retained49.1 delivery: compact reading controls and help
 
