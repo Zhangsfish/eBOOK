@@ -2,7 +2,14 @@
 
 A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-quality Mandarin text-to-speech experience.
 
-## Current work: owner feedback and reader polish
+## Current work: compact reading controls and help
+
+The owner requests a bottom icon row, smaller progress dot, animated beginner
+tutorial and bookshelf feedback. Current state: **IN_PROGRESS**. The owner explicitly
+authorizes direct internal TestFlight delivery after focused real checks, without
+another web review for this scope. [Task](tasks/S02B_READER_HELP.md) · [Evidence](reports/S02B/reader-help/DELIVERY.md)
+
+### Retained 48.1 delivery
 
 Internal TestFlight **0.1.0 (48.1)** includes shorter copy and horizontal side-tap page turns.
 The approved reader passed 10 focused tests on each of iOS 18.5 and 26.5, including unsigned Release arm64
@@ -67,7 +74,7 @@ It runs unit/UI tests and archives an unsigned arm64
 Release App. The `integration` scope runs eighteen native frontend, real-graph,
 PCM-playback, state/cache and production-boundary methods; `frontend` checks the author oracle
 alone; `picker` performs actual TXT/EPUB selection and cancellation (two methods);
-`reading` runs the five pagination/migration methods, four reading-mode UI methods
+`reading` runs the five pagination/migration methods, eight reading/help UI methods
 and the existing voice/rate persistence UI method, then an unsigned arm64 archive.
 Only allowlisted JSON/log evidence and bounded original-fixture UI diagnostic
 and requested mode/theme screenshots are uploaded by S02B CI. Model-containing
@@ -79,7 +86,7 @@ fixtures with `python3 scripts/generate_small_fixtures.py`.
 
 ## Use
 
-On the bookshelf, **翻页与书架外观** replaces the technical TXT-encoding toolbar
+On the bookshelf, **书架设置** replaces the technical TXT-encoding toolbar
 menu. Choose **上下滚动** or **左右翻页** before opening a book. Bookshelf appearance
 has its own system/normal/warm/night setting. The reader's existing theme control
 stays inside 阅读设置 and controls only the book; the two colors are independent.
@@ -89,11 +96,18 @@ for the next, alongside the existing swipes. Centre taps do not turn pages.
 
 The reader opens with only the text and a subtle **⋯** in the lower-right corner.
 The entry has no white background/border and adapts to light, warm and dark themes.
-Tap it to open back, TOC, typography, speech and progress controls; close the panel
+Tap it for one bottom row of back, speech, TOC and typography icons, with the
+progress slider underneath. Its visible dot is small, with a full-size transparent
+drag target. The ellipsis on that lower row closes the controls
 to keep reading. Body taps and scrolling do not open it. Controls overlay the text
 without resizing the reading viewport. The 44-point entry remains accessible.
 Open 朗读 from that panel for playback; 收起 keeps ongoing speech running.
 Voice and rate remain in 阅读设置. Returning from these sheets hides the controls.
+
+The first-visit tutorial can be skipped immediately; replay **新手教程** from the
+bookshelf settings. Its local animated examples cover import, page modes, reading
+controls and speech; Reduce Motion uses static artwork. **意见反馈** in the same
+menu offers the existing public contact email, copy-email and personal homepage.
 
 Tap **导入书籍** and choose a local TXT or EPUB through Files. TXT defaults to
 BOM/strict UTF-8/UTF-16 heuristics/legacy-encoding detection. A byte stream can be

@@ -1,0 +1,769 @@
+{
+  "base_sha": "566a7fa94296633c4078f9b06b7d261a26cc32a7",
+  "tested_implementation_sha": "84e49d46ed2e1ecd0c481122dd3bf69d4df97a7a",
+  "status": "AWAIT_NATIVE_HIT_TEST_DIAGNOSTICS",
+  "authorization": "Owner requests direct existing internal TestFlight after focused real checks; no further web review for this scope.",
+  "build_input_git_objects": {
+    "Sources": "b4b1a3addd8a2495656dd03d55ba7704631b908e",
+    "Tests": "fe42b0538c453f57cb1eb1cc0e807c357a92ee3b",
+    "scripts": "032b8e95768897c146d92c91198df87755f9f947",
+    "tools/suxin": "c61bb6beedcdab3b82bf7a7cb5d01c1d54d7ce3e",
+    ".github/workflows": "e3c327eaa05302d76d52499467e436856415d917",
+    "eBOOK.xcodeproj": "98333efe891a47c8f3a673442213894cd0e0b9c6",
+    ".gitattributes": "4916dfcb1876771c966c5eac086e6943b5df875a",
+    ".gitignore": "434c606deda9d9e322c50041a12015617061a800"
+  },
+  "protected_source_paths": [
+    "Sources/ReaderCore",
+    "Sources/NativeTTS",
+    "Sources/eBOOK/AppleSpeechProvider.swift",
+    "Sources/eBOOK/LocalSpeechProvider.swift",
+    "Sources/eBOOK/SuxinSpeechProvider.swift",
+    "Sources/eBOOK/SuxinResources.swift",
+    "Sources/eBOOK/SuxinAudioCache.swift",
+    "Sources/eBOOK/SpeechController.swift",
+    "Sources/eBOOK/LibraryModel.swift",
+    "tools/suxin"
+  ],
+  "protected_source_differences": [],
+  "changed_paths": [
+    "AGENTS.md",
+    "STATUS.md",
+    "Sources/eBOOK/LibraryView.swift",
+    "Sources/eBOOK/ReaderFeedbackView.swift",
+    "Sources/eBOOK/ReaderProgressSlider.swift",
+    "Sources/eBOOK/ReaderTutorialView.swift",
+    "Sources/eBOOK/ReaderView.swift",
+    "Tests/UITests/ReadingModesUITests.swift",
+    "docs/PRODUCT_SPEC.md",
+    "eBOOK.xcodeproj/project.pbxproj",
+    "reports/S02B/reader-help/AGENTS.md",
+    "tasks/S02B_READER_HELP.md"
+  ],
+  "largest_changed_file_bytes": 29540,
+  "local_checks": {
+    "project_generation_check": "PASS",
+    "packaging_tests": {
+      "passed": 5,
+      "failed": 0
+    },
+    "git_diff_check": "PASS"
+  },
+  "physical_device_experience": "NOT_RUN; awaits owner",
+  "new_audio_generation": "NOT_RUN; no synthesis changes",
+  "runs": [
+    {
+      "run_id": 45999033059,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45999033059/attempts/1",
+      "result": {
+        "source_sha": "a82be00c063adf8fbfa7534c2053c3cd3075a465",
+        "scope": "reading",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+        "simulator_name": "iPhone 16 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 14,
+          "failedTests": 0,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "physical_device": "NOT_RUN",
+        "status": "PASS_NATIVE_READING_ONLY",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "passed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "unsigned_device_archive": {
+        "source_sha": "a82be00c063adf8fbfa7534c2053c3cd3075a465",
+        "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+        "architecture": "arm64",
+        "bundle_id": "com.zhangsfish.ebook",
+        "version": "0.1.0",
+        "app_bytes": 93186256,
+        "unsigned_executable_sha256": "36f22524b4982a2552d695ea2d533445994dc07ddae20f7124b783f3f19318ea",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "original_device_entry_executed": false,
+        "signing": "NOT_RUN",
+        "testflight": "NOT_RUN",
+        "physical_device": "NOT_RUN",
+        "public_binary_artifact": false
+      }
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45999026469/attempts/1",
+      "result": {
+        "source_sha": "a82be00c063adf8fbfa7534c2053c3cd3075a465",
+        "scope": "reading",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "simulator_name": "iPhone 17 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 13,
+          "failedTests": 1,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "physical_device": "NOT_RUN",
+        "status": "FAIL_ACTUAL_XCTEST",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "passed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "failed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "failure": {
+        "method": "ReadingModesUITests/testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+        "location": "ReadingModesUITests.swift:56",
+        "observation": "The first swipe-left did not produce a changed page position within15s.",
+        "root_cause": "UNDETERMINED",
+        "same_source_recheck": "45999026469/attempt2 pending"
+      }
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 2,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/45999026469/attempts/2",
+      "result": {
+        "source_sha": "a82be00c063adf8fbfa7534c2053c3cd3075a465",
+        "scope": "reading",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "simulator_name": "iPhone 17 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "host_logical_cpus": 3,
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 13,
+          "failedTests": 1,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "metrics": [],
+        "physical_device": "NOT_RUN",
+        "status": "FAIL_ACTUAL_XCTEST",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "failed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "failure": {
+        "method": "ReadingModesUITests/testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+        "location": "ReadingModesUITests.swift:106",
+        "observation": "Slider adjust-to0.85 did not produce changed page within10s. Original initial-swipe method now passed.",
+        "root_cause": "UNDETERMINED; thumb hit target enlarged and drag-time image churn removed for next validation."
+      }
+    },
+    {
+      "run_id": 46005478169,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46005478169",
+      "result": {
+        "source_sha": "89c643da31bde56673c8c298788e6365d56f96dd",
+        "scope": "reading",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "simulator_name": "iPhone 17 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "host_logical_cpus": 3,
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 12,
+          "failedTests": 2,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "metrics": [],
+        "physical_device": "NOT_RUN",
+        "status": "FAIL_ACTUAL_XCTEST",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "failed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "failed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "failures": [
+        {
+          "method": "testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "location": "ReadingModesUITests.swift:109",
+          "observation": "normalized slider0% to0%, source block0/offset0 unchanged"
+        },
+        {
+          "method": "testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "location": "ReadingModesUITests.swift:56",
+          "observation": "default first swipe left left source block0/offset0 unchanged"
+        }
+      ]
+    },
+    {
+      "run_id": 46005486587,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46005486587",
+      "result": {
+        "source_sha": "89c643da31bde56673c8c298788e6365d56f96dd",
+        "scope": "reading",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+        "simulator_name": "iPhone 16 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "host_logical_cpus": 3,
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 14,
+          "failedTests": 0,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "metrics": [],
+        "physical_device": "NOT_RUN",
+        "status": "PASS_NATIVE_READING_ONLY",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "passed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "unsigned_device_archive": {
+        "source_sha": "89c643da31bde56673c8c298788e6365d56f96dd",
+        "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+        "architecture": "arm64",
+        "bundle_id": "com.zhangsfish.ebook",
+        "version": "0.1.0",
+        "app_bytes": 93186248,
+        "unsigned_executable_sha256": "8bf74da0517082c8a53da4f2eafa2ef059740c767f672906ce056c23f6a57d40",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "original_device_entry_executed": false,
+        "signing": "NOT_RUN",
+        "testflight": "NOT_RUN",
+        "physical_device": "NOT_RUN",
+        "public_binary_artifact": false
+      }
+    },
+    {
+      "run_id": 46009580484,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46009580484",
+      "result": {
+        "source_sha": "84e49d46ed2e1ecd0c481122dd3bf69d4df97a7a",
+        "scope": "reading",
+        "xcode": "Xcode 16.4\nBuild version 16F6",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+        "simulator_name": "iPhone 16 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "host_logical_cpus": 3,
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 14,
+          "failedTests": 0,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "metrics": [],
+        "physical_device": "NOT_RUN",
+        "status": "PASS_NATIVE_READING_ONLY",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "passed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "unsigned_device_archive": {
+        "source_sha": "84e49d46ed2e1ecd0c481122dd3bf69d4df97a7a",
+        "archive": "PASS_UNSIGNED_RELEASE_ARM64",
+        "architecture": "arm64",
+        "bundle_id": "com.zhangsfish.ebook",
+        "version": "0.1.0",
+        "app_bytes": 93186443,
+        "unsigned_executable_sha256": "003d1f48b06038354972ef174b878a10d28d0f94e926f01a8dc0b756b161c560",
+        "resource_files_verified": 6,
+        "runtime_source_notice_files_verified": 2,
+        "model_sha256": "5dbe3500e7d36835e073dad4f3502a579ae497f62c0a6574c736345237e1e7aa",
+        "original_device_entry_executed": false,
+        "signing": "NOT_RUN",
+        "testflight": "NOT_RUN",
+        "physical_device": "NOT_RUN",
+        "public_binary_artifact": false
+      }
+    },
+    {
+      "run_id": 46009570704,
+      "attempt": 1,
+      "ci_url": "https://github.com/Zhangsfish/eBOOK/actions/runs/46009570704",
+      "result": {
+        "source_sha": "84e49d46ed2e1ecd0c481122dd3bf69d4df97a7a",
+        "scope": "reading",
+        "xcode": "Xcode 26.6\nBuild version 17F113",
+        "simulator_runtime": "com.apple.CoreSimulator.SimRuntime.iOS-26-5",
+        "simulator_name": "iPhone 17 Pro",
+        "host_architecture": "arm64",
+        "host_cpu": "Apple M1 (Virtual)",
+        "host_logical_cpus": 3,
+        "actual_counts": {
+          "totalTestCount": 14,
+          "passedTests": 12,
+          "failedTests": 2,
+          "skippedTests": 0
+        },
+        "neural_audio_generation": false,
+        "metrics": [],
+        "physical_device": "NOT_RUN",
+        "status": "FAIL_ACTUAL_XCTEST",
+        "validation_errors": []
+      },
+      "method_coverage": {
+        "scope": "reading",
+        "expected_method_count": 14,
+        "expected_methods": [
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard"
+        ],
+        "observed_method_states": {
+          "EBookTests.ReaderPaginationTests testEPUBImageOwnPagePreservesFollowingPosition": "passed",
+          "EBookTests.ReaderPaginationTests testForwardBackwardAndUncachedJumpRemainContiguous": "passed",
+          "EBookTests.ReaderPaginationTests testLegacyPreferencesAndAnchorsMigrateWithIndependentShelfAppearance": "passed",
+          "EBookTests.ReaderPaginationTests testTypographyAndViewportReflowKeepExactSourceStart": "passed",
+          "EBookTests.ReaderPaginationTests testViewportPagesPreserveAllSourceAndBoundedCaches": "passed",
+          "EBookUITests.ReaderUITests testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains": "passed",
+          "EBookUITests.ReadingModesUITests testBottomIconRowAndSmallSliderKeepNavigationAndThemes": "failed",
+          "EBookUITests.ReadingModesUITests testFeedbackCanCopyContactAndReturnToShelf": "passed",
+          "EBookUITests.ReadingModesUITests testHorizontalPagesReturnRestoreTOCAndSwitchToVertical": "passed",
+          "EBookUITests.ReadingModesUITests testShelfAppearanceAndReaderThemePersistIndependently": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone": "passed",
+          "EBookUITests.ReadingModesUITests testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter": "passed",
+          "EBookUITests.ReadingModesUITests testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences": "failed",
+          "EBookUITests.ReadingModesUITests testTutorialReduceMotionShowsStaticStoryboard": "passed"
+        },
+        "missing_methods": [],
+        "unexpected_methods": [],
+        "unfinished_methods": [],
+        "xctest_summary_count": 14,
+        "errors": [],
+        "scope_note": "Host startup errors are summary records, never counted as executed methods."
+      },
+      "failures": [
+        {
+          "method": "testBottomIconRowAndSmallSliderKeepNavigationAndThemes",
+          "location": "ReadingModesUITests.swift:118",
+          "observation": "Explicit drag still left slider0% and source block0/offset0 unchanged."
+        },
+        {
+          "method": "testTutorialCanSkipReplayAndFinishWithoutChangingBookPreferences",
+          "location": "ReadingModesUITests.swift:139",
+          "observation": "Immediate title assertion observed previous title after second Next tap."
+        }
+      ]
+    }
+  ],
+  "original_fixture_screenshots": [
+    {
+      "run_id": 45999033059,
+      "attempt": 1,
+      "label": "reading-modes-bottom-controls-明亮",
+      "sha256": "1c467212a005d8500fa5f9ccdd88adc745b9dca40cbaebd2dd795ca9122b0ed2",
+      "bytes": 112738,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999033059,
+      "attempt": 1,
+      "label": "reading-modes-bottom-controls-夜间",
+      "sha256": "fc745b1b9b90e4abcefa4073cc4d9996ea36c1b516b380dc01e576b9b89b0e2c",
+      "bytes": 112095,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999033059,
+      "attempt": 1,
+      "label": "reading-modes-bottom-controls-护眼",
+      "sha256": "bffae53b8ea5602e8643876a7a1e323a50d1af44c9739f549c7bb4b420b1d4cb",
+      "bytes": 113045,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999033059,
+      "attempt": 1,
+      "label": "reading-modes-feedback-contact",
+      "sha256": "aa8976b5091e85e03a9a781941678fb3e4158816bd36e02eca74cc6b95508e15",
+      "bytes": 98561,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999033059,
+      "attempt": 1,
+      "label": "reading-modes-tutorial-reading-controls",
+      "sha256": "59cbfb6aad49c4b3e2e05bf07c059c2f7a99347db0716ffceca1b0195859e797",
+      "bytes": 456513,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999033059,
+      "attempt": 1,
+      "label": "reading-modes-tutorial-import",
+      "sha256": "c97cee10f4bca8b3bf45dc323459da178842b8b58720256b2cf6e81d79f05687",
+      "bytes": 423937,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 1,
+      "label": "reading-modes-bottom-controls-明亮",
+      "sha256": "738222ed8bd367ed8f3d342b83e5ebc0b334562b7d65d0a688e777f4a8dc2ae2",
+      "bytes": 111764,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 1,
+      "label": "reading-modes-bottom-controls-夜间",
+      "sha256": "1cea83d01650fc1bec0eb138e4a07b57321751dea15ccf66450b494ef077a18f",
+      "bytes": 110709,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 1,
+      "label": "reading-modes-bottom-controls-护眼",
+      "sha256": "1cb8b02aeff2b0322db4214989254638f698f83adb992267c030bd1d1030efc7",
+      "bytes": 110798,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 1,
+      "label": "reading-modes-feedback-contact",
+      "sha256": "2b48b241504e9e07c3fe1440fa66d7fac21365d06b84b6a0a7234a91794b7908",
+      "bytes": 119411,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 1,
+      "label": "reading-modes-tutorial-reading-controls",
+      "sha256": "662fb0429a5592f6d90c8bff0b2fc5b7d4ceb100083756ba33126545b8c01b33",
+      "bytes": 466280,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    },
+    {
+      "run_id": 45999026469,
+      "attempt": 1,
+      "label": "reading-modes-tutorial-import",
+      "sha256": "baae35439a694fd84b8073c80ae843ec737907a608f825163e5dcf55fd2e5685",
+      "bytes": 434164,
+      "pixels": [
+        1206,
+        2622
+      ],
+      "visually_inspected": true
+    }
+  ],
+  "screenshot_note": "Twelve actual original-fixture captures viewed in local QA contact sheets. Tutorial captures occur during animation, not an asserted end-frame snapshot. No raw screenshot index or simulator identifiers are committed.",
+  "candidate_implementation_sha": "1619c200ed7552be5687c4446240daefe676fb4c",
+  "pending_runs": [
+    46014013164,
+    46014021341
+  ],
+  "initial_implementation_sha": "a82be00c063adf8fbfa7534c2053c3cd3075a465"
+}

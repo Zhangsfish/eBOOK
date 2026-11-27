@@ -15,3 +15,14 @@ DELIVERY.md and evidence.json will record actual tested source, commands, CI and
 Apple build availability. Temporary downloads, screenshots and raw signing logs stay
 in ignored .local-test-data/s02b/reader-help/. Never commit models/audio/private books,
 keys, signing logs or simulator/device IDs. Phone UX acceptance waits for owner feedback.
+
+Current candidate1619c200ed7552be5687c4446240daefe676fb4c is undergoing14-method
+reading runs46014013164(26.5)/46014021341(18.5). Prior18.5 candidates each14/14;
+prior26.5 attempts failed default swipe/slider events or an immediate tutorial-title
+assertion. All remain in DELIVERY.md/evidence.json. The current candidate adds
+explicit overlay zIndex, a DEBUG+uitesting+test-seek-probe-only UISlider subclass
+that reports real native geometry/events, and bounded title waiting. It does not
+fake progress or set values during tests. Actual signed upload has NOT_RUN;48.1
+remains latest available. Preserve paused bridge edits and do not dispatch until
+actual current results are checked. No source or report is independently approved
+merely because it was pushed; owner authorized direct internal testing for this scope.
