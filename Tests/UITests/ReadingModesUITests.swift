@@ -41,7 +41,7 @@ final class ReadingModesUITests: XCTestCase {
     }
     private func waitForPosition(_ expected: String, app: XCUIApplication) {
         let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in self.pagePosition(app) == expected }, object: app)
-        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 15), .completed)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 15), .completed, "expected=\(expected); actual=\(pagePosition(app))")
     }
     private func swipe(_ app: XCUIApplication, left: Bool) {
         let before = pagePosition(app)
@@ -105,12 +105,15 @@ final class ReadingModesUITests: XCTestCase {
         let app = launch("synthetic_long_gb18030.txt")
         choose(app, id: "library.mode.horizontal", title: "左右翻页")
         open(app, title: "synthetic_long_gb18030", horizontal: true)
-        controls(app); app.sliders["reader.seek"].adjust(toNormalizedSliderPosition: 1)
-        app.buttons["reader.controls.dismiss"].tap()
-        waitForPosition("block=1874;offset=0", app: app)
-        // Seeking to100% selects the final source block, which still spans
-        // several viewport pages. Reach the actual source end before testing EOF.
-        for _ in 0..<10 {
+        controls(app); app.buttons["reader.toc"].tap()
+        let search = app.searchFields.firstMatch
+        XCTAssertTrue(search.waitForExistence(timeout: 10)); search.tap(); search.typeText("625")
+        let afterword = app.buttons["toc.entry.624"]
+        XCTAssertTrue(afterword.waitForExistence(timeout: 10)); afterword.tap()
+        waitForPosition("block=1872;offset=0", app: app)
+        // The last chapter spans several blocks/pages. Follow actual source
+        // endpoints, not a100% slider approximation or a guessed page count.
+        for _ in 0..<32 {
             if (app.textViews["reader.page.text"].value as? String)?.contains(";endBlock=1875;endOffset=0") == true { break }
             swipe(app, left: true)
         }
