@@ -28,7 +28,7 @@ import Foundation
         suxin.onUnsupported = { [weak self] in
             guard let self, self.generation == token else { return }
             self.suxin.cancel(); self.active = self.apple
-            self.onEvent?(.notice("本段含英文或苏心暂不支持的字符，使用苹果系统中文语音；后续中文继续使用苏心。"))
+            self.onEvent?(.notice("本段使用系统语音"))
             self.apple.onEvent = { [weak self] event in
                 guard let self, self.generation == token else { return }; self.onEvent?(event)
             }

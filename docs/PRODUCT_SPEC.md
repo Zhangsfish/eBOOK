@@ -34,7 +34,7 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 - TXT reading with sensible paragraph and chapter heuristics; do not pretend TXT has a reliable semantic TOC if it does not.
 - Font size controls, line spacing, page/background themes, including a warm low-glare / eye-comfort theme.
 - The book theme remains adjustable inside reading settings, independently of bookshelf appearance.
-- Horizontal mode turns a viewport-sized native page with left/right swipes; vertical scrolling remains available. Mode/typography changes preserve the nearby source position.
+- Horizontal mode turns a viewport-sized native page with left/right swipes or single taps in the left/right thirds (previous/next). The middle stays available for text interaction. Vertical scrolling remains available. Mode/typography changes preserve the nearby source position.
 - Progress indicator and restore last reading position.
 - Screen should remain readable with Dynamic Type and VoiceOver support.
 
@@ -56,6 +56,7 @@ The product should feel quiet, legible, and dependable. Reading and listening ar
 ## Quality bar
 - Importing a valid EPUB/TXT should be straightforward.
 - The first reading screen should be usable without onboarding.
+- Keep product copy brief: no repeated local-storage/privacy/rights/implementation disclaimers in the bookshelf, settings, TOC or playback panel. Retain concise operational states, necessary errors and deletion consequences.
 - Typography and background themes should be calm and comfortable for long sessions.
 - The speech voice should sound natural over long-form Chinese fiction, not like a navigation system or news bulletin.
 - Playback must not restart from the beginning after ordinary app suspension or navigation.

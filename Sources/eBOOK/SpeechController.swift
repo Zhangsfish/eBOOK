@@ -231,7 +231,7 @@ import MediaPlayer
     private func updateNowPlaying() {
         guard managesAudio, let book else { return }
         var info: [String: Any] = [MPMediaItemPropertyTitle: book.title,
-                                  MPMediaItemPropertyArtist: book.author ?? "本机中文朗读",
+                                  MPMediaItemPropertyArtist: book.author ?? "朗读",
                                   MPNowPlayingInfoPropertyPlaybackRate: status == .playing ? 1.0 : 0.0]
         if let document, position.block < document.blocks.count {
             let chapter = document.blocks[position.block].chapter

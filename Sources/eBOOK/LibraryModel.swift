@@ -26,9 +26,9 @@ import SwiftUI
             do { state = try storage.loadLibrary() }
             catch {
                 persistenceBlocked = true
-                self.error = "书架无法读取，已停止写入以保留原文件。请保留本机数据后排查。\(error.localizedDescription)"
+                self.error = "书架无法读取：\(error.localizedDescription)"
             }
-        } catch { storage = nil; self.error = "本地存储不可用：\(error.localizedDescription)" }
+        } catch { storage = nil; self.error = "书架存储无法访问：\(error.localizedDescription)" }
     }
 
     func importFile(_ url: URL, encoding: TextEncoding?) async {
@@ -108,7 +108,7 @@ import SwiftUI
     func persist() {
         guard !persistenceBlocked else { return }
         do { try storage?.saveLibrary(state) }
-        catch { self.error = "保存失败，当前位置暂存在内存：\(error.localizedDescription)" }
+        catch { self.error = "更改未能保存：\(error.localizedDescription)" }
     }
 
     #if DEBUG

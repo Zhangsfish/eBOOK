@@ -16,7 +16,7 @@ struct LibraryView: View {
                     ContentUnavailableView {
                         Label("把好书留在手边", systemImage: "books.vertical")
                     } description: {
-                        Text("从“文件”导入 EPUB 或 TXT。\n阅读与本机朗读，都从这里开始。")
+                        Text("导入 EPUB 或 TXT，开始阅读。")
                     } actions: { importButton }
                 } else {
                     List {
@@ -36,7 +36,6 @@ struct LibraryView: View {
                                 .listRowBackground(Color(shelfBackground))
                                 .swipeActions { Button("移除", role: .destructive) { removing = book } }
                         }
-                        Section { Text("书籍保存在本机，仅导入你有权使用的文件。").font(.footnote).foregroundStyle(.secondary) }
                     }.listStyle(.plain).scrollContentBackground(.hidden)
                 }
             }
@@ -85,7 +84,7 @@ struct LibraryView: View {
             }
             .overlay {
                 if library.importing {
-                    ProgressView("正在导入并建立索引…").padding(24).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
+                    ProgressView("正在导入…").padding(24).background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
                 }
             }
             .sheet(isPresented: $importing) {
@@ -106,7 +105,7 @@ struct LibraryView: View {
                     }
                     removing = nil
                 }
-            } message: { Text("将移除本机书架副本和进度，原始文件保留。") }
+            } message: { Text("同时移除阅读和听书进度。") }
         }
         .tint(.brown)
         // The navigation destination explicitly uses the READER theme. Shelf

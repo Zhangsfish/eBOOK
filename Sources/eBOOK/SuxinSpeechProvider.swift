@@ -3,7 +3,7 @@ import AVFoundation
 
 @MainActor final class SuxinSpeechProvider: SpeechProvider {
     static let voiceID = "suxin.local.zh"
-    let voices = [VoiceDescriptor(id: voiceID, name: "苏心 · 离线中文", language: "zh-CN", requiresNetwork: false)]
+    let voices = [VoiceDescriptor(id: voiceID, name: "苏心", language: "zh-CN", requiresNetwork: false)]
     var onEvent: ((SpeechEvent) -> Void)?
     var onUnsupported: (() -> Void)?
     struct Measurement {

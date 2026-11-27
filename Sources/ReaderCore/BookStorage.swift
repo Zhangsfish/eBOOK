@@ -173,7 +173,7 @@ public enum BookImporter {
     }
 
     private static func boundedCopy(from source: URL, to destination: URL, limit: Int) throws {
-        guard FileManager.default.createFile(atPath: destination.path, contents: nil) else { throw ReaderError.invalid("无法创建本机副本。") }
+        guard FileManager.default.createFile(atPath: destination.path, contents: nil) else { throw ReaderError.invalid("无法保存书籍文件。") }
         let input = try FileHandle(forReadingFrom: source)
         defer { try? input.close() }
         let output = try FileHandle(forWritingTo: destination)

@@ -52,6 +52,72 @@ final class ReadingModesUITests: XCTestCase {
         }, object: app)
         XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 15), .completed)
     }
+    private func tapPage(_ app: XCUIApplication, x: CGFloat) {
+        let before = pagePosition(app)
+        app.textViews["reader.page.text"].coordinate(withNormalizedOffset: CGVector(dx: x, dy: 0.45)).tap()
+        let changed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            !self.pagePosition(app).isEmpty && self.pagePosition(app) != before
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 10), .completed)
+    }
+    private func assertPositionStays(_ expected: String, app: XCUIApplication) {
+        let changed = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            let value = self.pagePosition(app)
+            return !value.isEmpty && value != expected
+        }, object: app)
+        changed.isInverted = true
+        XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 1), .completed)
+        XCTAssertEqual(pagePosition(app), expected)
+    }
+    func testSideTapsMatchSwipesAndLeaveCentreAndControlsAlone() {
+        let app = launch("synthetic_long_gb18030.txt")
+        choose(app, id: "library.mode.horizontal", title: "左右翻页")
+        open(app, title: "synthetic_long_gb18030", horizontal: true)
+        let beginning = pagePosition(app)
+        app.textViews["reader.page.text"].coordinate(withNormalizedOffset: CGVector(dx: 0.14, dy: 0.45)).tap()
+        assertPositionStays(beginning, app: app)
+        tapPage(app, x: 0.86)
+        let second = pagePosition(app)
+        tapPage(app, x: 0.14); waitForPosition(beginning, app: app)
+        swipe(app, left: true); waitForPosition(second, app: app)
+        tapPage(app, x: 0.86)
+        let third = pagePosition(app)
+        tapPage(app, x: 0.14); waitForPosition(second, app: app)
+        swipe(app, left: true); waitForPosition(third, app: app)
+        app.textViews["reader.page.text"].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)).tap()
+        assertPositionStays(third, app: app)
+        XCTAssertFalse(app.buttons["reader.back"].exists)
+        controls(app); assertPositionStays(third, app: app)
+        app.buttons["reader.settings"].tap()
+        XCTAssertTrue(app.sliders["settings.font"].waitForExistence(timeout: 10))
+        app.buttons["完成"].tap(); waitForPosition(third, app: app)
+        XCTAssertFalse(app.buttons["reader.back"].exists)
+        let text = app.textViews["reader.page.text"]
+        text.coordinate(withNormalizedOffset: CGVector(dx: 0.86, dy: 0.45)).doubleTap()
+        assertPositionStays(third, app: app)
+        snapshot(app, "side-taps-and-text-selection")
+        app.terminate()
+        let reopened = launch("synthetic_long_gb18030.txt", reset: false)
+        open(reopened, title: "synthetic_long_gb18030", horizontal: true)
+        waitForPosition(third, app: reopened)
+    }
+    func testSideTapsStopAtLastPageAndKeepTOCAtLiveChapter() {
+        let app = launch("synthetic_long_gb18030.txt")
+        choose(app, id: "library.mode.horizontal", title: "左右翻页")
+        open(app, title: "synthetic_long_gb18030", horizontal: true)
+        controls(app); app.sliders["reader.seek"].adjust(toNormalizedSliderPosition: 1)
+        app.buttons["reader.controls.dismiss"].tap()
+        waitForPosition("block=1874;offset=0", app: app)
+        let last = pagePosition(app)
+        app.textViews["reader.page.text"].coordinate(withNormalizedOffset: CGVector(dx: 0.86, dy: 0.45)).tap()
+        assertPositionStays(last, app: app)
+        tapPage(app, x: 0.14); tapPage(app, x: 0.86)
+        waitForPosition(last, app: app)
+        controls(app); app.buttons["reader.toc"].tap()
+        let selected = app.buttons["toc.entry.624"]
+        XCTAssertTrue(selected.waitForExistence(timeout: 10)); XCTAssertTrue(selected.isSelected); XCTAssertTrue(selected.isHittable)
+        app.buttons["完成"].tap(); waitForPosition(last, app: app)
+    }
     func testShelfAppearanceAndReaderThemePersistIndependently() {
         let app = launch("synthetic.epub")
         choose(app, id: "library.appearance.dark", title: "夜间")

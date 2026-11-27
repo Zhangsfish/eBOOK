@@ -237,11 +237,14 @@ final class ReaderUITests: XCTestCase {
 
     func testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains() throws {
         let app = launch("synthetic.epub")
+        XCTAssertFalse(app.staticTexts["书籍保存在本机，仅导入你有权使用的文件。"].exists)
         open(app, title: "合成的清晨")
         showControls(app); app.buttons["reader.settings"].tap()
         let voice = app.buttons["settings.voice"]
+        XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "手机上合成中文")).firstMatch.exists)
+        snapshot("clean-reading-settings", app)
         XCTAssertTrue(voice.waitForExistence(timeout: 15)); voice.tap()
-        let suxin = app.buttons["苏心 · 离线中文 · zh-CN"]
+        let suxin = app.buttons["苏心"]
         XCTAssertTrue(suxin.waitForExistence(timeout: 10)); suxin.tap()
         let rate = app.sliders["settings.suxinRate"]
         XCTAssertTrue(rate.waitForExistence(timeout: 10)); rate.adjust(toNormalizedSliderPosition: 2.0 / 3.0)

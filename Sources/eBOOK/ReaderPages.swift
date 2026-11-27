@@ -93,7 +93,7 @@ struct ReaderPageSlice {
                 kCGImageSourceCreateThumbnailFromImageAlways: true,
                 kCGImageSourceThumbnailMaxPixelSize: 1600,
                 kCGImageSourceCreateThumbnailWithTransform: true] as CFDictionary) else {
-            throw ReaderError.invalid("书中插图损坏或超过安全尺寸上限。")
+            throw ReaderError.invalid("插图无法显示，尺寸过大或文件损坏。")
         }
         let image = UIImage(cgImage: thumbnail)
         pictures.setObject(image, forKey: name, cost: thumbnail.width * thumbnail.height * 4)
@@ -170,10 +170,11 @@ struct ReaderPageSlice {
     }
 }
 
-private final class ReaderPageContent: UIViewController {
+private final class ReaderPageContent: UIViewController, UIGestureRecognizerDelegate {
     let page: ReaderPageSlice
     let theme: ReaderTheme
     var onTurn: ((Bool) -> Bool)?
+    private weak var pageText: UITextView?
     init(_ page: ReaderPageSlice, theme: ReaderTheme) { self.page = page; self.theme = theme; super.init(nibName: nil, bundle: nil) }
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     override func loadView() {
@@ -196,6 +197,7 @@ private final class ReaderPageContent: UIViewController {
             }
             #endif
             text.accessibilityIdentifier = "reader.page.text"; content = text
+            pageText = text
         }
         content.translatesAutoresizingMaskIntoConstraints = false; root.addSubview(content)
         content.accessibilityCustomActions = [
@@ -204,6 +206,31 @@ private final class ReaderPageContent: UIViewController {
         NSLayoutConstraint.activate([content.leadingAnchor.constraint(equalTo: root.leadingAnchor, constant: 24),
             content.trailingAnchor.constraint(equalTo: root.trailingAnchor, constant: -24),
             content.topAnchor.constraint(equalTo: root.topAnchor, constant: 8), content.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -8)])
+        // Side taps share the paginator's existing next/previous path. Keep the
+        // middle free, and let double-tap/long-press text selection take priority.
+        let doubleTap = UITapGestureRecognizer(target: nil, action: nil)
+        doubleTap.numberOfTapsRequired = 2
+        let tap = UITapGestureRecognizer(target: self, action: #selector(turnPage(_:)))
+        for gesture in [tap, doubleTap] {
+            gesture.delegate = self; gesture.cancelsTouchesInView = false
+            root.addGestureRecognizer(gesture)
+        }
+        tap.require(toFail: doubleTap)
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard !UIAccessibility.isVoiceOverRunning, (pageText?.selectedRange.length ?? 0) == 0 else { return false }
+        let x = touch.location(in: view).x, width = view.bounds.width
+        return x < width / 3 || x > width * 2 / 3
+    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        otherGestureRecognizer is UITapGestureRecognizer || otherGestureRecognizer is UILongPressGestureRecognizer
+    }
+    @objc private func turnPage(_ gesture: UITapGestureRecognizer) {
+        guard gesture.state == .ended, (pageText?.selectedRange.length ?? 0) == 0 else { return }
+        let x = gesture.location(in: view).x, width = view.bounds.width
+        if x < width / 3 { _ = onTurn?(false) }
+        else if x > width * 2 / 3 { _ = onTurn?(true) }
     }
 }
 
@@ -252,6 +279,7 @@ struct ReaderPages: UIViewControllerRepresentable {
         weak var pager: UIPageViewController?
         var engine: ReaderPaginator?, position = TextPosition(), lastJump: UUID?, typeSize: DynamicTypeSize?
         private var layoutToken = UUID()
+        private var isTransitioning = false
         init(_ parent: ReaderPages) { self.parent = parent }
         func scheduleLayout() {
             let token = UUID(); layoutToken = token
@@ -282,12 +310,16 @@ struct ReaderPages: UIViewControllerRepresentable {
             guard let page = (viewController as? ReaderPageContent)?.page else { return nil }
             do { return content(try engine?.page(at: page.end)) } catch { parent.onError(error.localizedDescription); return nil }
         }
+        func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+            isTransitioning = true
+        }
         func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
                                 previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+            isTransitioning = false
             if completed, let page = (pageViewController.viewControllers?.first as? ReaderPageContent)?.page { report(page) }
         }
         func turn(forward: Bool) -> Bool {
-            guard let pager, let current = pager.viewControllers?.first else { return false }
+            guard !isTransitioning, let pager, let current = pager.viewControllers?.first else { return false }
             let next = forward ? pageViewController(pager, viewControllerAfter: current) : pageViewController(pager, viewControllerBefore: current)
             guard let next, let page = (next as? ReaderPageContent)?.page else { return false }
             pager.setViewControllers([next], direction: forward ? .forward : .reverse, animated: false); report(page); return true

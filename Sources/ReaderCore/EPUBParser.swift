@@ -184,7 +184,7 @@ enum EPUBParser {
         let path = String(href.split(separator: "#", maxSplits: 1, omittingEmptySubsequences: false)[0])
         guard let decoded = path.removingPercentEncoding, !decoded.contains(":"), !decoded.contains("\\"),
               !decoded.contains("\0"), !decoded.contains("?"), !decoded.hasPrefix("/") else {
-            throw ReaderError.unsupported("EPUB 含有外部或不安全的资源地址。")
+            throw ReaderError.unsupported("EPUB 中的资源地址无法读取。")
         }
         if decoded.isEmpty { return base }
         var components = base.split(separator: "/").dropLast().map(String.init)

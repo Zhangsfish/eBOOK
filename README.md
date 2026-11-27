@@ -2,7 +2,15 @@
 
 A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-quality Mandarin text-to-speech experience.
 
-## Current work: S02B audit repairs and reading modes
+## Current work: owner feedback and reader polish
+
+Internal TestFlight **0.1.0（47.1）** is available, and the owner reports the voice
+sounds good. The current bounded follow-up cleans UI copy and adds left/right
+side taps in horizontal mode: [task](tasks/S02B_OWNER_POLISH.md), same PR12.
+New source requires its own focused reading/settings regression and independent
+review;47.1 remains the installed-version candidate until that delivery.
+
+### Previously approved implementation
 
 The owner-authorized audit repair and reading-mode work is **READY_FOR_AUDIT** on
 `codex/s02b-suxin-ios-integration` / [PR #12](https://github.com/Zhangsfish/eBOOK/pull/12).
@@ -23,7 +31,9 @@ failures/cancellations remain recorded, including the localized progress-label
 test corrected with independent UTF16 position checks. Prior delivery/history remains in the
 [canonical report](reports/S02B_SUXIN_IOS_INTEGRATION.md). Independent corrected-code
 review precedes a new owner-only TestFlight build; phone acceptance is collected
-using that build. No new available phone build is claimed.
+using that build. The later47.1 delivery is recorded in
+[owner phone trial](reports/S02B/OWNER_PHONE_TRIAL.md); the paragraph above describes
+the preceding code-review snapshot, not a pending installation gate for47.1.
 
 ## Build and run
 
@@ -60,7 +70,8 @@ It runs unit/UI tests and archives an unsigned arm64
 Release App. The `integration` scope runs eighteen native frontend, real-graph,
 PCM-playback, state/cache and production-boundary methods; `frontend` checks the author oracle
 alone; `picker` performs actual TXT/EPUB selection and cancellation (two methods);
-`reading` runs the five pagination/migration and two reading-mode UI methods.
+`reading` runs the five pagination/migration methods, four reading-mode UI methods
+and the existing voice/rate persistence UI method, then an unsigned arm64 archive.
 Only allowlisted JSON/log evidence and bounded original-fixture UI diagnostic
 and requested mode/theme screenshots are uploaded by S02B CI. Model-containing
 App/IPA/WAV files are not public artifacts. No tool installation or paid API.
@@ -76,6 +87,8 @@ menu. Choose **上下滚动** or **左右翻页** before opening a book. Bookshe
 has its own system/normal/warm/night setting. The reader's existing theme control
 stays inside 阅读设置 and controls only the book; the two colors are independent.
 Legacy preferences keep vertical scrolling and a system-following bookshelf.
+In horizontal mode, tap the left third for the previous page or the right third
+for the next, alongside the existing swipes. Centre taps do not turn pages.
 
 The reader opens with only the text and a subtle **⋯** in the lower-right corner.
 The entry has no white background/border and adapts to light, warm and dark themes.
@@ -100,7 +113,7 @@ Listening has separate saved progress. Use play/pause, previous/next text block
 or chapter, voice selection and rate. **从当前阅读位置开始朗读** explicitly moves
 listening to the reading anchor. Apple speech stays local; install/download a
 Mandarin voice through iOS accessibility settings if none is present. Choose
-**苏心 · 离线中文** in 阅读设置 for native Mandarin synthesis and its separate
+**苏心** in 阅读设置 for native Mandarin synthesis and its separate
 0.5–2.0× rate. English or unsupported-character spans explicitly use Apple speech;
 the playback panel displays that fallback. Model/resource failures show an error
 and let the user select system speech. No book

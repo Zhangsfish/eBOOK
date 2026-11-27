@@ -1,12 +1,19 @@
 # Project Status
 
-## Current task — owner phone trial, development frozen (2026-11-27)
+## Current task — owner UI feedback (2026-11-27)
+
+- Owner reports the47.1 voice is good; this is qualitative sound feedback, not p95/long-listening/thermal/battery measurements.
+- **IN_PROGRESS:** [copy cleanup and side-tap turns](tasks/S02B_OWNER_POLISH.md), same branch/PR12, base452d1671e9f4500cd2edece8553c212da9cf5244.
+- Remove repetitive UI explanations; horizontal pages gain left/right side taps while keeping swipes, selection, quiet controls, TOC and anchors. Do not change the approved speech implementation.
+- New code/build tests pending;47.1 remains the available internal version. No new upload or merge before independent review of this follow-up.
+
+## Delivered owner trial — retained evidence
 
 - Decision: **APPROVED_FOR_OWNER_BETA**. R1–R3 CLOSED; reviewed reader `6469489062e6b91d743295cc2c08320334dbbf17`, delivery `ca640cd1f982b71927c7db2138150ff657cfdb11`. Actual iOS18.5 and26.5 each55/55; original device entry/6+2 resources verified.
 - **WAITING_OWNER_FEEDBACK:** [owner trial delivery](reports/S02B/OWNER_PHONE_TRIAL.md), **0.1.0（47.1）**. [Independent review and stop rules](reports/S02B/REVIEW_AND_OWNER_TRIAL_20261127.md). Feature development remains frozen.
 - Existing eBOOK-only bridge `a866cd83c342e3652555080de949ca47ac1349e0`, [actual run45933165856](https://github.com/Zhangsfish/lecture-asset/actions/runs/45933165856), delivered the approved reader. Bounded packaging removes only a proven-unused framework; the compiled executable and6+2 resources remain intact.
 - `TESTFLIGHT_AVAILABLE=YES`: Apple read back47.1 VALID/INTERNAL_ONLY/unexpired, the existing Owner iPhone group and IN_BETA_TESTING at2026-11-27 11:21:56 Beijing.39.1 retained; owner installation/upgrade is still NOT_RUN, not inferred from availability.
-- Phone sound/latency/background/thermal/upgrade observations remain NOT_RUN. These are obtained from the test build and are not conditions to obtain it.
+- Owner's later qualitative voice feedback is positive. Latency/background/thermal/upgrade measurements remain unreported; do not promote the sound comment into those results.
 - After owner accepts core use, end this MVP implementation round and freeze the usable version. Only actual owner-reported/core defects reopen fixes. No extra feature, model switch or generic optimization.
 - PR #11 / #7 / Android remain separate. No self-merge or public App Store release.
 

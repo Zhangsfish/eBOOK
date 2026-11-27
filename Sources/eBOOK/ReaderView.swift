@@ -168,11 +168,8 @@ struct ReaderView: View {
             ScrollViewReader { proxy in
                 List {
                     if let document {
-                        if document.heuristicTOC {
-                            Text("TXT 目录由标题格式推测，可能有遗漏。").font(.footnote).foregroundStyle(.secondary)
-                        }
                         if document.toc.isEmpty {
-                            Text("未检测到可靠章节，可使用阅读进度浏览全文。").foregroundStyle(.secondary)
+                            Text("暂无目录").foregroundStyle(.secondary)
                         }
                         ForEach(document.toc.filter { tocQuery.isEmpty || $0.title.localizedCaseInsensitiveContains(tocQuery) }) { entry in
                             Button {
@@ -217,10 +214,10 @@ struct ReaderView: View {
     private func playback(_ document: BookDocument, storage: BookStorage) -> some View {
         let active = speech.book?.id == bookID
         return VStack(spacing: 4) {
-            if active && speech.preparing { ProgressView("正在准备本地语音…").font(.caption) }
+            if active && speech.preparing { ProgressView("正在准备朗读…").font(.caption) }
             if active, let notice = speech.notice { Text(notice).font(.caption).foregroundStyle(.secondary) }
             HStack {
-                Label(active ? speech.status.rawValue : "本机语音 · 不发送正文", systemImage: "waveform")
+                Label(active ? speech.status.rawValue : "未播放", systemImage: "waveform")
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 if active {
@@ -272,8 +269,7 @@ struct ReaderSettings: View {
                         ForEach(ReaderTheme.allCases, id: \.self) { Text($0.title).tag($0) }
                     }.pickerStyle(.segmented).accessibilityIdentifier("settings.theme")
                 }
-                Section("本机朗读") {
-                    Text("苏心在手机上合成中文；含英文或不支持字符的段落会提示并使用苹果系统语音。书籍正文不上传。").font(.footnote).foregroundStyle(.secondary)
+                Section("朗读") {
                     if library.state.preferences.voiceIdentifier == SuxinSpeechProvider.voiceID {
                         LabeledContent("苏心语速", value: String(format: "%.2f×", library.state.preferences.suxinRate))
                         Slider(value: Binding(get: { Double(library.state.preferences.suxinRate) }, set: {
@@ -289,7 +285,7 @@ struct ReaderSettings: View {
                         var value = library.state.preferences; value.voiceIdentifier = $0.isEmpty ? nil : $0; library.setPreferences(value); speech.preferencesChanged()
                     })) {
                         Text("默认中文语音").tag("")
-                        ForEach(speech.provider.voices.filter { $0.language.hasPrefix("zh") }) { Text("\($0.name) · \($0.language)").tag($0.id) }
+                        ForEach(speech.provider.voices.filter { $0.language.hasPrefix("zh") }) { Text($0.name).tag($0.id) }
                     }.accessibilityIdentifier("settings.voice")
                 }
             }.navigationTitle("阅读设置").toolbar { ToolbarItem(placement: .topBarTrailing) { Button("完成") { dismiss() } } }

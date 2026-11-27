@@ -17,7 +17,8 @@ def method_coverage(root, build, scope, summary):
             for name in re.findall(r'^\s*func\s+(test\w+)\s*\(', source, re.MULTILINE):
                 selected = (scope == 'all' or (scope == 'integration' and cls.startswith('Suxin'))
                             or (scope == 'frontend' and cls == 'SuxinFrontendTests')
-                            or (scope == 'reading' and cls in ['ReaderPaginationTests', 'ReadingModesUITests'])
+                            or (scope == 'reading' and (cls in ['ReaderPaginationTests', 'ReadingModesUITests']
+                                or (cls == 'ReaderUITests' and name == 'testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains')))
                             or (scope == 'picker' and name in ['testFilesPickerImportsSelectedTXTAndEPUB', 'testSystemDocumentPickerPresentsAndCanCancel']))
                 if selected:
                     expected.add(f'{target}.{cls} {name}')

@@ -123,7 +123,8 @@ def main():
         command += ['-only-testing:EBookUITests/ReaderUITests/testFilesPickerImportsSelectedTXTAndEPUB',
                     '-only-testing:EBookUITests/ReaderUITests/testSystemDocumentPickerPresentsAndCanCancel']
     elif args.scope == 'reading':
-        command += ['-only-testing:EBookTests/ReaderPaginationTests', '-only-testing:EBookUITests/ReadingModesUITests']
+        command += ['-only-testing:EBookTests/ReaderPaginationTests', '-only-testing:EBookUITests/ReadingModesUITests',
+                    '-only-testing:EBookUITests/ReaderUITests/testSuxinVoiceAndSeparateRatePersistWhileQuietReaderRemains']
     try:
         code = execute(command + ['test-without-building'], 'test', 1500)
     except subprocess.TimeoutExpired:
@@ -210,7 +211,7 @@ def main():
         shutil.copyfile(source, build / 'reader-metrics.json')
         subprocess.run([sys.executable, 'scripts/check_reader_metrics.py'], cwd=ROOT, env=env, check=True)
         shutil.copyfile(build / 'reader-metrics-summary.json', build / 's02b-reader-metrics-summary.json')
-    if args.scope in ['all', 'integration'] or (args.scope == 'picker' and not code):
+    if args.scope in ['all', 'integration'] or (args.scope in ['picker', 'reading'] and not code):
         archive = ['xcodebuild', '-project', 'eBOOK.xcodeproj', '-scheme', 'eBOOK', '-configuration', 'Release',
                    '-destination', 'generic/platform=iOS', '-archivePath', 'build/S02B-device.xcarchive',
                    '-derivedDataPath', 'build/S02B-DerivedData', 'CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'archive']
@@ -234,6 +235,7 @@ def main():
         metadata = {'source_sha': result['source_sha'], 'archive': 'PASS_UNSIGNED_RELEASE_ARM64',
                     'architecture': archs, 'bundle_id': info['CFBundleIdentifier'], 'version': info['CFBundleShortVersionString'],
                     'app_bytes': sum(path.stat().st_size for path in app.rglob('*') if path.is_file()),
+                    'unsigned_executable_sha256': hashlib.sha256((app / 'eBOOK').read_bytes()).hexdigest(),
                     **resources, 'original_device_entry_executed': legacy_entry,
                     'signing': 'NOT_RUN', 'testflight': 'NOT_RUN', 'physical_device': 'NOT_RUN',
                     'distribution_clearance': 'PENDING_INDEPENDENT_REVIEW', 'public_binary_artifact': False}
