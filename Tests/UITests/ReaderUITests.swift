@@ -241,9 +241,10 @@ final class ReaderUITests: XCTestCase {
         open(app, title: "合成的清晨")
         showControls(app); app.buttons["reader.settings"].tap()
         let voice = app.buttons["settings.voice"]
+        XCTAssertTrue(voice.waitForExistence(timeout: 15))
         XCTAssertFalse(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "手机上合成中文")).firstMatch.exists)
         snapshot("clean-reading-settings", app)
-        XCTAssertTrue(voice.waitForExistence(timeout: 15)); voice.tap()
+        voice.tap()
         let suxin = app.buttons["苏心"]
         XCTAssertTrue(suxin.waitForExistence(timeout: 10)); suxin.tap()
         let rate = app.sliders["settings.suxinRate"]

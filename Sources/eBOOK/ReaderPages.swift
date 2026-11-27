@@ -193,7 +193,7 @@ private final class ReaderPageContent: UIViewController, UIGestureRecognizerDele
             #if DEBUG
             if ProcessInfo.processInfo.arguments.contains("--uitesting") {
                 text.accessibilityLabel = page.text.string
-                text.accessibilityValue = "block=\(page.start.block);offset=\(page.start.utf16Offset);visibleUTF16=\(page.text.length)"
+                text.accessibilityValue = "block=\(page.start.block);offset=\(page.start.utf16Offset);visibleUTF16=\(page.text.length);endBlock=\(page.end.block);endOffset=\(page.end.utf16Offset)"
             }
             #endif
             text.accessibilityIdentifier = "reader.page.text"; content = text

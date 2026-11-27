@@ -108,6 +108,13 @@ final class ReadingModesUITests: XCTestCase {
         controls(app); app.sliders["reader.seek"].adjust(toNormalizedSliderPosition: 1)
         app.buttons["reader.controls.dismiss"].tap()
         waitForPosition("block=1874;offset=0", app: app)
+        // Seeking to100% selects the final source block, which still spans
+        // several viewport pages. Reach the actual source end before testing EOF.
+        for _ in 0..<10 {
+            if (app.textViews["reader.page.text"].value as? String)?.contains(";endBlock=1875;endOffset=0") == true { break }
+            swipe(app, left: true)
+        }
+        XCTAssertTrue((app.textViews["reader.page.text"].value as? String)?.contains(";endBlock=1875;endOffset=0") == true)
         let last = pagePosition(app)
         app.textViews["reader.page.text"].coordinate(withNormalizedOffset: CGVector(dx: 0.86, dy: 0.45)).tap()
         assertPositionStays(last, app: app)
