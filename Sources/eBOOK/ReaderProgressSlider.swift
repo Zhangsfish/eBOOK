@@ -9,7 +9,8 @@ struct ReaderProgressSlider: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UISlider {
         #if DEBUG
-        let slider: UISlider = ProcessInfo.processInfo.arguments.contains("--uitesting") ? ReaderSeekProbe() : UISlider()
+        let arguments = ProcessInfo.processInfo.arguments
+        let slider: UISlider = arguments.contains("--uitesting") && arguments.contains("--test-seek-probe") ? ReaderSeekProbe() : UISlider()
         #else
         let slider = UISlider()
         #endif

@@ -83,7 +83,7 @@ final class ReadingModesUITests: XCTestCase {
         XCTAssertEqual(pagePosition(app), expected)
     }
     func testBottomIconRowAndSmallSliderKeepNavigationAndThemes() {
-        let app = launch("synthetic.epub")
+        let app = launch("synthetic.epub", extra: ["--test-seek-probe"])
         choose(app, id: "library.mode.horizontal", title: "左右翻页")
         open(app, title: "合成的清晨", horizontal: true)
         let beginning = pagePosition(app)
