@@ -1,7 +1,6 @@
 # Owner界面清理与点按翻页
 
-2026-11-27当前独立结论 **APPROVED_FOR_OWNER_BETA**，见INDEPENDENT_REVIEW.md。
-App冻结；唯一READY为根目录tasks/S02B_OWNER_POLISH_PHONE_DELIVERY.md，只交付已批准03fe023新内部包，然后WAITING_OWNER_FEEDBACK。47.1仍是旧源码。以下审查前实现记录的停止上传限制已由本次有限交付批准更新。
+2026-11-27 当前状态 **WAITING_OWNER_FEEDBACK**。已批准源码 03fe023 新内部包 **0.1.0（48.1）** 已可安装。Apple 于北京时间 19:38:08 确认现有 Owner iPhone 组的可安装状态。`PHONE_DELIVERY.md` 与 `phone-delivery-evidence.json` 保存实际上传和归档证据。停止改动与再次上传，等待 48.1 手机反馈。
 
 ## 用途与授权
 本对话2026-11-27：owner试听47.1反馈“语音很好”，要求删去冗余界面说明，
@@ -18,4 +17,4 @@ App冻结；唯一READY为根目录tasks/S02B_OWNER_POLISH_PHONE_DELIVERY.md，�
 保持已有分页有界缓存、阅读锚点、独立主题、安静入口和已获认可的苏心实现。
 点按只属于横向页面左右三分之一；中间不翻页。选择文字时让出手势；VoiceOver保留原自定义翻页动作。
 不把47.1的声音认可记成p95、长听/电量/后台等未报告项目通过。
-本轮代码需独立审查，停READY_FOR_AUDIT，不自动签名上传或合并。
+本轮代码的独立审查和已授权内部交付均结束。保留 39.1 / 47.1 历史，不自行合并或公开发布。

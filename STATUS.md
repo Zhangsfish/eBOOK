@@ -1,12 +1,12 @@
 # Project Status
 
-## Current decision — approved UI follow-up, deliver phone update (2026-11-27)
+## Current delivery — TestFlight 48.1, waiting for phone feedback (2026-11-27)
 
 - **APPROVED_FOR_OWNER_BETA** for owner-requested copy and side taps. [Independent review](reports/S02B/owner-polish/INDEPENDENT_REVIEW.md) · [Delivery evidence](reports/S02B/owner-polish/DELIVERY.md).
 - Approved/tested `03fe0237462f0af0595d47c455c7e5756d6cbd97`; delivery2d3be5e has identical eight build inputs. Independent review verified actual18.5/26.5 logs and artifacts: each10PASS/0FAIL/0SKIP, unsigned arm64 and6+2 resources. No App blocker identified for owner trial.
-- Sole **READY** task: [deliver the approved phone update](tasks/S02B_OWNER_POLISH_PHONE_DELIVERY.md). Freeze App implementation. Bridge still pins6469489 and its old executable digest; update only bounded delivery wiring, then verify the actual new build.
-- Current installable TestFlight remains **0.1.0 (47.1)** using6469489; the new revision signing/upload/phone results are NOT_RUN. Owner's voice feedback for47.1 is positive, without implied performance/thermal/long-listening results.
-- After new-build installability, stop **WAITING_OWNER_FEEDBACK**. Owner-accepted core use ends this MVP implementation round.
+- **WAITING_OWNER_FEEDBACK**. The approved reader is available as **0.1.0 (48.1)**. Apple read back `VALID`, `INTERNAL_ONLY`, unexpired, existing Owner iPhone linkage and `IN_BETA_TESTING` at 19:38:08 Beijing. [Phone delivery](reports/S02B/owner-polish/PHONE_DELIVERY.md)
+- Bridge `e0a122b499ef417fba032e58cb1181594634a08a` verified matching executable digests with and without a link map, then the existing static-link and 6+2 resource checks. [Actual upload run 45991125943](https://github.com/Zhangsfish/lecture-asset/actions/runs/45991125943)
+- App work is frozen pending actual 48.1 phone feedback. The owner liked the voice on 47.1. Device experience on 48.1 is pending.
 
 ## Delivered owner trial — retained evidence
 

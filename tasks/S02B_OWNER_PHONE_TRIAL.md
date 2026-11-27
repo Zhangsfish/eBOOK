@@ -1,4 +1,6 @@
-# 唯一下一步：把已批准版本交到owner手机上
+# 历史任务：47.1 手机试用交付
+
+后续的文案与点按翻页更新已经交付为 [0.1.0（48.1）](../reports/S02B/owner-polish/PHONE_DELIVERY.md)。最新任务见 [S02B_OWNER_POLISH_PHONE_DELIVERY.md](S02B_OWNER_POLISH_PHONE_DELIVERY.md)。
 
 状态：**WAITING_OWNER_FEEDBACK — 0.1.0（47.1）已可安装，停止开发与上传。**
 实际[交付记录](../reports/S02B/OWNER_PHONE_TRIAL.md)：Apple于2026-11-27 11:21:56（北京时间）

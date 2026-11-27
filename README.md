@@ -4,10 +4,9 @@ A focused iOS ebook reader for user-imported EPUB/TXT books, with a calm, high-q
 
 ## Current work: owner feedback and reader polish
 
-Internal TestFlight **0.1.0（47.1）** is available, and the owner reports the voice
-sounds good. The copy cleanup and side-tap follow-up is **READY_FOR_AUDIT** on PR #12.
-iOS 18.5 and 26.5 each passed 10 focused tests and the unsigned Release arm64
-archive checks. [Task](tasks/S02B_OWNER_POLISH.md) · [Delivery results](reports/S02B/owner-polish/DELIVERY.md)
+Internal TestFlight **0.1.0 (48.1)** includes shorter copy and horizontal side-tap page turns.
+The approved reader passed 10 focused tests on each of iOS 18.5 and 26.5, including unsigned Release arm64
+archive checks. Current state is **WAITING_OWNER_FEEDBACK**. [Phone update](reports/S02B/owner-polish/PHONE_DELIVERY.md) · [Test results](reports/S02B/owner-polish/DELIVERY.md)
 
 ### Previously approved implementation
 

@@ -1,6 +1,6 @@
 # 唯一下一步：交付已过审的点按与文案更新
 
-状态 **READY**，2026-11-27。[独立审查](../reports/S02B/owner-polish/INDEPENDENT_REVIEW.md)结论 **APPROVED_FOR_OWNER_BETA**。继续沿owner已授权的内部TestFlight路径，不重复索取同一安装授权。
+状态 **WAITING_OWNER_FEEDBACK**，2026-11-27。**0.1.0（48.1）** 已确认可安装。[实际交付](../reports/S02B/owner-polish/PHONE_DELIVERY.md)记录新版本、Apple 读回及更新说明。以下为已执行的任务范围。[独立审查](../reports/S02B/owner-polish/INDEPENDENT_REVIEW.md)
 
 ## 固定范围
 
